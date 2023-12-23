@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { useState, useEffect } from 'react';
-import TextBoxService from './TextBoxService';
+import styled from 'styled-components'
+import { useState, useEffect } from 'react'
+import TextBoxService from './TextBoxService'
 
 const StyledFlexImage = styled.div`
   display: flex;
@@ -11,17 +11,16 @@ const StyledImage = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: right;
-  width: 100% ;
+  width: 100%;
   min-height: 100%;
-  margin: 100px 100px; 
-`;
+  margin: 100px 100px;
+`
 
-
+//criando branch g4b3ll
 const StyledLimpezaImage = styled.img`
   background-repeat: no-repeat;
   width: 70px;
   height: 70px;
- 
 `
 const StyledBoxServices = styled.div`
   background-color: #cccc;
@@ -29,7 +28,7 @@ const StyledBoxServices = styled.div`
   height: 485px;
   margin: 30px 20px;
   display: grid;
-  grid-template-columns: 200px 200px ;
+  grid-template-columns: 200px 200px;
   gap: 3px;
   padding-top: 4px;
   justify-content: space-around;
@@ -54,7 +53,7 @@ const StyledBoxServices = styled.div`
   }
 `
 const StyledService = styled.div`
-  border: 2px solid ;
+  border: 2px solid;
   border-color: black;
   display: flex;
   justify-content: center;
@@ -118,12 +117,12 @@ const StyledBiggerService = styled.div`
 const StyledSaibaMais = styled.span`
   font-size: 12px;
   font-weight: 600;
-  text-decoration:underline;
+  text-decoration: underline;
   margin-top: 10px;
   color: #32a6e9;
-  :hover{
+  :hover {
     cursor: pointer;
-    transition: all .2s ease-in-out;
+    transition: all 0.2s ease-in-out;
     transform: scale(1.1);
   }
   @media (max-width: 902px) {
@@ -155,16 +154,15 @@ const StyledFlexServiceAndBoxText = styled.div`
 `
 
 export default function ImageWithServices() {
-  const [conteudo1, setConteudo1] = useState(false);
-  const [conteudo2, setConteudo2] = useState(false);
-  const [conteudo3, setConteudo3] = useState(false);
-  const [conteudo4, setConteudo4] = useState(false);
-  const [conteudo5, setConteudo5] = useState(false);
+  const [conteudo1, setConteudo1] = useState(false)
+  const [conteudo2, setConteudo2] = useState(false)
+  const [conteudo3, setConteudo3] = useState(false)
+  const [conteudo4, setConteudo4] = useState(false)
+  const [conteudo5, setConteudo5] = useState(false)
 
   useEffect(() => {
-
     const handleClickOutSide = (event) => {
-      if (event.target.closest('conteudo') === null)  {
+      if (event.target.closest('conteudo') === null) {
         setConteudo1(false)
         setConteudo2(false)
         setConteudo3(false)
@@ -172,49 +170,46 @@ export default function ImageWithServices() {
         setConteudo5(false)
       }
     }
-    document.addEventListener('click',handleClickOutSide,true)
-   
-  },[])
+    document.addEventListener('click', handleClickOutSide, true)
+  }, [])
   return (
     <StyledFlexImage>
-        <StyledImage >
-            <StyledFlexServiceAndBoxText>
-              <StyledBoxServices>
-                  <StyledService>
-                    <StyledNameClean>Wet manual cleaning</StyledNameClean>
-                    <StyledLimpezaImage src='/limpezaManual.png'  />
-                    <StyledSaibaMais onClick={() => setConteudo1(!conteudo1)} >know more</StyledSaibaMais>
-                  </StyledService>
-                  <StyledService>
-                    <StyledNameClean>Dry cleaning</StyledNameClean>
-                    <StyledLimpezaImage src='/vassoura.png'  />
-                    <StyledSaibaMais  onClick={() => setConteudo2(!conteudo2)} >know more</StyledSaibaMais>
-                  </StyledService>
-                  <StyledService>
-                    <StyledNameClean>Window cleaning</StyledNameClean>
-                    <StyledLimpezaImage src='/window.png'  />
-                    <StyledSaibaMais  onClick={() => setConteudo3(!conteudo3)} >know more</StyledSaibaMais>
-                  </StyledService>
-                  <StyledService>
-                    <StyledNameClean>Home apliance cleaning</StyledNameClean>
-                    <StyledLimpezaImage src='/homeApliance.png'  />
-                    <StyledSaibaMais  onClick={() => setConteudo4(!conteudo4)} >know more</StyledSaibaMais>
-                  </StyledService>
-                  <StyledBiggerService>
-                    <StyledNameClean>Wet manual cleaning (water)</StyledNameClean>
-                    <StyledLimpezaImage src='/limpezaManualWater.png'  />
-                    <StyledSaibaMais  onClick={() => setConteudo5(!conteudo5)} >know more</StyledSaibaMais>
-                  </StyledBiggerService>
-              </StyledBoxServices>
-              {conteudo1  && <TextBoxService   type='1'/>}
-              {conteudo2  && <TextBoxService   type='2'/>}
-              {conteudo3  && <TextBoxService   type='3'/>}
-              {conteudo4  && <TextBoxService   type='4'/>}
-              {conteudo5  && <TextBoxService   type='5'/>}
-            </StyledFlexServiceAndBoxText>
-           
-        </StyledImage>
+      <StyledImage>
+        <StyledFlexServiceAndBoxText>
+          <StyledBoxServices>
+            <StyledService>
+              <StyledNameClean>Wet manual cleaning</StyledNameClean>
+              <StyledLimpezaImage src="/limpezaManual.png" />
+              <StyledSaibaMais onClick={() => setConteudo1(!conteudo1)}>know more</StyledSaibaMais>
+            </StyledService>
+            <StyledService>
+              <StyledNameClean>Dry cleaning</StyledNameClean>
+              <StyledLimpezaImage src="/vassoura.png" />
+              <StyledSaibaMais onClick={() => setConteudo2(!conteudo2)}>know more</StyledSaibaMais>
+            </StyledService>
+            <StyledService>
+              <StyledNameClean>Window cleaning</StyledNameClean>
+              <StyledLimpezaImage src="/window.png" />
+              <StyledSaibaMais onClick={() => setConteudo3(!conteudo3)}>know more</StyledSaibaMais>
+            </StyledService>
+            <StyledService>
+              <StyledNameClean>Home apliance cleaning</StyledNameClean>
+              <StyledLimpezaImage src="/homeApliance.png" />
+              <StyledSaibaMais onClick={() => setConteudo4(!conteudo4)}>know more</StyledSaibaMais>
+            </StyledService>
+            <StyledBiggerService>
+              <StyledNameClean>Wet manual cleaning (water)</StyledNameClean>
+              <StyledLimpezaImage src="/limpezaManualWater.png" />
+              <StyledSaibaMais onClick={() => setConteudo5(!conteudo5)}>know more</StyledSaibaMais>
+            </StyledBiggerService>
+          </StyledBoxServices>
+          {conteudo1 && <TextBoxService type="1" />}
+          {conteudo2 && <TextBoxService type="2" />}
+          {conteudo3 && <TextBoxService type="3" />}
+          {conteudo4 && <TextBoxService type="4" />}
+          {conteudo5 && <TextBoxService type="5" />}
+        </StyledFlexServiceAndBoxText>
+      </StyledImage>
     </StyledFlexImage>
   )
- 
 }
