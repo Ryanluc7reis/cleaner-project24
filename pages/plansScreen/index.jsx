@@ -165,7 +165,7 @@ export default function Plans(props) {
 	};
 	
 	const handleDateChange = (date) => {
-		let getdate = `${date.$d.getDate()} ${date.$d.getMonth()+1}`
+		let getdate = `${date.$d.toDateString()} `
     // Manipular a data selecionada aqui
     console.log('Data selecionada:', date);
     setSelectedDate( getdate);
