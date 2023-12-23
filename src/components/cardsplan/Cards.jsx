@@ -41,7 +41,7 @@ export default function Cards({
 	children,
 	...props
 }) {
-	const cardColor = isActive ? "red" : "white";
+	const cardColor = isActive ? "#2587A5" : "white";
 	return (
 		<Container>
 			{type === "1" && (
