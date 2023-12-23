@@ -9,5 +9,10 @@
   "rules": {
     "prettier/prettier": ["error", {}, { "usePrettierrc": true }],
 		"react/prop-types": "off"
-  }
+  },
+  
+    "plugins": [
+      "prettier"
+    ]
+  
 }
