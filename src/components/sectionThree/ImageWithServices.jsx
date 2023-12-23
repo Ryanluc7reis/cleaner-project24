@@ -16,7 +16,6 @@ const StyledImage = styled.div`
   margin: 100px 100px;
 `
 
-//criando branch g4b3ll
 const StyledLimpezaImage = styled.img`
   background-repeat: no-repeat;
   width: 70px;
