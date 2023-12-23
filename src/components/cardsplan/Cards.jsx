@@ -2,8 +2,8 @@ import styled from "styled-components";
 import Plans from "./Plans";
 
 const Container = styled.div`
-	height: 100%;
 	display: flex;
+	flex-wrap: wrap;
 	justify-content: space-around;
 `;
 
@@ -84,6 +84,18 @@ export default function Cards({
 					{children}
 				</StyledCard>
 			)}
+
+{["1", "2", "3", "4"].map((plano, indice) => (
+    type === "5" && (
+        <StyledCard
+            key={indice}
+            {...props}
+        >
+            <Plans plan={plano} />
+            {children}
+        </StyledCard>
+    )
+))}
 		</Container>
 	);
 }

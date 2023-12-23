@@ -138,10 +138,10 @@ const SubTitle = styled.p`
 	color: #0101014c;
 	text-align: center;
 `;
-const FlexCards = styled.div`
-	display: flex;
+ const FlexCards = styled.div`
+ 	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-around;
+ 	justify-content: space-around;
 `;
 const CardsAlt = styled(Cards)`
 	:hover {
