@@ -2,8 +2,6 @@ import styled from "styled-components";
 import Plans from "./Plans";
 
 const Container = styled.div`
-	height: 100%;
-	width:100%;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-around;
