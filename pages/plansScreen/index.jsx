@@ -152,6 +152,7 @@ const CardsAlt = styled(Cards)`
 `;
 
 export default function Plans(props) {
+	const [selectedDate, setSelectedDate] = useState(null);
 	const [activeCard, setActiveCard] = useState(null);
 	const [cardValues, setCardValues] = useState({
 		0: "Optional",
@@ -162,6 +163,14 @@ export default function Plans(props) {
 	const handleClick = (cardId) => {
 		setActiveCard(cardId);
 	};
+	
+	const handleDateChange = (date) => {
+		let getdate = `${date.$d.getDate()} ${date.$d.getMonth()+1}`
+    // Manipular a data selecionada aqui
+    console.log('Data selecionada:', date);
+    setSelectedDate( getdate);
+  };
+	
 	const router = useRouter();
 	const { region } = router.query;
 
@@ -190,7 +199,7 @@ export default function Plans(props) {
 					</FlexEtapas>
 					<Barra />
 					<FlexEtapas>
-						<Etapas>Wednesday 23 December</Etapas>
+						<Etapas>{selectedDate || '-'}</Etapas>
 						<SubEtapas>DATE</SubEtapas>
 					</FlexEtapas>
 					<Barra />
@@ -235,7 +244,9 @@ export default function Plans(props) {
 						type="4"
 					/>
 				</FlexCards>
-				<DateCalendarAlt />
+				<DateCalendarAlt 
+					onChange={handleDateChange}
+				 />
 			</ContainerPlans>
 		</Container>
 	)};
