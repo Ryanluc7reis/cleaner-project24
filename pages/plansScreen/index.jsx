@@ -5,6 +5,7 @@ import Cards from "../../src/components/cardsplan/Cards";
 import BasicDateCalendar from "../../src/components/calendario/Calendario";
 import { useRouter } from "next/router";
 import Button from "../../src/components/form/Button"
+import React from "react";
 
 const DateCalendarAlt = styled(BasicDateCalendar)`
 	//background: linear-gradient(rgba(228, 228, 228, 1), rgba(202, 202, 202, 1));
@@ -85,6 +86,12 @@ const Barra = styled.div`
 	margin-top: 7px;
 	background-color: #ffffff;
 `;
+const BarraAlt = styled(Barra)`
+background-color: #80808050;
+height: 37px;
+margin-left: 13px;
+margin-top: 0px;
+`
 const StyledFlexNavBar = styled.div`
 	display: flex;
 	align-items: center;
@@ -179,7 +186,7 @@ const CardsAlt = styled(Cards)`
 `;
 const SelectHour = styled.div`
 	height: 70px;
-	width: 430px;
+	width: 440px;
 	margin: 15px;
 	
 	display: flex;
@@ -195,12 +202,17 @@ const SelectHour = styled.div`
 		rgba(8, 8, 8, 0.08) 0px 20px 16px,
 ;`
 const ButtonAlt = styled(Button)`
-	background-color: ${(props) => props.theme.colors.ultravio};
+	 background-color: ${(props) => props.theme?.colors?.ultravio || 'defaultColor'};
 	width: 400px;
-	border-radius: 10px;
+	border-radius: 25px;
 `
 const Seta = styled.img`
 	padding: 5px;
+	cursor: ${(props) => (props.isDisabled ? "not-allowed" : "pointer")};
+  opacity: ${(props) => (props.isDisabled ? "0.5" : "1")};
+  background-color: ${(props) => (props.isDisabled ? "#80808050" : "transparent")};
+  transition: background-color 0.5s;
+
 `
 const FlexSeta = styled.div`
 	display: flex;
@@ -210,25 +222,31 @@ const OptionHour = styled.ol`
 font-size: 18px;
 font-weight: 700;
 display: flex;
-gap: 10px;
 color: #020837 ;
 `
 const Hours = styled.p`
 display: flex;
 font-size: 12px;
 ;`
+const ContHour = styled.div`
+display: flex;
+align-items: center;
+justify-content: center;
+background-color: ${(props) => (props.isSelected ? "#2587A5" : "rgb(255, 255, 255)")};
+gap: 3px;
+transition: 0.5s;
+padding: 5px;
+border-radius: 10px;
+cursor: pointer;
+`
 
-
-const listHours = [
-	<ol>3</ol>,
-	<ol>3.5</ol>,
-	<ol>4</ol>,
-	<ol>4.5</ol>,
-	<ol>5</ol>
-	
-]
-
+const listHours = [ '2','2.5','3','3.5','4']
+const listHours2 =['5','5.5','6','7','8']
 export default function HomePlansScreen(props) {
+	const [listHour2, setListHour2] = useState(null)
+	const [isRightArrowDisabled, setRightArrowDisabled] = useState(false);
+	const [isLeftArrowDisabled, setLeftArrowDisabled] = useState(true);
+	const [selectedHour, setSelectedHour] = useState(null);
 	const [selectedDate, setSelectedDate] = useState(null);
 	const [activeCard, setActiveCard] = useState(null);
 	const [cardValues, setCardValues] = useState({
@@ -237,22 +255,33 @@ export default function HomePlansScreen(props) {
 		2: "Medium",
 		3: "Complete",
 	});
-	const handleClick = (cardId) => {
+	
+	const handleClickCard = (cardId) => {
 		setActiveCard(cardId);
 	};
+	const handleClickHour = (hour) => {
+		setSelectedHour((prevHour) => (prevHour === hour ? null : hour ));
+	};
+	const handleClickSetaD = () => {
+		setLeftArrowDisabled(false)
+		setRightArrowDisabled(true) 
+		 setListHour2(!listHour2)
+	}
+		
+	const handleClickSetaE = () => {
+		setRightArrowDisabled(false)
+		setLeftArrowDisabled(true) 
+		setListHour2(!listHour2) 
+
+	}
 	
 	const handleDateChange = (date) => {
 		let getdate = `${date.$d.toDateString()} `
-    // Manipular a data selecionada aqui
     console.log('Data selecionada:', date);
     setSelectedDate( getdate);
   };
-	
 	const router = useRouter();
 	const { region } = router.query;
-
-
-  
 	return (
 		<Container>
 			<StyledFlexNavBar>
@@ -281,7 +310,7 @@ export default function HomePlansScreen(props) {
 					</FlexEtapas>
 					<Barra />
 					<FlexEtapas>
-						<Etapas>5 Hours</Etapas>
+						<Etapas>{selectedHour }</Etapas>
 						<SubEtapas>DURATION</SubEtapas>
 					</FlexEtapas>
 					<Barra />
@@ -299,25 +328,25 @@ export default function HomePlansScreen(props) {
 					<CardsAlt
 						id={0}
 						isActive={activeCard === 0}
-						onClick={handleClick}
+						onClick={handleClickCard}
 						type="1"
 					/>
 					<CardsAlt
 						id={1}
 						isActive={activeCard === 1}
-						onClick={handleClick}
+						onClick={handleClickCard}
 						type="2"
 					/>
 					<CardsAlt
 						id={2}
 						isActive={activeCard === 2}
-						onClick={handleClick}
+						onClick={handleClickCard}
 						type="3"
 					/>
 					<CardsAlt
 						id={3}
 						isActive={activeCard === 3}
-						onClick={handleClick}
+						onClick={handleClickCard}
 						type="4"
 					/>
 				</FlexCards>
@@ -329,19 +358,44 @@ export default function HomePlansScreen(props) {
 			<ContainerTimes>
 					<TilteText>How long do you need your cleaner for?</TilteText>
 					<FlexSeta>
-							<Seta src='setaEsquerda.png' height="45px" width="45px" />
-							<SelectHour>
-							{listHours.map((item, index) => (
-								<div 
-								key={index}
-								style={{display: 'flex',alignItems: 'center',gap: '3px'}}
-								>
-									<OptionHour>{item}</OptionHour>
-									<Hours>hours</Hours>
-								</div>
-							))}
-							</SelectHour>
-							<Seta src='setaDireita.png' height="45px" width="45px" />
+							<Seta 
+							src='setaEsquerda.png'
+							height="45px"
+							width="45px"
+							onClick={handleClickSetaE}
+              isDisabled={isLeftArrowDisabled }
+							
+								 />
+<SelectHour>
+            {isRightArrowDisabled
+              ? listHours2.map((item, index) => (
+                  <ContHour
+                    key={index}
+                    isSelected={selectedHour === `${item} hours`}
+                    onClick={() => handleClickHour(`${item} hours`)}
+                  >
+                    <OptionHour>{item}</OptionHour>
+                    <Hours>hours</Hours>
+                  </ContHour>
+                ))
+              : listHours.map((item, index) => (
+                  <ContHour
+                    key={index}
+                    isSelected={selectedHour === `${item} hours`}
+                    onClick={() => handleClickHour(`${item} hours`)}
+                  >
+                    <OptionHour>{item}</OptionHour>
+                    <Hours>hours</Hours>
+                  </ContHour>
+                ))}
+          </SelectHour>
+							<Seta 
+								src='setaDireita.png'
+							 	height="45px"
+							  width="45px"
+								onClick={ handleClickSetaD}
+                isDisabled={isRightArrowDisabled}
+								 />
 					</FlexSeta>
 					<TilteText>Starts at</TilteText>
 			</ContainerTimes>
