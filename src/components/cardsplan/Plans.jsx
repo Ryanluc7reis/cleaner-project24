@@ -91,7 +91,7 @@ const StyledContAll = styled.div`
 	display: flex;
 	flex-direction: column;
 `;
-export default function CardsPlan({ plan }) {
+export default function Plans({ plan }) {
 	return (
 		<Container>
 			{plan === "1" && (

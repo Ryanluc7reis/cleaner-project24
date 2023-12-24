@@ -3,8 +3,6 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import dayjs from "dayjs";
-import format from "date-fns/format";
-import styled from "styled-components";
 
 export default function BasicDateCalendar(props) {
 	const hoje = (data) => {

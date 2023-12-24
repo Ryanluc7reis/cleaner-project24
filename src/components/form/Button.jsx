@@ -22,7 +22,7 @@ const StyledButton = styled.button`
 `;
 export default function Button(props) {
   return (
-    <StyledButton {...props}>
+    <StyledButton disabled={props.isDisabled} {...props}>
       {/* Se receber props.valor, ele exibe a props como texto dentro do componente */}
       {props.valor ? props.valor : "Let's go"}
     </StyledButton>

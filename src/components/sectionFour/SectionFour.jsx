@@ -61,23 +61,9 @@ export default function SectionFour() {
 	return (
 		<StyledContainer>
 			<StyledTitle>Services Plans</StyledTitle>
-			<FlexCards>
-				<Cards type="1">
+				<Cards type="5">
 					<ButtonAlt />
 				</Cards>
-
-				<Cards type="2">
-					<ButtonAlt />
-				</Cards>
-
-				<Cards type="3">
-					<ButtonAlt />
-				</Cards>
-
-				<Cards type="4">
-					<ButtonAlt />
-				</Cards>
-			</FlexCards>
 		</StyledContainer>
 	);
 }
