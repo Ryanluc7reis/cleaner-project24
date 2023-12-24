@@ -1,6 +1,6 @@
 import styled, {keyframes} from "styled-components";
 import Logo from "../../src/components/logo/Logo";
-import { Children, useState } from "react";
+import { useEffect, useState } from "react";
 import Cards from "../../src/components/cardsplan/Cards";
 import BasicDateCalendar from "../../src/components/calendario/Calendario";
 import { useRouter } from "next/router";
@@ -146,8 +146,8 @@ const SubEtapas = styled.h5`
 	color: #ffffff58;
 	font-weight: 700;
 `;
+
 const ProgressEtapas = styled.div`
-	width: 100%;
 	height: 5px;
 	background: brown;
 `;
@@ -318,7 +318,7 @@ const ListStartHours = [
 	'02:30 PM','03:00 PM','03:30 PM','04:00 PM','04:30 PM',
 	'05:00 PM','05:30 PM','06:00 PM','06:30 PM','07:00 PM',]
 
-	export default function HomePlansScreen(props) {
+	export default function HomePlansScreen({id, onClick}) {
 	const [inputUpdateHour, setinputUpdateHour] = useState('')
 	const [showBoxHour, setshowBoxHour] = useState(false)
 	const [listHour2, setListHour2] = useState(null)
@@ -332,6 +332,13 @@ const ListStartHours = [
 		1: "Basic",
 		2: "Medium",
 		3: "Complete",
+	});
+	const [widthValues, setWidthValues] = useState({
+				card: '18%',
+	 			regionValue: '35%',
+				selectedDate: '59%',
+	 			selectedHour: '80%',
+	 			inputUpdateHour: '100%',
 	});
 	const updateInputHour = (clickedWord) => {
 		setinputUpdateHour(clickedWord);
@@ -359,13 +366,48 @@ const ListStartHours = [
 	}
 	const handleDateChange = (date) => {
 		let getdate = `${date.$d.toDateString()} `
-    console.log('Data selecionada:', date);
     setSelectedDate( getdate);
   };
-	
 	const router = useRouter();
 	const { region } = router.query;
+	const regionValue = region || "Default Region";
+	 const updateWidthValues = () => {
+		// console.log('cardValues:', cardValues);
+		// console.log('regionValue:', regionValue);
+		// console.log('selectedDate:', selectedDate);
+		// console.log('selectedHour:', selectedHour);
+		// console.log('inputUpdateHour:', inputUpdateHour);
+	 	console.log('Update width values called');
+	 	if (cardValues && regionValue && selectedDate && selectedHour && inputUpdateHour) {
+	 	 console.log('All conditions met');
+			setWidthValues({
+				card: '18%',
+	 			regionValue: '35%',
+				selectedDate: '59%',
+	 			selectedHour: '80%',
+	 			inputUpdateHour: '100%',
+				 
+	 		});
+			
+	 	} else {
+	 		console.log('Some condition not met');
+	 		// Handle the case when not all conditions are met
+	 	}
+	 };
+
+	// Call the updateWidthValues function when any of the conditions change
+	 useEffect(() => {
+	  try {
+			console.log('Calling updateWidthValues');
+			updateWidthValues();
+			console.log('UpdateWidthValues executed successfully');
+		} catch (error) {
+			console.error('Error in updateWidthValues:', error);
+		}
+	 }, [cardValues, regionValue, selectedDate, selectedHour, inputUpdateHour]);
 	
+	
+
 	return (
 		<Container>
 			<StyledFlexNavBar>
@@ -379,7 +421,7 @@ const ListStartHours = [
 			<FlexDivEtapas>
 				<DivEtapas>
 					<FlexEtapas>
-						<Etapas>{region}</Etapas>
+						<Etapas >{region}</Etapas>
 						<SubEtapas>LOCATION</SubEtapas>
 					</FlexEtapas>
 					<Barra />
@@ -399,11 +441,13 @@ const ListStartHours = [
 					</FlexEtapas>
 					<Barra />
 					<FlexEtapas>
-						<Etapas>{inputUpdateHour || '-'}</Etapas>
+						<Etapas	>{inputUpdateHour || '-'}</Etapas>
 						<SubEtapas>STARTING TIME</SubEtapas>
 					</FlexEtapas>
 				</DivEtapas>
-				<ProgressEtapas />
+				<ProgressEtapas 
+					style={{width: widthValues.card}}
+				 />
 			</FlexDivEtapas>
 			<ContainerPlans>
 				<TilteText>What plan do you need ?</TilteText>
@@ -503,7 +547,7 @@ const ListStartHours = [
 						onClick={(f) => {
 							console.log('ok')}
 						}
-						isDisabled={(activeCard && region && selectedDate && selectedHour && inputUpdateHour) ? false : true}
+						isDisabled={(cardValues && region && selectedDate && selectedHour && inputUpdateHour) ? false : true}
 						valor='NEXT'
 				/>
 			</ContainerButton>
