@@ -56,7 +56,6 @@ const DateCalendarAlt = styled(BasicDateCalendar)`
 const Container = styled.div`
 	width: 100%;
 	height: 100%;
-	overflow-x: hidden;
 `;
 const LogoAlt = styled(Logo)`
 	margin-left: 40px;
@@ -89,7 +88,7 @@ const Barra = styled.div`
 const BarraAlt = styled(Barra)`
 background-color: #80808050;
 height: 37px;
-margin-left: 13px;
+margin-left: 8px;
 margin-top: 0px;
 `
 const StyledFlexNavBar = styled.div`
@@ -107,6 +106,11 @@ const FlexDivEtapas = styled.div`
 	display: flex;
 	flex-direction: column;
 	width: 100%;
+	position: sticky;
+  top: 0;
+  z-index: 100;
+	//padding-top:9.9rem;
+
 `;
 const DivEtapas = styled.div`
 	width: 100%;
@@ -140,6 +144,7 @@ const ContainerPlans = styled.div`
 	background: #edededaf;
 	width: 100%;
 	height: auto;
+	//margin-top:84px;
 `;
 const ContainerTimes = styled.div`
 	background: #edededaf;
@@ -221,6 +226,7 @@ const FlexSeta = styled.div`
 const OptionHour = styled.ol`
 font-size: 18px;
 font-weight: 700;
+margin-left: 10px;
 display: flex;
 color: #020837 ;
 `
@@ -310,7 +316,7 @@ export default function HomePlansScreen(props) {
 					</FlexEtapas>
 					<Barra />
 					<FlexEtapas>
-						<Etapas>{selectedHour }</Etapas>
+						<Etapas>{selectedHour || '-' }</Etapas>
 						<SubEtapas>DURATION</SubEtapas>
 					</FlexEtapas>
 					<Barra />
@@ -369,6 +375,7 @@ export default function HomePlansScreen(props) {
 <SelectHour>
             {isRightArrowDisabled
               ? listHours2.map((item, index) => (
+								<React.Fragment>
                   <ContHour
                     key={index}
                     isSelected={selectedHour === `${item} hours`}
@@ -377,16 +384,21 @@ export default function HomePlansScreen(props) {
                     <OptionHour>{item}</OptionHour>
                     <Hours>hours</Hours>
                   </ContHour>
+									{index < 4 ? <BarraAlt /> : null} 
+								</React.Fragment>
                 ))
               : listHours.map((item, index) => (
+							<React.Fragment>
                   <ContHour
                     key={index}
                     isSelected={selectedHour === `${item} hours`}
                     onClick={() => handleClickHour(`${item} hours`)}
                   >
                     <OptionHour>{item}</OptionHour>
-                    <Hours>hours</Hours>
+                    <Hours>hours</Hours>									
                   </ContHour>
+									{index < 4 ? <BarraAlt /> : null} 
+								</React.Fragment>
                 ))}
           </SelectHour>
 							<Seta 
