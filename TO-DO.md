@@ -1,8 +1,8 @@
 Em pages pasta (playScreen- index.jsx) :
 
-* Deixar desabilitado o <ButtonAlt /> NEXT ,enquanto todos as etapas em <DivEtapas /> nao tiverem valor e habilitar novamente quando todos os valores forem true .
+* Deixar desabilitado o <ButtonAlt /> NEXT ,enquanto todos as etapas em <DivEtapas /> nao tiverem valor e habilitar novamente quando todos os valores forem true . <!-- FEITO -->
 
-* Responsividade de toda a pagina
+* Responsividade de toda a pagina ~
 
 * Definir tamanho do <ProgressEtapas/> na medida que os valores forem true (exemplo no site referencia)
 
