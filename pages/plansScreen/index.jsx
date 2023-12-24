@@ -1,11 +1,13 @@
 import styled, {keyframes} from "styled-components";
 import Logo from "../../src/components/logo/Logo";
-import { useState } from "react";
+import { Children, useState } from "react";
 import Cards from "../../src/components/cardsplan/Cards";
 import BasicDateCalendar from "../../src/components/calendario/Calendario";
 import { useRouter } from "next/router";
 import Button from "../../src/components/form/Button"
 import React from "react";
+import Plans from "../../src/components/cardsplan/Plans";
+import css from "styled-jsx/css";
 const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -216,9 +218,13 @@ const SelectHour = styled.div`
 		rgba(8, 8, 8, 0.08) 0px 20px 16px,
 ;`
 const ButtonAlt = styled(Button)`
-	 background-color: ${(props) => props.theme?.colors?.ultravio || 'defaultColor'};
+	background-color: ${(props) => (props.isDisabled ? 'grey' : props.theme.colors.ultravio )};
 	width: 400px;
 	border-radius: 25px;
+	cursor: ${(props) => (props.isDisabled ? 'default' : 'pointer')};
+	:hover{
+		background-color: ${(props) => (props.isDisabled ? 'grey' : props.theme.colors.ultravio)};
+	}
 `
 const Seta = styled.img`
 	padding: 3px;
@@ -275,17 +281,22 @@ const InputHour = styled.div`
 `
 const BoxHours = styled.div`
 	height: 490px;
-	width: 560px;
+	width: 600px;
 	background-color: #e3e7fd;
 	border-radius: 3px;
 	display: ${(props) => (props.showBoxHour ?  "grid"  : 'none' )};
 	transform: translate(-36%, 5%);
-	grid-template-columns: 150px 150px 150px 100px;
+	grid-template-columns: 150px 150px 150px 150px;
 	position: absolute;
 	align-items: center;
 	left: 44%;
 	animation: ${fadeIn} 0.1s ease-in-out;
 	gap: 2px;
+	p{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 `;
 const TypesHours= styled.p`
 	font-size: 14px;
@@ -307,7 +318,7 @@ const ListStartHours = [
 	'02:30 PM','03:00 PM','03:30 PM','04:00 PM','04:30 PM',
 	'05:00 PM','05:30 PM','06:00 PM','06:30 PM','07:00 PM',]
 
-export default function HomePlansScreen(props) {
+	export default function HomePlansScreen(props) {
 	const [inputUpdateHour, setinputUpdateHour] = useState('')
 	const [showBoxHour, setshowBoxHour] = useState(false)
 	const [listHour2, setListHour2] = useState(null)
@@ -352,9 +363,9 @@ export default function HomePlansScreen(props) {
     setSelectedDate( getdate);
   };
 	
-
 	const router = useRouter();
 	const { region } = router.query;
+	
 	return (
 		<Container>
 			<StyledFlexNavBar>
@@ -442,7 +453,7 @@ export default function HomePlansScreen(props) {
 <SelectHour>
             {isRightArrowDisabled
               ? listHours2.map((item, index) => (
-								<React.Fragment>
+								<React.Fragment key={index}> {/*isso aqui tem que receber key ----------------------------*/}
                   <ContHour
                     key={index}
                     isSelected={selectedHour === `${item} hours`}
@@ -455,7 +466,7 @@ export default function HomePlansScreen(props) {
 								</React.Fragment>
                 ))
               : listHours.map((item, index) => (
-							<React.Fragment>
+							<React.Fragment key={index}> {/*isso aqui tem que receber key  -----------------------------*/}
                   <ContHour
                     key={index}
                     isSelected={selectedHour === `${item} hours`}
@@ -488,7 +499,13 @@ export default function HomePlansScreen(props) {
 					</BoxHours>
 			</ContainerTimes>
 			<ContainerButton>
-				<ButtonAlt valor='NEXT' />
+				<ButtonAlt
+						onClick={(f) => {
+							console.log('ok')}
+						}
+						isDisabled={(activeCard && region && selectedDate && selectedHour && inputUpdateHour) ? false : true}
+						valor='NEXT'
+				/>
 			</ContainerButton>
 			
 		</Container>
