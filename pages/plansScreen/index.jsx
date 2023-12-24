@@ -503,7 +503,7 @@ const ListStartHours = [
 						onClick={(f) => {
 							console.log('ok')}
 						}
-						isDisabled={(activeCard && region && selectedDate && selectedHour && inputUpdateHour) ? false : true}
+						isDisabled={(cardValues && region && selectedDate && selectedHour && inputUpdateHour) ? false : true}
 						valor='NEXT'
 				/>
 			</ContainerButton>
