@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, {keyframes} from "styled-components";
 import Logo from "../../src/components/logo/Logo";
 import { useState } from "react";
 import Cards from "../../src/components/cardsplan/Cards";
@@ -6,7 +6,16 @@ import BasicDateCalendar from "../../src/components/calendario/Calendario";
 import { useRouter } from "next/router";
 import Button from "../../src/components/form/Button"
 import React from "react";
-
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+   
+  }
+  to {
+    opacity: 6;
+    
+  }
+`;
 const DateCalendarAlt = styled(BasicDateCalendar)`
 	//background: linear-gradient(rgba(228, 228, 228, 1), rgba(202, 202, 202, 1));
 	background: #3498db;
@@ -153,7 +162,7 @@ const ContainerTimes = styled.div`
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
-	height: 55vh;
+	height: 65vh;
 `;
 const ContainerCalender = styled.div`
 height: 70vh;
@@ -212,12 +221,12 @@ const ButtonAlt = styled(Button)`
 	border-radius: 25px;
 `
 const Seta = styled.img`
-	padding: 5px;
+	padding: 3px;
 	cursor: ${(props) => (props.isDisabled ? "not-allowed" : "pointer")};
   opacity: ${(props) => (props.isDisabled ? "0.5" : "1")};
   background-color: ${(props) => (props.isDisabled ? "#80808050" : "transparent")};
+	border-radius: 10px;
   transition: background-color 0.5s;
-
 `
 const FlexSeta = styled.div`
 	display: flex;
@@ -226,7 +235,7 @@ const FlexSeta = styled.div`
 const OptionHour = styled.ol`
 font-size: 18px;
 font-weight: 700;
-margin-left: 10px;
+margin-left: 7px;
 display: flex;
 color: #020837 ;
 `
@@ -237,7 +246,6 @@ font-size: 12px;
 const ContHour = styled.div`
 display: flex;
 align-items: center;
-justify-content: center;
 background-color: ${(props) => (props.isSelected ? "#2587A5" : "rgb(255, 255, 255)")};
 gap: 3px;
 transition: 0.5s;
@@ -245,10 +253,63 @@ padding: 5px;
 border-radius: 10px;
 cursor: pointer;
 `
+const InputHour = styled.div`
+  width: 110px;
+	font-size: 15px;
+	height:45px;
+	display: flex;
+	justify-content: center;
+  border: 1px solid  ${props => props.theme.colors.inputBorder};
+  background-color: ${props => props.theme.colors.inputBackground};
+  align-items: center;
+  border-radius : 10px;
+	box-shadow:
+		2px 2px 2px #5176da,
+		-2px 2px 2px #5176da;
+	border-color: #5176da;
+  :hover {
+		cursor: pointer;
+		inset-inline: none;
+  }
 
+`
+const BoxHours = styled.div`
+	height: 490px;
+	width: 560px;
+	background-color: #e3e7fd;
+	border-radius: 3px;
+	display: ${(props) => (props.showBoxHour ?  "grid"  : 'none' )};
+	transform: translate(-36%, 5%);
+	grid-template-columns: 150px 150px 150px 100px;
+	position: absolute;
+	align-items: center;
+	left: 44%;
+	animation: ${fadeIn} 0.1s ease-in-out;
+	gap: 2px;
+`;
+const TypesHours= styled.p`
+	font-size: 14px;
+	text-align: center;
+	margin-right: 9px;
+	height: 50%;
+	cursor: pointer;
+	:hover {
+		border-radius: 10px;
+		background-color: #5757f5c4;
+	}
+`;
 const listHours = [ '2','2.5','3','3.5','4']
 const listHours2 =['5','5.5','6','7','8']
+const ListStartHours = [ 	
+	'07:00 AM','07:30 AM','08:00 AM','08:30 AM','09:00 AM',
+	'09:30 AM','10:00 AM','10:30 AM','11:00 AM','11:30 AM',
+	'12:00 AM','12:30 AM','01:00 PM','01:30 PM','02:00 PM',
+	'02:30 PM','03:00 PM','03:30 PM','04:00 PM','04:30 PM',
+	'05:00 PM','05:30 PM','06:00 PM','06:30 PM','07:00 PM',]
+
 export default function HomePlansScreen(props) {
+	const [inputUpdateHour, setinputUpdateHour] = useState('')
+	const [showBoxHour, setshowBoxHour] = useState(false)
 	const [listHour2, setListHour2] = useState(null)
 	const [isRightArrowDisabled, setRightArrowDisabled] = useState(false);
 	const [isLeftArrowDisabled, setLeftArrowDisabled] = useState(true);
@@ -261,6 +322,11 @@ export default function HomePlansScreen(props) {
 		2: "Medium",
 		3: "Complete",
 	});
+	const updateInputHour = (clickedWord) => {
+		setinputUpdateHour(clickedWord);
+		setshowBoxHour(!showBoxHour);
+		console.log(showBoxHour)
+	};
 	
 	const handleClickCard = (cardId) => {
 		setActiveCard(cardId);
@@ -280,12 +346,13 @@ export default function HomePlansScreen(props) {
 		setListHour2(!listHour2) 
 
 	}
-	
 	const handleDateChange = (date) => {
 		let getdate = `${date.$d.toDateString()} `
     console.log('Data selecionada:', date);
     setSelectedDate( getdate);
   };
+	
+
 	const router = useRouter();
 	const { region } = router.query;
 	return (
@@ -321,7 +388,7 @@ export default function HomePlansScreen(props) {
 					</FlexEtapas>
 					<Barra />
 					<FlexEtapas>
-						<Etapas>07:00 PM</Etapas>
+						<Etapas>{inputUpdateHour || '-'}</Etapas>
 						<SubEtapas>STARTING TIME</SubEtapas>
 					</FlexEtapas>
 				</DivEtapas>
@@ -410,6 +477,15 @@ export default function HomePlansScreen(props) {
 								 />
 					</FlexSeta>
 					<TilteText>Starts at</TilteText>
+					<SubTitle>Click and choose your startint time</SubTitle>
+					<InputHour onClick={() => setshowBoxHour(!showBoxHour)}>{inputUpdateHour || '-'}</InputHour>
+					<BoxHours showBoxHour={showBoxHour} >
+						{ListStartHours.map((item,indice) => (
+									<TypesHours	
+									key={indice}
+									onClick={() => updateInputHour(`${item} `)}>{item}</TypesHours>					
+						))}
+					</BoxHours>
 			</ContainerTimes>
 			<ContainerButton>
 				<ButtonAlt valor='NEXT' />
