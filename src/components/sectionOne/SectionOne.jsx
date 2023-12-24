@@ -30,13 +30,21 @@ const StyledContainer1 = styled.div`
     align-items: center;
   }
   @media (max-width: 768px) {
-    padding-left: 70px;
+    padding-left: 60px;
+    padding-bottom: 100px;
+  }
+  @media (max-width: 475px) {
+    padding-left: 10px;
     padding-bottom: 100px;
   }
 `
 const StyledH5 = styled.div`
   padding: 20px;
   margin-top: 25px;
+  @media (max-width: 768px) {
+    padding: 15px;
+    margin-right: 60px;
+  }
 `
 const StyledForm = styled.form`
   display: flex;
