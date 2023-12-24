@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Input from "@/src/components/form/Input";
+import Input from "../src/components/form/Input";
 import Logo from "../src/components/logo/Logo";
 import Button from "../src/components/form/Button";
 import Link from "next/link";
