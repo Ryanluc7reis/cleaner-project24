@@ -65,6 +65,11 @@ const DateCalendarAlt = styled(BasicDateCalendar)`
 const Container = styled.div`
   width: 100%;
   height: 100%;
+  @media (max-width: 767px) {
+    width: 200%;
+    height: 100%;
+    background-color: red;
+  }
 `
 const LogoAlt = styled(Logo)`
   margin-left: 40px;
@@ -84,6 +89,7 @@ const StyledLogin = styled.div`
     background-color: #677db7;
   }
 `
+
 const FlexLogin = styled.div`
   display: flex;
   gap: 13px;
@@ -110,6 +116,9 @@ const StyledFlexNavBar = styled.div`
 `
 const CardsLogo = styled.img`
   margin-top: 8px;
+  @media (max-width: 767px) {
+    width: 150px;
+  }
 `
 const FlexDivEtapas = styled.div`
   display: flex;
@@ -185,18 +194,27 @@ const SubTitle = styled.p`
   color: #0101014c;
   text-align: center;
 `
-const FlexCards = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-`
 const CardsAlt = styled(Cards)`
   :hover {
     cursor: pointer;
     transition: all 0.1s ease-in-out;
     transform: scale(1.1);
   }
+  @media (max-width: 767px) {
+    width: 600px;
+    margin-bottom: 50px;
+    padding: 50px 20px;
+  }
 `
+const FlexCards = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  @media (max-width: 767px) {
+    flex-direction: column;
+  }
+`
+
 const SelectHour = styled.div`
   height: 70px;
   width: 440px;
@@ -293,9 +311,13 @@ const BoxHours = styled.div`
     align-items: center;
     justify-content: center;
   }
+  @media (max-width: 767px) {
+    left: 44%;
+    transform: translate(-20%, -25%);
+  }
 `
 const TypesHours = styled.p`
-  font-size: 14px;
+  font-size: 1.4rem;
   text-align: center;
   margin-right: 9px;
   height: 50%;
@@ -303,6 +325,11 @@ const TypesHours = styled.p`
   :hover {
     border-radius: 10px;
     background-color: #5757f5c4;
+  }
+  @media (max-width: 767px) {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: black;
   }
 `
 const listHours = ['2', '2.5', '3', '3.5', '4']
@@ -457,7 +484,6 @@ export default function HomePlansScreen({ id, onClick }) {
           </FlexEtapas>
         </DivEtapas>
         <ProgressEtapas style={{ width: `${progress}%` }} />
-        {console.log(count)}
       </FlexDivEtapas>
       <ContainerPlans>
         <TilteText>What plan do you need ?</TilteText>
@@ -537,9 +563,7 @@ export default function HomePlansScreen({ id, onClick }) {
       </ContainerTimes>
       <ContainerButton>
         <ButtonAlt
-          onClick={(f) => {
-            console.log('ok')
-          }}
+          onClick={(f) => {}}
           isDisabled={
             cardValues && region && selectedDate && selectedHour && inputUpdateHour ? false : true
           }
