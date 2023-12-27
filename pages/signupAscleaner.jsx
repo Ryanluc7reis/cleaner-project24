@@ -34,8 +34,15 @@ const ButtonAlt = styled(Button)`
 `;
 const Container = styled.div`
 	width: 100%;
-	min-height: 100vh;
+	height: 100vh;
 	background-color: #223677;
+	@media (max-width: 768px) {
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+		align-items: center;
+		gap: 20px;
+	}
 `;
 
 const Titulo = styled.p`
@@ -74,24 +81,16 @@ const Formulario = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	position: absolute;
-	transform: translate(0%, 48%);
 	@media (max-width: 1025px) {
 		height: 493px;
 		width: 300px;
-		margin-top: 20px;
 	}
 	@media (max-width: 900px) {
 		height: 450px;
 		width: 300px;
-		margin-top: 28px;
 	}
-	@media (max-width: 426px) {
-		margin-top: 35px;
-	}
-	@media (min-width: 320px) {
-		transform: translate(0%, 45%);
-	}
+
+
 `;
 const StyledLogin = styled.a`
 	cursor: pointer;
@@ -117,6 +116,7 @@ const StyledFlexNavBar = styled.div`
 	@media (max-width: 900px) {
 		flex-direction: column;
 		align-items: center;
+		gap: 15px;
 	}
 `;
 const BoxCleaning = styled.div`
@@ -125,7 +125,7 @@ const BoxCleaning = styled.div`
 	background-color: white;
 	border-radius: 3px;
 	display: ${(props) => (props.show ? "flex" : "none")};
-	transform: translate(0%, 51%);
+	transform: translate(0%, 80%);
 	position: absolute;
 	bottom: 50%;
 	animation: ${fadeIn} 0.1s ease-in-out;
@@ -133,7 +133,10 @@ const BoxCleaning = styled.div`
 	flex-direction: column;
 	align-items: center;
 	@media (max-width: 900px) {
-		transform: translate(0%, 67%);
+		transform: translate(0%, 106%);
+	}
+	@media (max-width: 768px) {
+		transform: translate(0%, 155%);
 	}
 `;
 const TypesCleaning = styled.p`

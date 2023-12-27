@@ -32,11 +32,14 @@ const StyledInput = styled.input`
 
 
 
-const Input = ({label, ...props }) => {                                                
+const Input = ({label, ...props }) => {    
+  const handleInputChange = (event) => {
+    setValor(event.target.value)
+  }                                            
   return (                                                     
      <InputContainer>
          <StyledLabel> {label}</StyledLabel>
-         <StyledInput  {...props}   />
+         <StyledInput  onChange={handleInputChange}{...props}   />
      </InputContainer>
   )
   
