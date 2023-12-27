@@ -1,14 +1,9 @@
 import styled from "styled-components";
-import { StyledImage } from "./ImageBluePeople";
-import { StyledImageEs } from "./ImageBluePeople";
 
 const StyledContainer = styled.div`
 	min-width: 100%;
 	min-height: 100vh;
-	background: linear-gradient(
-		rgba(228, 228, 228, 0.5),
-		rgba(202, 202, 202, 0.5)
-	);
+	background: #fafafa;
 	z-index: 10;
 	@media (max-width: 1256px) {
 		width: 120%;
@@ -35,6 +30,18 @@ const StyledContainer = styled.div`
 		width: 247%;
 	}
 `;
+ const StyledImage = styled.img`
+  height: 9.3rem;
+  width: 9.3rem;
+  margin: 1.5rem 16rem;
+`;
+
+ const StyledImageEs = styled.img`
+  height: 7.3rem;
+  width: 7.3rem;
+  margin: 2.5rem 16rem;
+`;
+
 
 const StyledTitle = styled.h2`
 	color: ${(props) => props.theme.colors.primaryColor};

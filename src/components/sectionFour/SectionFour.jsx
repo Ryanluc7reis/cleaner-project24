@@ -1,10 +1,12 @@
 import styled from "styled-components";
-import Cards from "../cardsplan/Cards";
 import Button from "../form/Button";
+import Input from "../form/Input";
+import ImageWithServices from "./ImageWithServices";
+
 const StyledContainer = styled.div`
-	width: 100%;
-	min-height: 100vh;
-	background-color: #d9dadc;
+	min-width: 100%;
+	height: 150%;
+	background: #000858c3;
 	@media (max-width: 1256px) {
 		width: 120%;
 	}
@@ -30,33 +32,56 @@ const StyledContainer = styled.div`
 		width: 247%;
 	}
 `;
-
 const StyledTitle = styled.h1`
-	color: ${(props) => props.theme.colors.primaryColor};
+	color: #ffffffe1;
 	display: flex;
 	justify-content: center;
-	padding-top: 50px;
+	padding-top: 40px;
 	font-size: 37px;
-	margin-bottom: 90px;
-`;
-const ButtonAlt = styled(Button)`
-	margin-top: 500px;
-	position: absolute;
-	@media (max-width: 426px) {
-		margin-top: 80px;
-		margin-bottom: 15px;
-		position: relative;
+	margin-bottom: 20px;
+	@media (max-width: 645px) {
+		font-size: 43px;
+		font-weight: 700;
 	}
 `;
-
+const StyledSubTitle = styled.p`
+	display: flex;
+	justify-content: center;
+	margin: 30px 70px;
+	width: auto;
+	color: #ffffff;
+	font-size: 19px;
+	text-align: center;
+	@media (max-width: 756px) {
+		font-size: 23px;
+	}
+	@media (max-width: 458px) {
+		font-size: 33px;
+		font-weight: 500;
+	}
+`;
+const StyledFlexInputs = styled.div`
+	display: flex;
+	justify-content: center;
+	gap: 30px;
+`;
 
 export default function SectionFour() {
 	return (
 		<StyledContainer>
-			<StyledTitle>Services Plans</StyledTitle>
-				<Cards type="5">
-					<ButtonAlt />
-				</Cards>
+			<StyledTitle>Cleaning Services</StyledTitle>
+			<StyledSubTitle>
+				Whatever it is you need: a regular clean, a deep scrub of your oven or a
+				one off deep clean - The cleaners registered on the Helpling platform
+				offer every cleaning service you could need. After your booking is
+				confirmed, just let them know what your priorities are and they’ll make
+				your home shine.
+			</StyledSubTitle>
+			<StyledFlexInputs>
+				<Input placeholder="Enter your region" />
+				<Button />
+			</StyledFlexInputs>
+			<ImageWithServices />
 		</StyledContainer>
 	);
 }

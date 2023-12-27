@@ -3,7 +3,7 @@ import Button from "../form/Button";
 import Input from "../form/Input";
 
 const Container = styled.div`
-	background: #444444;
+	background: #5f5f5fe4;
 	width: 100%;
 	height: 100vh;
 	display: flex;
@@ -38,18 +38,17 @@ const Container = styled.div`
 const NewsletterFooter = styled.div`
 	height: 45vh;
 	width: 100%;
-	border-bottom: 1px solid #fff;
+	border-bottom: 1px solid #fdfdfd;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	background: inherit;
 `;
 
 const NewsletterTitle = styled.h5`
 	font-size: 2.4rem;
 	font-weight: 700;
-	color: #fff;
+	color: #ffffff;
 	margin-bottom: 18px;
 	@media (max-width: 769px) {
 		font-size: 16px;
@@ -69,32 +68,15 @@ const NewsletterFooterForm = styled.form`
 	gap: 20px;
 `;
 
-const NewsletterFooterP = styled.p`
-	text-align: center;
-	font-size: 1.6rem;
-	color: #fff;
-	font-weight: 400;
-	word-break: break-word;
-	display: block;
-	width: 400px;
-	padding-top: 18px;
-	@media (max-width: 769px) {
-		width: 90%;
-	}
-	@media (max-width: 376px) {
-		padding-bottom: 20px;
-	}
-`;
 
 const FollowUs = styled.div`
 	height: 25vh;
 	width: 100%;
-	border-bottom: 1px solid #fff;
+	border-bottom: 1px solid #ffffff;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	background: inherit;
 `;
 
 const IconsContainer = styled.div`
@@ -106,7 +88,7 @@ const IconsContainer = styled.div`
 const FollowUsTitle = styled.h5`
 	font-size: 2rem;
 	font-weight: 700;
-	color: #fff;
+	color: #f6f6f6;
 	margin: 40px 0;
 	@media (max-width: 376px) {
 		font-size: 26px;
@@ -126,7 +108,7 @@ const FollowUsIconA = styled.a`
 
 const CopyrigthP = styled.p`
 	font-size: 1.6rem;
-	color: #fff;
+	color: #f7f7f7;
 	width: 500px;
 	text-align: center;
 	margin-top: 30px;
@@ -137,6 +119,7 @@ const CopyrigthP = styled.p`
 	}
 	@media (max-width: 426px) {
 		font-size: 23px;
+		margin: 9px;
 		width: 100%;
 	}
 	@media (max-width: 376px) {
