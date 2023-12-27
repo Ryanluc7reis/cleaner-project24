@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Cards from "../cardsplan/Cards";
 import Button from "../form/Button";
+import { useRouter } from "next/router";
 const StyledContainer = styled.div`
 	width: 100%;
 	min-height: 100vh;
@@ -51,11 +52,12 @@ const ButtonAlt = styled(Button)`
 
 
 export default function SectionThree() {
+	const router = useRouter()
 	return (
 		<StyledContainer>
 			<StyledTitle>Services Plans</StyledTitle>
 				<Cards type="5">
-					<ButtonAlt />
+					<ButtonAlt  />
 				</Cards>
 		</StyledContainer>
 	);

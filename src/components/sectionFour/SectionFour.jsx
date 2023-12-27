@@ -2,6 +2,8 @@ import styled from "styled-components";
 import Button from "../form/Button";
 import Input from "../form/Input";
 import ImageWithServices from "./ImageWithServices";
+import { ErrorMessage } from "../sectionOne/SectionOne";
+import { useState } from "react";
 
 const StyledContainer = styled.div`
 	min-width: 100%;
@@ -65,8 +67,28 @@ const StyledFlexInputs = styled.div`
 	justify-content: center;
 	gap: 30px;
 `;
+const ErrorMessageAlt = styled(ErrorMessage)`
+ margin-left: 445px;
+ transform: translate(5%, -110%);
+`
 
 export default function SectionFour() {
+	
+  const [valor, setValor] = useState('')
+  const [error, setError] = useState(false)
+
+  const handleInputChange = (event) => {
+    setValor(event.target.value)
+  }
+
+  const handleSubmit = () => {
+    if (valor.trim().length < 3) {
+      setError(true);
+    } else {
+      setError(false);
+      router.push(`/plansScreen?region=${encodeURIComponent(valor)}`)
+    }
+  }
 	return (
 		<StyledContainer>
 			<StyledTitle>Cleaning Services</StyledTitle>
@@ -77,9 +99,10 @@ export default function SectionFour() {
 				confirmed, just let them know what your priorities are and they’ll make
 				your home shine.
 			</StyledSubTitle>
+			{error && <ErrorMessageAlt>That region is invalid.</ErrorMessageAlt>}
 			<StyledFlexInputs>
-				<Input placeholder="Enter your region" />
-				<Button />
+				<Input placeholder="Enter your region" value={valor} onChange={handleInputChange}/>
+				<Button onClick={handleSubmit}  />
 			</StyledFlexInputs>
 			<ImageWithServices />
 		</StyledContainer>
