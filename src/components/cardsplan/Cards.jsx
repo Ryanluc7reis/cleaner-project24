@@ -42,49 +42,19 @@ export default function Cards({
 }) {
 	const cardColor = isActive ? "#0612c3ab" : "white";
 	return (
-		<Container>
-			<Link to="calendar" spy={true} smooth={true} offset={-100} duration={500}>
-					{type === "1" && (
-						<StyledCard
-							onClick={() => onClick(id)}
-							style={{ backgroundColor: cardColor }}
-							{...props}
-						>
-							<Plans plan="1" />
-							{children}
-						</StyledCard>
-					)}
-					{type === "2" && (
-						<StyledCard
-							onClick={() => onClick(id)}
-							style={{ backgroundColor: cardColor }}
-							{...props}
-						>
-							<Plans plan="2" />
-							{children}
-						</StyledCard>
-					)}
-					{type === "3" && (
-						<StyledCard
-							onClick={() => onClick(id)}
-							style={{ backgroundColor: cardColor }}
-							{...props}
-						>
-							<Plans plan="3" />
-							{children}
-						</StyledCard>
-					)}
-					{type === "4" && (
-						<StyledCard
-							onClick={() => onClick(id)}
-							style={{ backgroundColor: cardColor }}
-							{...props}
-						>
-							<Plans plan="4" />
-							{children}
-						</StyledCard>
-					)}
-			</Link>
+		<Container >
+			{(type === "1" || type === "2" || type === "3" || type === "4") && (
+         <Link to="calendar" spy={true} smooth={true} offset={-100} duration={500}>
+            <StyledCard
+                onClick={() => onClick(id)}
+                style={{ backgroundColor: cardColor }}
+                {...props}
+            >
+                <Plans plan={type} />
+                {children}
+            </StyledCard>
+         </Link>
+      )}
 
 {["1", "2", "3", "4"].map((plano, indice) => (
     type === "5" && (

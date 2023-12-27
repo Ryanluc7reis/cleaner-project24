@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Cards from "../cardsplan/Cards";
 import Button from "../form/Button";
 import { useRouter } from "next/router";
-import { Link } from 'react-scroll'
+import { Link } from "react-scroll";
 
 const StyledContainer = styled.div`
 	width: 100%;
@@ -60,7 +60,7 @@ export default function SectionThree() {
 			<StyledTitle >Services Plans</StyledTitle>
 				<Cards type="5">					
 							<ButtonAlt>
-								<Link to="input1" spy={true} smooth={true} offset={-100} duration={500}>Lets´go</Link>
+								<Link to="input1" spy={true} smooth={true} offset={-100} duration={500} >Lets´go</Link>
 							</ButtonAlt>			
 				</Cards>
 		</StyledContainer>
