@@ -60,7 +60,7 @@ export default function SectionThree() {
 			<StyledTitle >Services Plans</StyledTitle>
 				<Cards type="5">					
 							<ButtonAlt>
-								<Link to="input1" spy={true} smooth={true} offset={-100} duration={500} >Lets´go</Link>
+								<Link to="input1" spy={true} smooth={true} offset={-100} duration={500} >Let´s go</Link>
 							</ButtonAlt>			
 				</Cards>
 		</StyledContainer>

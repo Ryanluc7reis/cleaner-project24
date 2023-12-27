@@ -120,7 +120,7 @@ export default function SectionOne() {
           {error && <ErrorMessage>That region is invalid.</ErrorMessage>}
           <StyledForm >
             <Input  placeholder="Enter your region" value={valor} onChange={handleInputChange} />
-            <Button type='button' onClick={handleSubmit} >Lets´go</Button>
+            <Button type='button' onClick={handleSubmit} >Let´s go</Button>
           </StyledForm>
         </StyledContainer1>
       </BoxShadow>

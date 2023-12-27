@@ -134,7 +134,7 @@ export default function Footer() {
 				<NewsletterTitle>Se inscreva em nossa newsletter :</NewsletterTitle>
 				<NewsletterFooterForm>
 					<Input placeholder="Write your e-mail" />
-					<Button type="submit" value="Let`go" />
+					<Button type="submit">Let´s go</Button>
 				</NewsletterFooterForm>
 				<CopyrigthP>
 					Acesse nossa newsletter e fique por dentro de todas as mudanças e
