@@ -6,6 +6,8 @@ import BasicDateCalendar from '../../src/components/calendario/Calendario'
 import { useRouter } from 'next/router'
 import Button from '../../src/components/form/Button'
 import React from 'react'
+import { Link } from 'react-scroll'
+
 const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -554,12 +556,15 @@ export default function HomePlansScreen() {
           <CardsAlt id={3} isActive={activeCard === 3} onClick={handleClickCard} type="4" />
         </FlexCards>
       </ContainerPlans>
-      <ContainerCalender>
-        <TilteText>When should your first booking be?</TilteText>
-        <DateCalendarAlt onChange={handleDateChange} />
+      <ContainerCalender >
+        <TilteText id="calendar">When should your first booking be?</TilteText>
+        <Link to="hours" spy={true} smooth={true} offset={-100} duration={500}>
+          <DateCalendarAlt onChange={handleDateChange} />
+        </Link>
+        
       </ContainerCalender>
       <ContainerTimes>
-        <TilteText>How long do you need your cleaner for?</TilteText>
+        <TilteText id="hours">How long do you need your cleaner for?</TilteText>
         <FlexSeta>
           <Seta
             src="setaEsquerda.png"

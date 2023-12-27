@@ -112,15 +112,15 @@ export default function SectionOne() {
         <Navbar />
         <StyledContainer1>
           <H2>Find Top Rated Cleaners!</H2>
-          <StyledH5>
+          <StyledH5 id='input1'>
             <H5>• Change Your Cleaner at Anytime</H5>
             <H5>• Dedicated Customer Service</H5>
             <H5>• Liability Insured Up to £4M</H5>
           </StyledH5>
           {error && <ErrorMessage>That region is invalid.</ErrorMessage>}
-          <StyledForm id='input1'>
+          <StyledForm >
             <Input  placeholder="Enter your region" value={valor} onChange={handleInputChange} />
-          <Button type='button' onClick={handleSubmit} >Lets´go</Button>
+            <Button type='button' onClick={handleSubmit} >Lets´go</Button>
           </StyledForm>
         </StyledContainer1>
       </BoxShadow>
