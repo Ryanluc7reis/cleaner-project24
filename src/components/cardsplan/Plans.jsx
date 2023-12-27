@@ -103,19 +103,19 @@ export default function Plans({ plan }) {
 					<StyledNameCleaning>- Choose your Cleaning</StyledNameCleaning>
 					<StyledBarrAlt1 />
 					<StyledDescription>
-						<StyledReadyImage src="/readyIcon1.png" />
+						<StyledReadyImage src="/checkIconB.png" />
 						Wet Manual Cleaning
 					</StyledDescription>
 					<StyledDescription>
-						<StyledReadyImage src="/readyIcon1.png" />
+						<StyledReadyImage src="/checkIconB.png" />
 						Dry Cleaning
 					</StyledDescription>
 					<StyledDescription>
-						<StyledReadyImage src="/readyIcon1.png" />
+						<StyledReadyImage src="/checkIconB.png" />
 						Window Cleaning
 					</StyledDescription>
 					<StyledDescription>
-						<StyledReadyImage src="/readyIcon1.png" />
+						<StyledReadyImage src="/checkIconB.png" />
 						Home Apliance Cleaning
 					</StyledDescription>
 				</StyledContAll>
@@ -131,15 +131,15 @@ export default function Plans({ plan }) {
 					</StyledNameCleaning>
 					<StyledBarrAlt />
 					<StyledDescription>
-						<StyledReadyImage src="/readyIcon1.png" />
+						<StyledReadyImage src="/checkIconB.png" />
 						Tenha seus móveis limpados com pano úmido
 					</StyledDescription>
 					<StyledDescription>
-						<StyledReadyImage src="/readyIcon1.png" />
+						<StyledReadyImage src="/checkIconB.png" />
 						Tenha seu chão varrido com vassoura{" "}
 					</StyledDescription>
 					<StyledDescription>
-						<StyledReadyImage src="/readyIcon1.png" />
+						<StyledReadyImage src="/checkIconB.png" />
 						Tenha seu chão limpado com pano úmido
 					</StyledDescription>
 				</StyledContAll>
@@ -155,15 +155,15 @@ export default function Plans({ plan }) {
 					</StyledNameCleaning>
 					<StyledBarrAlt />
 					<StyledDescription>
-						<StyledReadyImage src="/readyIcon1.png" />
+						<StyledReadyImage src="/checkIconB.png" />
 						Tenha seus móveis limpados com pano úmido
 					</StyledDescription>
 					<StyledDescription>
-						<StyledReadyImage src="/readyIcon1.png" />
+						<StyledReadyImage src="/checkIconB.png" />
 						Tenha seu chão limpado com àgua + produtos de limpeza{" "}
 					</StyledDescription>
 					<StyledDescription>
-						<StyledReadyImage src="/readyIcon1.png" />
+						<StyledReadyImage src="/checkIconB.png" />
 						Tenha sua janela limpada com àgua e produtos de limpeza
 					</StyledDescription>
 				</StyledContAll>
@@ -180,19 +180,19 @@ export default function Plans({ plan }) {
 					</StyledNameCleaning>
 					<StyledBarra />
 					<StyledDescription>
-						<StyledReadyImage src="/readyIcon1.png" />
+						<StyledReadyImage src="/checkIconB.png" />
 						Tenha seus móveis limpados com pano úmido
 					</StyledDescription>
 					<StyledDescription>
-						<StyledReadyImage src="/readyIcon1.png" />
+						<StyledReadyImage src="/checkIconB.png" />
 						Tenha seu chão limpado com àgua + produtos de limpeza{" "}
 					</StyledDescription>
 					<StyledDescription>
-						<StyledReadyImage src="/readyIcon1.png" />
+						<StyledReadyImage src="/checkIconB.png" />
 						Tenha sua janela limpada com àgua e produtos de limpeza
 					</StyledDescription>
 					<StyledDescription>
-						<StyledReadyImage src="/readyIcon1.png" />
+						<StyledReadyImage src="/checkIconB.png" />
 						Tenha seus eletrodomésticos limpados{" "}
 					</StyledDescription>
 				</StyledContAll>
