@@ -1,10 +1,8 @@
-import styled from "styled-components"
-import { useState } from "react"
-
+import { useState } from 'react'
+import styled from 'styled-components'
 
 const InputContainer = styled.div`
   width: auto;
-
 `
 const StyledLabel = styled.p`
   font-weight: bold;
@@ -15,11 +13,11 @@ const StyledLabel = styled.p`
 
 const StyledInput = styled.input`
   width: 240px;
-  border: 1px solid  ${props => props.theme.colors.inputBorder};
-  background-color: ${props => props.theme.colors.inputBackground};
+  border: 1px solid ${(props) => props.theme.colors.inputBorder};
+  background-color: ${(props) => props.theme.colors.inputBackground};
   padding: 15px 20px;
-  box-sizing: border-box ;
-  border-radius : 10px;
+  box-sizing: border-box;
+  border-radius: 10px;
   :focus {
     outline: none;
   }
@@ -29,20 +27,17 @@ const StyledInput = styled.input`
     width: 255px;
   }
 `
-
-
-
-const Input = ({label, ...props }) => {    
+const Input = ({ label, ...props }) => {
+  const [valor, setValor] = useState(null)
   const handleInputChange = (event) => {
     setValor(event.target.value)
-  }                                            
-  return (                                                     
-     <InputContainer>
-         <StyledLabel> {label}</StyledLabel>
-         <StyledInput  onChange={handleInputChange}{...props}   />
-     </InputContainer>
+  }
+  return (
+    <InputContainer>
+      <StyledLabel> {label}</StyledLabel>
+      <StyledInput onChange={handleInputChange} {...props} />
+    </InputContainer>
   )
-  
 }
 
 export default Input
