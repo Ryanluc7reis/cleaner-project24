@@ -67,14 +67,14 @@ const DateCalendarAlt = styled(BasicDateCalendar)`
 const Container = styled.div`
   width: 100%;
   height: 100%;
-    /* @media (max-width: 426px) {
+  /* @media (max-width: 426px) {
   width: 115%;
 
   } */
 `
 const LogoAlt = styled(Logo)`
   margin-left: 40px;
-  color : #242c99b7;
+  color: #242c99b7;
   @media (max-width: 670px) {
     margin: 0;
     padding-top: 10px;
@@ -102,7 +102,7 @@ const Barra = styled.div`
   height: 45px;
   margin-top: 7px;
   background-color: #20202096;
-   @media ( max-width: 600px){
+  @media (max-width: 600px) {
     width: 45px;
     height: 2px;
     display: none;
@@ -113,10 +113,10 @@ const BarraAlt = styled(Barra)`
   height: 37px;
   margin-left: 8px;
   margin-top: 0px;
-  @media (max-width: 462px){
-      width: auto;
-      height: 2px;
-    }
+  @media (max-width: 462px) {
+    width: auto;
+    height: 2px;
+  }
 `
 const StyledFlexNavBar = styled.div`
   display: flex;
@@ -127,12 +127,12 @@ const StyledFlexNavBar = styled.div`
   height: 100px;
   @media (max-width: 670px) {
     flex-direction: column;
-    gap:4px;
+    gap: 4px;
     justify-content: center;
     padding-bottom: 8px;
   }
-   @media (max-width: 426px) {
-   width: 115%;
+  @media (max-width: 426px) {
+    width: 115%;
   }
 `
 const CardsLogo = styled.img`
@@ -145,8 +145,8 @@ const FlexDivEtapas = styled.div`
   position: sticky;
   top: 0;
   z-index: 100;
-     @media (max-width: 426px) {
-   width: 115%;
+  @media (max-width: 426px) {
+    width: 115%;
   }
 `
 const DivEtapas = styled.div`
@@ -156,19 +156,18 @@ const DivEtapas = styled.div`
   justify-content: space-around;
   align-items: center;
   background-color: #ffffff;
-    @media ( max-width: 600px){
+  @media (max-width: 600px) {
     height: 150px;
     display: grid;
-    grid-template-columns: 70px 70px 70px ;
+    grid-template-columns: 70px 70px 70px;
   }
-
 `
 const FlexEtapas = styled.div`
   display: flex;
   flex-direction: column;
   margin-right: 35px;
   gap: 4px;
-  @media ( max-width: 745px){
+  @media (max-width: 745px) {
     margin: 0;
   }
 `
@@ -190,9 +189,9 @@ const ContainerPlans = styled.div`
   background: #edededaf;
   width: 100%;
   height: auto;
-    @media (max-width: 426px) {
+  @media (max-width: 426px) {
     height: 100%;
-   width: 115%;
+    width: 115%;
     padding-bottom: 50px;
   }
 `
@@ -204,17 +203,17 @@ const ContainerTimes = styled.div`
   justify-content: center;
   flex-direction: column;
   height: 80vh;
-@media (max-width: 462px) {
-   height: 100vh;
+  @media (max-width: 462px) {
+    height: 100vh;
   }
-     @media (max-width: 426px) {
-   width: 115%;
+  @media (max-width: 426px) {
+    width: 115%;
   }
 `
 const ContainerCalender = styled.div`
   height: 80vh;
-     @media (max-width: 426px) {
-   width: 115%;
+  @media (max-width: 426px) {
+    width: 115%;
   }
 `
 const ContainerButton = styled.div`
@@ -223,8 +222,8 @@ const ContainerButton = styled.div`
   justify-content: center;
   align-items: center;
   background-color: white;
-     @media (max-width: 426px) {
-   width: 115%;
+  @media (max-width: 426px) {
+    width: 115%;
   }
 `
 const TilteText = styled.h5`
@@ -244,17 +243,16 @@ const CardsAlt = styled(Cards)`
     cursor: pointer;
     transition: all 0.1s ease-in-out;
     transform: scale(1.1);
-  };
-	  @media (max-width: 426px) {
+  }
+  @media (max-width: 426px) {
     width: 299px;
     margin-bottom: 50px;
     font-size: 10px;
-    :hover{
+    :hover {
       transition: all 0.1s ease-in-out;
-    transform: none;
+      transform: none;
     }
-  } 
-	
+  }
 `
 const FlexCards = styled.div`
   display: flex;
@@ -281,21 +279,20 @@ const SelectHour = styled.div`
     rgba(33, 32, 32, 0.08) 0px 16px 8px,
     rgba(8, 8, 8, 0.08) 0px 20px 16px;
 
-    @media (max-width: 646px){
-      width: 400px;
-      margin:9px;
-    }
-    @media (max-width: 515px){
-      width: 350px;
-      margin:7px;
-    }
-    @media (max-width: 462px){
-      width: 100px;
-      height: 215px;
-      display: grid;
-      grid-template-columns: 100px ;
-      
-    }
+  @media (max-width: 646px) {
+    width: 400px;
+    margin: 9px;
+  }
+  @media (max-width: 515px) {
+    width: 350px;
+    margin: 7px;
+  }
+  @media (max-width: 462px) {
+    width: 100px;
+    height: 215px;
+    display: grid;
+    grid-template-columns: 100px;
+  }
 `
 const ButtonAlt = styled(Button)`
   background-color: ${(props) => (props.isDisabled ? 'grey' : props.theme.colors.ultravio)};
@@ -306,8 +303,8 @@ const ButtonAlt = styled(Button)`
     background-color: ${(props) => (props.isDisabled ? 'grey' : props.theme.colors.ultravio)};
   }
   @media (max-width: 426px) {
-   width: 370px;
-   font-size: 18px;
+    width: 370px;
+    font-size: 18px;
   }
   @media (max-width: 350px) {
     width: 300px;
@@ -345,9 +342,9 @@ const ContHour = styled.div`
   padding: 5px;
   border-radius: 10px;
   cursor: pointer;
-   @media (max-width: 515px){
-      padding: 2px ;
-    }
+  @media (max-width: 515px) {
+    padding: 2px;
+  }
 `
 const InputHour = styled.div`
   width: 110px;
@@ -389,15 +386,15 @@ const BoxHours = styled.div`
   @media (max-width: 768px) {
     left: 40%;
     width: 470px;
-    grid-template-columns: 150px 150px 150px ;
+    grid-template-columns: 150px 150px 150px;
   }
   @media (max-width: 525px) {
     width: 370px;
-    grid-template-columns: 100px 100px 100px ;
+    grid-template-columns: 100px 100px 100px;
   }
   @media (max-width: 426px) {
     width: 320px;
-    grid-template-columns: 100px 100px 100px ;
+    grid-template-columns: 100px 100px 100px;
     transform: translate(-28%, 10%);
   }
   @media (max-width: 340px) {
@@ -416,18 +413,41 @@ const TypesHours = styled.p`
   }
   @media (max-width: 767px) {
     //font-size: 2.4rem;
-   // font-weight: 700;
+    // font-weight: 700;
     color: black;
   }
 `
 const listHours = ['2', '2.5', '3', '3.5', '4']
 const listHours2 = ['5', '5.5', '6', '7', '8']
-const ListStartHours = ['07:00 AM','07:30 AM','08:00 AM','08:30 AM','09:00 AM',
-  '09:30 AM','10:00 AM','10:30 AM','11:00 AM','11:30 AM','12:00 AM','12:30 AM',
-  '01:00 PM','01:30 PM','02:00 PM','02:30 PM','03:00 PM','03:30 PM','04:00 PM',
-  '04:30 PM','05:00 PM','05:30 PM','06:00 PM','06:30 PM','07:00 PM']
+const ListStartHours = [
+  '07:00 AM',
+  '07:30 AM',
+  '08:00 AM',
+  '08:30 AM',
+  '09:00 AM',
+  '09:30 AM',
+  '10:00 AM',
+  '10:30 AM',
+  '11:00 AM',
+  '11:30 AM',
+  '12:00 AM',
+  '12:30 AM',
+  '01:00 PM',
+  '01:30 PM',
+  '02:00 PM',
+  '02:30 PM',
+  '03:00 PM',
+  '03:30 PM',
+  '04:00 PM',
+  '04:30 PM',
+  '05:00 PM',
+  '05:30 PM',
+  '06:00 PM',
+  '06:30 PM',
+  '07:00 PM'
+]
 
- function HomePlansScreen() {
+function HomePlansScreen() {
   const [planChosen, setPlanChosen] = useState(false)
   const [dateChosen, setDateChosen] = useState(false)
   const [hourChosen, setHourChosen] = useState(false)
@@ -450,7 +470,7 @@ const ListStartHours = ['07:00 AM','07:30 AM','08:00 AM','08:30 AM','09:00 AM',
 
   const [progress, setProgress] = useState(0)
   const totalSteps = 5
-  
+
   const updateInputHour = (clickedWord) => {
     setinputUpdateHour(clickedWord)
     setshowBoxHour(!showBoxHour)
@@ -462,8 +482,7 @@ const ListStartHours = ['07:00 AM','07:30 AM','08:00 AM','08:30 AM','09:00 AM',
       return
     }
     setActiveCard(cardId)
-    setCardOption1(true)
-    setPlanChosen(cardOption1)
+    setPlanChosen(true)
     updateProgress()
   }
   const handleClickHour = (hour) => {
@@ -492,19 +511,15 @@ const ListStartHours = ['07:00 AM','07:30 AM','08:00 AM','08:30 AM','09:00 AM',
 
   const router = useRouter()
   const { region } = router.query
-
   const updateProgress = () => {
-    const stepsCompleted = [
-      cardValues !== null,
-      dateChosen,
-      hourChosen,
-      startHourChosen,
-      region !== null
-    ].filter(Boolean).length
-
+    const stepsCompleted = [planChosen, dateChosen, hourChosen, startHourChosen, region].filter(
+      Boolean
+    ).length
     const calculatedProgress = (stepsCompleted / totalSteps) * 100
+    console.log(stepsCompleted)
     setProgress(calculatedProgress)
   }
+
   useEffect(() => {
     updateProgress()
   }, [planChosen, dateChosen, hourChosen, startHourChosen, region])
@@ -513,9 +528,9 @@ const ListStartHours = ['07:00 AM','07:30 AM','08:00 AM','08:30 AM','09:00 AM',
       <StyledFlexNavBar>
         <LogoAlt />
         <FlexLogin>
-            <CardsLogo src="metodosPay.JPG" height="45px" width="133px" />
-            <Barra />
-            <StyledLogin onClick={() => router.push('/login')}>LOG-IN</StyledLogin>
+          <CardsLogo src="metodosPay.JPG" height="45px" width="133px" />
+          <Barra />
+          <StyledLogin onClick={() => router.push('/login')}>LOG-IN</StyledLogin>
         </FlexLogin>
       </StyledFlexNavBar>
       <FlexDivEtapas>
@@ -557,12 +572,11 @@ const ListStartHours = ['07:00 AM','07:30 AM','08:00 AM','08:30 AM','09:00 AM',
           <CardsAlt id={3} isActive={activeCard === 3} onClick={handleClickCard} type="4" />
         </FlexCards>
       </ContainerPlans>
-      <ContainerCalender >
+      <ContainerCalender>
         <TilteText id="calendar">When should your first booking be?</TilteText>
         <Link to="hours" spy={true} smooth={true} offset={-100} duration={500}>
           <DateCalendarAlt onChange={handleDateChange} />
         </Link>
-        
       </ContainerCalender>
       <ContainerTimes>
         <TilteText id="hours">How long do you need your cleaner for?</TilteText>
@@ -634,4 +648,4 @@ const ListStartHours = ['07:00 AM','07:30 AM','08:00 AM','08:30 AM','09:00 AM',
     </Container>
   )
 }
-export default dynamic (() => Promise.resolve(HomePlansScreen), {ssr: false})
+export default dynamic(() => Promise.resolve(HomePlansScreen), { ssr: false })
