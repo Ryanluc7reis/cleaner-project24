@@ -6,8 +6,6 @@ import BasicDateCalendar from '../../src/components/calendario/Calendario'
 import { useRouter } from 'next/router'
 import Button from '../../src/components/form/Button'
 import React from 'react'
-import Plans from '../../src/components/cardsplan/Plans'
-import css from 'styled-jsx/css'
 const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -66,15 +64,18 @@ const DateCalendarAlt = styled(BasicDateCalendar)`
 const Container = styled.div`
   width: 100%;
   height: 100%;
-  @media (max-width: 767px) {
-    width: 200%;
-    height: 100%;
-    background-color: red;
-  }
+    /* @media (max-width: 426px) {
+  width: 115%;
+
+  } */
 `
 const LogoAlt = styled(Logo)`
   margin-left: 40px;
   color : #242c99b7;
+  @media (max-width: 670px) {
+    margin: 0;
+    padding-top: 10px;
+  }
 `
 const StyledLogin = styled.h5`
   cursor: pointer;
@@ -98,12 +99,21 @@ const Barra = styled.div`
   height: 45px;
   margin-top: 7px;
   background-color: #20202096;
+   @media ( max-width: 600px){
+    width: 45px;
+    height: 2px;
+    display: none;
+  }
 `
 const BarraAlt = styled(Barra)`
   background-color: #80808050;
   height: 37px;
   margin-left: 8px;
   margin-top: 0px;
+  @media (max-width: 462px){
+      width: auto;
+      height: 2px;
+    }
 `
 const StyledFlexNavBar = styled.div`
   display: flex;
@@ -112,12 +122,18 @@ const StyledFlexNavBar = styled.div`
   background: #edededaf;
   width: 100%;
   height: 100px;
+  @media (max-width: 670px) {
+    flex-direction: column;
+    gap:4px;
+    justify-content: center;
+    padding-bottom: 8px;
+  }
+   @media (max-width: 426px) {
+   width: 115%;
+  }
 `
 const CardsLogo = styled.img`
   margin-top: 8px;
-  @media (max-width: 767px) {
-    width: 150px;
-  }
 `
 const FlexDivEtapas = styled.div`
   display: flex;
@@ -126,6 +142,9 @@ const FlexDivEtapas = styled.div`
   position: sticky;
   top: 0;
   z-index: 100;
+     @media (max-width: 426px) {
+   width: 115%;
+  }
 `
 const DivEtapas = styled.div`
   width: 100%;
@@ -134,12 +153,21 @@ const DivEtapas = styled.div`
   justify-content: space-around;
   align-items: center;
   background-color: #ffffff;
+    @media ( max-width: 600px){
+    height: 150px;
+    display: grid;
+    grid-template-columns: 70px 70px 70px ;
+  }
+
 `
 const FlexEtapas = styled.div`
   display: flex;
   flex-direction: column;
   margin-right: 35px;
   gap: 4px;
+  @media ( max-width: 745px){
+    margin: 0;
+  }
 `
 const Etapas = styled.h5`
   color: #212020d2;
@@ -159,6 +187,11 @@ const ContainerPlans = styled.div`
   background: #edededaf;
   width: 100%;
   height: auto;
+    @media (max-width: 426px) {
+    height: 100%;
+   width: 115%;
+    padding-bottom: 50px;
+  }
 `
 const ContainerTimes = styled.div`
   background: #edededaf;
@@ -167,10 +200,19 @@ const ContainerTimes = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  height: 65vh;
+  height: 80vh;
+@media (max-width: 462px) {
+   height: 100vh;
+  }
+     @media (max-width: 426px) {
+   width: 115%;
+  }
 `
 const ContainerCalender = styled.div`
-  height: 70vh;
+  height: 80vh;
+     @media (max-width: 426px) {
+   width: 115%;
+  }
 `
 const ContainerButton = styled.div`
   height: 20vh;
@@ -178,6 +220,9 @@ const ContainerButton = styled.div`
   justify-content: center;
   align-items: center;
   background-color: white;
+     @media (max-width: 426px) {
+   width: 115%;
+  }
 `
 const TilteText = styled.h5`
   font-size: 23px;
@@ -196,19 +241,24 @@ const CardsAlt = styled(Cards)`
     cursor: pointer;
     transition: all 0.1s ease-in-out;
     transform: scale(1.1);
-  }
-  @media (max-width: 767px) {
-    width: 600px;
+  };
+	  @media (max-width: 426px) {
+    width: 299px;
     margin-bottom: 50px;
-    padding: 50px 20px;
-  }
+    font-size: 10px;
+    :hover{
+      transition: all 0.1s ease-in-out;
+    transform: none;
+    }
+  } 
+	
 `
 const FlexCards = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   @media (max-width: 767px) {
-    flex-direction: column;
+    gap: 13px;
   }
 `
 
@@ -216,7 +266,6 @@ const SelectHour = styled.div`
   height: 70px;
   width: 440px;
   margin: 15px;
-
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -228,6 +277,22 @@ const SelectHour = styled.div`
     rgba(0, 0, 0, 0.09) 0px 8px 4px,
     rgba(33, 32, 32, 0.08) 0px 16px 8px,
     rgba(8, 8, 8, 0.08) 0px 20px 16px;
+
+    @media (max-width: 646px){
+      width: 400px;
+      margin:9px;
+    }
+    @media (max-width: 515px){
+      width: 350px;
+      margin:7px;
+    }
+    @media (max-width: 462px){
+      width: 100px;
+      height: 215px;
+      display: grid;
+      grid-template-columns: 100px ;
+      
+    }
 `
 const ButtonAlt = styled(Button)`
   background-color: ${(props) => (props.isDisabled ? 'grey' : props.theme.colors.ultravio)};
@@ -236,6 +301,13 @@ const ButtonAlt = styled(Button)`
   cursor: ${(props) => (props.isDisabled ? 'default' : 'pointer')};
   :hover {
     background-color: ${(props) => (props.isDisabled ? 'grey' : props.theme.colors.ultravio)};
+  }
+  @media (max-width: 426px) {
+   width: 370px;
+   font-size: 18px;
+  }
+  @media (max-width: 350px) {
+    width: 300px;
   }
 `
 const Seta = styled.img`
@@ -270,6 +342,9 @@ const ContHour = styled.div`
   padding: 5px;
   border-radius: 10px;
   cursor: pointer;
+   @media (max-width: 515px){
+      padding: 2px ;
+    }
 `
 const InputHour = styled.div`
   width: 110px;
@@ -308,9 +383,22 @@ const BoxHours = styled.div`
     align-items: center;
     justify-content: center;
   }
-  @media (max-width: 767px) {
-    left: 44%;
-    transform: translate(-20%, -25%);
+  @media (max-width: 768px) {
+    left: 40%;
+    width: 470px;
+    grid-template-columns: 150px 150px 150px ;
+  }
+  @media (max-width: 525px) {
+    width: 370px;
+    grid-template-columns: 100px 100px 100px ;
+  }
+  @media (max-width: 426px) {
+    width: 320px;
+    grid-template-columns: 100px 100px 100px ;
+    transform: translate(-28%, 10%);
+  }
+  @media (max-width: 340px) {
+    transform: translate(-32%, 10%);
   }
 `
 const TypesHours = styled.p`
@@ -324,8 +412,8 @@ const TypesHours = styled.p`
     background-color: #5757f5c4;
   }
   @media (max-width: 767px) {
-    font-size: 2.4rem;
-    font-weight: 700;
+    //font-size: 2.4rem;
+   // font-weight: 700;
     color: black;
   }
 `
@@ -422,9 +510,9 @@ export default function HomePlansScreen() {
       <StyledFlexNavBar>
         <LogoAlt />
         <FlexLogin>
-          <CardsLogo src="metodosPay.JPG" height="45px" width="133px" />
-          <Barra />
-          <StyledLogin onClick={() => router.push('/login')}>LOG-IN</StyledLogin>
+            <CardsLogo src="metodosPay.JPG" height="45px" width="133px" />
+            <Barra />
+            <StyledLogin onClick={() => router.push('/login')}>LOG-IN</StyledLogin>
         </FlexLogin>
       </StyledFlexNavBar>
       <FlexDivEtapas>
@@ -487,7 +575,6 @@ export default function HomePlansScreen() {
                     {' '}
                     {/*isso aqui tem que receber key ----------------------------*/}
                     <ContHour
-                      key={index}
                       isSelected={selectedHour === `${item} hours`}
                       onClick={() => handleClickHour(`${item} hours`)}
                     >
@@ -502,7 +589,6 @@ export default function HomePlansScreen() {
                     {' '}
                     {/*isso aqui tem que receber key  -----------------------------*/}
                     <ContHour
-                      key={index}
                       isSelected={selectedHour === `${item} hours`}
                       onClick={() => handleClickHour(`${item} hours`)}
                     >

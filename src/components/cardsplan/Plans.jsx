@@ -14,15 +14,15 @@ const StyledTitleCard = styled.h1`
 	margin-left: 10px;
 	margin-top: 20px;
 	width: 100%;
-	@media (max-width: 769px) {
+	 @media (max-width: 769px) {
 		font-size: 25px;
 	}
 	@media (max-width: 426px) {
-		font-size: 27px;
+		font-size: 21px;
 	}
-	@media (max-width: 376px) {
-		font-size: 29px;
-	}
+	 @media (max-width: 376px) {
+		font-size: 26px;
+	}  
 `;
 const StyledReadyImage = styled.img`
 	width: 30px;
@@ -39,14 +39,11 @@ const StyledNameCleaning = styled.p`
 	height: 15%;
 	font-weight: 800;
 
-	@media (max-width: 426px) {
+	 @media (max-width: 426px) {
+		font-size: 20px;
+	}
+	 @media (max-width: 376px) {
 		font-size: 23px;
-	}
-	@media (max-width: 376px) {
-		font-size: 26px;
-	}
-	@media (max-width: 374px) {
-		font-size: 30px;
 	}
 `;
 const StyledDescription = styled.p`
@@ -59,18 +56,15 @@ const StyledDescription = styled.p`
 	justify-content: flex-start;
 	font-weight: 500;
 	margin-top: 10px;
-	@media (max-width: 769px) {
+	 @media (max-width: 769px) {
 		font-size: 16px;
-	}
-	@media (max-width: 426px) {
-		font-size: 24px;
+	} 
+	 @media (max-width: 426px) {
+		font-size: 20px;
 		font-weight: 500;
 	}
-	@media (max-width: 376px) {
-		font-size: 27px;
-	}
-	@media (max-width: 374px) {
-		font-size: 30px;
+	 @media (max-width: 376px) {
+		font-size: 23px;
 	}
 `;
 const StyledBarra = styled.div`

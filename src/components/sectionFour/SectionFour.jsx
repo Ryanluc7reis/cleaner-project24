@@ -39,14 +39,6 @@ const StyledTitle = styled.h1`
 	font-size: 37px;
 	margin-bottom: 90px;
 `;
-const FlexCards = styled.div`
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-around;
-	@media (max-width: 426px) {
-		flex-direction: column;
-	}
-`;
 const ButtonAlt = styled(Button)`
 	margin-top: 500px;
 	position: absolute;
@@ -56,6 +48,7 @@ const ButtonAlt = styled(Button)`
 		position: relative;
 	}
 `;
+
 
 export default function SectionFour() {
 	return (
