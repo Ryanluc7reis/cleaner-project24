@@ -65,7 +65,10 @@ export const ErrorMessage = styled.span`
   font-weight: bolder;
   font-size: 14px;
   transform: translate(10%, 70%);
-
+	@media (max-width: 768px){
+    font-size: 17px;
+    padding: 10px 36px;
+  }
   &::before {
     content: '';
     position: absolute;
@@ -77,6 +80,10 @@ export const ErrorMessage = styled.span`
     border-left: 15px solid transparent;
     border-right: 15px solid transparent;
     border-top: 15px solid #1a1aec9e;
+  }
+
+  @media (max-width: 900px){
+    transform: translate(-70%, 70%);
   }
 `
 

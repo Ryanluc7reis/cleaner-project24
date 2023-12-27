@@ -70,6 +70,18 @@ const StyledFlexInputs = styled.div`
 const ErrorMessageAlt = styled(ErrorMessage)`
  margin-left: 445px;
  transform: translate(5%, -110%);
+ @media (max-width: 1025px){
+    transform: translate(-40%, -110%);
+  }
+	@media (max-width: 850px){
+    transform: translate(-70%, -110%);
+  }
+	@media (max-width: 600px){
+    transform: translate(-115%, -110%);
+  }
+	@media (max-width: 500px){
+    transform: translate(-140%, -110%);
+  }
 `
 
 export default function SectionFour() {
@@ -102,7 +114,7 @@ export default function SectionFour() {
 			{error && <ErrorMessageAlt>That region is invalid.</ErrorMessageAlt>}
 			<StyledFlexInputs>
 				<Input placeholder="Enter your region" value={valor} onChange={handleInputChange}/>
-				<Button onClick={handleSubmit}  />
+				<Button onClick={handleSubmit}  >Lets´go</Button>
 			</StyledFlexInputs>
 			<ImageWithServices />
 		</StyledContainer>
