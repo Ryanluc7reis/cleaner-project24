@@ -111,9 +111,9 @@ export default function SectionOne() {
             <H5>• Liability Insured Up to £4M</H5>
           </StyledH5>
           {error && <ErrorMessage>That region is invalid.</ErrorMessage>}
-          <StyledForm>
+          <StyledForm id='input1'>
             <Input  placeholder="Enter your region" value={valor} onChange={handleInputChange} />
-            <Button type='button' onClick={handleSubmit} />
+          <Button type='button' onClick={handleSubmit} >Lets´go</Button>
           </StyledForm>
         </StyledContainer1>
       </BoxShadow>
