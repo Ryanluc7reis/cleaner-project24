@@ -20,7 +20,8 @@ const fadeIn = keyframes`
 `
 const DateCalendarAlt = styled(BasicDateCalendar)`
   //background: linear-gradient(rgba(228, 228, 228, 1), rgba(202, 202, 202, 1));
-  background: #3498db;
+  background: #ebf0f3;
+  border-radius: 9px;
   font-size: 32rem;
   box-shadow:
     rgba(0, 0, 0, 0.19) 0px 2px 1px,
@@ -31,7 +32,7 @@ const DateCalendarAlt = styled(BasicDateCalendar)`
   > div {
     font-size: 42rem;
     > .css-cyfsxc-MuiPickersCalendarHeader-labelContainer {
-      color: #00ff00;
+      color: #212020d2;
       font-size: 2rem;
       font-weight: 700;
     }
@@ -39,24 +40,24 @@ const DateCalendarAlt = styled(BasicDateCalendar)`
   span {
     font-size: 16px;
     font-weight: 700;
-    color: #5050b3;
+    color: #212020d2;
   }
   button {
-    color: purple;
+    color: #091397e4;
     font-size: 14px;
     font-weight: 700;
     .MuiButtonBase-root {
     }
     > svg {
-      background-color: black;
-      color: #00ff00;
+      background-color: #1c10a59f;
+      color: #fff;
     }
     :hover {
       background-color: #5050b3;
     }
     :active {
       transition: ease-in-out;
-      color: #00ff00;
+      color: #242c9981;
       background-image: url('public/balon.png');
     }
   }
@@ -73,20 +74,18 @@ const Container = styled.div`
 `
 const LogoAlt = styled(Logo)`
   margin-left: 40px;
+  color : #242c99b7;
 `
-const StyledLogin = styled.div`
+const StyledLogin = styled.h5`
   cursor: pointer;
-  font-size: 24px;
-  background: #56648f;
-  padding: 15px 25px;
-  border-radius: 10px;
-  color: #fff;
-  text-align: center;
+  font-size: 22px;
+  color: #242c99b7;
   margin-right: 15px;
+  margin-top: 18px;
   font-weight: 600;
   transition: all 200ms ease-in-out;
   :hover {
-    background-color: #677db7;
+    color: #677cb76d;
   }
 `
 
@@ -98,7 +97,7 @@ const Barra = styled.div`
   width: 2px;
   height: 45px;
   margin-top: 7px;
-  background-color: #ffffff;
+  background-color: #20202096;
 `
 const BarraAlt = styled(Barra)`
   background-color: #80808050;
@@ -110,7 +109,7 @@ const StyledFlexNavBar = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #5cb2fdce;
+  background: #edededaf;
   width: 100%;
   height: 100px;
 `
@@ -127,7 +126,6 @@ const FlexDivEtapas = styled.div`
   position: sticky;
   top: 0;
   z-index: 100;
-  //padding-top:9.9rem;
 `
 const DivEtapas = styled.div`
   width: 100%;
@@ -135,7 +133,7 @@ const DivEtapas = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: #707272;
+  background-color: #ffffff;
 `
 const FlexEtapas = styled.div`
   display: flex;
@@ -144,24 +142,23 @@ const FlexEtapas = styled.div`
   gap: 4px;
 `
 const Etapas = styled.h5`
-  color: white;
+  color: #212020d2;
   font-size: 16px;
 `
 const SubEtapas = styled.h5`
   font-size: 15px;
-  color: #ffffff58;
+  color: #2c2c2c57;
   font-weight: 700;
 `
 
 const ProgressEtapas = styled.div`
   height: 5px;
-  background: brown;
+  background: #242c9981;
 `
 const ContainerPlans = styled.div`
   background: #edededaf;
   width: 100%;
   height: auto;
-  //margin-top:84px;
 `
 const ContainerTimes = styled.div`
   background: #edededaf;
@@ -267,7 +264,7 @@ const Hours = styled.p`
 const ContHour = styled.div`
   display: flex;
   align-items: center;
-  background-color: ${(props) => (props.isSelected ? '#2587A5' : 'rgb(255, 255, 255)')};
+  background-color: ${(props) => (props.isSelected ? '#091397b8' : 'rgb(255, 255, 255)')};
   gap: 3px;
   transition: 0.5s;
   padding: 5px;
@@ -334,42 +331,17 @@ const TypesHours = styled.p`
 `
 const listHours = ['2', '2.5', '3', '3.5', '4']
 const listHours2 = ['5', '5.5', '6', '7', '8']
-const ListStartHours = [
-  '07:00 AM',
-  '07:30 AM',
-  '08:00 AM',
-  '08:30 AM',
-  '09:00 AM',
-  '09:30 AM',
-  '10:00 AM',
-  '10:30 AM',
-  '11:00 AM',
-  '11:30 AM',
-  '12:00 AM',
-  '12:30 AM',
-  '01:00 PM',
-  '01:30 PM',
-  '02:00 PM',
-  '02:30 PM',
-  '03:00 PM',
-  '03:30 PM',
-  '04:00 PM',
-  '04:30 PM',
-  '05:00 PM',
-  '05:30 PM',
-  '06:00 PM',
-  '06:30 PM',
-  '07:00 PM'
-]
+const ListStartHours = ['07:00 AM','07:30 AM','08:00 AM','08:30 AM','09:00 AM',
+  '09:30 AM','10:00 AM','10:30 AM','11:00 AM','11:30 AM','12:00 AM','12:30 AM',
+  '01:00 PM','01:30 PM','02:00 PM','02:30 PM','03:00 PM','03:30 PM','04:00 PM',
+  '04:30 PM','05:00 PM','05:30 PM','06:00 PM','06:30 PM','07:00 PM']
 
-export default function HomePlansScreen({ id, onClick }) {
+export default function HomePlansScreen() {
   const [planChosen, setPlanChosen] = useState(false)
-  // const [regionChosen, setregionChosen] = useState(false)
   const [dateChosen, setDateChosen] = useState(false)
   const [hourChosen, setHourChosen] = useState(false)
   const [startHourChosen, setStartHourChosen] = useState(false)
   const [cardOption1, setCardOption1] = useState(false)
-  const [count, setCount] = useState(0)
   const [inputUpdateHour, setinputUpdateHour] = useState('')
   const [showBoxHour, setshowBoxHour] = useState(false)
   const [listHour2, setListHour2] = useState(null)
@@ -387,8 +359,7 @@ export default function HomePlansScreen({ id, onClick }) {
 
   const [progress, setProgress] = useState(0)
   const totalSteps = 5
-
-  // const [widthValues, setWidthValues] = useState(0)
+  
   const updateInputHour = (clickedWord) => {
     setinputUpdateHour(clickedWord)
     setshowBoxHour(!showBoxHour)
@@ -433,7 +404,7 @@ export default function HomePlansScreen({ id, onClick }) {
 
   const updateProgress = () => {
     const stepsCompleted = [
-      activeCard !== null,
+      cardValues !== null,
       dateChosen,
       hourChosen,
       startHourChosen,
@@ -451,9 +422,9 @@ export default function HomePlansScreen({ id, onClick }) {
       <StyledFlexNavBar>
         <LogoAlt />
         <FlexLogin>
-          <CardsLogo src="cardsLogo.png" height="45px" width="125px" />
+          <CardsLogo src="metodosPay.JPG" height="45px" width="133px" />
           <Barra />
-          <StyledLogin onClick={() => router.push('/login')}>Login</StyledLogin>
+          <StyledLogin onClick={() => router.push('/login')}>LOG-IN</StyledLogin>
         </FlexLogin>
       </StyledFlexNavBar>
       <FlexDivEtapas>
