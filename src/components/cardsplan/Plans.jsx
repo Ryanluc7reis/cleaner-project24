@@ -14,15 +14,15 @@ const StyledTitleCard = styled.h1`
 	margin-left: 10px;
 	margin-top: 20px;
 	width: 100%;
-	@media (max-width: 769px) {
+	 @media (max-width: 769px) {
 		font-size: 25px;
 	}
 	@media (max-width: 426px) {
-		font-size: 27px;
+		font-size: 21px;
 	}
-	@media (max-width: 376px) {
-		font-size: 29px;
-	}
+	 @media (max-width: 376px) {
+		font-size: 26px;
+	}  
 `;
 const StyledReadyImage = styled.img`
 	width: 30px;
@@ -39,14 +39,11 @@ const StyledNameCleaning = styled.p`
 	height: 15%;
 	font-weight: 800;
 
-	@media (max-width: 426px) {
+	 @media (max-width: 426px) {
+		font-size: 20px;
+	}
+	 @media (max-width: 376px) {
 		font-size: 23px;
-	}
-	@media (max-width: 376px) {
-		font-size: 26px;
-	}
-	@media (max-width: 374px) {
-		font-size: 30px;
 	}
 `;
 const StyledDescription = styled.p`
@@ -59,18 +56,15 @@ const StyledDescription = styled.p`
 	justify-content: flex-start;
 	font-weight: 500;
 	margin-top: 10px;
-	@media (max-width: 769px) {
+	 @media (max-width: 769px) {
 		font-size: 16px;
-	}
-	@media (max-width: 426px) {
-		font-size: 24px;
+	} 
+	 @media (max-width: 426px) {
+		font-size: 20px;
 		font-weight: 500;
 	}
-	@media (max-width: 376px) {
-		font-size: 27px;
-	}
-	@media (max-width: 374px) {
-		font-size: 30px;
+	 @media (max-width: 376px) {
+		font-size: 23px;
 	}
 `;
 const StyledBarra = styled.div`
@@ -103,19 +97,19 @@ export default function Plans({ plan }) {
 					<StyledNameCleaning>- Choose your Cleaning</StyledNameCleaning>
 					<StyledBarrAlt1 />
 					<StyledDescription>
-						<StyledReadyImage src="/readyIcon1.png" />
+						<StyledReadyImage src="/checkIconB.png" />
 						Wet Manual Cleaning
 					</StyledDescription>
 					<StyledDescription>
-						<StyledReadyImage src="/readyIcon1.png" />
+						<StyledReadyImage src="/checkIconB.png" />
 						Dry Cleaning
 					</StyledDescription>
 					<StyledDescription>
-						<StyledReadyImage src="/readyIcon1.png" />
+						<StyledReadyImage src="/checkIconB.png" />
 						Window Cleaning
 					</StyledDescription>
 					<StyledDescription>
-						<StyledReadyImage src="/readyIcon1.png" />
+						<StyledReadyImage src="/checkIconB.png" />
 						Home Apliance Cleaning
 					</StyledDescription>
 				</StyledContAll>
@@ -131,15 +125,15 @@ export default function Plans({ plan }) {
 					</StyledNameCleaning>
 					<StyledBarrAlt />
 					<StyledDescription>
-						<StyledReadyImage src="/readyIcon1.png" />
+						<StyledReadyImage src="/checkIconB.png" />
 						Tenha seus móveis limpados com pano úmido
 					</StyledDescription>
 					<StyledDescription>
-						<StyledReadyImage src="/readyIcon1.png" />
+						<StyledReadyImage src="/checkIconB.png" />
 						Tenha seu chão varrido com vassoura{" "}
 					</StyledDescription>
 					<StyledDescription>
-						<StyledReadyImage src="/readyIcon1.png" />
+						<StyledReadyImage src="/checkIconB.png" />
 						Tenha seu chão limpado com pano úmido
 					</StyledDescription>
 				</StyledContAll>
@@ -155,15 +149,15 @@ export default function Plans({ plan }) {
 					</StyledNameCleaning>
 					<StyledBarrAlt />
 					<StyledDescription>
-						<StyledReadyImage src="/readyIcon1.png" />
+						<StyledReadyImage src="/checkIconB.png" />
 						Tenha seus móveis limpados com pano úmido
 					</StyledDescription>
 					<StyledDescription>
-						<StyledReadyImage src="/readyIcon1.png" />
+						<StyledReadyImage src="/checkIconB.png" />
 						Tenha seu chão limpado com àgua + produtos de limpeza{" "}
 					</StyledDescription>
 					<StyledDescription>
-						<StyledReadyImage src="/readyIcon1.png" />
+						<StyledReadyImage src="/checkIconB.png" />
 						Tenha sua janela limpada com àgua e produtos de limpeza
 					</StyledDescription>
 				</StyledContAll>
@@ -180,19 +174,19 @@ export default function Plans({ plan }) {
 					</StyledNameCleaning>
 					<StyledBarra />
 					<StyledDescription>
-						<StyledReadyImage src="/readyIcon1.png" />
+						<StyledReadyImage src="/checkIconB.png" />
 						Tenha seus móveis limpados com pano úmido
 					</StyledDescription>
 					<StyledDescription>
-						<StyledReadyImage src="/readyIcon1.png" />
+						<StyledReadyImage src="/checkIconB.png" />
 						Tenha seu chão limpado com àgua + produtos de limpeza{" "}
 					</StyledDescription>
 					<StyledDescription>
-						<StyledReadyImage src="/readyIcon1.png" />
+						<StyledReadyImage src="/checkIconB.png" />
 						Tenha sua janela limpada com àgua e produtos de limpeza
 					</StyledDescription>
 					<StyledDescription>
-						<StyledReadyImage src="/readyIcon1.png" />
+						<StyledReadyImage src="/checkIconB.png" />
 						Tenha seus eletrodomésticos limpados{" "}
 					</StyledDescription>
 				</StyledContAll>

@@ -27,11 +27,9 @@ const StyledCard = styled.div`
 		width: 410px;
 		height: 100%;
 	}
-	@media (max-width: 376px) {
-		width: 410px;
-		height: 100%;
-	}
 `;
+
+
 
 export default function Cards({
 	id,
@@ -41,7 +39,7 @@ export default function Cards({
 	children,
 	...props
 }) {
-	const cardColor = isActive ? "#2587A5" : "white";
+	const cardColor = isActive ? "#0612c3ab" : "white";
 	return (
 		<Container>
 			{type === "1" && (
