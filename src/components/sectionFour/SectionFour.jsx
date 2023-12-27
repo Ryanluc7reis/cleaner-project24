@@ -114,7 +114,7 @@ export default function SectionFour() {
 			{error && <ErrorMessageAlt>That region is invalid.</ErrorMessageAlt>}
 			<StyledFlexInputs>
 				<Input placeholder="Enter your region" value={valor} onChange={handleInputChange}/>
-				<Button onClick={handleSubmit}  >Lets´go</Button>
+				<Button onClick={handleSubmit}  >Let´s go</Button>
 			</StyledFlexInputs>
 			<ImageWithServices />
 		</StyledContainer>

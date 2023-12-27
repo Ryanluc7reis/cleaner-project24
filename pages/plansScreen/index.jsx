@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import Button from '../../src/components/form/Button'
 import React from 'react'
 import { Link } from 'react-scroll'
+import dynamic from 'next/dynamic'
 
 const fadeIn = keyframes`
   from {
@@ -426,7 +427,7 @@ const ListStartHours = ['07:00 AM','07:30 AM','08:00 AM','08:30 AM','09:00 AM',
   '01:00 PM','01:30 PM','02:00 PM','02:30 PM','03:00 PM','03:30 PM','04:00 PM',
   '04:30 PM','05:00 PM','05:30 PM','06:00 PM','06:30 PM','07:00 PM']
 
-export default function HomePlansScreen() {
+ function HomePlansScreen() {
   const [planChosen, setPlanChosen] = useState(false)
   const [dateChosen, setDateChosen] = useState(false)
   const [hourChosen, setHourChosen] = useState(false)
@@ -578,7 +579,6 @@ export default function HomePlansScreen() {
               ? listHours2.map((item, index) => (
                   <React.Fragment key={index}>
                     {' '}
-                    {/*isso aqui tem que receber key ----------------------------*/}
                     <ContHour
                       isSelected={selectedHour === `${item} hours`}
                       onClick={() => handleClickHour(`${item} hours`)}
@@ -592,7 +592,6 @@ export default function HomePlansScreen() {
               : listHours.map((item, index) => (
                   <React.Fragment key={index}>
                     {' '}
-                    {/*isso aqui tem que receber key  -----------------------------*/}
                     <ContHour
                       isSelected={selectedHour === `${item} hours`}
                       onClick={() => handleClickHour(`${item} hours`)}
@@ -635,3 +634,4 @@ export default function HomePlansScreen() {
     </Container>
   )
 }
+export default dynamic (() => Promise.resolve(HomePlansScreen), {ssr: false})
