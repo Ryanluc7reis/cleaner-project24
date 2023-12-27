@@ -53,20 +53,56 @@ const StyledForm = styled.form`
   padding-left: 20px;
 `
 
+export const ErrorMessage = styled.span`
+  position: absolute;
+  color: #fbd0d0;
+  background-color: #1a1aecb0;
+  width: 180px;
+  height: 74px;
+  text-align: center;
+  border: 2px solid #1a1aecc0;
+  padding: 18px 36px;
+  font-weight: bolder;
+  font-size: 14px;
+  transform: translate(10%, 70%);
+	@media (max-width: 768px){
+    font-size: 17px;
+    padding: 10px 36px;
+  }
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: -22%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid #1a1aec9e;
+  }
+
+  @media (max-width: 900px){
+    transform: translate(-70%, 70%);
+  }
+`
+
 export default function SectionOne() {
   const router = useRouter()
 
   const [valor, setValor] = useState('')
+  const [error, setError] = useState(false)
 
   const handleInputChange = (event) => {
     setValor(event.target.value)
   }
 
   const handleSubmit = () => {
-    if (valor.trim() !== '') {
-      router.push(`/plansScreen?region=${encodeURIComponent(valor)}`)
+    if (valor.trim().length < 3) {
+      setError(true);
     } else {
-      console.error('O valor não pode estar vazio!')
+      setError(false);
+      router.push(`/plansScreen?region=${encodeURIComponent(valor)}`)
     }
   }
 
@@ -76,14 +112,15 @@ export default function SectionOne() {
         <Navbar />
         <StyledContainer1>
           <H2>Find Top Rated Cleaners!</H2>
-          <StyledH5>
+          <StyledH5 id='input1'>
             <H5>• Change Your Cleaner at Anytime</H5>
             <H5>• Dedicated Customer Service</H5>
             <H5>• Liability Insured Up to £4M</H5>
           </StyledH5>
-          <StyledForm>
-            <Input placeholder="Enter your region" value={valor} onChange={handleInputChange} />
-            <Button type="button" onClick={handleSubmit} />
+          {error && <ErrorMessage>That region is invalid.</ErrorMessage>}
+          <StyledForm >
+            <Input  placeholder="Enter your region" value={valor} onChange={handleInputChange} />
+            <Button type='button' onClick={handleSubmit} >Lets´go</Button>
           </StyledForm>
         </StyledContainer1>
       </BoxShadow>

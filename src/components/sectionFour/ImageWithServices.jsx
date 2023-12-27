@@ -118,7 +118,7 @@ const StyledSaibaMais = styled.span`
   font-weight: 600;
   text-decoration: underline;
   margin-top: 10px;
-  color: #32a6e9;
+  color: #242c99d5;
   :hover {
     cursor: pointer;
     transition: all 0.2s ease-in-out;

@@ -26,6 +26,7 @@
     "react-datepicker": "^4.25.0",
     "react-day-picker": "^8.9.1",
     "react-dom": "18.2.0",
+    "react-scroll": "^1.9.0",
     "swiper": "^11.0.5"
   },
   "devDependencies": {

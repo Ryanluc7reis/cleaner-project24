@@ -20,11 +20,11 @@ const StyledButton = styled.button`
     font-weight: 700;
   }
 `;
-export default function Button(props) {
+export default function Button({ children,  disabled,...props }) {
   return (
     <StyledButton disabled={props.isDisabled} {...props}>
-      {/* Se receber props.valor, ele exibe a props como texto dentro do componente */}
-      {props.valor ? props.valor : "Let's go"}
+      {children}
+      {props.valor ? props.valor : ""}
     </StyledButton>
   );
 }

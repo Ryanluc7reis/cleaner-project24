@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Plans from "./Plans";
+import { Link } from 'react-scroll'
 
 const Container = styled.div`
 	display: flex;
@@ -42,46 +43,48 @@ export default function Cards({
 	const cardColor = isActive ? "#0612c3ab" : "white";
 	return (
 		<Container>
-			{type === "1" && (
-				<StyledCard
-					onClick={() => onClick(id)}
-					style={{ backgroundColor: cardColor }}
-					{...props}
-				>
-					<Plans plan="1" />
-					{children}
-				</StyledCard>
-			)}
-			{type === "2" && (
-				<StyledCard
-					onClick={() => onClick(id)}
-					style={{ backgroundColor: cardColor }}
-					{...props}
-				>
-					<Plans plan="2" />
-					{children}
-				</StyledCard>
-			)}
-			{type === "3" && (
-				<StyledCard
-					onClick={() => onClick(id)}
-					style={{ backgroundColor: cardColor }}
-					{...props}
-				>
-					<Plans plan="3" />
-					{children}
-				</StyledCard>
-			)}
-			{type === "4" && (
-				<StyledCard
-					onClick={() => onClick(id)}
-					style={{ backgroundColor: cardColor }}
-					{...props}
-				>
-					<Plans plan="4" />
-					{children}
-				</StyledCard>
-			)}
+			<Link to="calendar" spy={true} smooth={true} offset={-100} duration={500}>
+					{type === "1" && (
+						<StyledCard
+							onClick={() => onClick(id)}
+							style={{ backgroundColor: cardColor }}
+							{...props}
+						>
+							<Plans plan="1" />
+							{children}
+						</StyledCard>
+					)}
+					{type === "2" && (
+						<StyledCard
+							onClick={() => onClick(id)}
+							style={{ backgroundColor: cardColor }}
+							{...props}
+						>
+							<Plans plan="2" />
+							{children}
+						</StyledCard>
+					)}
+					{type === "3" && (
+						<StyledCard
+							onClick={() => onClick(id)}
+							style={{ backgroundColor: cardColor }}
+							{...props}
+						>
+							<Plans plan="3" />
+							{children}
+						</StyledCard>
+					)}
+					{type === "4" && (
+						<StyledCard
+							onClick={() => onClick(id)}
+							style={{ backgroundColor: cardColor }}
+							{...props}
+						>
+							<Plans plan="4" />
+							{children}
+						</StyledCard>
+					)}
+			</Link>
 
 {["1", "2", "3", "4"].map((plano, indice) => (
     type === "5" && (

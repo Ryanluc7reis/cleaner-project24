@@ -14,7 +14,7 @@ const Container = styled.div`
 		justify-content: center;
 		flex-direction: column;
 		align-items: center;
-		gap: 10px;
+		gap: 50px;
 	}
 `;
 
@@ -46,7 +46,6 @@ const StyledFlexNavBar = styled.div`
 	padding: 10px 20px;
 	@media (max-width: 768px) {
 		flex-direction: column;
-		justify-content: center;
 		align-items: center;
 		gap: 7px;
 	}
@@ -118,7 +117,7 @@ export default function LoginPage() {
 					<SignYourAcc>Sign in to your account</SignYourAcc>
 					<InputAlt label="Email Address" placeholder="Email" />
 					<InputAlt label="Password" placeholder="Password" />
-					<ButtonAlt />
+					<ButtonAlt >Lets´go</ButtonAlt>
 					<EsqueceuAsenha>
 						<Link href="/">Forgot you password ?</Link>{" "}
 					</EsqueceuAsenha>

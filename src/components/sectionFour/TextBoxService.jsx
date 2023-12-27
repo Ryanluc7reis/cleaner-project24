@@ -23,7 +23,7 @@ const StyledTextBoxService = styled.div`
 const TitleTextBox = styled.h3`
   align-items: center;
   font-size: 17px;
-  color: #ff851beb;
+  color: #242c99e9;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -40,8 +40,7 @@ const TitleTextBox = styled.h3`
 `;
 const TextBox = styled.h4`
   align-items: center;
-  //color: #343434;
-  background-image: linear-gradient(15deg, #242c99, #25a0a8, #242c99);
+  background-image: linear-gradient(15deg, #242c9999, #25a0a8, #242c9998);
   background-clip: text;
   -webkit-background-clip: text;
   -moz-background-clip: text;
