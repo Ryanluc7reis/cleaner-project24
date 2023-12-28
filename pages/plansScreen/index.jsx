@@ -306,7 +306,6 @@ const ButtonAlt = styled(Button)`
 `
 const Seta = styled.img`
   padding: 3px;
- 
   cursor: ${(props) => (props.isDisabled ? 'default' : 'pointer')};
   opacity: ${(props) => (props.isDisabled ? '0.5' : '1')};
   background-color: ${(props) => (props.isDisabled ? '#80808050' : 'transparent')};
@@ -453,6 +452,7 @@ function HomePlansScreen() {
   const [selectedHour, setSelectedHour] = useState(null)
   const [selectedDate, setSelectedDate] = useState(null)
   const [activeCard, setActiveCard] = useState(null)
+  const [progress, setProgress] = useState(0)
   const [cardValues, setCardValues] = useState({
     0: 'Optional',
     1: 'Basic',
@@ -460,7 +460,7 @@ function HomePlansScreen() {
     3: 'Complete'
   })
 
-  const [progress, setProgress] = useState(0)
+ 
   const totalSteps = 5
 
   const updateInputHour = (clickedWord) => {
