@@ -116,7 +116,7 @@ export default function LoginPage() {
 				<StyledBoxInputs>
 					<SignYourAcc>Sign in to your account</SignYourAcc>
 					<InputAlt label="Email Address" placeholder="Email" />
-					<InputAlt label="Password" placeholder="Password" />
+					<InputAlt label="Password" placeholder="Password" password />
 					<ButtonAlt >Lets´go</ButtonAlt>
 					<EsqueceuAsenha>
 						<Link href="/">Forgot you password ?</Link>{" "}

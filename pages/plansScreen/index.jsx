@@ -20,7 +20,6 @@ const fadeIn = keyframes`
   }
 `
 const DateCalendarAlt = styled(BasicDateCalendar)`
-  //background: linear-gradient(rgba(228, 228, 228, 1), rgba(202, 202, 202, 1));
   background: #ebf0f3;
   border-radius: 9px;
   font-size: 32rem;
@@ -59,7 +58,6 @@ const DateCalendarAlt = styled(BasicDateCalendar)`
     :active {
       transition: ease-in-out;
       color: #242c9981;
-      background-image: url('public/balon.png');
     }
   }
 `
@@ -67,10 +65,6 @@ const DateCalendarAlt = styled(BasicDateCalendar)`
 const Container = styled.div`
   width: 100%;
   height: 100%;
-  /* @media (max-width: 426px) {
-  width: 115%;
-
-  } */
 `
 const LogoAlt = styled(Logo)`
   margin-left: 40px;
@@ -312,7 +306,7 @@ const ButtonAlt = styled(Button)`
 `
 const Seta = styled.img`
   padding: 3px;
-  cursor: ${(props) => (props.isDisabled ? 'not-allowed' : 'pointer')};
+  cursor: ${(props) => (props.isDisabled ? 'default' : 'pointer')};
   opacity: ${(props) => (props.isDisabled ? '0.5' : '1')};
   background-color: ${(props) => (props.isDisabled ? '#80808050' : 'transparent')};
   border-radius: 10px;
@@ -412,8 +406,6 @@ const TypesHours = styled.p`
     background-color: #5757f5c4;
   }
   @media (max-width: 767px) {
-    //font-size: 2.4rem;
-    // font-weight: 700;
     color: black;
   }
 `
@@ -452,7 +444,6 @@ function HomePlansScreen() {
   const [dateChosen, setDateChosen] = useState(false)
   const [hourChosen, setHourChosen] = useState(false)
   const [startHourChosen, setStartHourChosen] = useState(false)
-  const [cardOption1, setCardOption1] = useState(false)
   const [inputUpdateHour, setinputUpdateHour] = useState('')
   const [showBoxHour, setshowBoxHour] = useState(false)
   const [listHour2, setListHour2] = useState(null)
@@ -461,6 +452,7 @@ function HomePlansScreen() {
   const [selectedHour, setSelectedHour] = useState(null)
   const [selectedDate, setSelectedDate] = useState(null)
   const [activeCard, setActiveCard] = useState(null)
+  const [progress, setProgress] = useState(0)
   const [cardValues, setCardValues] = useState({
     0: 'Optional',
     1: 'Basic',
@@ -468,7 +460,7 @@ function HomePlansScreen() {
     3: 'Complete'
   })
 
-  const [progress, setProgress] = useState(0)
+ 
   const totalSteps = 5
 
   const updateInputHour = (clickedWord) => {
@@ -516,7 +508,6 @@ function HomePlansScreen() {
       Boolean
     ).length
     const calculatedProgress = (stepsCompleted / totalSteps) * 100
-    console.log(stepsCompleted)
     setProgress(calculatedProgress)
   }
 
