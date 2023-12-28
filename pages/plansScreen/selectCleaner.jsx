@@ -1,15 +1,15 @@
-import styled from "styled-components";
-import { StyledFlexNavBar } from ".";
-import { DivEtapas } from ".";
-import dynamic from "next/dynamic";
-import React from 'react'; 
+import styled from 'styled-components'
+import { StyledFlexNavBar } from '.'
+import { DivEtapas } from '.'
+import dynamic from 'next/dynamic'
+import React from 'react'
 import { useRouter } from 'next/router'
-import Logo from "../../src/components/logo/Logo";
-
+import Logo from '../../src/components/logo/Logo'
+import CardsCleaner from '../../src/components/cleaner/CardCleaner'
+import Cards from '../../src/components/cardsplan/Cards'
 const Container = styled.div`
   width: 100%;
   height: auto;
-  
 `
 const LogoAlt = styled(Logo)`
   margin-left: 40px;
@@ -46,7 +46,7 @@ const CardsLogo = styled.img`
   margin-top: 8px;
 `
 const SetaDown = styled.img`
-   //margin-left: 10px;
+  //margin-left: 10px;
 `
 const FlexLogin = styled.div`
   display: flex;
@@ -72,52 +72,50 @@ const SubEtapas = styled.h5`
 `
 
 function SelectCleaner() {
-  const router = useRouter();
-  const { cardValues, region, selectedDate, selectedHour, inputUpdateHour } = router.query;
+  const router = useRouter()
+  const { cardValues, region, selectedDate, selectedHour, inputUpdateHour } = router.query
   return (
     <Container>
-        <StyledFlexNavBar>
-            <LogoAlt />
-            <FlexLogin>
-              <CardsLogo src="/metodosPay.JPG" height="45px" width="133px" />
-              <Barra />
-              <StyledLogin onClick={() => router.push('/login')}>LOG-IN</StyledLogin>
-            </FlexLogin>
-        </StyledFlexNavBar>
-      <DivEtapas >
-          <FlexEtapas>
-            <Etapas>{region}</Etapas>
-            <SubEtapas>LOCATION</SubEtapas>
-          </FlexEtapas>
-          <SetaDown src="/setadown1.svg" height="45px" width="30px" />
+      <StyledFlexNavBar>
+        <LogoAlt />
+        <FlexLogin>
+          <CardsLogo src="/metodosPay.JPG" height="45px" width="133px" />
           <Barra />
-          <FlexEtapas>
-            <Etapas>{cardValues}</Etapas>
-            <SubEtapas>PLAN</SubEtapas>
-          </FlexEtapas>
-          <SetaDown src="/setadown1.svg" height="45px" width="30px" />
-          <Barra />
-          <FlexEtapas>
-            <Etapas>{selectedDate}</Etapas>
-            <SubEtapas>DATE</SubEtapas>
-          </FlexEtapas>
-          <SetaDown src="/setadown1.svg" height="45px" width="30px" />
-          <Barra />
-          <FlexEtapas>
-            <Etapas>{selectedHour }</Etapas>
-            <SubEtapas>DURATION</SubEtapas>
-          </FlexEtapas>
-          <SetaDown src="/setadown1.svg" height="45px" width="30px" />
-          <Barra />
-          <FlexEtapas>
-            <Etapas>{inputUpdateHour}</Etapas>
-            <SubEtapas>STARTING TIME</SubEtapas>
-          </FlexEtapas>
-          <SetaDown src="/setadown1.svg" height="45px" width="30px" />
+          <StyledLogin onClick={() => router.push('/login')}>LOG-IN</StyledLogin>
+        </FlexLogin>
+      </StyledFlexNavBar>
+      <DivEtapas>
+        <FlexEtapas>
+          <Etapas>{region}</Etapas>
+          <SubEtapas>LOCATION</SubEtapas>
+        </FlexEtapas>
+        <SetaDown src="/setadown1.svg" height="45px" width="30px" />
+        <Barra />
+        <FlexEtapas>
+          <Etapas>{cardValues}</Etapas>
+          <SubEtapas>PLAN</SubEtapas>
+        </FlexEtapas>
+        <SetaDown src="/setadown1.svg" height="45px" width="30px" />
+        <Barra />
+        <FlexEtapas>
+          <Etapas>{selectedDate}</Etapas>
+          <SubEtapas>DATE</SubEtapas>
+        </FlexEtapas>
+        <SetaDown src="/setadown1.svg" height="45px" width="30px" />
+        <Barra />
+        <FlexEtapas>
+          <Etapas>{selectedHour}</Etapas>
+          <SubEtapas>DURATION</SubEtapas>
+        </FlexEtapas>
+        <SetaDown src="/setadown1.svg" height="45px" width="30px" />
+        <Barra />
+        <FlexEtapas>
+          <Etapas>{inputUpdateHour}</Etapas>
+          <SubEtapas>STARTING TIME</SubEtapas>
+        </FlexEtapas>
+        <SetaDown src="/setadown1.svg" height="45px" width="30px" />
       </DivEtapas>
-     
-
- 
+      <CardsCleaner />
     </Container>
   )
 }
