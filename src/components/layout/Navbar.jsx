@@ -139,7 +139,7 @@ export default function Navbar(props) {
         <Options href='/signupAscleaner'>REGISTER AS CLEANER</Options>
       </NavOptions>
   
-      {showD ? <DotsX src='/Xwhite.png' height='45px' width='80px' /> 
+      {showD ? <DotsX src='/Xwhite.svg' height='45px' width='80px' /> 
       :  <Dots id='showDD' onClick={() =>setShowD(!showD) } src='/hamburgericon.png' height= '65px' width='75px' />}
       <StyledOptionsLogin>
           <StyledLogin onClick={() => router.push('/login')}>LOGIN</StyledLogin>
