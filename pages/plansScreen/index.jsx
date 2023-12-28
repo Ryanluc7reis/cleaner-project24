@@ -112,7 +112,7 @@ const BarraAlt = styled(Barra)`
     height: 2px;
   }
 `
-const StyledFlexNavBar = styled.div`
+export const StyledFlexNavBar = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -132,7 +132,7 @@ const StyledFlexNavBar = styled.div`
 const CardsLogo = styled.img`
   margin-top: 8px;
 `
-const FlexDivEtapas = styled.div`
+export const FlexDivEtapas = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -143,7 +143,7 @@ const FlexDivEtapas = styled.div`
     width: 115%;
   }
 `
-const DivEtapas = styled.div`
+export const DivEtapas = styled.div`
   width: 100%;
   height: 80px;
   display: flex;
@@ -460,7 +460,19 @@ function HomePlansScreen() {
     3: 'Complete'
   })
 
- 
+
+   const handleSubmit = () => {
+     if (cardValues && region && selectedDate && selectedHour && inputUpdateHour.length > 0) {
+       const queryParams = new URLSearchParams({
+         cardValues: cardValues[activeCard],
+         region: region,
+         selectedDate: selectedDate,
+         selectedHour: selectedHour,
+         inputUpdateHour: inputUpdateHour
+       });
+       router.push(`/plansScreen/selectCleaner?${queryParams.toString()}`);
+     }
+   };
   const totalSteps = 5
 
   const updateInputHour = (clickedWord) => {
@@ -500,6 +512,7 @@ function HomePlansScreen() {
     setDateChosen(true)
     updateProgress()
   }
+ 
 
   const router = useRouter()
   const { region } = router.query
@@ -514,6 +527,7 @@ function HomePlansScreen() {
   useEffect(() => {
     updateProgress()
   }, [planChosen, dateChosen, hourChosen, startHourChosen, region])
+ 
   return (
     <Container>
       <StyledFlexNavBar>
@@ -629,7 +643,7 @@ function HomePlansScreen() {
       </ContainerTimes>
       <ContainerButton>
         <ButtonAlt
-          onClick={(f) => {}}
+          onClick={handleSubmit}
           isDisabled={
             cardValues && region && selectedDate && selectedHour && inputUpdateHour ? false : true
           }
@@ -639,4 +653,5 @@ function HomePlansScreen() {
     </Container>
   )
 }
+
 export default dynamic(() => Promise.resolve(HomePlansScreen), { ssr: false })
