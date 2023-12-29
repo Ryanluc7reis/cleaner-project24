@@ -96,6 +96,7 @@ export default function SectionOne() {
 
   const handleInputChange = (event) => {
     setValor(event.target.value)
+    event.preventDefault()
   }
 
   const handleSubmit = () => {
@@ -119,8 +120,8 @@ export default function SectionOne() {
             <H5>• Liability Insured Up to £4M</H5>
           </StyledH5>
           {error && <ErrorMessage>That region is invalid.</ErrorMessage>}
-          <StyledForm>
-            <Input placeholder="Enter your region" value={valor} onChange={handleInputChange} />
+          <StyledForm onSubmit={(e) => e.preventDefault()}>
+            <Input  placeholder="Enter your region" value={valor} onChange={handleInputChange} />
             <Button type="button" onClick={handleSubmit}>
               Let´s go
             </Button>

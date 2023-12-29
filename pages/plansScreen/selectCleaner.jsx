@@ -4,15 +4,17 @@ import { DivEtapas } from '.'
 import dynamic from 'next/dynamic'
 import React from 'react'
 import { useRouter } from 'next/router'
-import Logo from '../../src/components/logo/Logo'
-import CardsCleaner from '../../src/components/cleaner/CardCleaner'
-import Cards from '../../src/components/cardsplan/Cards'
+import Logo from "../../src/components/logo/Logo";
+import ListCleaners from "../../src/components/listcleaners/ListCleaners";
+import Button from "../../src/components/form/Button";
+
 const Container = styled.div`
   width: 100%;
   height: auto;
 `
 const LogoAlt = styled(Logo)`
   margin-left: 40px;
+  font-size: 34px;
   color: #242c99b7;
   @media (max-width: 670px) {
     margin: 0;
@@ -32,7 +34,7 @@ const Barra = styled.div`
 `
 const StyledLogin = styled.h5`
   cursor: pointer;
-  font-size: 22px;
+  font-size: 19px;
   color: #242c99b7;
   margin-right: 15px;
   margin-top: 18px;
@@ -61,6 +63,14 @@ const FlexEtapas = styled.div`
     margin: 0;
   }
 `
+const DivEtapasAlt = styled(DivEtapas)`
+box-shadow:
+rgba(255, 255, 255, 0.19) 0px 2px 1px,
+rgba(237, 237, 237, 0.09) 0px 4px 2px,
+rgba(204, 204, 204, 0.09) 0px 8px 4px,
+rgba(211, 211, 211, 0.09) 0px 16px 8px,
+rgba(218, 218, 218, 0.09) 0px 32px 16px;
+`
 const Etapas = styled.h5`
   color: #212020d2;
   font-size: 16px;
@@ -70,52 +80,188 @@ const SubEtapas = styled.h5`
   color: #2c2c2c57;
   font-weight: 700;
 `
+const ContBody = styled.div`
+background:#edededaf;
+width: 100%;
+height: 100vh ;
+display:flex;
+`
+const BoxFilter = styled.div`
+  width: 450px;
+  height: 375px;
+  padding: 20px 35px;
+  background-color: #fff;
+  box-sizing: border-box;
+  position: sticky;
+  top: 0;
+  margin-top: 1px ;
+  margin-left: 40px;
+`
+const Header = styled.h1`
+  font-size: 25px;
+  color: #0101018e;
+ font-weight: 500;
+ display: flex;
+ gap: 10px;
+`
+const HeaderAlt = styled(Header)`
+  font-size: 26px;
+  color: #0101018e;
+ font-weight: 600;
+`
+const HeaderAlt1 = styled(Header)`
+  font-size: 19px;
+  color: #0101018e;
+ font-weight: 400;
+`
+const HedarSub = styled.p`
+ font-size: 13px;
+ margin: 20px 0px;
+`
+const BarraFilter = styled.div`
+  width: 98%;
+  height: 1px;
+  margin-top: 15px;
+  background-color: #2020204f;
+ 
+`
+const BarraSelectedCleaner = styled.div`
+  width: 600px;
+  height: 80px;
+  margin: 0px 370px;
+  background: #fafafa;
+  position: fixed;
+  bottom: 0;
+  padding: 0px 60px;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  box-shadow:
+rgba(54, 54, 54, 0.777) 0px 2px 1px,
+rgba(82, 82, 82, 0.337) 0px 4px 2px,
+rgba(70, 70, 70, 0.25) 0px 8px 4px,
+rgba(85, 85, 85, 0.09) 0px 16px 8px,
+rgba(95, 95, 95, 0.339) 0px 32px 16px;
+`
+const ButtonAlt = styled(Button)`
+  width: 165px;
+  height: 47px;
+  margin: 10px;
+  padding: 5px ;
+  border-radius: 5px;
+  font-size: 14px;
+`
+const BolaCleaner = styled.div`
+  width: 55px;
+  height: 55px;
+  border-radius: 30px;
+  background-color: #cacaca31;
+  border: 4px solid #8b8bfff5;
+  margin-bottom: 70px;
+  z-index: 100;
+`
+const Star = styled.img`
+  height:13px;
+  width:17px;
+`
+const Flexfilters = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  //color: #04047b97;
+`
+const SelectPriceAndCleans = styled.div`
+  width: 70px;
+  height: 35px;
+  background-color: #e1e1e192;
+  border: 2px solid #04047b97;
+  border-radius: 5px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+`
 
 function SelectCleaner() {
   const router = useRouter()
   const { cardValues, region, selectedDate, selectedHour, inputUpdateHour } = router.query
   return (
     <Container>
-      <StyledFlexNavBar>
-        <LogoAlt />
-        <FlexLogin>
-          <CardsLogo src="/metodosPay.JPG" height="45px" width="133px" />
+        <StyledFlexNavBar>
+            <LogoAlt />
+            <FlexLogin>
+              <CardsLogo src="/metodosPay.JPG" height="45px" width="133px" />
+              <Barra />
+              <StyledLogin onClick={() => router.push('/login')}>LOG-IN</StyledLogin>
+            </FlexLogin>
+        </StyledFlexNavBar>
+      <DivEtapasAlt >
+          <FlexEtapas>
+            <Etapas>{region}</Etapas>
+            <SubEtapas>LOCATION</SubEtapas>
+          </FlexEtapas>
           <Barra />
-          <StyledLogin onClick={() => router.push('/login')}>LOG-IN</StyledLogin>
-        </FlexLogin>
-      </StyledFlexNavBar>
-      <DivEtapas>
-        <FlexEtapas>
-          <Etapas>{region}</Etapas>
-          <SubEtapas>LOCATION</SubEtapas>
-        </FlexEtapas>
-        <SetaDown src="/setadown1.svg" height="45px" width="30px" />
-        <Barra />
-        <FlexEtapas>
-          <Etapas>{cardValues}</Etapas>
-          <SubEtapas>PLAN</SubEtapas>
-        </FlexEtapas>
-        <SetaDown src="/setadown1.svg" height="45px" width="30px" />
-        <Barra />
-        <FlexEtapas>
-          <Etapas>{selectedDate}</Etapas>
-          <SubEtapas>DATE</SubEtapas>
-        </FlexEtapas>
-        <SetaDown src="/setadown1.svg" height="45px" width="30px" />
-        <Barra />
-        <FlexEtapas>
-          <Etapas>{selectedHour}</Etapas>
-          <SubEtapas>DURATION</SubEtapas>
-        </FlexEtapas>
-        <SetaDown src="/setadown1.svg" height="45px" width="30px" />
-        <Barra />
-        <FlexEtapas>
-          <Etapas>{inputUpdateHour}</Etapas>
-          <SubEtapas>STARTING TIME</SubEtapas>
-        </FlexEtapas>
-        <SetaDown src="/setadown1.svg" height="45px" width="30px" />
-      </DivEtapas>
-      <CardsCleaner />
+          <FlexEtapas>
+            <Etapas>{cardValues}</Etapas>
+            <SubEtapas>PLAN</SubEtapas>
+          </FlexEtapas>
+          <SetaDown src="/setadown1.svg" height="45px" width="30px" />
+          <Barra />
+          <FlexEtapas>
+            <Etapas>{selectedDate}</Etapas>
+            <SubEtapas>DATE</SubEtapas>
+          </FlexEtapas>
+          <SetaDown src="/setadown1.svg" height="45px" width="30px" />
+          <Barra />
+          <FlexEtapas>
+            <Etapas>{selectedHour }</Etapas>
+            <SubEtapas>DURATION</SubEtapas>
+          </FlexEtapas>
+          <SetaDown src="/setadown1.svg" height="45px" width="30px" />
+          <Barra />
+          <FlexEtapas>
+            <Etapas>{inputUpdateHour}</Etapas>
+            <SubEtapas>STARTING TIME</SubEtapas>
+          </FlexEtapas>
+          <SetaDown src="/setadown1.svg" height="45px" width="30px" />
+      </DivEtapasAlt>
+      <ContBody>
+        <BoxFilter>
+            <Header>
+              Filter:<HeaderAlt>1</HeaderAlt>  
+              <HeaderAlt1>cleaners available</HeaderAlt1>
+            </Header>
+            <Flexfilters>
+                <HedarSub>Price</HedarSub>
+                <SelectPriceAndCleans >
+                  <SetaDown src="/setadown1.svg" height="25px" width="20px" />
+                </SelectPriceAndCleans>
+            </Flexfilters>
+            <BarraFilter />
+            <Flexfilters>
+                <HedarSub>Minimum rating</HedarSub>
+                <div style={{display:'flex',gap:'5px'}}>                   
+                  <Star src="/star.png" />
+                  <Star src="/star.png" />
+                  <Star src="/star.png" />
+                  <Star src="/star.png" />
+                  <Star src="/star.png" />
+                </div>
+            </Flexfilters>
+            <BarraFilter />
+            <Flexfilters>
+                <HedarSub>Minimum cleans</HedarSub>
+                <SelectPriceAndCleans >
+                  <SetaDown src="/setadown1.svg" height="25px" width="20px" />
+                </SelectPriceAndCleans>
+            </Flexfilters>
+        </BoxFilter>
+        <ListCleaners />
+        <BarraSelectedCleaner >
+          <Etapas>Selected Cleaner</Etapas>
+          <BolaCleaner />
+          <ButtonAlt valor='Proceed to booking' />
+        </BarraSelectedCleaner>
+      </ContBody>
     </Container>
   )
 }
