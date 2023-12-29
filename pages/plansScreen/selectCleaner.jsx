@@ -6,6 +6,7 @@ import React from 'react';
 import { useRouter } from 'next/router'
 import Logo from "../../src/components/logo/Logo";
 import ListCleaners from "../../src/components/listcleaners/ListCleaners";
+import Button from "../../src/components/form/Button";
 
 const Container = styled.div`
   width: 100%;
@@ -13,6 +14,7 @@ const Container = styled.div`
 `
 const LogoAlt = styled(Logo)`
   margin-left: 40px;
+  font-size: 34px;
   color: #242c99b7;
   @media (max-width: 670px) {
     margin: 0;
@@ -32,7 +34,7 @@ const Barra = styled.div`
 `
 const StyledLogin = styled.h5`
   cursor: pointer;
-  font-size: 22px;
+  font-size: 19px;
   color: #242c99b7;
   margin-right: 15px;
   margin-top: 18px;
@@ -85,13 +87,13 @@ height: 100vh ;
 display:flex;
 `
 const BoxFilter = styled.div`
-  width: 400px;
+  width: 450px;
   height: 375px;
   padding: 20px 35px;
   background-color: #fff;
   box-sizing: border-box;
   position: sticky;
-  top: 27%;
+  top: 0;
   margin-top: 1px ;
   margin-left: 40px;
 `
@@ -123,7 +125,61 @@ const BarraFilter = styled.div`
   background-color: #2020204f;
  
 `
-
+const BarraSelectedCleaner = styled.div`
+  width: 600px;
+  height: 80px;
+  margin: 0px 370px;
+  background: #fafafa;
+  position: fixed;
+  bottom: 0;
+  padding: 0px 60px;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  box-shadow:
+rgba(54, 54, 54, 0.777) 0px 2px 1px,
+rgba(82, 82, 82, 0.337) 0px 4px 2px,
+rgba(70, 70, 70, 0.25) 0px 8px 4px,
+rgba(85, 85, 85, 0.09) 0px 16px 8px,
+rgba(95, 95, 95, 0.339) 0px 32px 16px;
+`
+const ButtonAlt = styled(Button)`
+  width: 165px;
+  height: 47px;
+  margin: 10px;
+  padding: 5px ;
+  border-radius: 5px;
+  font-size: 14px;
+`
+const BolaCleaner = styled.div`
+  width: 55px;
+  height: 55px;
+  border-radius: 30px;
+  background-color: #cacaca31;
+  border: 4px solid #8b8bfff5;
+  margin-bottom: 70px;
+  z-index: 100;
+`
+const Star = styled.img`
+  height:13px;
+  width:17px;
+`
+const Flexfilters = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  //color: #04047b97;
+`
+const SelectPriceAndCleans = styled.div`
+  width: 70px;
+  height: 35px;
+  background-color: #e1e1e192;
+  border: 2px solid #04047b97;
+  border-radius: 5px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+`
 
 function SelectCleaner() {
   const router = useRouter();
@@ -171,17 +227,40 @@ function SelectCleaner() {
       <ContBody>
         <BoxFilter>
             <Header>
-              Filter:<HeaderAlt>8</HeaderAlt>  
+              Filter:<HeaderAlt>1</HeaderAlt>  
               <HeaderAlt1>cleaners available</HeaderAlt1>
             </Header>
+            <Flexfilters>
+                <HedarSub>Price</HedarSub>
+                <SelectPriceAndCleans >
+                  <SetaDown src="/setadown1.svg" height="25px" width="20px" />
+                </SelectPriceAndCleans>
+            </Flexfilters>
             <BarraFilter />
-            <HedarSub>Minimum rating</HedarSub>
+            <Flexfilters>
+                <HedarSub>Minimum rating</HedarSub>
+                <div style={{display:'flex',gap:'5px'}}>                   
+                  <Star src="/star.png" />
+                  <Star src="/star.png" />
+                  <Star src="/star.png" />
+                  <Star src="/star.png" />
+                  <Star src="/star.png" />
+                </div>
+            </Flexfilters>
             <BarraFilter />
-            <HedarSub>minimum rating</HedarSub>
-            <BarraFilter />
-            <HedarSub>Minimum cleans</HedarSub>
+            <Flexfilters>
+                <HedarSub>Minimum cleans</HedarSub>
+                <SelectPriceAndCleans >
+                  <SetaDown src="/setadown1.svg" height="25px" width="20px" />
+                </SelectPriceAndCleans>
+            </Flexfilters>
         </BoxFilter>
         <ListCleaners />
+        <BarraSelectedCleaner >
+          <Etapas>Selected Cleaner</Etapas>
+          <BolaCleaner />
+          <ButtonAlt valor='Proceed to booking' />
+        </BarraSelectedCleaner>
       </ContBody>
     </Container>
   )
