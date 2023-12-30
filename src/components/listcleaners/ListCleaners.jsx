@@ -1,5 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 import Button from '../form/Button'
+import { useState } from 'react'
 
 const ContListCleaners = styled.div`
   display: flex;
@@ -10,15 +11,15 @@ const ContListCleaners = styled.div`
   flex-direction: column;
 `
 const FilterSortby = styled.div`
- font-size: 14px;
- width: 173px;
- height: 50px;
- padding: 7px;
- display: flex;
- gap: 4px;
- align-items: center;
- text-align: center;
- background-color: white;
+  font-size: 14px;
+  width: 173px;
+  height: 50px;
+  padding: 7px;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  text-align: center;
+  background-color: white;
 `
 const Sortby = styled.h4`
   color: #000000ae;
@@ -27,49 +28,48 @@ const SortSub = styled.h4`
   color: #97979775;
   margin-left: 7px;
 `
-const SetaDown = styled.img`
-`
+const SetaDown = styled.img``
 const CardCleaner = styled.div`
-width: 327px;
-height: 210px;
-border-radius: 7px;
-background: white;
-margin-top: 15px;
-align-items: center;
+  width: 327px;
+  height: 210px;
+  border-radius: 7px;
+  background: white;
+  margin-top: 15px;
+  align-items: center;
 `
 const ContCardCleaner = styled.div`
   display: flex;
-justify-content: space-between;
+  justify-content: space-between;
 `
 const NameandPric = styled.div`
   display: flex;
-  margin-top: 25px ;
+  margin-top: 25px;
   justify-content: space-around;
 `
 const NameCleaner = styled.h2`
-color: #5d5d5dd4;
-margin-top: 9px;
+  color: #5d5d5dd4;
+  margin-top: 9px;
 `
 const PriceCleaner = styled.h2`
-font-size: 17px;
-color: #0f1564bb;
-margin-top: 9px;
-margin-left: 7px;
+  font-size: 17px;
+  color: #0f1564bb;
+  margin-top: 9px;
+  margin-left: 7px;
 `
 const MaleIcon = styled.img`
- height:40px;
-  width:55px;
+  height: 40px;
+  width: 55px;
 `
 const Star = styled.img`
- height:11px;
-  width:15px;
+  height: 11px;
+  width: 15px;
 `
 const Barra = styled.div`
   height: 1px;
   width: 100%;
   margin-top: 15px;
   background-color: #808080af;
-` 
+`
 const BarraAlt = styled(Barra)`
   margin-top: 11px;
   height: 43px;
@@ -79,7 +79,6 @@ const ContAbout = styled.div`
   display: flex;
   margin: 0px 12px;
   justify-content: space-around;
-
 `
 const About = styled.h3`
   color: #808080e1;
@@ -104,27 +103,35 @@ const FlexButtons = styled.div`
   display: flex;
   justify-content: space-around;
 `
-export default function ListCleaners () {
+export default function ListCleaners(props) {
   const cleanersData = [
     {
-      name: "Ryan Lucas",
-      price: "£18.90 /h",
+      name: 'Ryan Lucas',
+      price: '£18.90 /h',
       rating: 4.6,
       cleaningCount: 10,
-      experience: "6 months",
+      experience: '6 months'
     },
-    // Adicione mais objetos de dados conforme necessário
-  ];
+    {
+      name: 'Gabriel Machado',
+      price: '£18,90 /h',
+      rating: 5,
+      cleaningCount: 100,
+      experience: 'Since born'
+    }
 
-  return(
+    // Adicione mais objetos de dados conforme necessário
+  ]
+
+  return (
     <ContListCleaners>
-        <FilterSortby>
-          <Sortby>Sort by : </Sortby> 
-          <SortSub >relevance</SortSub>
-          <SetaDown src="/arrowdown.svg" height="12px" width="15px" />
-        </FilterSortby>
-        <ContCardCleaner>
-        {cleanersData.slice(0,2).map((cleaner, index) => (
+      <FilterSortby>
+        <Sortby>Sort by : </Sortby>
+        <SortSub>relevance</SortSub>
+        <SetaDown src="/arrowdown.svg" height="12px" width="15px" />
+      </FilterSortby>
+      <ContCardCleaner>
+        {cleanersData.map((cleaner, index) => (
           <CardCleaner key={index}>
             <NameandPric>
               <div style={{ gap: '3px', display: 'flex' }}>
@@ -154,11 +161,11 @@ export default function ListCleaners () {
             </ContAbout>
             <FlexButtons>
               <ButtonAlt valor="review" />
-              <ButtonAlt valor="select" />
+              <ButtonAlt valor="select" onClick={() => props.onCleanerSelect(cleaner)} />
             </FlexButtons>
           </CardCleaner>
         ))}
-        </ContCardCleaner>
+      </ContCardCleaner>
     </ContListCleaners>
   )
 }
