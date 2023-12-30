@@ -4,9 +4,10 @@ import { DivEtapas } from '.'
 import dynamic from 'next/dynamic'
 import React from 'react'
 import { useRouter } from 'next/router'
-import Logo from "../../src/components/logo/Logo";
-import ListCleaners from "../../src/components/listcleaners/ListCleaners";
-import Button from "../../src/components/form/Button";
+import Logo from '../../src/components/logo/Logo'
+import ListCleaners from '../../src/components/listcleaners/ListCleaners'
+import Button from '../../src/components/form/Button'
+import { useState } from 'react'
 
 const Container = styled.div`
   width: 100%;
@@ -64,12 +65,12 @@ const FlexEtapas = styled.div`
   }
 `
 const DivEtapasAlt = styled(DivEtapas)`
-box-shadow:
-rgba(255, 255, 255, 0.19) 0px 2px 1px,
-rgba(237, 237, 237, 0.09) 0px 4px 2px,
-rgba(204, 204, 204, 0.09) 0px 8px 4px,
-rgba(211, 211, 211, 0.09) 0px 16px 8px,
-rgba(218, 218, 218, 0.09) 0px 32px 16px;
+  box-shadow:
+    rgba(255, 255, 255, 0.19) 0px 2px 1px,
+    rgba(237, 237, 237, 0.09) 0px 4px 2px,
+    rgba(204, 204, 204, 0.09) 0px 8px 4px,
+    rgba(211, 211, 211, 0.09) 0px 16px 8px,
+    rgba(218, 218, 218, 0.09) 0px 32px 16px;
 `
 const Etapas = styled.h5`
   color: #212020d2;
@@ -81,10 +82,10 @@ const SubEtapas = styled.h5`
   font-weight: 700;
 `
 const ContBody = styled.div`
-background:#edededaf;
-width: 100%;
-height: 100vh ;
-display:flex;
+  background: #edededaf;
+  width: 100%;
+  height: 100vh;
+  display: flex;
 `
 const BoxFilter = styled.div`
   width: 450px;
@@ -94,36 +95,35 @@ const BoxFilter = styled.div`
   box-sizing: border-box;
   position: sticky;
   top: 0;
-  margin-top: 1px ;
+  margin-top: 1px;
   margin-left: 40px;
 `
 const Header = styled.h1`
   font-size: 25px;
   color: #0101018e;
- font-weight: 500;
- display: flex;
- gap: 10px;
+  font-weight: 500;
+  display: flex;
+  gap: 10px;
 `
 const HeaderAlt = styled(Header)`
   font-size: 26px;
   color: #0101018e;
- font-weight: 600;
+  font-weight: 600;
 `
 const HeaderAlt1 = styled(Header)`
   font-size: 19px;
   color: #0101018e;
- font-weight: 400;
+  font-weight: 400;
 `
 const HedarSub = styled.p`
- font-size: 13px;
- margin: 20px 0px;
+  font-size: 13px;
+  margin: 20px 0px;
 `
 const BarraFilter = styled.div`
   width: 98%;
   height: 1px;
   margin-top: 15px;
   background-color: #2020204f;
- 
 `
 const BarraSelectedCleaner = styled.div`
   width: 600px;
@@ -137,21 +137,22 @@ const BarraSelectedCleaner = styled.div`
   display: flex;
   justify-content: space-between;
   box-shadow:
-rgba(54, 54, 54, 0.777) 0px 2px 1px,
-rgba(82, 82, 82, 0.337) 0px 4px 2px,
-rgba(70, 70, 70, 0.25) 0px 8px 4px,
-rgba(85, 85, 85, 0.09) 0px 16px 8px,
-rgba(95, 95, 95, 0.339) 0px 32px 16px;
+    rgba(54, 54, 54, 0.777) 0px 2px 1px,
+    rgba(82, 82, 82, 0.337) 0px 4px 2px,
+    rgba(70, 70, 70, 0.25) 0px 8px 4px,
+    rgba(85, 85, 85, 0.09) 0px 16px 8px,
+    rgba(95, 95, 95, 0.339) 0px 32px 16px;
 `
 const ButtonAlt = styled(Button)`
   width: 165px;
   height: 47px;
   margin: 10px;
-  padding: 5px ;
+  padding: 5px;
   border-radius: 5px;
   font-size: 14px;
 `
 const BolaCleaner = styled.div`
+  display: flex;
   width: 55px;
   height: 55px;
   border-radius: 30px;
@@ -159,10 +160,13 @@ const BolaCleaner = styled.div`
   border: 4px solid #8b8bfff5;
   margin-bottom: 70px;
   z-index: 100;
+  background: url(${(props) => props.image});
+  background-size: cover;
+  background-position: 50% 50%;
 `
 const Star = styled.img`
-  height:13px;
-  width:17px;
+  height: 13px;
+  width: 17px;
 `
 const Flexfilters = styled.div`
   display: flex;
@@ -180,86 +184,99 @@ const SelectPriceAndCleans = styled.div`
   justify-content: end;
   align-items: center;
 `
+const BolaImg = styled.img`
+  //width: 100%;
+  //height: 100%;
+`
 
-function SelectCleaner() {
+function SelectCleaner(props) {
   const router = useRouter()
   const { cardValues, region, selectedDate, selectedHour, inputUpdateHour } = router.query
+
+  //useStates
+  const [cleanerSelected, setCleanerSelected] = useState('')
+
+  const handleCleanerSelect = (cleaner) => {
+    setCleanerSelected(cleaner)
+  }
+
   return (
     <Container>
-        <StyledFlexNavBar>
-            <LogoAlt />
-            <FlexLogin>
-              <CardsLogo src="/metodosPay.JPG" height="45px" width="133px" />
-              <Barra />
-              <StyledLogin onClick={() => router.push('/login')}>LOG-IN</StyledLogin>
-            </FlexLogin>
-        </StyledFlexNavBar>
-      <DivEtapasAlt >
-          <FlexEtapas>
-            <Etapas>{region}</Etapas>
-            <SubEtapas>LOCATION</SubEtapas>
-          </FlexEtapas>
+      <StyledFlexNavBar>
+        <LogoAlt />
+        <FlexLogin>
+          <CardsLogo src="/metodosPay.JPG" height="45px" width="133px" />
           <Barra />
-          <FlexEtapas>
-            <Etapas>{cardValues}</Etapas>
-            <SubEtapas>PLAN</SubEtapas>
-          </FlexEtapas>
-          <SetaDown src="/setadown1.svg" height="45px" width="30px" />
-          <Barra />
-          <FlexEtapas>
-            <Etapas>{selectedDate}</Etapas>
-            <SubEtapas>DATE</SubEtapas>
-          </FlexEtapas>
-          <SetaDown src="/setadown1.svg" height="45px" width="30px" />
-          <Barra />
-          <FlexEtapas>
-            <Etapas>{selectedHour }</Etapas>
-            <SubEtapas>DURATION</SubEtapas>
-          </FlexEtapas>
-          <SetaDown src="/setadown1.svg" height="45px" width="30px" />
-          <Barra />
-          <FlexEtapas>
-            <Etapas>{inputUpdateHour}</Etapas>
-            <SubEtapas>STARTING TIME</SubEtapas>
-          </FlexEtapas>
-          <SetaDown src="/setadown1.svg" height="45px" width="30px" />
+          <StyledLogin onClick={() => router.push('/login')}>LOG-IN</StyledLogin>
+        </FlexLogin>
+      </StyledFlexNavBar>
+      <DivEtapasAlt>
+        <FlexEtapas>
+          <Etapas>{region}</Etapas>
+          <SubEtapas>LOCATION</SubEtapas>
+        </FlexEtapas>
+        <Barra />
+        <FlexEtapas>
+          <Etapas>{cardValues}</Etapas>
+          <SubEtapas>PLAN</SubEtapas>
+        </FlexEtapas>
+        <SetaDown src="/setadown1.svg" height="45px" width="30px" />
+        <Barra />
+        <FlexEtapas>
+          <Etapas>{selectedDate}</Etapas>
+          <SubEtapas>DATE</SubEtapas>
+        </FlexEtapas>
+        <SetaDown src="/setadown1.svg" height="45px" width="30px" />
+        <Barra />
+        <FlexEtapas>
+          <Etapas>{selectedHour}</Etapas>
+          <SubEtapas>DURATION</SubEtapas>
+        </FlexEtapas>
+        <SetaDown src="/setadown1.svg" height="45px" width="30px" />
+        <Barra />
+        <FlexEtapas>
+          <Etapas>{inputUpdateHour}</Etapas>
+          <SubEtapas>STARTING TIME</SubEtapas>
+        </FlexEtapas>
+        <SetaDown src="/setadown1.svg" height="45px" width="30px" />
       </DivEtapasAlt>
       <ContBody>
         <BoxFilter>
-            <Header>
-              Filter:<HeaderAlt>1</HeaderAlt>  
-              <HeaderAlt1>cleaners available</HeaderAlt1>
-            </Header>
-            <Flexfilters>
-                <HedarSub>Price</HedarSub>
-                <SelectPriceAndCleans >
-                  <SetaDown src="/setadown1.svg" height="25px" width="20px" />
-                </SelectPriceAndCleans>
-            </Flexfilters>
-            <BarraFilter />
-            <Flexfilters>
-                <HedarSub>Minimum rating</HedarSub>
-                <div style={{display:'flex',gap:'5px'}}>                   
-                  <Star src="/star.png" />
-                  <Star src="/star.png" />
-                  <Star src="/star.png" />
-                  <Star src="/star.png" />
-                  <Star src="/star.png" />
-                </div>
-            </Flexfilters>
-            <BarraFilter />
-            <Flexfilters>
-                <HedarSub>Minimum cleans</HedarSub>
-                <SelectPriceAndCleans >
-                  <SetaDown src="/setadown1.svg" height="25px" width="20px" />
-                </SelectPriceAndCleans>
-            </Flexfilters>
+          <Header />
+          <HeaderAlt>Filter: 1</HeaderAlt>
+          <HeaderAlt1>cleaners available</HeaderAlt1>
+          <Flexfilters>
+            <HedarSub>Price</HedarSub>
+            <SelectPriceAndCleans>
+              <SetaDown src="/setadown1.svg" height="25px" width="20px" />
+            </SelectPriceAndCleans>
+          </Flexfilters>
+          <BarraFilter />
+          <Flexfilters>
+            <HedarSub>Minimum rating</HedarSub>
+            <div style={{ display: 'flex', gap: '5px' }}>
+              <Star src="/star.png" />
+              <Star src="/star.png" />
+              <Star src="/star.png" />
+              <Star src="/star.png" />
+              <Star src="/star.png" />
+            </div>
+          </Flexfilters>
+          <BarraFilter />
+          <Flexfilters>
+            <HedarSub>Minimum cleans</HedarSub>
+            <SelectPriceAndCleans>
+              <SetaDown src="/setadown1.svg" height="25px" width="20px" />
+            </SelectPriceAndCleans>
+          </Flexfilters>
         </BoxFilter>
-        <ListCleaners />
-        <BarraSelectedCleaner >
+        <ListCleaners onCleanerSelect={handleCleanerSelect} />
+        <BarraSelectedCleaner>
           <Etapas>Selected Cleaner</Etapas>
-          <BolaCleaner />
-          <ButtonAlt valor='Proceed to booking' />
+          <BolaCleaner image="/maleicon.png">
+            <h2 style={{ marginTop: '60px', marginLeft: '5px' }}>{cleanerSelected.name}</h2>
+          </BolaCleaner>
+          <ButtonAlt valor="Proceed to booking" />
         </BarraSelectedCleaner>
       </ContBody>
     </Container>
