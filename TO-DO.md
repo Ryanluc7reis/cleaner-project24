@@ -12,4 +12,4 @@
 
  * Criar logica ao clicar  no botao select do card aparecer a fotinha e o nome do cleaner la na <BarraSelectedCleaner/> (tem exemplo no site referencia)
 
-* Descobiri e resolver o problema de pq a função map() no component listcleaners,nao esta conseguindo rederizar 4 cards na pagina ,so esta renderizando 1 mesmo eu pedindo pro map renderizar 4.
+* Descobiri e resolver o problema de pq a função map() no component listcleaners,nao esta conseguindo rederizar 4 cards na pagina ,so esta renderizando 1 mesmo eu pedindo pro map renderizar 4. <!-- FEITO | g4b3ll, 29/12/23-->
