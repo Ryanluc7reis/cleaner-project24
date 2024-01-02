@@ -28,7 +28,7 @@ const SortSub = styled.h4`
   color: #97979775;
   margin-left: 7px;
 `
-const SetaDown = styled.img``
+const SetaDown = styled.select``
 const CardCleaner = styled.div`
   width: 327px;
   height: 210px;
@@ -103,9 +103,18 @@ const FlexButtons = styled.div`
   display: flex;
   justify-content: space-around;
 `
+const FormSelect = styled.select`
+  width: 50px;
+  height: 50px;
+  color: red;
+`
+
 export default function ListCleaners(props) {
+  const [selectOption, setSelectOption] = useState(null)
+  const sortByList = ['Relevance', 'Ratings']
   const cleanersData = [
     {
+      img: '/maleicon.png',
       name: 'Ryan Lucas',
       price: '£18.90 /h',
       rating: 4.6,
@@ -113,6 +122,15 @@ export default function ListCleaners(props) {
       experience: '6 months'
     },
     {
+      img: '/maleicon.png',
+      name: 'Joao Pedro',
+      price: '£18.90 /h',
+      rating: 4.6,
+      cleaningCount: 10,
+      experience: '6 months'
+    },
+    {
+      img: '/maleicon.png',
       name: 'Gabriel Machado',
       price: '£18,90 /h',
       rating: 5,
@@ -127,8 +145,14 @@ export default function ListCleaners(props) {
     <ContListCleaners>
       <FilterSortby>
         <Sortby>Sort by : </Sortby>
-        <SortSub>relevance</SortSub>
-        <SetaDown src="/arrowdown.svg" height="12px" width="15px" />
+        <SortSub></SortSub>
+        <SetaDown onChange={(e) => setSelectOption(e.target.value)}>
+          {sortByList.map((opt, index) => (
+            <option value={opt} key={index}>
+              {opt}
+            </option>
+          ))}
+        </SetaDown>
       </FilterSortby>
       <ContCardCleaner>
         {cleanersData.map((cleaner, index) => (
