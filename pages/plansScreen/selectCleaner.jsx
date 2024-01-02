@@ -153,6 +153,8 @@ const ButtonAlt = styled(Button)`
 `
 const BolaCleaner = styled.div`
   display: flex;
+  justify-content: center;
+  text-align: center;
   width: 55px;
   height: 55px;
   border-radius: 30px;
@@ -273,8 +275,8 @@ function SelectCleaner(props) {
         <ListCleaners onCleanerSelect={handleCleanerSelect} />
         <BarraSelectedCleaner>
           <Etapas>Selected Cleaner</Etapas>
-          <BolaCleaner image="/maleicon.png">
-            <h2 style={{ marginTop: '60px', marginLeft: '5px' }}>{cleanerSelected.name}</h2>
+          <BolaCleaner image={cleanerSelected.img}>
+            <h2 style={{ marginTop: '60px' }}>{cleanerSelected.name}</h2>
           </BolaCleaner>
           <ButtonAlt valor="Proceed to booking" />
         </BarraSelectedCleaner>
