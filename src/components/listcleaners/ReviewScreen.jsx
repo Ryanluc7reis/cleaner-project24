@@ -1,12 +1,13 @@
 import styled, { keyframes } from 'styled-components'
 import Button from '../form/Button'
+import dynamic from 'next/dynamic'
 
-const DescAnimation = (props) => keyframes`
-  0% {
+const DescAnimation = keyframes`
+  from {
     color: #77d2df;
   }
-  100%{
-    color: ${(props) => props.theme.colors.greenMoney};
+  to {
+    color: #1EFF0044;
   }
 `
 
@@ -71,6 +72,11 @@ const CheckInfo = styled.img`
 const CleaningTypes = styled.div`
   /* Estilos aqui */
 `
+const DivTypeCleanings = styled.div`
+  display: flex;
+  align-items: center;
+`
+
 const Desc = styled.h2`
   margin: 10px 5px;
   //color: #77d2df;
@@ -90,29 +96,39 @@ const Desc = styled.h2`
   -moz-text-fill-color: transparent; */
 `
 
+const DivBoxAboutMe = styled.div`
+  display: flex;
+  justify-content: center;
+`
+
 const DivBtnRemove = styled.div`
-  /* Estilos aqui */
+  display: flex;
+  justify-content: center;
 `
 
 const BoxAboutMe = styled.div`
-  margin: 10px 0 0 35%;
+  margin: 10px 0 0 0; //T-D-B-E
   border-radius: 5px;
-  width: 30%;
+  width: fit-content;
   height: fit-content;
-  background-color: #323232;
+  word-wrap: break-word;
+  word-break: break-all;
+  padding-bottom: 1%;
+  padding-right: 2%;
+  background-color: #32323299;
   /* ESTILOS AQUI */
 `
 const AboutMeTitle = styled.h2`
   color: white;
-  font-weight: bold;
+  font-weight: 700;
   padding: 0 0 0 10px;
 `
 
 const AboutMeDescDiv = styled.div`
   /* ESTILOS AQUI */
 `
-const AboutMeDesc = styled.h2`
-  padding: 10px 0 0 10px;
+const AboutMeDesc = styled.h3`
+  padding: 10px 0 0 20px;
   color: white;
 `
 
@@ -166,7 +182,13 @@ const DivStarDate = styled.div`
   margin: 0 5px 5px 0;
 `
 
-export default function ReviewScreen(props) {
+const ThumbsUp = styled.img`
+  width: 30px;
+  :hover {
+    width: 40px;
+  }
+`
+function ReviewScreen(props) {
   return (
     <Container>
       <DivCleanerInfos>
@@ -188,8 +210,14 @@ export default function ReviewScreen(props) {
         </DivDocInfos>
         <hr></hr>
         <CleaningTypes>
-          <Desc>(ThumbsUp image) tipo de limpeza</Desc>
-          <Desc>(ThumbsUp image) tipo de limpeza</Desc>
+          <DivTypeCleanings>
+            <ThumbsUp src="thumbsupguy.svg" />
+            <Desc>(ThumbsUp image) tipo de limpeza</Desc>
+          </DivTypeCleanings>
+          <DivTypeCleanings>
+            <ThumbsUp src="thumbsupguy.svg" />
+            <Desc>(ThumbsUp image) tipo de limpeza</Desc>
+          </DivTypeCleanings>
           <Desc>(ThumbsUp image) tipo de limpeza</Desc>
         </CleaningTypes>
         <hr></hr>
@@ -202,12 +230,15 @@ export default function ReviewScreen(props) {
       </DivCleanerInfos>
       <hr style={{ width: '5px' }} />
       <DivReviews>
-        <BoxAboutMe>
-          <AboutMeTitle>About Me: </AboutMeTitle>
-          <AboutMeDescDiv>
-            <AboutMeDesc>TEXTO AQUI</AboutMeDesc>
-          </AboutMeDescDiv>
-        </BoxAboutMe>
+        <DivBoxAboutMe>
+          <BoxAboutMe>
+            <AboutMeTitle>About Me: </AboutMeTitle>
+            <AboutMeDescDiv>
+              <AboutMeDesc>TEXTO AQUI</AboutMeDesc>
+            </AboutMeDescDiv>
+          </BoxAboutMe>
+        </DivBoxAboutMe>
+
         <ReviewsDiv>
           <ReviewsDivTitle>
             <ReviewsTitle>REVIEWS</ReviewsTitle>
@@ -231,3 +262,4 @@ export default function ReviewScreen(props) {
     </Container>
   )
 }
+export default dynamic(() => Promise.resolve(ReviewScreen), { ssr: false })
