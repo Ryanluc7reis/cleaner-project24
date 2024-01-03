@@ -184,6 +184,7 @@ const DivStarDate = styled.div`
 
 const ThumbsUp = styled.img`
   width: 30px;
+  content: ${(props) => (props.tmbs ? "url('thumbsupguy.svg')" : 'none')};
   :hover {
     width: 40px;
   }
@@ -211,14 +212,17 @@ function ReviewScreen(props) {
         <hr></hr>
         <CleaningTypes>
           <DivTypeCleanings>
-            <ThumbsUp src="thumbsupguy.svg" />
+            <ThumbsUp tmbs />
             <Desc>(ThumbsUp image) tipo de limpeza</Desc>
           </DivTypeCleanings>
           <DivTypeCleanings>
-            <ThumbsUp src="thumbsupguy.svg" />
+            <ThumbsUp tmbs />
             <Desc>(ThumbsUp image) tipo de limpeza</Desc>
           </DivTypeCleanings>
-          <Desc>(ThumbsUp image) tipo de limpeza</Desc>
+          <DivTypeCleanings>
+            <ThumbsUp tmbs />
+            <Desc>(ThumbsUp image) tipo de limpeza</Desc>
+          </DivTypeCleanings>
         </CleaningTypes>
         <hr></hr>
         <DivBtnRemove>
