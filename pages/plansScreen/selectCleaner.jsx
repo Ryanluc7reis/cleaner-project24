@@ -8,6 +8,7 @@ import Logo from '../../src/components/logo/Logo'
 import ListCleaners from '../../src/components/listcleaners/ListCleaners'
 import Button from '../../src/components/form/Button'
 import { useState } from 'react'
+import BoxFilter from '../../src/components/listcleaners/BoxFilter'
 
 const Container = styled.div`
   width: 100%;
@@ -82,48 +83,10 @@ const SubEtapas = styled.h5`
   font-weight: 700;
 `
 const ContBody = styled.div`
-  background: #edededaf;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   display: flex;
-`
-const BoxFilter = styled.div`
-  width: 450px;
-  height: 375px;
-  padding: 20px 35px;
-  background-color: #fff;
-  box-sizing: border-box;
-  position: sticky;
-  top: 0;
-  margin-top: 1px;
-  margin-left: 40px;
-`
-const Header = styled.h1`
-  font-size: 25px;
-  color: #0101018e;
-  font-weight: 500;
-  display: flex;
-  gap: 10px;
-`
-const HeaderAlt = styled(Header)`
-  font-size: 26px;
-  color: #0101018e;
-  font-weight: 600;
-`
-const HeaderAlt1 = styled(Header)`
-  font-size: 19px;
-  color: #0101018e;
-  font-weight: 400;
-`
-const HedarSub = styled.p`
-  font-size: 13px;
-  margin: 20px 0px;
-`
-const BarraFilter = styled.div`
-  width: 98%;
-  height: 1px;
-  margin-top: 15px;
-  background-color: #2020204f;
+  background: #edededaf;
 `
 const BarraSelectedCleaner = styled.div`
   width: 600px;
@@ -161,30 +124,11 @@ const BolaCleaner = styled.div`
   background-color: #cacaca31;
   border: 4px solid #8b8bfff5;
   margin-bottom: 70px;
+  margin-left: 10px;
   z-index: 100;
   background: url(${(props) => props.image});
   background-size: cover;
   background-position: 50% 50%;
-`
-const Star = styled.img`
-  height: 13px;
-  width: 17px;
-`
-const Flexfilters = styled.div`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  //color: #04047b97;
-`
-const SelectPriceAndCleans = styled.div`
-  width: 70px;
-  height: 35px;
-  background-color: #e1e1e192;
-  border: 2px solid #04047b97;
-  border-radius: 5px;
-  display: flex;
-  justify-content: end;
-  align-items: center;
 `
 const BolaImg = styled.img`
   //width: 100%;
@@ -243,35 +187,7 @@ function SelectCleaner(props) {
         <SetaDown src="/setadown1.svg" height="45px" width="30px" />
       </DivEtapasAlt>
       <ContBody>
-        <BoxFilter>
-          <Header />
-          <HeaderAlt>Filter: 1</HeaderAlt>
-          <HeaderAlt1>cleaners available</HeaderAlt1>
-          <Flexfilters>
-            <HedarSub>Price</HedarSub>
-            <SelectPriceAndCleans>
-              <SetaDown src="/setadown1.svg" height="25px" width="20px" />
-            </SelectPriceAndCleans>
-          </Flexfilters>
-          <BarraFilter />
-          <Flexfilters>
-            <HedarSub>Minimum rating</HedarSub>
-            <div style={{ display: 'flex', gap: '5px' }}>
-              <Star src="/star.png" />
-              <Star src="/star.png" />
-              <Star src="/star.png" />
-              <Star src="/star.png" />
-              <Star src="/star.png" />
-            </div>
-          </Flexfilters>
-          <BarraFilter />
-          <Flexfilters>
-            <HedarSub>Minimum cleans</HedarSub>
-            <SelectPriceAndCleans>
-              <SetaDown src="/setadown1.svg" height="25px" width="20px" />
-            </SelectPriceAndCleans>
-          </Flexfilters>
-        </BoxFilter>
+        <BoxFilter />
         <ListCleaners onCleanerSelect={handleCleanerSelect} />
         <BarraSelectedCleaner>
           <Etapas>Selected Cleaner</Etapas>

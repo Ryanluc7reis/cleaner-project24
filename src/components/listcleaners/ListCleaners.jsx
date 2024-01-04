@@ -13,14 +13,15 @@ const ContListCleaners = styled.div`
 `
 const FilterSortby = styled.div`
   font-size: 14px;
-  width: 175px;
+  min-width: 175px;
+  width: fit-content;
   height: 50px;
   padding: 5px;
   display: flex;
+  white-space: nowrap;
   cursor: pointer;
   gap: 4px;
   align-items: center;
-  text-align: initial;
   background-color: white;
 `
 const Sortby = styled.h4`
@@ -29,9 +30,9 @@ const Sortby = styled.h4`
   height: auto;
 `
 const SortSub = styled.h4`
+  font-size: 13px;
   color: #97979775;
-  box-sizing: border-box;
-  //background-color: red;
+  width: 100%;
   margin-left: 2px;
 `
 const SetaDown = styled.img`
@@ -83,13 +84,8 @@ const BarraAlt = styled(Barra)`
   height: 43px;
   width: 1px;
 `
-const BarraAlt1 = styled(Barra)`
-  //margin-top: 11px;
- background-color: #22ff00;
-  height: 1px;
-  width: 100%;
-  margin: 3px;
-  //z-index: 1000;
+const BarraAlt2 = styled(Barra)`
+  margin-top: 0px;
 `
 const ContAbout = styled.div`
   display: flex;
@@ -125,7 +121,7 @@ const BoxFilterShortby = styled.div`
   text-align: left;
   justify-content: space-around;
   width: 200px;
-  height: 120px;
+  height: 135px;
   background-color: #f4f4f4;
   position: absolute;
   transform: translate(-2%, 73%);
@@ -138,9 +134,15 @@ const BoxFilterShortby = styled.div`
 `
 const ShortbyOption = styled.p`
   font-size: 16px;
+  height: 100%;
 	padding-left: 4px;
+  margin-bottom: 2px;
 	cursor: pointer;
-	:hover {
+ 
+`
+const ContOptionsFilter = styled.div`
+
+ :hover {
 		background-color: #E9E9E9;
 	}
 `
@@ -161,7 +163,7 @@ const updateShortBy = (updateShort) => {
     {
       img: '/maleicon.png',
       name: 'Ryan Lucas',
-      price: '£18.90 /h',
+      price: '$18.90 /h',
       rating: 4.6,
       cleaningCount: 10,
       experience: '6 months'
@@ -169,7 +171,7 @@ const updateShortBy = (updateShort) => {
     {
       img: '/maleicon.png',
       name: 'Joao Pedro',
-      price: '£18.90 /h',
+      price: '$18.90 /h',
       rating: 4.6,
       cleaningCount: 10,
       experience: '6 months'
@@ -177,7 +179,7 @@ const updateShortBy = (updateShort) => {
     {
       img: '/maleicon.png',
       name: 'Gabriel Machado',
-      price: '£18,90 /h',
+      price: '$18,90 /h',
       rating: 5,
       cleaningCount: 100,
       experience: 'Since born'
@@ -185,25 +187,25 @@ const updateShortBy = (updateShort) => {
     {
       img: '/maleicon.png',
       name: 'Ronaldinho gaucho',
-      price: '£18,90 /h',
+      price: '$18,90 /h',
       rating: 5,
       cleaningCount: 100,
       experience: 'Since born'
-    },
-
+    }
     // Adicione mais objetos de dados conforme necessário
   ]
 
   return (
     <ContListCleaners>
-      <FilterSortby onClick={() => setshowOption(!showOption)}>
+      <FilterSortby  showOption={showOption} onClick={() => setshowOption(!showOption)}>
         <Sortby>Sort by:</Sortby>
-        <SortSub>{updateShortby}</SortSub>       
+        <SortSub>{updateShortby || 'Relevance'}</SortSub>    
         <BoxFilterShortby showOption={showOption}>
             {listOption.map((item, index) => (
-              <React.Fragment key={index}>
+              <ContOptionsFilter key={index}>
                   <ShortbyOption onClick={() => updateShortBy(item)}>{item}</ShortbyOption>
-              </React.Fragment>
+                  {index < 3 && <BarraAlt2/>}
+              </ContOptionsFilter>
             ))}
         </BoxFilterShortby>
         <SetaDown src="/setadown1.svg" height="25px" width="20px"  />

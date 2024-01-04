@@ -2,9 +2,9 @@ A ser feito em pages/plansScreen/selectCleaner <--
 
 - Criar estado para editar valores de etapas (tem exemplo no site referencia)
 
-- Criar estado para editar 'price' em <BoxFilter /> (algo parecido com oq foi feito na tela de register como cleaner no input 'type of cleaning')
+- Criar estado para editar 'price' em <BoxFilter /> (algo parecido com oq foi feito na tela de register como cleaner no input 'type of cleaning') <!-- FEITO>
 
-- Criar estado para editar 'Minimum cleans' em <BoxFilter /> (algo parecido com oq foi feito na tela de register como cleaner no input 'type of cleaning')
+- Criar estado para editar 'Minimum cleans' em <BoxFilter /> (algo parecido com oq foi feito na tela de register como cleaner no input 'type of cleaning') <!-- FEITO>
 
 - Criar logica ao clicar no botao review do card aparecer um box mostrando tudo sobre o cleaner (tem exemplo no site referencia)
 
