@@ -3,8 +3,11 @@ import { useState } from 'react'
 
 const Container = styled.div`
   width: 450px;
-  height: 375px;
+  height: 345px;
   padding: 20px 35px;
+  display: flex;
+  gap: 7px;
+  flex-direction: column;
   background-color: #fff;
   box-sizing: border-box;
   position: sticky;
@@ -38,11 +41,13 @@ const Star = styled.img`
 `
 const Flexfilters = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 `
 const SelectPriceAndCleans = styled.div`
   font-size: 12px;
+  font-weight: 600;
+  color: #3a409a;
   width: 75px;
   height: 35px;
   background-color: #e1e1e192;
@@ -53,16 +58,13 @@ const SelectPriceAndCleans = styled.div`
   justify-content: center;
   align-items: center;
 `
-const SelectPriceAndCleansAlt = styled(SelectPriceAndCleans)`
-  margin-left: 75px;
-`
 const SetaDownClean = styled.img`
   position: absolute;
-  transform: translate(484%, 2%);
+  transform: translate(140%, 2%);
 `
 const SetaDownPrice = styled.img`
   position: absolute;
-  transform: translate(143%, 2%);
+  transform: translate(140%, 2%);
 `
 const BoxPricesAndCleans = styled.div`
   width: 90px;
@@ -72,7 +74,7 @@ const BoxPricesAndCleans = styled.div`
   gap: 7px;
   position: absolute;
   transform: translate(9%,70%);
-  background-color: #ff00008b;
+  background-color: #d4d4d4f0;
   overflow-y: scroll;
 `
 const ButtonScroll = styled.h4`
@@ -81,7 +83,7 @@ const ButtonScroll = styled.h4`
   width: 100%;
   cursor: pointer;
   :hover{
-    background-color: gray;
+    background-color: #021f934e;
   }
 `
 const FlexHeader = styled.div`
@@ -95,9 +97,9 @@ export default function BoxFilter(){
   const [selectMinimumCleans, setMinimumCleans] = useState(null)
   const [updateCleans , setupdateCleans ] = useState(null)
   const Prices = [
-  '£18p/h', '£19p/h','£20p/h',
-  '£21p/h','£22 p/h','£23p/h',
-  '£24p/h','£25p/h'
+  '$ 18p/h', '$ 19p/h','$ 20p/h',
+  '$ 21p/h','$ 22p/h','$ 23p/h',
+  '$ 24p/h','$ 25p/h'
 ]
   const Cleans = ['-10','+15','+30','+50','+100']
   const handlePrice = (selectedprice) => {
@@ -115,7 +117,7 @@ export default function BoxFilter(){
         </FlexHeader>
         <Flexfilters>
           <HeadarSub>Price</HeadarSub>
-          <SelectPriceAndCleansAlt onClick={() => setselectPrice(!selectPrice) }>
+          <SelectPriceAndCleans onClick={() => setselectPrice(!selectPrice) }>
             {updatePrice || '-'}
             <BoxPricesAndCleans selectPrice={selectPrice}>
               {Prices.map((price,index)=> (
@@ -126,7 +128,7 @@ export default function BoxFilter(){
               ))}
             </BoxPricesAndCleans>
             <SetaDownPrice src="/setadown1.svg" height="25px" width="20px" />
-          </SelectPriceAndCleansAlt>
+          </SelectPriceAndCleans>
         </Flexfilters>
         <BarraFilter />
         <Flexfilters>
@@ -151,9 +153,9 @@ export default function BoxFilter(){
                     key={index}
                     >{clean}</ButtonScroll>
                   ))}
-                </BoxPricesAndCleans>  
+                </BoxPricesAndCleans>
+                <SetaDownClean src="/setadown1.svg" height="25px" width="20px" />
           </SelectPriceAndCleans>
-          <SetaDownClean src="/setadown1.svg" height="25px" width="20px" />
         </Flexfilters>
   </Container>
   )
