@@ -147,13 +147,45 @@ const ContOptionsFilter = styled.div`
 		background-color: #E9E9E9;
 	}
 `
+const cleanersData = [
+  {
+    img: '/maleicon.png',
+    name: 'Ryan Lucas',
+    price: '$18.90 /h',
+    rating: 4.6,
+    cleaningCount: 10,
+    experience: '6 months'
+  },
+  {
+    img: '/maleicon.png',
+    name: 'Joao Pedro',
+    price: '$18.90 /h',
+    rating: 4.6,
+    cleaningCount: 10,
+    experience: '6 months'
+  },
+  {
+    img: '/maleicon.png',
+    name: 'Gabriel Machado',
+    price: '$18,90 /h',
+    rating: 5,
+    cleaningCount: 100,
+    experience: 'Since born'
+  },
+  {
+    img: '/maleicon.png',
+    name: 'Ronaldinho gaucho',
+    price: '$18,90 /h',
+    rating: 5,
+    cleaningCount: 100,
+    experience: 'Since born'
+  }
+  // Adicione mais objetos de dados conforme necessário
+]
 
 export default function ListCleaners(props) {
   const [showOption , setshowOption] = useState(false)
-  const [selectedCleaner, setselectedCleaner] = useState({
-    backgroundColor: '#ffffff', // cor de fundo padrão
-    border: 'none', // borda padrão
-  });
+  const [selectedCleaner, setSelectedCleaner] = useState(null);;
   const [updateShortby , setupdateShortby ] = useState(null)
   const listOption = [
   'Relevance', 
@@ -164,49 +196,13 @@ export default function ListCleaners(props) {
 const updateShortBy = (updateShort) => {
   setupdateShortby(updateShort)
 }
-  const cleanersData = [
-    {
-      img: '/maleicon.png',
-      name: 'Ryan Lucas',
-      price: '$18.90 /h',
-      rating: 4.6,
-      cleaningCount: 10,
-      experience: '6 months'
-    },
-    {
-      img: '/maleicon.png',
-      name: 'Joao Pedro',
-      price: '$18.90 /h',
-      rating: 4.6,
-      cleaningCount: 10,
-      experience: '6 months'
-    },
-    {
-      img: '/maleicon.png',
-      name: 'Gabriel Machado',
-      price: '$18,90 /h',
-      rating: 5,
-      cleaningCount: 100,
-      experience: 'Since born'
-    },
-    {
-      img: '/maleicon.png',
-      name: 'Ronaldinho gaucho',
-      price: '$18,90 /h',
-      rating: 5,
-      cleaningCount: 100,
-      experience: 'Since born'
-    }
-    // Adicione mais objetos de dados conforme necessário
-  ]
-  const handleButtonClick = () => {
-    setselectedCleaner({
-      backgroundColor: '#8383c565', 
-      border: '2px solid blue', 
-    });
-    //props.onCleanerSelect(cleaner)
-    
-  };
+
+const handleButtonClick = (index,cleaner) => {
+  // Atualiza apenas o CardCleaner clicado
+  setSelectedCleaner(index === selectedCleaner ? null : index);
+  props.onCleanerSelect(index === selectedCleaner ? null : cleaner);
+  
+};
 
   return (
     <ContListCleaners>
@@ -225,7 +221,12 @@ const updateShortBy = (updateShort) => {
       </FilterSortby>
       <ContCardCleaner>
         {cleanersData.map((cleaner, index) => (
-          <CardCleaner style={{...selectedCleaner} } key={index}>
+          <CardCleaner style={{
+            ...selectedCleaner === index && {
+              backgroundColor: '#8383c565',
+              border: '2px solid blue',
+            },
+          }} key={index}>
             <NameandPric>
               <div style={{ gap: '3px', display: 'flex' }}>
                 <MaleIcon src="/maleicon.png" />
@@ -254,7 +255,7 @@ const updateShortBy = (updateShort) => {
             </ContAbout>
             <FlexButtons>
               <ButtonAlt valor="review" />
-              <ButtonAlt arrowButton valor='select'  onClick={ handleButtonClick  } />
+              <ButtonAlt arrowButton valor='select'  onClick={() => handleButtonClick(index,cleaner) } />
             </FlexButtons>
           </CardCleaner>
         ))}
