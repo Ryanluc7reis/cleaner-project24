@@ -189,7 +189,8 @@ const updateShortBy = (updateShort) => {
       rating: 5,
       cleaningCount: 100,
       experience: 'Since born'
-    },
+    }
+    
 
     // Adicione mais objetos de dados conforme necessário
   ]
@@ -198,7 +199,7 @@ const updateShortBy = (updateShort) => {
     <ContListCleaners>
       <FilterSortby onClick={() => setshowOption(!showOption)}>
         <Sortby>Sort by:</Sortby>
-        <SortSub>{updateShortby}</SortSub>       
+        <SortSub>{updateShortby || 'Relevance'}</SortSub>       
         <BoxFilterShortby showOption={showOption}>
             {listOption.map((item, index) => (
               <React.Fragment key={index}>
