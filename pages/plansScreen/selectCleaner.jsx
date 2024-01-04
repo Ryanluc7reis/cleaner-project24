@@ -188,11 +188,11 @@ function SelectCleaner(props) {
       </DivEtapasAlt>
       <ContBody>
         <BoxFilter />
-        <ListCleaners onCleanerSelect={handleCleanerSelect} />
+        <ListCleaners onCleanerSelect={handleCleanerSelect} selectedCleaner={cleanerSelected}/>
         <BarraSelectedCleaner>
           <Etapas>Selected Cleaner</Etapas>
-          <BolaCleaner image={cleanerSelected.img}>
-            <h2 style={{ marginTop: '60px' }}>{cleanerSelected.name}</h2>
+          <BolaCleaner image={cleanerSelected?.img}>
+            <h2 style={{ marginTop: '60px' }}>{cleanerSelected?.name}</h2>
           </BolaCleaner>
           <ButtonAlt valor="Proceed to booking" />
         </BarraSelectedCleaner>
