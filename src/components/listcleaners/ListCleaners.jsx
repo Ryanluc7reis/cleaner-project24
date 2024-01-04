@@ -138,6 +138,7 @@ const ShortbyOption = styled.p`
 	padding-left: 4px;
   margin-bottom: 2px;
 	cursor: pointer;
+  //color: #8383c565;
  
 `
 const ContOptionsFilter = styled.div`
@@ -149,6 +150,10 @@ const ContOptionsFilter = styled.div`
 
 export default function ListCleaners(props) {
   const [showOption , setshowOption] = useState(false)
+  const [selectedCleaner, setselectedCleaner] = useState({
+    backgroundColor: '#ffffff', // cor de fundo padrão
+    border: 'none', // borda padrão
+  });
   const [updateShortby , setupdateShortby ] = useState(null)
   const listOption = [
   'Relevance', 
@@ -194,6 +199,14 @@ const updateShortBy = (updateShort) => {
     }
     // Adicione mais objetos de dados conforme necessário
   ]
+  const handleButtonClick = () => {
+    setselectedCleaner({
+      backgroundColor: '#8383c565', 
+      border: '2px solid blue', 
+    });
+    //props.onCleanerSelect(cleaner)
+    
+  };
 
   return (
     <ContListCleaners>
@@ -212,7 +225,7 @@ const updateShortBy = (updateShort) => {
       </FilterSortby>
       <ContCardCleaner>
         {cleanersData.map((cleaner, index) => (
-          <CardCleaner key={index}>
+          <CardCleaner style={{...selectedCleaner} } key={index}>
             <NameandPric>
               <div style={{ gap: '3px', display: 'flex' }}>
                 <MaleIcon src="/maleicon.png" />
@@ -241,7 +254,7 @@ const updateShortBy = (updateShort) => {
             </ContAbout>
             <FlexButtons>
               <ButtonAlt valor="review" />
-              <ButtonAlt valor="select" onClick={() => props.onCleanerSelect(cleaner)} />
+              <ButtonAlt arrowButton valor='select'  onClick={ handleButtonClick  } />
             </FlexButtons>
           </CardCleaner>
         ))}

@@ -20,11 +20,18 @@ const StyledButton = styled.button`
     font-weight: 700;
   }
 `;
-export default function Button({ children,  disabled,...props }) {
+const SetaButton = styled.img`
+width: 13px;
+height: 14px;
+position: absolute;
+transform: translate(20%,12%);
+`
+export default function Button({ children,  disabled, arrowButton,...props }) {
   return (
     <StyledButton disabled={props.isDisabled} {...props}>
       {children}
       {props.valor ? props.valor : ""}
+      {arrowButton && <SetaButton src='/arrowrightWhite.png'/> }
     </StyledButton>
   );
 }
