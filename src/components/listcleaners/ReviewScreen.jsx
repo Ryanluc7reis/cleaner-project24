@@ -107,7 +107,7 @@ const DivBtnRemove = styled.div`
 `
 
 const BoxAboutMe = styled.div`
-  margin: 10px 0 0 0; //T-D-B-E
+  margin: 10px 0 0 0; //C-D-B-E
   border-radius: 5px;
   width: fit-content;
   height: fit-content;
@@ -159,6 +159,7 @@ const ClientReviewName = styled.h3`
   color: white;
 `
 const ClientReviewDesc = styled.h2`
+  font-style: italic;
   margin: 5px 0 0 20px;
 `
 const ClientReviewStars = styled.img`
@@ -184,7 +185,7 @@ const DivStarDate = styled.div`
 
 const ThumbsUp = styled.img`
   width: 30px;
-  content: ${(props) => (props.tmbs ? "url('thumbsupguy.svg')" : 'none')};
+  content: ${(props) => (props.tmbs ? 'none' : "url('thumbsupguy.svg')")};
   :hover {
     width: 40px;
   }
@@ -212,15 +213,15 @@ function ReviewScreen(props) {
         <hr></hr>
         <CleaningTypes>
           <DivTypeCleanings>
-            <ThumbsUp tmbs />
+            <ThumbsUp />
             <Desc>(ThumbsUp image) tipo de limpeza</Desc>
           </DivTypeCleanings>
           <DivTypeCleanings>
-            <ThumbsUp tmbs />
+            <ThumbsUp />
             <Desc>(ThumbsUp image) tipo de limpeza</Desc>
           </DivTypeCleanings>
           <DivTypeCleanings>
-            <ThumbsUp tmbs />
+            <ThumbsUp />
             <Desc>(ThumbsUp image) tipo de limpeza</Desc>
           </DivTypeCleanings>
         </CleaningTypes>
@@ -251,7 +252,14 @@ function ReviewScreen(props) {
                 <DivNameDesc>
                   <hr></hr>
                   <ClientReviewName>NOME</ClientReviewName>
-                  <ClientReviewDesc>olá aqui sou eu</ClientReviewDesc>
+                  <ClientReviewDesc>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut quam recusandae
+                    ratione, porro dignissimos maiores deserunt voluptas, fuga molestias rem
+                    asperiores suscipit sit? Possimus, deleniti voluptatum reiciendis dolor ratione
+                    maxime? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta, sit
+                    omnis! Ex consequuntur quis perferendis dolorem ad velit numquam nemo deleniti
+                    nisi deserunt dignissimos, nulla pariatur tenetur architecto explicabo animi.
+                  </ClientReviewDesc>
                   <DivStarDate>
                     <ClientReviewDate>26/07/2002</ClientReviewDate>
                     <ClientReviewStars src="/maleicon.png" />
