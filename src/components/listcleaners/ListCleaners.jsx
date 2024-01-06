@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import Button from '../form/Button'
 import { useState } from 'react'
 import React from 'react'
@@ -110,6 +110,7 @@ const ButtonAlt = styled(Button)`
   height: 40px;
   margin: 10px;
   padding: 8px;
+  font-size: 12px;
 `
 const FlexButtons = styled.div`
   display: flex;
@@ -138,8 +139,6 @@ const ShortbyOption = styled.p`
 	padding-left: 4px;
   margin-bottom: 2px;
 	cursor: pointer;
-  //color: #8383c565;
- 
 `
 const ContOptionsFilter = styled.div`
 
@@ -182,7 +181,13 @@ const cleanersData = [
   }
   // Adicione mais objetos de dados conforme necessário
 ]
-
+const ButtonAltStyled = styled(Button)`
+  width: 145px;
+  height: 40px;
+  margin: 10px;
+  padding: 8px;
+  font-size: 12px;
+`;
 export default function ListCleaners(props) {
   const [showOption , setshowOption] = useState(false)
   const [selectedCleaner, setSelectedCleaner] = useState(null);;
@@ -254,8 +259,13 @@ const handleButtonClick = (index,cleaner) => {
               </FlexAbout>
             </ContAbout>
             <FlexButtons>
-              <ButtonAlt valor="review" />
-              <ButtonAlt arrowButton valor='select'  onClick={() => handleButtonClick(index,cleaner) } />
+              <ButtonAlt 
+              valor="REVIEWS" 
+              style={{backgroundColor: 'white',color: '#999999',border: '1PX solid #5e5ef5af'}}/>
+              <ButtonAltStyled
+               valor={index === selectedCleaner ? 'SELECTED' : 'SELECT'}
+               arrowButton={index === selectedCleaner ? false : true}
+               onClick={() => handleButtonClick(index,cleaner) } />
             </FlexButtons>
           </CardCleaner>
         ))}
