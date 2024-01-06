@@ -21,17 +21,24 @@ const StyledButton = styled.button`
   }
 `;
 const SetaButton = styled.img`
-width: 13px;
-height: 14px;
+width: 12px;
+height: 12px;
 position: absolute;
 transform: translate(20%,12%);
 `
-export default function Button({ children,  disabled, arrowButton,...props }) {
+const RightButton = styled.img`
+width: 17px;
+height: 16px;
+position: absolute;
+transform: translate(20%,-6%);
+`
+export default function Button({ children, disabled, arrowButton, ...props }) {
   return (
     <StyledButton disabled={props.isDisabled} {...props}>
       {children}
       {props.valor ? props.valor : ""}
-      {arrowButton && <SetaButton src='/arrowrightWhite.png'/> }
+      {arrowButton === true && <SetaButton src='/arrowrightWhite.png'/> } 
+      {arrowButton === false && <RightButton src='/Whitecheck.png' /> }
     </StyledButton>
   );
 }
