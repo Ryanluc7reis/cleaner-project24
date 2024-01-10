@@ -1,14 +1,13 @@
 import styled from 'styled-components'
 import { StyledFlexNavBar } from '.'
-import { DivEtapas } from '.'
 import dynamic from 'next/dynamic'
 import React from 'react'
-import { useRouter } from 'next/router'
 import Logo from '../../src/components/logo/Logo'
 import ListCleaners from '../../src/components/listcleaners/ListCleaners'
 import Button from '../../src/components/form/Button'
 import { useState } from 'react'
 import BoxFilter from '../../src/components/listcleaners/BoxFilter'
+import BarraEtapas from '../../src/components/barraetapas/BarraEtapas'
 
 const Container = styled.div`
   width: 100%;
@@ -49,39 +48,16 @@ const StyledLogin = styled.h5`
 const CardsLogo = styled.img`
   margin-top: 8px;
 `
-const SetaDown = styled.img`
-  //margin-left: 10px;
-`
 const FlexLogin = styled.div`
   display: flex;
   gap: 13px;
 `
-const FlexEtapas = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-right: 35px;
-  gap: 4px;
-  @media (max-width: 745px) {
-    margin: 0;
-  }
-`
-const DivEtapasAlt = styled(DivEtapas)`
-  box-shadow:
-    rgba(255, 255, 255, 0.19) 0px 2px 1px,
-    rgba(237, 237, 237, 0.09) 0px 4px 2px,
-    rgba(204, 204, 204, 0.09) 0px 8px 4px,
-    rgba(211, 211, 211, 0.09) 0px 16px 8px,
-    rgba(218, 218, 218, 0.09) 0px 32px 16px;
-`
+
 const Etapas = styled.h5`
   color: #212020d2;
   font-size: 16px;
 `
-const SubEtapas = styled.h5`
-  font-size: 15px;
-  color: #2c2c2c57;
-  font-weight: 700;
-`
+
 const ContBody = styled.div`
   width: 100%;
   height: 100%;
@@ -130,16 +106,8 @@ const BolaCleaner = styled.div`
   background-size: cover;
   background-position: 50% 50%;
 `
-const BolaImg = styled.img`
-  //width: 100%;
-  //height: 100%;
-`
 
 function SelectCleaner(props) {
-  const router = useRouter()
-  const { cardValues, region, selectedDate, selectedHour, inputUpdateHour } = router.query
-
-  //useStates
   const [cleanerSelected, setCleanerSelected] = useState('')
 
   const handleCleanerSelect = (cleaner) => {
@@ -156,36 +124,7 @@ function SelectCleaner(props) {
           <StyledLogin onClick={() => router.push('/login')}>LOG-IN</StyledLogin>
         </FlexLogin>
       </StyledFlexNavBar>
-      <DivEtapasAlt>
-        <FlexEtapas>
-          <Etapas>{region}</Etapas>
-          <SubEtapas>LOCATION</SubEtapas>
-        </FlexEtapas>
-        <Barra />
-        <FlexEtapas>
-          <Etapas>{cardValues}</Etapas>
-          <SubEtapas>PLAN</SubEtapas>
-        </FlexEtapas>
-        <SetaDown src="/setadown1.svg" height="45px" width="30px" />
-        <Barra />
-        <FlexEtapas>
-          <Etapas>{selectedDate}</Etapas>
-          <SubEtapas>DATE</SubEtapas>
-        </FlexEtapas>
-        <SetaDown src="/setadown1.svg" height="45px" width="30px" />
-        <Barra />
-        <FlexEtapas>
-          <Etapas>{selectedHour}</Etapas>
-          <SubEtapas>DURATION</SubEtapas>
-        </FlexEtapas>
-        <SetaDown src="/setadown1.svg" height="45px" width="30px" />
-        <Barra />
-        <FlexEtapas>
-          <Etapas>{inputUpdateHour}</Etapas>
-          <SubEtapas>STARTING TIME</SubEtapas>
-        </FlexEtapas>
-        <SetaDown src="/setadown1.svg" height="45px" width="30px" />
-      </DivEtapasAlt>
+      <BarraEtapas />
       <ContBody>
         <BoxFilter />
         <ListCleaners onCleanerSelect={handleCleanerSelect} selectedCleaner={cleanerSelected}/>

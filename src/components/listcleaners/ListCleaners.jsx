@@ -86,6 +86,7 @@ const BarraAlt = styled(Barra)`
 `
 const BarraAlt2 = styled(Barra)`
   margin-top: 0px;
+  height: 0.5px;
 `
 const ContAbout = styled.div`
   display: flex;
@@ -122,10 +123,10 @@ const BoxFilterShortby = styled.div`
   text-align: left;
   justify-content: space-around;
   width: 200px;
-  height: 135px;
+  height: 167px;
   background-color: #f4f4f4;
   position: absolute;
-  transform: translate(-2%, 73%);
+  transform: translate(-3%, 65%);
   box-shadow:
     rgba(201, 201, 201, 0.777) 0px 2px 1px,
     rgba(195, 195, 195, 0.337) 0px 4px 2px,
@@ -137,7 +138,8 @@ const ShortbyOption = styled.p`
   font-size: 16px;
   height: 100%;
 	padding-left: 4px;
-  margin-bottom: 2px;
+  padding: 9px 7px;
+  //margin-bottom: 2px;
 	cursor: pointer;
 `
 const ContOptionsFilter = styled.div`
