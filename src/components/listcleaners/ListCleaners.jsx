@@ -139,7 +139,6 @@ const ShortbyOption = styled.p`
   height: 100%;
 	padding-left: 4px;
   padding: 9px 7px;
-  //margin-bottom: 2px;
 	cursor: pointer;
 `
 const ContOptionsFilter = styled.div`
@@ -219,7 +218,7 @@ const handleButtonClick = (index,cleaner) => {
         <BoxFilterShortby showOption={showOption}>
             {listOption.map((item, index) => (
               <ContOptionsFilter key={index}>
-                  <ShortbyOption onClick={() => updateShortBy(item)}>{item}</ShortbyOption>
+                  <ShortbyOption style={{backgroundColor :  updateShortby === item && '#80808058'}} onClick={() => updateShortBy(item)}>{item}</ShortbyOption>
                   {index < 3 && <BarraAlt2/>}
               </ContOptionsFilter>
             ))}
