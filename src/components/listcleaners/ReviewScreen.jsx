@@ -13,8 +13,8 @@ const DescAnimation = keyframes`
 `
 
 const Container = styled.div`
-  display: ${(props) => (props.quit ? 'flex' : 'none')};
-  display: flex;
+  display: ${(props) => (props.quit ? 'none' : 'flex')};
+  //display: flex;
   position: fixed;
   top: 25%;
   left: 25%;
@@ -190,12 +190,12 @@ const DivStarDate = styled.div`
   margin: 0 5px 5px 0;
 `
 
-const ThumbsUp = styled.img`
-  width: 30px;
-  content: ${(props) => (props.tmbs ? 'none' : "url('../thumbsupguy.svg')")};
+ const ThumbsUp = styled.img`
+   width: 30px;
+   content: ${(props) => (props.tmbs ? 'none' : "url('../thumbsupguy.svg')")};
   :hover {
-    width: 40px;
-  }
+     width: 40px;
+   }
 `
 const Quit = styled.p`
   color: red;
@@ -204,17 +204,11 @@ const Quit = styled.p`
 `
 function ReviewScreen(props) {
   const [styleQuit, setStyleQuit] = useState(false)
-
   return (
-    <Container style={{}}>
+    <Container  quit={styleQuit} >
       <DivCleanerInfos>
         <DivInfos>
-          <Quit
-            quit={styleQuit}
-            onClick={() => {
-              setStyleQuit(!styleQuit)
-            }}
-          >
+          <Quit onClick={() => setStyleQuit(!styleQuit)}>
             QUIT
           </Quit>
           <CleanerImg image="/maleicon.png"></CleanerImg>
