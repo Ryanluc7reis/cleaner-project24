@@ -6,6 +6,7 @@ import React from 'react'
 const ContListCleaners = styled.div`
   display: flex;
   width: 100%;
+  min-height: 100vh;
   height: auto;
   margin-left: 50px;
   margin-top: 20px;

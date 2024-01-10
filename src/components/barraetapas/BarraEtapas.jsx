@@ -102,7 +102,7 @@ const BoxPlan = styled.div`
   border: 1px solid #CCCCCC;
   position: absolute;
   top: 27%;
-  transform: translate(-25%,1%);
+  transform: translate(-21%,1%);
   width: 324px;
   min-height: 287px;
   height: auto;
