@@ -188,7 +188,7 @@ function SelectCleaner(props) {
       </DivEtapasAlt>
       <ContBody>
         <BoxFilter />
-        <ListCleaners onCleanerSelect={handleCleanerSelect} selectedCleaner={cleanerSelected}/>
+        <ListCleaners onCleanerSelect={handleCleanerSelect} selectedCleaner={cleanerSelected} />
         <BarraSelectedCleaner>
           <Etapas>Selected Cleaner</Etapas>
           <BolaCleaner image={cleanerSelected?.img}>

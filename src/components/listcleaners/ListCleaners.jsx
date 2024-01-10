@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components'
 import Button from '../form/Button'
 import { useState } from 'react'
 import React from 'react'
+import ReviewScreen from './ReviewScreen'
 
 const ContListCleaners = styled.div`
   display: flex;
@@ -117,7 +118,7 @@ const FlexButtons = styled.div`
   justify-content: space-around;
 `
 const BoxFilterShortby = styled.div`
-  display: ${(props) => props.showOption ? 'flex' : 'none'};
+  display: ${(props) => (props.showOption ? 'flex' : 'none')};
   flex-direction: column;
   text-align: left;
   justify-content: space-around;
@@ -136,15 +137,14 @@ const BoxFilterShortby = styled.div`
 const ShortbyOption = styled.p`
   font-size: 16px;
   height: 100%;
-	padding-left: 4px;
+  padding-left: 4px;
   margin-bottom: 2px;
-	cursor: pointer;
+  cursor: pointer;
 `
 const ContOptionsFilter = styled.div`
-
- :hover {
-		background-color: #E9E9E9;
-	}
+  :hover {
+    background-color: #e9e9e9;
+  }
 `
 const cleanersData = [
   {
@@ -187,51 +187,63 @@ const ButtonAltStyled = styled(Button)`
   margin: 10px;
   padding: 8px;
   font-size: 12px;
-`;
+`
+const Quit = styled.p`
+  color: red;
+  font-size: 18px;
+`
+
 export default function ListCleaners(props) {
-  const [showOption , setshowOption] = useState(false)
-  const [selectedCleaner, setSelectedCleaner] = useState(null);;
-  const [updateShortby , setupdateShortby ] = useState(null)
+  const [showOption, setshowOption] = useState(false)
+  const [selectedCleaner, setSelectedCleaner] = useState(null)
+  const [updateShortby, setupdateShortby] = useState(null)
+  const [selectedCardIndex, setSelectedCardIndex] = useState(null)
   const listOption = [
-  'Relevance', 
-  'Price high to low',
-  'Price low to high',
-  'Highest number of cleans'
-]
-const updateShortBy = (updateShort) => {
-  setupdateShortby(updateShort)
-}
+    'Relevance',
+    'Price high to low',
+    'Price low to high',
+    'Highest number of cleans'
+  ]
+  const updateShortBy = (updateShort) => {
+    setupdateShortby(updateShort)
+  }
 
-const handleButtonClick = (index,cleaner) => {
-  // Atualiza apenas o CardCleaner clicado
-  setSelectedCleaner(index === selectedCleaner ? null : index);
-  props.onCleanerSelect(index === selectedCleaner ? null : cleaner);
-  
-};
+  const handleButtonClick = (index, cleaner) => {
+    // Atualiza apenas o CardCleaner clicado
+    setSelectedCleaner(index === selectedCleaner ? null : index)
+    props.onCleanerSelect(index === selectedCleaner ? null : cleaner)
+  }
 
+  const handleButtonReviews = (index, cleaner) => {
+    setSelectedCardIndex(index === selectedCardIndex ? null : index)
+  }
   return (
     <ContListCleaners>
-      <FilterSortby  showOption={showOption} onClick={() => setshowOption(!showOption)}>
+      <FilterSortby showOption={showOption} onClick={() => setshowOption(!showOption)}>
         <Sortby>Sort by:</Sortby>
-        <SortSub>{updateShortby || 'Relevance'}</SortSub>    
+        <SortSub>{updateShortby || 'Relevance'}</SortSub>
         <BoxFilterShortby showOption={showOption}>
-            {listOption.map((item, index) => (
-              <ContOptionsFilter key={index}>
-                  <ShortbyOption onClick={() => updateShortBy(item)}>{item}</ShortbyOption>
-                  {index < 3 && <BarraAlt2/>}
-              </ContOptionsFilter>
-            ))}
+          {listOption.map((item, index) => (
+            <ContOptionsFilter key={index}>
+              <ShortbyOption onClick={() => updateShortBy(item)}>{item}</ShortbyOption>
+              {index < 3 && <BarraAlt2 />}
+            </ContOptionsFilter>
+          ))}
         </BoxFilterShortby>
-        <SetaDown src="/setadown1.svg" height="25px" width="20px"  />
+        <SetaDown src="/setadown1.svg" height="25px" width="20px" />
       </FilterSortby>
       <ContCardCleaner>
         {cleanersData.map((cleaner, index) => (
-          <CardCleaner style={{
-            ...selectedCleaner === index && {
-              backgroundColor: '#8383c565',
-              border: '2px solid blue',
-            },
-          }} key={index}>
+          <CardCleaner
+            style={{
+              ...(selectedCleaner === index && {
+                backgroundColor: '#8383c565',
+                border: '2px solid blue'
+              })
+            }}
+            key={index}
+          >
+            {selectedCardIndex === index && <ReviewScreen />}
             <NameandPric>
               <div style={{ gap: '3px', display: 'flex' }}>
                 <MaleIcon src="/maleicon.png" />
@@ -259,13 +271,21 @@ const handleButtonClick = (index,cleaner) => {
               </FlexAbout>
             </ContAbout>
             <FlexButtons>
-              <ButtonAlt 
-              valor="REVIEWS" 
-              style={{backgroundColor: 'white',color: '#999999',border: '1PX solid #5e5ef5af'}}/>
+              <ButtonAlt
+                valor="REVIEWS"
+                style={{
+                  backgroundColor: 'white',
+                  color: '#999999',
+                  border: '1PX solid #5e5ef5af'
+                }}
+                onClick={() => handleButtonReviews(index, cleaner)}
+              />
+
               <ButtonAltStyled
-               valor={index === selectedCleaner ? 'SELECTED' : 'SELECT'}
-               arrowButton={index === selectedCleaner ? false : true}
-               onClick={() => handleButtonClick(index,cleaner) } />
+                valor={index === selectedCleaner ? 'SELECTED' : 'SELECT'}
+                arrowButton={index === selectedCleaner ? false : true}
+                onClick={() => handleButtonClick(index, cleaner)}
+              />
             </FlexButtons>
           </CardCleaner>
         ))}
