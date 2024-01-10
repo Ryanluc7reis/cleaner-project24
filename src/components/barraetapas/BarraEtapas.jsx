@@ -42,6 +42,8 @@ const FlexEtapas = styled.div`
   display: flex;
   flex-direction: column;
   margin-right: 35px;
+  opacity: ${(props) => (props.isClicked ? 0.5 : 1)};
+  transition: opacity 0.1s ease; 
   gap: 4px;
   @media (max-width: 745px) {
     margin: 0;
@@ -76,7 +78,10 @@ const BarraAlt = styled(Barra)`
 `
 const SetaDown = styled.img`
 cursor: pointer;
+opacity: ${(props) => (props.isClicked ? 0.5 : 1)};
+  transition: opacity 0.1s ease; 
 `
+
 const BoxPlan = styled.div`
   display: ${(props) => props.boxplan1 ? 'flex' : 'none'};
   flex-direction: column;
@@ -90,7 +95,6 @@ const BoxPlan = styled.div`
   width: 247px;
   height: 157px;
   overflow-y:scroll;
-  justify-content: space-around;
 `
  const BoxDate1 = styled.div`
   display: ${(props) => props.boxdate1 ? 'flex' : 'none'};
@@ -98,8 +102,7 @@ const BoxPlan = styled.div`
   border: 1px solid #CCCCCC;
   position: absolute;
   top: 27%;
-  z-index: 100;
-  transform: translate(-25%,2%);
+  transform: translate(-25%,1%);
   width: 324px;
   min-height: 287px;
   height: auto;
@@ -111,12 +114,10 @@ const BoxPlan = styled.div`
   border: 1px solid #CCCCCC;
   position: absolute;
   top: 23%;
-  z-index: 100;
-  transform: translate(82%,13%);
+  transform: translate(82%,15%);
   width: 287px;
-  height: 230px;
+  height: 200px;
   overflow-y:scroll;
-  justify-content: space-around;
  `
  const BoxStartTime1 = styled.div`
   display: ${(props) => props.boxstarttime1 ? 'flex' : 'none'};
@@ -126,7 +127,6 @@ const BoxPlan = styled.div`
   position: absolute;
   top: 23%;
   right: 20%;
-  z-index: 100;
   transform: translate(90%,15%);
   width: 300px;
   height: 200px;
@@ -188,9 +188,41 @@ export default function BarraEtapas(props) {
   const [BoxDate, setBoxDate] = useState(false)
   const [BoxHour, setBoxHour ] = useState(false)
   const [BoxStartTime, setBoxStartTime ] = useState(false)
+  const [isFlexEtapasClicked, setIsFlexEtapasClicked] = useState(false);
+  const [isFlexEtapasClicked2, setIsFlexEtapasClicked2] = useState(false);
+  const [isFlexEtapasClicked3, setIsFlexEtapasClicked3] = useState(false);
+  const [isFlexEtapasClicked4, setIsFlexEtapasClicked4] = useState(false);
   const router = useRouter()
   const { cardValues, region, selectedDate, selectedHour, inputUpdateHour } = router.query
-   
+
+  const handleFlexEtapasClick = () => {
+    setIsFlexEtapasClicked(!isFlexEtapasClicked);
+    setTimeout(() => {
+      setIsFlexEtapasClicked(false);
+    }, 100);
+    
+  }; 
+  const handleFlexEtapasClick2 = () => {
+    setIsFlexEtapasClicked2(!isFlexEtapasClicked2);
+    setTimeout(() => {
+      setIsFlexEtapasClicked2(false);
+    }, 100);
+    
+  }; 
+  const handleFlexEtapasClick3 = () => {
+    setIsFlexEtapasClicked3(!isFlexEtapasClicked3);
+    setTimeout(() => {
+      setIsFlexEtapasClicked3(false);
+    }, 100);
+    
+  }; 
+  const handleFlexEtapasClick4 = () => {
+    setIsFlexEtapasClicked4(!isFlexEtapasClicked4);
+    setTimeout(() => {
+      setIsFlexEtapasClicked4(false);
+    }, 100);
+    
+  }; 
   const updatePlan = (newplan) => {
     setUpdatePlan(newplan)
     setBoxPlans(!BoxPlans)
@@ -216,52 +248,82 @@ export default function BarraEtapas(props) {
           <SubEtapas>LOCATION</SubEtapas>
         </FlexEtapas>
         <Barra />
-        <FlexEtapas>
+        <FlexEtapas isClicked={isFlexEtapasClicked} >
           <Etapas>{Updateplan ? Updateplan : cardValues}</Etapas>
           <SubEtapas>PLAN</SubEtapas>
         </FlexEtapas>
-        <SetaDown src="/setadown1.svg" height="45px" width="30px" onClick={() => setBoxPlans(!BoxPlans)} />
+        <SetaDown 
+        src="/setadown1.svg" 
+        height="45px"
+        width="30px"
+        onClick={() => handleFlexEtapasClick(setBoxPlans(!BoxPlans))}
+        isClicked={isFlexEtapasClicked}
+        />
         <BoxPlan boxplan1={BoxPlans}>
               {listPlans.map((item,index) => (
                 <ContOptions key={index} >
-                  <TextOptions onClick={() => updatePlan(`${item}`)}>{item}</TextOptions>
+                  <TextOptions 
+                  style={{backgroundColor :  Updateplan === item && '#80808058'}} 
+                  onClick={() => updatePlan(`${item}`)}>{item}</TextOptions>
                   {index < 3 && <BarraAlt/>}               
                 </ContOptions>
               ))}
         </BoxPlan>
         <Barra />
-        <FlexEtapas>
+        <FlexEtapas isClicked={isFlexEtapasClicked2}>
           <Etapas>{UpdateDate ? UpdateDate : selectedDate}</Etapas>
           <SubEtapas>DATE</SubEtapas>
         </FlexEtapas>
-        <SetaDown src="/setadown1.svg" height="45px" width="30px"  onClick={() => setBoxDate(!BoxDate)} />
+        <SetaDown 
+        src="/setadown1.svg" 
+        height="45px"
+        width="30px"
+        onClick={() => handleFlexEtapasClick2(setBoxDate(!BoxDate))}
+        isClicked={isFlexEtapasClicked2}
+        />
         <BoxDate1 boxdate1={BoxDate}>
-          <DateCalenderAlt onChange={updateDate} />
+          <DateCalenderAlt  onChange={updateDate} />
         </BoxDate1>
         <Barra />
-        <FlexEtapas>
+        <FlexEtapas isClicked={isFlexEtapasClicked3}>
           <Etapas>{UpdateHour ? UpdateHour : selectedHour}</Etapas>
           <SubEtapas>DURATION</SubEtapas>
         </FlexEtapas>
-        <SetaDown src="/setadown1.svg" height="45px" width="30px"  onClick={() => setBoxHour(!BoxHour)} />
+        <SetaDown 
+        src="/setadown1.svg" 
+        height="45px"
+        width="30px"
+        onClick={() => handleFlexEtapasClick3(setBoxHour(!BoxHour))}
+        isClicked={isFlexEtapasClicked3}
+        />
         <BoxHour1 boxhour1={BoxHour}>
           {listHours.map((item,index) => (
             <ContOptions key={index}>
-                 <TextOptions  onClick={() => updateHour(`${item} hours`)}>{item} hours</TextOptions>
+                 <TextOptions 
+                  style={{backgroundColor :  UpdateHour === `${item} hours` && '#80808058'}}
+                  onClick={() => updateHour(`${item} hours`)}>{item} hours</TextOptions>
                  {index < 9 && <BarraAlt/>} 
             </ContOptions> 
           ))}
         </BoxHour1>
         <Barra />
-        <FlexEtapas>
+        <FlexEtapas isClicked={isFlexEtapasClicked4}>
           <Etapas>{UpdateStartTime ? UpdateStartTime : inputUpdateHour}</Etapas>
           <SubEtapas>STARTING TIME</SubEtapas>
         </FlexEtapas>
-        <SetaDown src="/setadown1.svg" height="45px" width="30px"  onClick={() => setBoxStartTime(!BoxStartTime)} />
+        <SetaDown 
+        src="/setadown1.svg" 
+        height="45px"
+        width="30px"
+        onClick={() => handleFlexEtapasClick4(setBoxStartTime(!BoxStartTime))}
+        isClicked={isFlexEtapasClicked4}
+        />
         <BoxStartTime1 boxstarttime1={BoxStartTime}>
           {listStartTime.map((item,index) => (
             <ContOptions key={index}>
-                 <TextOptions onClick={() => updateStatTime(`${item}`)}>{item}</TextOptions>
+                 <TextOptions 
+                 style={{backgroundColor :  UpdateStartTime === item && '#80808058'}}
+                  onClick={() => updateStatTime(`${item}`)}>{item}</TextOptions>
                  {index < 24 && <BarraAlt/>} 
             </ContOptions>
           ))}
