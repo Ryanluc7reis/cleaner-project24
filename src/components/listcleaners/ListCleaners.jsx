@@ -213,8 +213,7 @@ export default function ListCleaners(props) {
     setSelectedCleaner(index === selectedCleaner ? null : index)
     props.onCleanerSelect(index === selectedCleaner ? null : cleaner)
   }
-
-  const handleButtonReviews = (index, cleaner) => {
+  const handleButtonReviews = (index) => {
     setSelectedCardIndex(index === selectedCardIndex ? null : index)
   }
   return (
@@ -243,7 +242,9 @@ export default function ListCleaners(props) {
             }}
             key={index}
           >
-            {selectedCardIndex === index && <ReviewScreen />}
+            {selectedCardIndex === index && (
+              <ReviewScreen onClose={() => handleButtonReviews(index)} />
+            )}
             <NameandPric>
               <div style={{ gap: '3px', display: 'flex' }}>
                 <MaleIcon src="/maleicon.png" />
@@ -278,7 +279,7 @@ export default function ListCleaners(props) {
                   color: '#999999',
                   border: '1PX solid #5e5ef5af'
                 }}
-                onClick={() => handleButtonReviews(index, cleaner)}
+                onClick={() => handleButtonReviews(index)}
               />
 
               <ButtonAltStyled

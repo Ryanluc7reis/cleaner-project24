@@ -13,8 +13,7 @@ const DescAnimation = keyframes`
 `
 
 const Container = styled.div`
-  display: ${(props) => (props.quit ? 'none' : 'flex')};
-  //display: flex;
+  display: flex;
   position: fixed;
   top: 25%;
   left: 25%;
@@ -190,12 +189,12 @@ const DivStarDate = styled.div`
   margin: 0 5px 5px 0;
 `
 
- const ThumbsUp = styled.img`
-   width: 30px;
-   content: ${(props) => (props.tmbs ? 'none' : "url('../thumbsupguy.svg')")};
+const ThumbsUp = styled.img`
+  width: 30px;
+  content: ${(props) => (props.tmbs ? 'none' : "url('../thumbsupguy.svg')")};
   :hover {
-     width: 40px;
-   }
+    width: 40px;
+  }
 `
 const Quit = styled.p`
   color: red;
@@ -204,15 +203,18 @@ const Quit = styled.p`
 `
 function ReviewScreen(props) {
   const [styleQuit, setStyleQuit] = useState(false)
+
+  const handleClick = () => {
+    setStyleQuit(!styleQuit)
+    props.onClose()
+  }
   return (
-    <Container  quit={styleQuit} >
+    <Container style={{ ...(styleQuit === true && { display: 'none' }) }}>
       <DivCleanerInfos>
         <DivInfos>
-          <Quit onClick={() => setStyleQuit(!styleQuit)}>
-            QUIT
-          </Quit>
+          <Quit onClick={handleClick}>QUIT</Quit>
           <CleanerImg image="/maleicon.png"></CleanerImg>
-          <CleanerName>{props.name}l</CleanerName>
+          <CleanerName>{props.name}</CleanerName>
           <CleanerPrice>{props.price}</CleanerPrice>
         </DivInfos>
         <div>
