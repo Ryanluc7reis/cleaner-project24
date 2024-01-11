@@ -189,9 +189,9 @@ const ButtonAltStyled = styled(Button)`
   margin: 10px;
   padding: 8px;
   font-size: 12px;
-  `;
-  
-  const Quit = styled.p`
+`
+
+const Quit = styled.p`
   color: red;
   font-size: 18px;
 `
@@ -227,7 +227,12 @@ export default function ListCleaners(props) {
         <BoxFilterShortby showOption={showOption}>
           {listOption.map((item, index) => (
             <ContOptionsFilter key={index}>
-              <ShortbyOption style={{backgroundColor :  updateShortby === item && '#80808058'}} onClick={() => updateShortBy(item)}>{item}</ShortbyOption>
+              <ShortbyOption
+                style={{ backgroundColor: updateShortby === item && '#80808058' }}
+                onClick={() => updateShortBy(item)}
+              >
+                {item}
+              </ShortbyOption>
               {index < 3 && <BarraAlt2 />}
             </ContOptionsFilter>
           ))}
