@@ -1,10 +1,13 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import Button from '../form/Button'
 import { useState } from 'react'
+import React from 'react'
+import ReviewScreen from './ReviewScreen'
 
 const ContListCleaners = styled.div`
   display: flex;
   width: 100%;
+  min-height: 100vh;
   height: auto;
   margin-left: 50px;
   margin-top: 20px;
@@ -12,23 +15,31 @@ const ContListCleaners = styled.div`
 `
 const FilterSortby = styled.div`
   font-size: 14px;
-  width: 173px;
+  min-width: 175px;
+  width: fit-content;
   height: 50px;
-  padding: 7px;
+  padding: 5px;
   display: flex;
+  white-space: nowrap;
+  cursor: pointer;
   gap: 4px;
   align-items: center;
-  text-align: center;
   background-color: white;
 `
 const Sortby = styled.h4`
   color: #000000ae;
+  width: 100%;
+  height: auto;
 `
 const SortSub = styled.h4`
+  font-size: 13px;
   color: #97979775;
-  margin-left: 7px;
+  width: 100%;
+  margin-left: 2px;
 `
-const SetaDown = styled.select``
+const SetaDown = styled.img`
+  //margin-left: 75px;
+`
 const CardCleaner = styled.div`
   width: 327px;
   height: 210px;
@@ -38,8 +49,8 @@ const CardCleaner = styled.div`
   align-items: center;
 `
 const ContCardCleaner = styled.div`
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 350px 350px;
 `
 const NameandPric = styled.div`
   display: flex;
@@ -75,6 +86,10 @@ const BarraAlt = styled(Barra)`
   height: 43px;
   width: 1px;
 `
+const BarraAlt2 = styled(Barra)`
+  margin-top: 0px;
+  height: 0.5px;
+`
 const ContAbout = styled.div`
   display: flex;
   margin: 0px 12px;
@@ -98,65 +113,146 @@ const ButtonAlt = styled(Button)`
   height: 40px;
   margin: 10px;
   padding: 8px;
+  font-size: 12px;
 `
 const FlexButtons = styled.div`
   display: flex;
   justify-content: space-around;
 `
-const FormSelect = styled.select`
-  width: 50px;
-  height: 50px;
+const BoxFilterShortby = styled.div`
+  display: ${(props) => (props.showOption ? 'flex' : 'none')};
+  flex-direction: column;
+  text-align: left;
+  justify-content: space-around;
+  width: 200px;
+  height: 167px;
+  background-color: #f4f4f4;
+  position: absolute;
+  transform: translate(-3%, 65%);
+  box-shadow:
+    rgba(201, 201, 201, 0.777) 0px 2px 1px,
+    rgba(195, 195, 195, 0.337) 0px 4px 2px,
+    rgba(164, 163, 163, 0.25) 0px 8px 4px,
+    rgba(185, 185, 185, 0.09) 0px 16px 8px,
+    rgba(172, 172, 172, 0.339) 0px 32px 16px;
+`
+const ShortbyOption = styled.p`
+  font-size: 16px;
+  height: 100%;
+  padding-left: 4px;
+  padding: 9px 7px;
+  cursor: pointer;
+`
+const ContOptionsFilter = styled.div`
+  :hover {
+    background-color: #e9e9e9;
+  }
+`
+const cleanersData = [
+  {
+    img: '/maleicon.png',
+    name: 'Ryan Lucas',
+    price: '$18.90 /h',
+    rating: 4.6,
+    cleaningCount: 10,
+    experience: '6 months'
+  },
+  {
+    img: '/maleicon.png',
+    name: 'Joao Pedro',
+    price: '$18.90 /h',
+    rating: 4.6,
+    cleaningCount: 10,
+    experience: '6 months'
+  },
+  {
+    img: '/maleicon.png',
+    name: 'Gabriel Machado',
+    price: '$18,90 /h',
+    rating: 5,
+    cleaningCount: 100,
+    experience: 'Since born'
+  },
+  {
+    img: '/maleicon.png',
+    name: 'Ronaldinho gaucho',
+    price: '$18,90 /h',
+    rating: 5,
+    cleaningCount: 100,
+    experience: 'Since born'
+  }
+  // Adicione mais objetos de dados conforme necessário
+]
+const ButtonAltStyled = styled(Button)`
+  width: 145px;
+  height: 40px;
+  margin: 10px;
+  padding: 8px;
+  font-size: 12px;
+`
+
+const Quit = styled.p`
   color: red;
+  font-size: 18px;
 `
 
 export default function ListCleaners(props) {
-  const [selectOption, setSelectOption] = useState(null)
-  const sortByList = ['Relevance', 'Ratings']
-  const cleanersData = [
-    {
-      img: '/maleicon.png',
-      name: 'Ryan Lucas',
-      price: '£18.90 /h',
-      rating: 4.6,
-      cleaningCount: 10,
-      experience: '6 months'
-    },
-    {
-      img: '/maleicon.png',
-      name: 'Joao Pedro',
-      price: '£18.90 /h',
-      rating: 4.6,
-      cleaningCount: 10,
-      experience: '6 months'
-    },
-    {
-      img: '/maleicon.png',
-      name: 'Gabriel Machado',
-      price: '£18,90 /h',
-      rating: 5,
-      cleaningCount: 100,
-      experience: 'Since born'
-    }
-
-    // Adicione mais objetos de dados conforme necessário
+  const [showOption, setshowOption] = useState(false)
+  const [selectedCleaner, setSelectedCleaner] = useState(null)
+  const [updateShortby, setupdateShortby] = useState(null)
+  const [selectedCardIndex, setSelectedCardIndex] = useState(null)
+  const listOption = [
+    'Relevance',
+    'Price high to low',
+    'Price low to high',
+    'Highest number of cleans'
   ]
+  const updateShortBy = (updateShort) => {
+    setupdateShortby(updateShort)
+  }
 
+  const handleButtonClick = (index, cleaner) => {
+    // Atualiza apenas o CardCleaner clicado
+    setSelectedCleaner(index === selectedCleaner ? null : index)
+    props.onCleanerSelect(index === selectedCleaner ? null : cleaner)
+  }
+  const handleButtonReviews = (index) => {
+    setSelectedCardIndex(index === selectedCardIndex ? null : index)
+  }
   return (
     <ContListCleaners>
-      <FilterSortby>
-        <Sortby>Sort by : </Sortby>
-        <SortSub></SortSub>
-        <SetaDown onChange={(e) => setSelectOption(e.target.value)}>
-          {sortByList.map((opt, index) => (
-            <option value={opt} key={index}>
-              {opt}
-            </option>
+      <FilterSortby showOption={showOption} onClick={() => setshowOption(!showOption)}>
+        <Sortby>Sort by:</Sortby>
+        <SortSub>{updateShortby || 'Relevance'}</SortSub>
+        <BoxFilterShortby showOption={showOption}>
+          {listOption.map((item, index) => (
+            <ContOptionsFilter key={index}>
+              <ShortbyOption
+                style={{ backgroundColor: updateShortby === item && '#80808058' }}
+                onClick={() => updateShortBy(item)}
+              >
+                {item}
+              </ShortbyOption>
+              {index < 3 && <BarraAlt2 />}
+            </ContOptionsFilter>
           ))}
-        </SetaDown>
+        </BoxFilterShortby>
+        <SetaDown src="/setadown1.svg" height="25px" width="20px" />
       </FilterSortby>
       <ContCardCleaner>
         {cleanersData.map((cleaner, index) => (
-          <CardCleaner key={index}>
+          <CardCleaner
+            style={{
+              ...(selectedCleaner === index && {
+                backgroundColor: '#8383c565',
+                border: '2px solid blue'
+              })
+            }}
+            key={index}
+          >
+            {selectedCardIndex === index && (
+              <ReviewScreen onClose={() => handleButtonReviews(index)} />
+            )}
             <NameandPric>
               <div style={{ gap: '3px', display: 'flex' }}>
                 <MaleIcon src="/maleicon.png" />
@@ -184,8 +280,21 @@ export default function ListCleaners(props) {
               </FlexAbout>
             </ContAbout>
             <FlexButtons>
-              <ButtonAlt valor="review" />
-              <ButtonAlt valor="select" onClick={() => props.onCleanerSelect(cleaner)} />
+              <ButtonAlt
+                valor="REVIEWS"
+                style={{
+                  backgroundColor: 'white',
+                  color: '#999999',
+                  border: '1PX solid #5e5ef5af'
+                }}
+                onClick={() => handleButtonReviews(index)}
+              />
+
+              <ButtonAltStyled
+                valor={index === selectedCleaner ? 'SELECTED' : 'SELECT'}
+                arrowButton={index === selectedCleaner ? false : true}
+                onClick={() => handleButtonClick(index, cleaner)}
+              />
             </FlexButtons>
           </CardCleaner>
         ))}

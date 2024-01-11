@@ -1,6 +1,7 @@
 import styled, { keyframes } from 'styled-components'
 import Button from '../form/Button'
 import dynamic from 'next/dynamic'
+import { useState } from 'react'
 
 const DescAnimation = keyframes`
   from {
@@ -13,8 +14,12 @@ const DescAnimation = keyframes`
 
 const Container = styled.div`
   display: flex;
-  width: 100vw;
-  height: 100vh;
+  position: fixed;
+  top: 25%;
+  left: 25%;
+  width: 50vw;
+  height: 50vh;
+  //background: rgba(0, 0, 0, 0.4);
 `
 
 const DivCleanerInfos = styled.div`
@@ -59,6 +64,7 @@ const CleanerPrice = styled.h2`
 
 const DivDocInfos = styled.div`
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   margin-top: 5px;
   /* estilos aqui */
@@ -185,29 +191,41 @@ const DivStarDate = styled.div`
 
 const ThumbsUp = styled.img`
   width: 30px;
-  content: ${(props) => (props.tmbs ? 'none' : "url('thumbsupguy.svg')")};
+  content: ${(props) => (props.tmbs ? 'none' : "url('../thumbsupguy.svg')")};
   :hover {
     width: 40px;
   }
 `
+const Quit = styled.p`
+  color: red;
+  font-weight: 700;
+  font-size: 18px;
+`
 function ReviewScreen(props) {
+  const [styleQuit, setStyleQuit] = useState(false)
+
+  const handleClick = () => {
+    setStyleQuit(!styleQuit)
+    props.onClose()
+  }
   return (
-    <Container>
+    <Container style={{ ...(styleQuit === true && { display: 'none' }) }}>
       <DivCleanerInfos>
         <DivInfos>
+          <Quit onClick={handleClick}>QUIT</Quit>
           <CleanerImg image="/maleicon.png"></CleanerImg>
-          <CleanerName>Gabriel</CleanerName>
-          <CleanerPrice>52R$</CleanerPrice>
+          <CleanerName>{props.name}</CleanerName>
+          <CleanerPrice>{props.price}</CleanerPrice>
         </DivInfos>
         <div>
           <hr style={{ marginTop: '15px' }}></hr>
         </div>
         <DivDocInfos>
-          <CheckInfo src="checkIconB.png" />
+          <CheckInfo src="../checkIconB.png" />
           <Desc>Id checks out</Desc>
         </DivDocInfos>
         <DivDocInfos>
-          <CheckInfo src="checkIconB.png" />
+          <CheckInfo src="../checkIconB.png" />
           <Desc>Id checks out</Desc>
         </DivDocInfos>
         <hr></hr>
@@ -222,7 +240,7 @@ function ReviewScreen(props) {
           </DivTypeCleanings>
           <DivTypeCleanings>
             <ThumbsUp />
-            <Desc>(ThumbsUp image) tipo de limpeza</Desc>
+            <Desc>(ThumbsUp image) tipo de limpeza1</Desc>
           </DivTypeCleanings>
         </CleaningTypes>
         <hr></hr>

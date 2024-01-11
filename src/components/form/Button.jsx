@@ -20,11 +20,25 @@ const StyledButton = styled.button`
     font-weight: 700;
   }
 `;
-export default function Button({ children,  disabled,...props }) {
+const SetaButton = styled.img`
+width: 12px;
+height: 12px;
+position: absolute;
+transform: translate(20%,12%);
+`
+const RightButton = styled.img`
+width: 17px;
+height: 16px;
+position: absolute;
+transform: translate(20%,-6%);
+`
+export default function Button({ children, disabled, arrowButton, ...props }) {
   return (
     <StyledButton disabled={props.isDisabled} {...props}>
       {children}
       {props.valor ? props.valor : ""}
+      {arrowButton === true && <SetaButton src='/arrowrightWhite.png'/> } 
+      {arrowButton === false && <RightButton src='/Whitecheck.png' /> }
     </StyledButton>
   );
 }
