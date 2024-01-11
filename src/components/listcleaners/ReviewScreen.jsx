@@ -18,8 +18,9 @@ const Container = styled.div`
   top: 25%;
   left: 25%;
   width: 50vw;
-  height: 50vh;
-  //background: rgba(0, 0, 0, 0.4);
+  height: 60vh;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.4);
 `
 
 const DivCleanerInfos = styled.div`
@@ -41,9 +42,7 @@ const DivInfos = styled.div`
   justify-content: center;
   align-items: center;
   margin: 10px 0 10px 0;
-  /* código aqui */
 `
-
 const CleanerImg = styled.div`
   width: 50px;
   height: 50px;
@@ -53,67 +52,38 @@ const CleanerImg = styled.div`
   border-radius: 25%;
   background-position: center;
 `
-
 const CleanerName = styled.h2`
   color: #ccc;
 `
-
 const CleanerPrice = styled.h2`
   color: ${(props) => props.theme.colors.greenMoney};
 `
-
 const DivDocInfos = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   margin-top: 5px;
-  /* estilos aqui */
 `
-
 const CheckInfo = styled.img`
   width: 15px;
   height: 15px;
 `
-
 const CleaningTypes = styled.div`
-  /* Estilos aqui */
 `
 const DivTypeCleanings = styled.div`
   display: flex;
   align-items: center;
 `
-
 const Desc = styled.h2`
   margin: 10px 5px;
-  //color: #77d2df;
-  /* background-image: linear-gradient(
-    45deg,
-    ${(props) => props.theme.colors.greenMoney},
-    #77d2df 50%
-  ); */
   animation: ${DescAnimation} 4s ease-in-out infinite alternate;
-  //animation-duration: 4s;
-  //animation-iteration-count: infinite;
-  //animation-direction: alternate;
-  /* background-clip: text;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-text-fill-color: transparent; */
 `
-
 const DivBoxAboutMe = styled.div`
   display: flex;
   justify-content: center;
 `
-
-const DivBtnRemove = styled.div`
-  display: flex;
-  justify-content: center;
-`
-
 const BoxAboutMe = styled.div`
-  margin: 10px 0 0 0; //C-D-B-E
+  margin: 10px 0 0 0; 
   border-radius: 5px;
   width: fit-content;
   height: fit-content;
@@ -122,31 +92,24 @@ const BoxAboutMe = styled.div`
   padding-bottom: 1%;
   padding-right: 2%;
   background-color: #32323299;
-  /* ESTILOS AQUI */
 `
 const AboutMeTitle = styled.h2`
   color: white;
   font-weight: 700;
   padding: 0 0 0 10px;
 `
-
 const AboutMeDescDiv = styled.div`
-  /* ESTILOS AQUI */
 `
 const AboutMeDesc = styled.h3`
   padding: 10px 0 0 20px;
   color: white;
 `
-
 const ReviewsDiv = styled.div`
   color: black;
   margin: 10px 0 0 10px;
 `
-
 const ReviewsDivTitle = styled.div`
-  /* ESTILOS AQUI */
 `
-
 const ReviewsTitle = styled.h2`
   text-align: center;
   font-weight: 700;
@@ -155,7 +118,6 @@ const ReviewsTitle = styled.h2`
 const ReviewCardDiv = styled.div`
   color: white;
 `
-
 const ReviewCard = styled.div`
   font-weight: 700;
   color: white;
@@ -200,16 +162,28 @@ const Quit = styled.p`
   color: red;
   font-weight: 700;
   font-size: 18px;
+  cursor: pointer;
 `
-function ReviewScreen(props) {
+const ButtonAlt = styled(Button)`
+  padding: 5px 5px 5px 5px;
+   border-radius: 6px;
+   margin: 27px;
+   margin-left: 57px;
+`
+function ReviewScreen({cleaner,onClick, ...props}) {
   const [styleQuit, setStyleQuit] = useState(false)
 
   const handleClick = () => {
-    setStyleQuit(!styleQuit)
-    props.onClose()
+    setStyleQuit(!styleQuit);
+    props.onClose();
+  };
+  const handleClickButton = () => {
+    props.onButtonClick();
+    props.onClose();
+    setStyleQuit(!styleQuit);
   }
   return (
-    <Container style={{ ...(styleQuit === true && { display: 'none' }) }}>
+    <Container {...props} style={{ ...(styleQuit === true && { display: 'none' }) }}>  
       <DivCleanerInfos>
         <DivInfos>
           <Quit onClick={handleClick}>QUIT</Quit>
@@ -228,7 +202,7 @@ function ReviewScreen(props) {
           <CheckInfo src="../checkIconB.png" />
           <Desc>Id checks out</Desc>
         </DivDocInfos>
-        <hr></hr>
+        <hr/> 
         <CleaningTypes>
           <DivTypeCleanings>
             <ThumbsUp />
@@ -244,12 +218,10 @@ function ReviewScreen(props) {
           </DivTypeCleanings>
         </CleaningTypes>
         <hr></hr>
-        <DivBtnRemove>
-          <Button
-            style={{ padding: '5px 5px 5px 5px', borderRadius: '6px', marginTop: '5px' }}
-            valor="Remove This Cleaner"
-          />
-        </DivBtnRemove>
+        <ButtonAlt 
+        valor={cleaner ? 'Remove this cleaner' : 'Selected this cleaner'}
+        onClick={handleClickButton}
+         />
       </DivCleanerInfos>
       <hr style={{ width: '5px' }} />
       <DivReviews>
@@ -257,7 +229,9 @@ function ReviewScreen(props) {
           <BoxAboutMe>
             <AboutMeTitle>About Me: </AboutMeTitle>
             <AboutMeDescDiv>
-              <AboutMeDesc>TEXTO AQUI</AboutMeDesc>
+              <AboutMeDesc>Dedicated to my work. Customer satisfaction is my priority
+              Dedicated to my work. Customer satisfaction is my priority. Good relationship with customer.
+              </AboutMeDesc>
             </AboutMeDescDiv>
           </BoxAboutMe>
         </DivBoxAboutMe>
@@ -271,12 +245,9 @@ function ReviewScreen(props) {
                   <hr></hr>
                   <ClientReviewName>NOME</ClientReviewName>
                   <ClientReviewDesc>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut quam recusandae
-                    ratione, porro dignissimos maiores deserunt voluptas, fuga molestias rem
-                    asperiores suscipit sit? Possimus, deleniti voluptatum reiciendis dolor ratione
-                    maxime? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta, sit
-                    omnis! Ex consequuntur quis perferendis dolorem ad velit numquam nemo deleniti
-                    nisi deserunt dignissimos, nulla pariatur tenetur architecto explicabo animi.
+                    LHoraceKwabena did a very good job for me.
+                    He lessened to all my requirements and carried them out exactly the way I wanted.
+                    satisfied and would be more than happy to hire him again. Thank you Kwabena
                   </ClientReviewDesc>
                   <DivStarDate>
                     <ClientReviewDate>26/07/2002</ClientReviewDate>
