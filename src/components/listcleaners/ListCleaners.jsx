@@ -214,7 +214,6 @@ export default function ListCleaners(props) {
     setSelectedCleaner(index === selectedCleaner ? null : index)
     props.onCleanerSelect(index === selectedCleaner ? null : cleaner)
   }
-  console.log(selectedCleaner)
   const handleButtonReviews = (index) => {
     setSelectedCardIndex(index === selectedCardIndex ? null : index)
   }
@@ -255,9 +254,12 @@ export default function ListCleaners(props) {
               onClose={() => handleButtonReviews(index)}
               onButtonClick={() => {
                 handleButtonClick(index, cleaner);
-                handleCloseReviewScreen(); // Adicione esta linha para fechar o ReviewScreen
+                handleCloseReviewScreen(); 
               }}
+              onCleanerinfos={() => index === cleaner.name ? null : index}
+             
               />
+              
             
             )}
             
@@ -306,7 +308,10 @@ export default function ListCleaners(props) {
             </FlexButtons>
           </CardCleaner>
         ))}
+   
       </ContCardCleaner>
     </ContListCleaners>
+    
   )
 }
+
