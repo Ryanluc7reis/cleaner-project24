@@ -181,8 +181,8 @@ const cleanersData = [
     cleaningCount: 100,
     experience: 'Since born'
   }
-  // Adicione mais objetos de dados conforme necessário
 ]
+export { cleanersData }
 const ButtonAltStyled = styled(Button)`
   width: 145px;
   height: 40px;
@@ -196,7 +196,7 @@ export default function ListCleaners(props) {
   const [selectedCleaner, setSelectedCleaner] = useState(null)
   const [updateShortby, setupdateShortby] = useState(null)
   const [selectedCardIndex, setSelectedCardIndex] = useState(null)
-  const [showReviewScreen, setShowReviewScreen] = useState(false);
+  const [showReviewScreen, setShowReviewScreen] = useState(false)
   const listOption = [
     'Relevance',
     'Price high to low',
@@ -204,21 +204,23 @@ export default function ListCleaners(props) {
     'Highest number of cleans'
   ]
   const handleCloseReviewScreen = () => {
-    setShowReviewScreen(false);
-  };
+    setShowReviewScreen(false)
+  }
   const updateShortBy = (updateShort) => {
     setupdateShortby(updateShort)
   }
 
- const handleButtonClick = (index, cleaner) => {
+  const handleButtonClick = (index, cleaner) => {
     setSelectedCleaner(index === selectedCleaner ? null : index)
     props.onCleanerSelect(index === selectedCleaner ? null : cleaner)
   }
   const handleButtonReviews = (index) => {
     setSelectedCardIndex(index === selectedCardIndex ? null : index)
   }
+
+  
   return (
-    <ContListCleaners>
+    <ContListCleaners style={selectedCardIndex != null ? { opacity: 0.5 } : { opacity: 1 }}>
       <FilterSortby showOption={showOption} onClick={() => setshowOption(!showOption)}>
         <Sortby>Sort by:</Sortby>
         <SortSub>{updateShortby || 'Relevance'}</SortSub>
@@ -249,20 +251,17 @@ export default function ListCleaners(props) {
             key={index}
           >
             {selectedCardIndex === index && (
-              <ReviewScreen 
-              cleaner={index === selectedCleaner ?  true : false} 
-              onClose={() => handleButtonReviews(index)}
-              onButtonClick={() => {
-                handleButtonClick(index, cleaner);
-                handleCloseReviewScreen(); 
-              }}
-              onCleanerinfos={() => index === cleaner.name ? null : index}
-             
+              <ReviewScreen
+                cleaner={index === selectedCleaner ? true : false}
+                onClose={() => handleButtonReviews(index)}
+                onButtonClick={() => {
+                  handleButtonClick(index, cleaner)
+                  handleCloseReviewScreen()
+                }}
+                onCleanerinfos={cleanersData[index]}
               />
-              
-            
             )}
-            
+
             <NameandPric>
               <div style={{ gap: '3px', display: 'flex' }}>
                 <MaleIcon src="/maleicon.png" />
@@ -297,7 +296,9 @@ export default function ListCleaners(props) {
                   color: '#999999',
                   border: '1PX solid #5e5ef5af'
                 }}
-                onClick={() => handleButtonReviews(index)}
+                onClick={() => {
+                  handleButtonReviews(index)
+                }}
               />
 
               <ButtonAltStyled
@@ -308,10 +309,7 @@ export default function ListCleaners(props) {
             </FlexButtons>
           </CardCleaner>
         ))}
-   
       </ContCardCleaner>
     </ContListCleaners>
-    
   )
 }
-
