@@ -38,8 +38,6 @@ const BarraFilter = styled.div`
 const Star = styled.img`
   height: 15px;
   width: 17px;
-  cursor: pointer;
- opacity: ${(props) => props.isOpacity ? 1 : 0.3};
 `
 const Flexfilters = styled.div`
   display: flex;
@@ -93,12 +91,11 @@ const FlexHeader = styled.div`
   align-items: center;
   gap: 10px;
 `
-export default function BoxFilter(props){
+export default function BoxFilter(){
   const [selectPrice, setselectPrice] = useState(null)
   const [updatePrice , setupdatePrice ] = useState(null)
   const [selectMinimumCleans, setMinimumCleans] = useState(null)
   const [updateCleans , setupdateCleans ] = useState(null)
-  const [opacity, setOpacity] = useState(null)
   const Prices = [
   '$ 18p/h', '$ 19p/h','$ 20p/h',
   '$ 21p/h','$ 22p/h','$ 23p/h',
@@ -112,17 +109,6 @@ export default function BoxFilter(props){
   const handleClean = (selectedclean) => {
     setupdateCleans(selectedclean)
   }
-  const renderStars = () => {
-    const numberOfStars = 5;
-    return Array.from({ length: numberOfStars }, (_, index) => (
-      <Star
-        key={index}
-        isOpacity={opacity && index < opacity}
-        src="/star.png"
-        onClick={() => setOpacity(index + 1)}
-      />
-    ));
-  };
   return(
     <Container>
         <FlexHeader>
@@ -148,7 +134,11 @@ export default function BoxFilter(props){
         <Flexfilters>
           <HeadarSub>Minimum rating</HeadarSub>
           <div style={{ display: 'flex', gap: '5px' }}>
-          {renderStars()}
+            <Star src="/star.png" />
+            <Star src="/star.png" />
+            <Star src="/star.png" />
+            <Star src="/star.png" />
+            <Star src="/star.png" />
           </div>
         </Flexfilters>
         <BarraFilter />
