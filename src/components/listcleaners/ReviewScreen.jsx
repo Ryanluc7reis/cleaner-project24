@@ -2,6 +2,7 @@ import styled, { keyframes } from 'styled-components'
 import Button from '../form/Button'
 import dynamic from 'next/dynamic'
 import { useState } from 'react'
+import { cleanersData } from './ListCleaners'
 
 const DescAnimation = keyframes`
   from {
@@ -30,7 +31,7 @@ const DivCleanerInfos = styled.div`
 `
 
 const DivReviews = styled.div`
-  background: #F3F3F3;
+  background: #f3f3f3;
   padding: 7px;
 `
 const CleanerImg = styled.div`
@@ -41,23 +42,23 @@ const CleanerImg = styled.div`
   background-image: ${(props) => `url(${props.image})`};
   border-radius: 25%;
   position: absolute;
-  transform: translate(1%,-50%);
+  transform: translate(1%, -50%);
   background-position: center;
   border: 2px solid #5050eb;
   border-radius: 25px;
 `
 const CleanerName = styled.h2`
-  color: rgb(68,68,68);
+  color: rgb(68, 68, 68);
   padding-top: 35px;
 `
 const CleanerPrice = styled.h2`
-  color: #4F538D;
+  color: #4f538d;
 `
 const DivDocInfos = styled.div`
   display: flex;
   align-items: center;
   margin-left: 30px;
-  margin-top: 2px; 
+  margin-top: 2px;
 `
 const CheckInfo = styled.img`
   width: 15px;
@@ -71,7 +72,7 @@ const TypeCleanings = styled.div`
 `
 const Desc = styled.h2`
   margin: 10px 5px;
-  color: rgb(68,68,68);
+  color: rgb(68, 68, 68);
   //animation: ${DescAnimation} 4s ease-in-out infinite alternate;
 `
 const BoxAboutMe = styled.div`
@@ -97,7 +98,7 @@ const AboutMeDesc = styled.h3`
   padding-top: 6px;
 `
 const BoxReviews = styled.div`
-  margin:  10px;
+  margin: 10px;
   max-height: ${(props) => props.maxHeight || '70vh'};
   overflow-y: scroll;
 `
@@ -148,7 +149,7 @@ const Close = styled.img`
   height: 20px;
   position: absolute;
   right: 0%;
-  transform: translate(100%,-90%);
+  transform: translate(100%, -90%);
   background-color: red;
 
   cursor: pointer;
@@ -158,7 +159,7 @@ const StarRating = styled.img`
   height: 17px;
 `
 const RatingAndExpirence = styled.div`
-  background-color: rgb(243,243,243);
+  background-color: rgb(243, 243, 243);
   padding: 4px;
   border-radius: 6px;
   font-size: 14px;
@@ -177,7 +178,7 @@ const ButtonAlt = styled(Button)`
   font-weight: 500;
   :hover {
     background: #0d0d0dd6;
-    color: white
+    color: white;
   }
 `
 const ContInfos = styled.div`
@@ -189,8 +190,8 @@ const ContInfos = styled.div`
 `
 const Rating = styled.img`
   height: 17px;
-  width: 18px
-;`
+  width: 18px;
+`
 const FlexClientReviewName = styled.div`
   display: flex;
   justify-content: space-between;
@@ -220,95 +221,90 @@ const reviews = [
     desc: 'Katiane did and excellent job. I highly recommend her',
     rating: 4.6
   }
-
-];
-function ReviewScreen({cleaner, ...props}) {
+]
+function ReviewScreen({ name, cleaner, ...props }) {
   const [styleQuit, setStyleQuit] = useState(false)
 
   const handleClick = () => {
-    setStyleQuit(!styleQuit);
-    props.onClose();
-  };
-  const handleClickButton = () => {
-    props.onButtonClick();
-    props.onClose();
-    setStyleQuit(!styleQuit);
+    setStyleQuit(!styleQuit)
+    props.onClose()
   }
-  const geti = () => {
-    props.onCleanerinfos()
-    
+  const handleClickButton = () => {
+    props.onButtonClick()
+    props.onClose()
+    setStyleQuit(!styleQuit)
   }
   return (
     <Container {...props} style={{ ...(styleQuit === true && { display: 'none' }) }}>
-      <Close onClick={handleClick} src='/iconcloseW.png'/>  
+      <Close onClick={handleClick} src="/iconcloseW.png" />
       <DivCleanerInfos>
         <ContInfos>
-            <CleanerImg image="/maleicon.png"></CleanerImg>
-            <CleanerName>Ryan</CleanerName>
-            <CleanerPrice>£18.90 /h</CleanerPrice>
-            <div style={{display: 'flex', gap : '4px'}}>
+          <CleanerImg image="/maleicon.png" /* {props.onCleanerinfos.img} */></CleanerImg>
+          <CleanerName>{props.onCleanerinfos.name}</CleanerName>
+          <CleanerPrice>{props.onCleanerinfos.price}</CleanerPrice>
+          <div style={{ display: 'flex', gap: '4px' }}>
             <RatingAndExpirence>
-                <StarRating src="/star.png" />4,6 /h
+              <StarRating src="/star.png" />
+              {props.onCleanerinfos.rating}
             </RatingAndExpirence>
-            <RatingAndExpirence>5 cleanings</RatingAndExpirence>
-            </div>
+            <RatingAndExpirence>{props.onCleanerinfos.cleaningCount}</RatingAndExpirence>
+          </div>
         </ContInfos>
         <hr />
-          <DivDocInfos>
-              <CheckInfo src="../checkIconB.png" />
-              <Desc>Id checks out</Desc>
-          </DivDocInfos>
-          <DivDocInfos>
-              <CheckInfo src="../checkIconB.png" />
-              <Desc>Id checks out</Desc>
-          </DivDocInfos>
-        <hr/>
-            <TypeCleanings>
-              <ThumbsUp />
-              <Desc>Wet manual cleaning</Desc>
-            </TypeCleanings>
-            <TypeCleanings>
-              <ThumbsUp />
-              <Desc>Dry Cleaning</Desc>
-            </TypeCleanings>
-            <TypeCleanings>
-              <ThumbsUp />
-              <Desc>Dry Cleaning</Desc>
-            </TypeCleanings>
+        <DivDocInfos>
+          <CheckInfo src="../checkIconB.png" />
+          <Desc>Id checks out</Desc>
+        </DivDocInfos>
+        <DivDocInfos>
+          <CheckInfo src="../checkIconB.png" />
+          <Desc>Id checks out</Desc>
+        </DivDocInfos>
+        <hr />
+        <TypeCleanings>
+          <ThumbsUp />
+          <Desc>Wet manual cleaning</Desc>
+        </TypeCleanings>
+        <TypeCleanings>
+          <ThumbsUp />
+          <Desc>Dry Cleaning</Desc>
+        </TypeCleanings>
+        <TypeCleanings>
+          <ThumbsUp />
+          <Desc>Dry Cleaning</Desc>
+        </TypeCleanings>
         <hr></hr>
-        <ButtonAlt 
-        valor={cleaner ? 'Remove this cleaner' : 'Selected this cleaner'}
-        onClick={handleClickButton}
-         />
+        <ButtonAlt
+          valor={cleaner ? 'Remove this cleaner' : 'Selected this cleaner'}
+          onClick={handleClickButton}
+        />
       </DivCleanerInfos>
       <DivReviews>
-            <BoxAboutMe>
-                <AboutMeTitle>About Me: </AboutMeTitle>
-                <AboutMeSub>Dedicated to my work</AboutMeSub>
-                <AboutMeDesc>
-                  Dedicated to my work. Customer satisfaction is my priority
-                  Dedicated to my work. Customer satisfaction is my priority. 
-                  Good relationship with customer.
-                </AboutMeDesc>
-            </BoxAboutMe>
-            <BoxReviews maxHeight={`${reviews.length * 80}px`}>
-                <ReviewsTitle>Reviews</ReviewsTitle>
-                {reviews.map((review, index) => (
-                  <ContReviewsClient key={index}>
-                      <FlexClientReviewName>
-                          <ClientReviewName>{review.name}</ClientReviewName>
-                          <Rating src='/star.png'/>
-                      </FlexClientReviewName>
-                      <ClientReviewDesc>{review.desc}</ClientReviewDesc>
-                      <DivStarDate>
-                        <ClientReviewDate>26/07/2002</ClientReviewDate>
-                        <ClientReviewStars src="/maleicon.png" />
-                      </DivStarDate>
-                      <hr />
-                  </ContReviewsClient>                 
-                ))}                   
-            </BoxReviews>
-        </DivReviews>
+        <BoxAboutMe>
+          <AboutMeTitle>About Me: </AboutMeTitle>
+          <AboutMeSub>Dedicated to my work</AboutMeSub>
+          <AboutMeDesc>
+            Dedicated to my work. Customer satisfaction is my priority Dedicated to my work.
+            Customer satisfaction is my priority. Good relationship with customer.
+          </AboutMeDesc>
+        </BoxAboutMe>
+        <BoxReviews maxHeight={`${reviews.length * 80}px`}>
+          <ReviewsTitle>Reviews</ReviewsTitle>
+          {reviews.map((review, index) => (
+            <ContReviewsClient key={index}>
+              <FlexClientReviewName>
+                <ClientReviewName>{review.name}</ClientReviewName>
+                <Rating src="/star.png" />
+              </FlexClientReviewName>
+              <ClientReviewDesc>{review.desc}</ClientReviewDesc>
+              <DivStarDate>
+                <ClientReviewDate>26/07/2002</ClientReviewDate>
+                <ClientReviewStars src="/maleicon.png" />
+              </DivStarDate>
+              <hr />
+            </ContReviewsClient>
+          ))}
+        </BoxReviews>
+      </DivReviews>
     </Container>
   )
 }
