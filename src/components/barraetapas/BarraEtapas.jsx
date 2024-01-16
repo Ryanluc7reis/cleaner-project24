@@ -7,6 +7,9 @@ import BasicDateCalendar from '../calendario/Calendario'
 const Container = styled.div`
   width: 100%;
   height: auto;
+  @media (max-width: 712px){
+    min-width: 115%;
+  }
 `
 export const FlexDivEtapas = styled.div`
   display: flex;
@@ -15,9 +18,7 @@ export const FlexDivEtapas = styled.div`
   position: sticky;
   top: 0;
   z-index: 100;
-  @media (max-width: 426px) {
-    width: 115%;
-  }
+ 
 `
 export const DivEtapas = styled.div`
   width: 100%;
@@ -32,21 +33,29 @@ export const DivEtapas = styled.div`
     rgba(204, 204, 204, 0.09) 0px 8px 4px,
     rgba(211, 211, 211, 0.09) 0px 16px 8px,
     rgba(218, 218, 218, 0.09) 0px 32px 16px;
-  @media (max-width: 600px) {
-    height: 150px;
+  @media (max-width: 711px) {
+     height: 150px;
     display: grid;
-    grid-template-columns: 70px 70px 70px;
+    grid-template-columns: 85px 85px 85px;
+    gap: 10px;
+  }
+  @media (max-width: 675px) {
+    gap: 0;
+    grid-template-columns: 85px 85px ;
   }
 `
 const FlexEtapas = styled.div`
   display: flex;
-  flex-direction: column;
-  margin-right: 35px;
+  width:100%;
+  justify-content: space-around;
   opacity: ${(props) => (props.isClicked ? 0.5 : 1)};
   transition: opacity 0.1s ease; 
-  gap: 4px;
-  @media (max-width: 745px) {
-    margin: 0;
+  
+  @media (max-width: 711px) {
+    gap: 10px;
+    width: fit-content;
+    white-space: nowrap;
+    align-items: center;
   }
 `
 const Etapas = styled.h5`
@@ -63,10 +72,8 @@ const Barra = styled.div`
   height: 45px;
   margin-top: 7px;
   background-color: #20202096;
-  @media (max-width: 600px) {
-    width: 45px;
-    height: 2px;
-    display: none;
+  @media (max-width: 711px) {
+    display: none; 
   }
 `
 const BarraAlt = styled(Barra)`
@@ -77,8 +84,8 @@ const BarraAlt = styled(Barra)`
   margin: 0;
 `
 const SetaDown = styled.img`
-cursor: pointer;
-opacity: ${(props) => (props.isClicked ? 0.5 : 1)};
+  cursor: pointer;
+  opacity: ${(props) => (props.isClicked ? 0.5 : 1)};
   transition: opacity 0.1s ease; 
 `
 
@@ -91,10 +98,29 @@ const BoxPlan = styled.div`
   top: 23%;
   left: 14%;
   z-index: 100;
-  transform: translate(-3%,19%);
+  transform: translate(32%,19%);
   width: 247px;
   height: 157px;
   overflow-y:scroll;
+  @media(max-width: 1250px){
+    transform: translate(0%,24%);
+    top: 25%;
+    left: 20%;
+  }
+  @media(max-width: 1200px){
+    width: 200px;
+  }
+  @media(max-width: 712px){
+    left: 39%;
+    top: 41%;
+    transform: translate(0%,12%);
+    border: 2px solid #6b6b6b; 
+  }
+  @media (max-width: 320px){
+    left: 25%;
+    top: 41%;
+  }
+ 
 `
  const BoxDate1 = styled.div`
   display: ${(props) => props.boxdate1 ? 'flex' : 'none'};
@@ -102,10 +128,29 @@ const BoxPlan = styled.div`
   border: 1px solid #CCCCCC;
   position: absolute;
   top: 27%;
-  transform: translate(-21%,1%);
+  transform: translate(7%, 1%);
   width: 324px;
   min-height: 287px;
   height: auto;
+  z-index: 100;
+  @media(max-width: 1250px){
+    transform: translate(9%,8%);
+  }
+  @media(max-width: 712px){
+    right: 24%;
+    top: 36%;
+    transform: translate(0%,14%);
+    border: 2px solid #6b6b6b; 
+  } 
+  @media (max-width: 425px){
+    left: 22%;
+    top: 36%;
+  }
+  @media (max-width: 320px){
+    left: 8%;
+    top: 36%;
+  }
+ 
  `
  const BoxHour1 = styled.div`
   display: ${(props) => props.boxhour1 ? 'flex' : 'none'};
@@ -114,10 +159,39 @@ const BoxPlan = styled.div`
   border: 1px solid #CCCCCC;
   position: absolute;
   top: 23%;
-  transform: translate(82%,15%);
+  transform: translate(96%,15%);
   width: 287px;
   height: 200px;
+  z-index: 100;
   overflow-y:scroll;
+  @media(max-width: 1250px){
+    transform: translate(0%,23%);
+    right: 20%;
+    width: 250px;
+  }
+  @media(max-width: 1200px){
+    width: 200px;
+    right:23%;
+    transform: translate(0%,25%);
+  }
+  @media(max-width: 768px){
+    right: 15%;
+  
+  } 
+  @media(max-width: 712px){
+    right: 27%;
+    top: 39%;
+    transform: translate(0%,14%);
+    border: 2px solid #6b6b6b; 
+  } 
+  @media (max-width: 425px){
+    left: 30%;
+    top: 39%;
+  }
+  @media (max-width: 320px){
+    left: 25%;
+    top: 40%;
+  }
  `
  const BoxStartTime1 = styled.div`
   display: ${(props) => props.boxstarttime1 ? 'flex' : 'none'};
@@ -127,10 +201,32 @@ const BoxPlan = styled.div`
   position: absolute;
   top: 23%;
   right: 20%;
-  transform: translate(90%,15%);
-  width: 300px;
+  transform: translate(99%,15%);
+  width: 250px;
   height: 200px;
   overflow-y:scroll;
+  @media(max-width: 1250px){
+    transform: translate(0%,23%);
+    right: 0%;
+  }
+  @media(max-width: 1200px){
+    width: 200px;
+    transform: translate(0%,25%);
+  }
+   @media(max-width: 712px){
+    right: 27%;
+    top: 39%;
+    transform: translate(0%,14%);
+    border: 2px solid #6b6b6b; 
+  } 
+  @media (max-width: 425px){
+    left: 30%;
+    top: 39%;
+  }
+  @media (max-width: 320px){
+    left: 25%;
+    top: 40%;
+  }
  `
  const TextOptions = styled.h4`
   font-size: 17px;
@@ -143,6 +239,19 @@ const BoxPlan = styled.div`
     cursor: pointer;
   }
  `
+ const StyledEtapas = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+ `
+ const StyledEtapasAlt = styled(StyledEtapas)`
+  margin-right: 55px;
+  @media (max-width: 711px) {
+    margin-right: 37px;
+  }
+ `
+
+
   const DateCalenderAlt = styled(BasicDateCalendar)`
   > div {
     > .css-cyfsxc-MuiPickersCalendarHeader-labelContainer {
@@ -244,21 +353,25 @@ export default function BarraEtapas(props) {
     <Container>
       <DivEtapas>
         <FlexEtapas>
-          <Etapas>{region}</Etapas>
-          <SubEtapas>LOCATION</SubEtapas>
+            <StyledEtapasAlt>     
+              <Etapas>{region}</Etapas>
+              <SubEtapas>LOCATION</SubEtapas>
+            </StyledEtapasAlt>
         </FlexEtapas>
         <Barra />
         <FlexEtapas isClicked={isFlexEtapasClicked} >
-          <Etapas>{Updateplan ? Updateplan : cardValues}</Etapas>
-          <SubEtapas>PLAN</SubEtapas>
+            <StyledEtapas>
+              <Etapas>{Updateplan ? Updateplan : cardValues}</Etapas>
+              <SubEtapas>PLAN</SubEtapas>
+            </StyledEtapas>
+            <SetaDown 
+              src="/setadown1.svg" 
+              height="45px"
+              width="30px"
+              onClick={() => handleFlexEtapasClick(setBoxPlans(!BoxPlans))}
+              isClicked={isFlexEtapasClicked}
+            />
         </FlexEtapas>
-        <SetaDown 
-        src="/setadown1.svg" 
-        height="45px"
-        width="30px"
-        onClick={() => handleFlexEtapasClick(setBoxPlans(!BoxPlans))}
-        isClicked={isFlexEtapasClicked}
-        />
         <BoxPlan boxplan1={BoxPlans}>
               {listPlans.map((item,index) => (
                 <ContOptions key={index} >
@@ -271,31 +384,35 @@ export default function BarraEtapas(props) {
         </BoxPlan>
         <Barra />
         <FlexEtapas isClicked={isFlexEtapasClicked2}>
-          <Etapas>{UpdateDate ? UpdateDate : selectedDate}</Etapas>
-          <SubEtapas>DATE</SubEtapas>
+            <StyledEtapas>
+              <Etapas>{UpdateDate ? UpdateDate : selectedDate}</Etapas>
+              <SubEtapas>DATE</SubEtapas>
+            </StyledEtapas>
+            <SetaDown 
+            src="/setadown1.svg" 
+            height="45px"
+            width="30px"
+            onClick={() => handleFlexEtapasClick2(setBoxDate(!BoxDate))}
+            isClicked={isFlexEtapasClicked2}
+            />
         </FlexEtapas>
-        <SetaDown 
-        src="/setadown1.svg" 
-        height="45px"
-        width="30px"
-        onClick={() => handleFlexEtapasClick2(setBoxDate(!BoxDate))}
-        isClicked={isFlexEtapasClicked2}
-        />
         <BoxDate1 boxdate1={BoxDate}>
           <DateCalenderAlt  onChange={updateDate} />
         </BoxDate1>
         <Barra />
         <FlexEtapas isClicked={isFlexEtapasClicked3}>
-          <Etapas>{UpdateHour ? UpdateHour : selectedHour}</Etapas>
-          <SubEtapas>DURATION</SubEtapas>
+            <StyledEtapas>
+                <Etapas>{UpdateHour ? UpdateHour : selectedHour}</Etapas>
+                <SubEtapas>DURATION</SubEtapas>
+            </StyledEtapas>
+            <SetaDown 
+            src="/setadown1.svg" 
+            height="45px"
+            width="30px"
+            onClick={() => handleFlexEtapasClick3(setBoxHour(!BoxHour))}
+            isClicked={isFlexEtapasClicked3}
+            />
         </FlexEtapas>
-        <SetaDown 
-        src="/setadown1.svg" 
-        height="45px"
-        width="30px"
-        onClick={() => handleFlexEtapasClick3(setBoxHour(!BoxHour))}
-        isClicked={isFlexEtapasClicked3}
-        />
         <BoxHour1 boxhour1={BoxHour}>
           {listHours.map((item,index) => (
             <ContOptions key={index}>
@@ -308,16 +425,18 @@ export default function BarraEtapas(props) {
         </BoxHour1>
         <Barra />
         <FlexEtapas isClicked={isFlexEtapasClicked4}>
-          <Etapas>{UpdateStartTime ? UpdateStartTime : inputUpdateHour}</Etapas>
-          <SubEtapas>STARTING TIME</SubEtapas>
+            <StyledEtapas>
+                <Etapas>{UpdateStartTime ? UpdateStartTime : inputUpdateHour}</Etapas>
+                <SubEtapas>STARTING TIME</SubEtapas>
+            </StyledEtapas>
+            <SetaDown 
+            src="/setadown1.svg" 
+            height="45px"
+            width="30px"
+            onClick={() => handleFlexEtapasClick4(setBoxStartTime(!BoxStartTime))}
+            isClicked={isFlexEtapasClicked4}
+            />
         </FlexEtapas>
-        <SetaDown 
-        src="/setadown1.svg" 
-        height="45px"
-        width="30px"
-        onClick={() => handleFlexEtapasClick4(setBoxStartTime(!BoxStartTime))}
-        isClicked={isFlexEtapasClicked4}
-        />
         <BoxStartTime1 boxstarttime1={BoxStartTime}>
           {listStartTime.map((item,index) => (
             <ContOptions key={index}>

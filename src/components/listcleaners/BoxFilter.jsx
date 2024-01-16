@@ -14,6 +14,14 @@ const Container = styled.div`
   top: 0;
   margin-top: 1px;
   margin-left: 40px;
+   @media (max-width: 712px){
+    position:static;
+    width: 400px;
+  }
+  @media (max-width: 500px){
+    width: auto;
+    margin: 0;
+  }
 `
 const HeaderAlt = styled.h1`
   font-size: 26px;
