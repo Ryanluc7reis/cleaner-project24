@@ -41,12 +41,11 @@ const PasswordInput = styled(Input)`
   min-width: 40px;
   max-width: fit-content;
 `
-const ConsentCheck = styled.div`
+const ConsentCheckDiv = styled.div`
   grid-area: ConsentCheck;
   word-wrap: break-word;
 `
-
-const SecInfos = styled.section`
+const SecInfos = styled.div`
   max-width: 35%;
   height: 70%;
   display: grid;
@@ -57,6 +56,40 @@ const SecInfos = styled.section`
   background-color: blue;
   padding: 25px 25px 25px 25px;
   margin: 50px;
+`
+const Desc = styled.div`
+  max-width: 50%;
+  max-height: 50%;
+  margin: 50px 0 50px 35%;
+  background-color: red;
+  display: flex;
+  flex-direction: column;
+`
+const PaymentAndRegister = styled.div`
+  display: flex;
+  flex-direction: row;
+`
+
+const DescText = styled.p`
+  font-size: 15px;
+  font-weight: 700;
+`
+
+const ConsentCheck = styled.form`
+  //
+`
+
+const InputCheckBox = styled.input`
+  margin-right: 30px;
+`
+
+const PolicyAccept = styled.h2`
+  overflow-wrap: 'anywhere';
+  width: 90%;
+  display: flex;
+  text-align: right;
+  margin-left: 60px;
+  margin-top: 30px;
 `
 
 function Booking() {
@@ -72,20 +105,41 @@ function Booking() {
         </h1>
       </DivSteps>
       <Title>Ready to book? Set your account details</Title>
-      <SecInfos>
-        <NameInput label={'Name'}></NameInput>
-        <SurnameInput label={'Surname'}></SurnameInput>
-        <EmailInput label={'Email'}></EmailInput>
-        <PasswordInput label={'Password'} password></PasswordInput>
-        <ConsentCheck>
-          <h1 style={{ overflowWrap: 'anywhere' }}>
-            I accept the Terms of Use and the Privacy Policy. As a customer of Helpling.co.uk, the
-            information provided is necessary for your booking and is collected in order for you to
-            receive information about the Helpling platform via email, from which you can
-            unsubscribe at any time via a link in the mail.
-          </h1>
-        </ConsentCheck>
-      </SecInfos>
+      <PaymentAndRegister>
+        <SecInfos>
+          <NameInput label={'Name'}></NameInput>
+          <SurnameInput label={'Surname'}></SurnameInput>
+          <EmailInput label={'Email'}></EmailInput>
+          <PasswordInput label={'Password'} password></PasswordInput>
+          <ConsentCheckDiv>
+            <ConsentCheck>
+              <PolicyAccept>
+                <InputCheckBox type={'checkbox'} />I accept the Terms of Use and the Privacy Policy.
+                As a customer of Helpling.co.uk, the information provided is necessary for your
+                booking and is collected in order for you to receive information about the Helpling
+                platform via email, from which you can unsubscribe at any time via a link in the
+                mail.
+              </PolicyAccept>
+            </ConsentCheck>
+          </ConsentCheckDiv>
+        </SecInfos>
+        <Desc>
+          <h1>Your booking summary</h1>
+          <hr />
+          <DescText>Duration:</DescText>
+          <hr />
+          <DescText>Date:</DescText>
+          <hr />
+          <DescText>Timing:</DescText>
+          <hr />
+          <DescText>Price per hour:</DescText>
+          <hr />
+          <DescText>Total price:</DescText>
+          <hr />
+          <DescText>Total Cost: R$</DescText>
+          <hr />
+        </Desc>
+      </PaymentAndRegister>
     </Container>
   )
 }
