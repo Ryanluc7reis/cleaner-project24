@@ -119,6 +119,9 @@ export const StyledFlexNavBar = styled.div`
   background: #edededaf;
   width: 100%;
   height: 100px;
+   @media (max-width: 712px) {
+    width: 115%;
+  }
   @media (max-width: 670px) {
     flex-direction: column;
     gap: 4px;

@@ -12,6 +12,14 @@ const ContListCleaners = styled.div`
   margin-left: 50px;
   margin-top: 20px;
   flex-direction: column;
+   @media (max-width: 1070px){
+    padding-bottom: 120px;
+  }
+  @media (max-width: 712px){
+    align-items: center;
+    margin:0;
+    margin-top: 20px;
+  }
 `
 const FilterSortby = styled.div`
   font-size: 14px;
@@ -51,6 +59,16 @@ const CardCleaner = styled.div`
 const ContCardCleaner = styled.div`
   display: grid;
   grid-template-columns: 350px 350px;
+  
+  @media (max-width: 1100px){
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+   @media (max-width: 712px){
+    align-items: center;
+    justify-content: center;
+  }
 `
 const NameandPric = styled.div`
   display: flex;
@@ -217,10 +235,9 @@ export default function ListCleaners(props) {
   const handleButtonReviews = (index) => {
     setSelectedCardIndex(index === selectedCardIndex ? null : index)
   }
-
   
   return (
-    <ContListCleaners style={selectedCardIndex != null ? { opacity: 0.5 } : { opacity: 1 }}>
+    <ContListCleaners >
       <FilterSortby showOption={showOption} onClick={() => setshowOption(!showOption)}>
         <Sortby>Sort by:</Sortby>
         <SortSub>{updateShortby || 'Relevance'}</SortSub>
