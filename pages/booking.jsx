@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 import Navbar from '../src/components/layout/Navbar'
 import Input from '../src/components/form/Input'
+import Button from '../src/components/form/Button'
+import { useState } from 'react'
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -45,7 +47,7 @@ const ConsentCheckDiv = styled.div`
   grid-area: ConsentCheck;
   word-wrap: break-word;
 `
-const SecInfos = styled.div`
+const SecInfos = styled.form`
   max-width: 35%;
   height: 70%;
   display: grid;
@@ -73,6 +75,10 @@ const PaymentAndRegister = styled.div`
 const DescText = styled.p`
   font-size: 15px;
   font-weight: 700;
+  margin: 8px 4px;
+`
+const Barra = styled.hr`
+  //
 `
 
 const ConsentCheck = styled.form`
@@ -91,8 +97,18 @@ const PolicyAccept = styled.h2`
   margin-left: 60px;
   margin-top: 30px;
 `
+const ButtonAlt = styled(Button)`
+  background-color: ${(props) => (props.isDisabled ? 'grey' : props.theme.colors.ultravio)};
+  cursor: ${(props) => (props.isDisabled ? 'default' : 'pointer')};
+  margin-left: 50%;
+  margin-top: 10px;
+  :hover {
+    background-color: ${(props) => (props.isDisabled ? 'grey' : props.theme.colors.ultravio)};
+  }
+`
 
 function Booking() {
+  const [boxSelected, setBoxSelected] = useState(Boolean)
   return (
     <Container style={{ backgroundColor: '#ccc' }}>
       <div>
@@ -109,35 +125,36 @@ function Booking() {
         <SecInfos>
           <NameInput label={'Name'}></NameInput>
           <SurnameInput label={'Surname'}></SurnameInput>
-          <EmailInput label={'Email'}></EmailInput>
+          <EmailInput label={'Email'} type="email"></EmailInput>
           <PasswordInput label={'Password'} password></PasswordInput>
           <ConsentCheckDiv>
-            <ConsentCheck>
+            <div>
               <PolicyAccept>
-                <InputCheckBox type={'checkbox'} />I accept the Terms of Use and the Privacy Policy.
-                As a customer of Helpling.co.uk, the information provided is necessary for your
-                booking and is collected in order for you to receive information about the Helpling
-                platform via email, from which you can unsubscribe at any time via a link in the
-                mail.
+                <InputCheckBox onClick={() => setBoxSelected(!boxSelected)} type={'checkbox'} />I
+                accept the Terms of Use and the Privacy Policy. As a customer of Helpling.co.uk, the
+                information provided is necessary for your booking and is collected in order for you
+                to receive information about the Helpling platform via email, from which you can
+                unsubscribe at any time via a link in the mail.
               </PolicyAccept>
-            </ConsentCheck>
+            </div>
           </ConsentCheckDiv>
+          <ButtonAlt valor="Sign-Up" isDisabled={boxSelected === false ? true : false} />
         </SecInfos>
         <Desc>
           <h1>Your booking summary</h1>
-          <hr />
+          <Barra />
           <DescText>Duration:</DescText>
-          <hr />
+          <Barra />
           <DescText>Date:</DescText>
-          <hr />
+          <Barra />
           <DescText>Timing:</DescText>
-          <hr />
+          <Barra />
           <DescText>Price per hour:</DescText>
-          <hr />
+          <Barra />
           <DescText>Total price:</DescText>
-          <hr />
+          <Barra />
           <DescText>Total Cost: R$</DescText>
-          <hr />
+          <Barra />
         </Desc>
       </PaymentAndRegister>
     </Container>
