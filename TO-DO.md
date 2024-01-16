@@ -8,4 +8,5 @@ A ser feito em pages/plansScreen/booking -->
 
 - Desvincular div <SecInfos> da <Desc>
 - Adicionar o atributo (autocomplete=current-password) no <passwordInput>
+- Fazer lógica de tornar o botão de "Sign-Up" habilitado somente se os campos estiverem completos
 - Estilizar (obviamente)
