@@ -6,6 +6,7 @@ import Logo from '../../src/components/logo/Logo'
 import ListCleaners from '../../src/components/listcleaners/ListCleaners'
 import Button from '../../src/components/form/Button'
 import { useState } from 'react'
+import { useRouter } from "next/router";
 import BoxFilter from '../../src/components/listcleaners/BoxFilter'
 import BarraEtapas from '../../src/components/barraetapas/BarraEtapas'
 
@@ -63,6 +64,13 @@ const ContBody = styled.div`
   height: 100%;
   display: flex;
   background: #edededaf;
+  @media (max-width: 712px){
+    flex-direction: column;
+    align-items: center;
+  }
+   @media (max-width: 712px){
+    min-width: 115%;
+  }
 `
 const BarraSelectedCleaner = styled.div`
   width: 600px;
@@ -81,6 +89,26 @@ const BarraSelectedCleaner = styled.div`
     rgba(70, 70, 70, 0.25) 0px 8px 4px,
     rgba(85, 85, 85, 0.09) 0px 16px 8px,
     rgba(95, 95, 95, 0.339) 0px 32px 16px;
+    @media ( max-width: 1100px){
+      left: 20%;
+      margin: 0
+    }
+    @media ( max-width: 840px){
+      left: 10%;
+    }
+    @media ( max-width: 705px){
+      left: auto;
+    }
+    @media ( max-width: 668px){
+     width: 450px;
+     padding: 0px 30px;
+    }
+    @media ( max-width: 478px){
+     width: 100%;
+     margin: 0;
+     padding: 0 10px;
+     left:0%;
+    }
 `
 const ButtonAlt = styled(Button)`
   width: 165px;
@@ -88,7 +116,13 @@ const ButtonAlt = styled(Button)`
   margin: 10px;
   padding: 5px;
   border-radius: 5px;
-  font-size: 14px;
+  font-size: 14px; 
+  @media ( max-width: 668px){
+     margin: 0;
+    }
+    @media (max-width: 400px){
+       width: 135px;
+    }
 `
 const BolaCleaner = styled.div`
   display: flex;
@@ -109,6 +143,7 @@ const BolaCleaner = styled.div`
 
 function SelectCleaner(props) {
   const [cleanerSelected, setCleanerSelected] = useState('')
+  const router = useRouter();
 
   const handleCleanerSelect = (cleaner) => {
     setCleanerSelected(cleaner)

@@ -22,6 +22,25 @@ const Container = styled.div`
   min-height: 65vh;
   height: auto;
   z-index: 100;
+  @media (max-width: 840px){
+    left: 15%;
+  }
+  @media (max-width: 712px){
+    bottom: 0;
+    top: 100%;
+    height: 90vh
+  }
+  @media (max-width: 712px){
+    left: 7%;
+  } 
+  @media (max-width: 561px){
+    width: 50vh;
+    left: 17%;
+    flex-direction: column;
+  }
+  @media (max-width: 375px){
+    left: 14%;
+  }
 `
 
 const DivCleanerInfos = styled.div`
@@ -33,6 +52,10 @@ const DivCleanerInfos = styled.div`
 const DivReviews = styled.div`
   background: #f3f3f3;
   padding: 7px;
+  min-width: 350px;
+  @media (max-width: 561px){
+    min-width: 50vh;
+  }
 `
 const CleanerImg = styled.div`
   width: 50px;
@@ -150,8 +173,8 @@ const Close = styled.img`
   position: absolute;
   right: 0%;
   transform: translate(100%, -90%);
-  background-color: red;
-
+  background-color: #fd3232;
+  border-radius: 10px;
   cursor: pointer;
 `
 const StarRating = styled.img`
