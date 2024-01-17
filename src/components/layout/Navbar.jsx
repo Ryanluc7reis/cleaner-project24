@@ -13,6 +13,10 @@ const fadeIn = keyframes`
     
   }
 `;
+const Container = styled.div`
+  width: 100%;
+  height: auto;
+`
 const StyledRegisterCleaner = styled.a`
   cursor: pointer;
   font-size: 24px;
@@ -41,7 +45,7 @@ const StyledLogin = styled.a`
 `;
 const StyledNavbar = styled.div`
   margin: 0 auto;
-  height: 100%;
+  height: 100px;
   width: 100%;
   align-items: center;
   display: flex;
@@ -116,8 +120,33 @@ const Barra = styled.div`
   background-color: white;
   z-index: 102;
 `
+const FlexLogin = styled.div`
+  display: flex;
+  gap: 13px;
+`
+const CardsLogo = styled.img`
+  margin-top: 8px;
+`
+const OptionsAlt = styled(Options)`
+  cursor: pointer;
+  font-size: 22px;
+  color: #242c99b7;
+  margin-right: 15px;
+  margin-top: 18px;
+  font-weight: 600;
+  transition: all 200ms ease-in-out;
+  :hover {
+    color: #677cb76d;
+  }
+`
+const BarraAlt = styled(Barra)`
+  width: 2px;
+  height: 45px;
+  margin-top: 7px;
+  background-color: #20202096;
+`
 
-export default function Navbar(props) {
+export default function Navbar({type1 , type2}) {
   const router = useRouter();
   const [showD, setShowD] = useState(false)
   useEffect(() => {
@@ -131,20 +160,39 @@ export default function Navbar(props) {
   },[])
   
   return (
-    <StyledNavbar>
-      <Logo onClick={() => router.push('/')} />
-      <NavOptions  show={showD}>
-        <Options href='/login'>LOGIN</Options>
-        <Barra />
-        <Options href='/signupAscleaner'>REGISTER AS CLEANER</Options>
-      </NavOptions>
+    <Container> 
+     {type1 &&  
+     <StyledNavbar>
+        <Logo onClick={() => router.push('/')} />
+        <NavOptions  show={showD}>
+          <Options href='/login'>LOGIN</Options>
+          <Barra />
+          <Options href='/signupAscleaner'>REGISTER AS CLEANER</Options>
+        </NavOptions>
+
+        {showD ? <DotsX src='/Xwhite.svg' height='45px' width='80px' /> 
+        :  <Dots id='showDD' onClick={() =>setShowD(!showD) } src='/hamburgericon.png' height= '65px' width='75px' />}
+        <StyledOptionsLogin>
+            <StyledLogin onClick={() => router.push('/login')}>LOGIN</StyledLogin>
+            <StyledRegisterCleaner onClick={(e) =>router.push('/signupAscleaner')}>Register as cleaner</StyledRegisterCleaner>
+        </StyledOptionsLogin>
+      </StyledNavbar>
+      }
+      
+    
+      {type2  &&
+      <StyledNavbar>
+        <Logo colorblue />
+        <FlexLogin>
+          <CardsLogo src="metodosPay.JPG" height="45px" width="133px" />
+          <BarraAlt />
+          <OptionsAlt onClick={() => router.push('/login')}>LOG-IN</OptionsAlt>
+        </FlexLogin>
+      </StyledNavbar>
+    }
+    </Container>
+    
   
-      {showD ? <DotsX src='/Xwhite.svg' height='45px' width='80px' /> 
-      :  <Dots id='showDD' onClick={() =>setShowD(!showD) } src='/hamburgericon.png' height= '65px' width='75px' />}
-      <StyledOptionsLogin>
-          <StyledLogin onClick={() => router.push('/login')}>LOGIN</StyledLogin>
-          <StyledRegisterCleaner onClick={(e) =>router.push('/signupAscleaner')}>Register as cleaner</StyledRegisterCleaner>
-      </StyledOptionsLogin>
-    </StyledNavbar>
+     
   );
 }

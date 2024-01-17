@@ -4,7 +4,7 @@ import Input from '../src/components/form/Input'
 import Button from '../src/components/form/Button'
 import { useState } from 'react'
 const Container = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 100vh;
 `
 
@@ -106,14 +106,30 @@ const ButtonAlt = styled(Button)`
     background-color: ${(props) => (props.isDisabled ? 'grey' : props.theme.colors.ultravio)};
   }
 `
+ const StyledFlexNavBar = styled.div`
+
+  background:#F3F3F3;
+   @media (max-width: 712px) {
+    width: 115%;
+  }
+  @media (max-width: 670px) {
+    flex-direction: column;
+    gap: 4px;
+    justify-content: center;
+    padding-bottom: 8px;
+  }
+  @media (max-width: 426px) {
+    width: 115%;
+  }
+`
 
 function Booking() {
   const [boxSelected, setBoxSelected] = useState(Boolean)
   return (
     <Container style={{ backgroundColor: '#ccc' }}>
-      <div>
-        <Navbar />
-      </div>
+      <StyledFlexNavBar>
+        <Navbar type2 />
+      </StyledFlexNavBar> 
       <DivSteps>
         <h1>
           Your bookings ...................................... Your Details

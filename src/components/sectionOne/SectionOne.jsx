@@ -111,7 +111,7 @@ export default function SectionOne() {
   return (
     <ImageSectionOne>
       <BoxShadow>
-        <Navbar />
+        <Navbar type1 />
         <StyledContainer1>
           <H2>Find Top Rated Cleaners!</H2>
           <StyledH5 id="input1">
