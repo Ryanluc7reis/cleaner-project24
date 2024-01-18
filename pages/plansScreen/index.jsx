@@ -2,6 +2,7 @@ import styled, { keyframes } from 'styled-components'
 import Logo from '../../src/components/logo/Logo'
 import { useEffect, useState } from 'react'
 import Cards from '../../src/components/cardsplan/Cards'
+import Navbar from '../../src/components/layout/Navbar'
 import BasicDateCalendar from '../../src/components/calendario/Calendario'
 import { useRouter } from 'next/router'
 import Button from '../../src/components/form/Button'
@@ -113,12 +114,8 @@ const BarraAlt = styled(Barra)`
   }
 `
 export const StyledFlexNavBar = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+
   background: #edededaf;
-  width: 100%;
-  height: 100px;
    @media (max-width: 712px) {
     width: 115%;
   }
@@ -534,12 +531,7 @@ function HomePlansScreen() {
   return (
     <Container>
       <StyledFlexNavBar>
-        <LogoAlt />
-        <FlexLogin>
-          <CardsLogo src="metodosPay.JPG" height="45px" width="133px" />
-          <Barra />
-          <StyledLogin onClick={() => router.push('/login')}>LOG-IN</StyledLogin>
-        </FlexLogin>
+        <Navbar type2/>
       </StyledFlexNavBar>
       <FlexDivEtapas>
         <DivEtapas>

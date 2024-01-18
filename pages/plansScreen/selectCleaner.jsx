@@ -6,9 +6,9 @@ import Logo from '../../src/components/logo/Logo'
 import ListCleaners from '../../src/components/listcleaners/ListCleaners'
 import Button from '../../src/components/form/Button'
 import { useState } from 'react'
-import { useRouter } from "next/router";
 import BoxFilter from '../../src/components/listcleaners/BoxFilter'
 import BarraEtapas from '../../src/components/barraetapas/BarraEtapas'
+import Navbar from '../../src/components/layout/Navbar'
 
 const Container = styled.div`
   width: 100%;
@@ -143,7 +143,6 @@ const BolaCleaner = styled.div`
 
 function SelectCleaner(props) {
   const [cleanerSelected, setCleanerSelected] = useState('')
-  const router = useRouter();
 
   const handleCleanerSelect = (cleaner) => {
     setCleanerSelected(cleaner)
@@ -152,12 +151,7 @@ function SelectCleaner(props) {
   return (
     <Container>
       <StyledFlexNavBar>
-        <LogoAlt />
-        <FlexLogin>
-          <CardsLogo src="/metodosPay.JPG" height="45px" width="133px" />
-          <Barra />
-          <StyledLogin onClick={() => router.push('/login')}>LOG-IN</StyledLogin>
-        </FlexLogin>
+        <Navbar type2 />
       </StyledFlexNavBar>
       <BarraEtapas />
       <ContBody>
