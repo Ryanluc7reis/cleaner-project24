@@ -146,7 +146,7 @@ const BarraAlt = styled(Barra)`
   background-color: #20202096;
 `
 
-export default function Navbar({type1 , type2}) {
+export default function Navbar({ type1 , type2, ...props}) {
   const router = useRouter();
   const [showD, setShowD] = useState(false)
   useEffect(() => {
@@ -160,7 +160,7 @@ export default function Navbar({type1 , type2}) {
   },[])
   
   return (
-    <Container> 
+    <Container {...props}> 
      {type1 &&  
      <StyledNavbar>
         <Logo onClick={() => router.push('/')} />
