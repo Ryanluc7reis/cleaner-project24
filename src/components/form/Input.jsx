@@ -27,7 +27,7 @@ const StyledInput = styled.input`
     width: 255px;
   }
 `
-const Input = ({ label,password, ...props }) => {
+const Input = ({ label, password, ...props }) => {
   const [valor, setValor] = useState(null)
   const handleInputChange = (event) => {
     setValor(event.target.value)
@@ -35,7 +35,12 @@ const Input = ({ label,password, ...props }) => {
   return (
     <InputContainer>
       <StyledLabel> {label}</StyledLabel>
-      <StyledInput type={password ? 'password' : 'text'}onChange={handleInputChange} {...props} />
+      <StyledInput
+        type={password ? 'password' : 'text'}
+        onChange={handleInputChange}
+        autoComplete={password ? 'auto-complete' : null}
+        {...props}
+      />
     </InputContainer>
   )
 }
