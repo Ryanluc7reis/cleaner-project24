@@ -9,7 +9,7 @@ const Container = styled.div`
   width: 100%;
   min-height: 100vh;
   height: auto;
-  background: #F3F3F3;
+  background: #f3f3f3;
 `
 
 const Title = styled.h1`
@@ -19,7 +19,7 @@ const Title = styled.h1`
   margin-top: 30px;
   font-size: 25px;
 `
-const TitleSub = styled.h1 `
+const TitleSub = styled.h1`
   color: black;
   text-align: center;
   font-weight: 500;
@@ -30,7 +30,7 @@ const BoxInput = styled.div`
   padding: 6px;
   height: 70px;
   width: 300px;
-  border: 1px solid #999999; 
+  border: 1px solid #999999;
 `
 
 const NameInput = styled(Input)`
@@ -39,7 +39,7 @@ const NameInput = styled(Input)`
   border: transparent;
   height: auto;
   margin: 0;
- background: transparent;
+  background: transparent;
 `
 
 const SurnameInput = styled(Input)`
@@ -48,8 +48,7 @@ const SurnameInput = styled(Input)`
   border: transparent;
   height: auto;
   margin: 0;
- background: transparent;
-
+  background: transparent;
 `
 const EmailInput = styled(Input)`
   grid-area: EmailInput;
@@ -57,8 +56,7 @@ const EmailInput = styled(Input)`
   border: transparent;
   height: auto;
   margin: 0;
- background: transparent;
-  
+  background: transparent;
 `
 const PasswordInput = styled(Input)`
   display: grid;
@@ -66,7 +64,7 @@ const PasswordInput = styled(Input)`
   border: transparent;
   height: auto;
   margin: 0;
- background: transparent;
+  background: transparent;
 `
 const ConsentCheckDiv = styled.div`
   grid-area: ConsentCheck;
@@ -83,7 +81,7 @@ const SecInfos = styled.form`
   background-color: #ffffff;
 `
 const BoxSummary = styled.div`
-  width: 270px ;
+  width: 270px;
   height: 340px;
   background-color: white;
   display: flex;
@@ -129,10 +127,9 @@ const ButtonAlt = styled(Button)`
     background-color: ${(props) => (props.isDisabled ? 'grey' : props.theme.colors.ultravio)};
   }
 `
- const StyledFlexNavBar = styled.div`
-
-  background:#F3F3F3;
-   @media (max-width: 712px) {
+const StyledFlexNavBar = styled.div`
+  background: #f3f3f3;
+  @media (max-width: 712px) {
     width: 115%;
   }
   @media (max-width: 670px) {
@@ -151,16 +148,17 @@ const FlexSecInfos = styled.div`
   gap: 7px;
 `
 const Label = styled.h4`
- color: #626262;
+  color: #626262;
 `
-const TextDecoration = styled.h4`
- text-decoration: underline;
- color: #333333;
- width: fit-content;
- white-space: nowrap;
- margin: 0;
- :hover{
-    color: #4848e5
+const TextDecoration = styled.a`
+  text-decoration: underline;
+  color: #333333;
+  width: fit-content;
+  white-space: nowrap;
+  cursor: pointer;
+  margin: 0;
+  :hover {
+    color: #4848e5;
   }
 `
 const Text = styled.h2`
@@ -168,61 +166,60 @@ const Text = styled.h2`
   display: flex;
   font-weight: 500;
   align-items: center;
-  cursor: pointer;
+  cursor: default;
   gap: 7px;
   margin: 15px;
 `
-const TextAlt  = styled(Text)`
+const TextAlt = styled(Text)`
   font-size: 12px;
 `
 const Smileimg = styled.img``
-
 
 function Booking() {
   const [boxSelected, setBoxSelected] = useState(Boolean)
   const router = useRouter()
   return (
-    <Container >
+    <Container>
       <StyledFlexNavBar>
         <Navbar type2 />
-      </StyledFlexNavBar> 
-      <Steps type1/>
+      </StyledFlexNavBar>
+      <Steps type1 />
       <PaymentAndRegister>
         <FlexSecInfos>
-            <Title>Ready to book? Set your account details</Title>
-            <SecInfos>
-              <BoxInput>
-                <Label>Name*</Label>
-                <NameInput />
-              </BoxInput>
-              <BoxInput>
-                <Label>Surname*</Label>
-                <SurnameInput></SurnameInput>
-              </BoxInput>
-              <BoxInput>
-                <Label>Email address*</Label>
-                <EmailInput type="email"></EmailInput>
-              </BoxInput>
-              <BoxInput>
-                <Label>Password*</Label>
-                <PasswordInput password></PasswordInput>
-              </BoxInput>
-              <ConsentCheckDiv>
-                  <PolicyAccept>
-                    <InputCheckBox onClick={() => setBoxSelected(!boxSelected)} type={'checkbox'} />I
-                    accept the Terms of Use and the Privacy Policy. As a customer of Helpling.co.uk, the
-                    information provided is necessary for your booking and is collected in order for you
-                    to receive information about the Helpling platform via email, from which you can
-                    unsubscribe at any time via a link in the mail.
-                  </PolicyAccept>
-                </ConsentCheckDiv>
-            </SecInfos>
-            <Text>
-              <Smileimg src='/smile.png'/>
-              Do you already have an account? 
-              <TextDecoration onClick={()=> router.push('/login')}>Log in here</TextDecoration>
-            </Text>
+          <Title>Ready to book? Set your account details</Title>
+          <SecInfos>
+            <BoxInput>
+              <Label>Name*</Label>
+              <NameInput />
+            </BoxInput>
+            <BoxInput>
+              <Label>Surname*</Label>
+              <SurnameInput></SurnameInput>
+            </BoxInput>
+            <BoxInput>
+              <Label>Email address*</Label>
+              <EmailInput type="email"></EmailInput>
+            </BoxInput>
+            <BoxInput>
+              <Label>Password*</Label>
+              <PasswordInput password></PasswordInput>
+            </BoxInput>
+            <ConsentCheckDiv>
+              <PolicyAccept>
+                <InputCheckBox onClick={() => setBoxSelected(!boxSelected)} type={'checkbox'} />I
+                accept the Terms of Use and the Privacy Policy. As a customer of Helpling.co.uk, the
+                information provided is necessary for your booking and is collected in order for you
+                to receive information about the Helpling platform via email, from which you can
+                unsubscribe at any time via a link in the mail.
+              </PolicyAccept>
+            </ConsentCheckDiv>
             <ButtonAlt valor="Sign-Up" isDisabled={boxSelected === false ? true : false} />
+          </SecInfos>
+          <Text>
+            <Smileimg src="/smile.png" />
+            Do you already have an account?
+            <TextDecoration onClick={() => router.push('/login')}>Log in here</TextDecoration>
+          </Text>
         </FlexSecInfos>
         <FlexSecInfos>
           <TitleSub>Your booking summary</TitleSub>
@@ -242,7 +239,7 @@ function Booking() {
             <DescTextAlt>Total Cost: R$</DescTextAlt>
             <Barra />
             <TextAlt>
-              <Smileimg src='/smile.png'/>
+              <Smileimg src="/smile.png" />
               The rate of the first cleaner who accepts your booking is what you will be charged.
             </TextAlt>
           </BoxSummary>
