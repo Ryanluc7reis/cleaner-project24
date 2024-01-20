@@ -5,6 +5,7 @@ import Button from '../src/components/form/Button'
 import Steps from '../src/components/steps/Steps'
 import Router, { useRouter } from 'next/router'
 import { useState } from 'react'
+import Cookies from 'js-cookie'
 const Container = styled.div`
   width: 100%;
   min-height: 100vh;
@@ -119,7 +120,7 @@ const PolicyAccept = styled.h2`
   color: #999999;
 `
 const ButtonAlt = styled(Button)`
- width: 610px;
+  width: 200%;
   background-color: ${(props) => (props.isDisabled ? 'grey' : props.theme.colors.ultravio)};
   cursor: ${(props) => (props.isDisabled ? 'default' : 'pointer')};
   margin-top: 14px;
@@ -224,19 +225,19 @@ function Booking() {
         <FlexSecInfos>
           <TitleSub>Your booking summary</TitleSub>
           <BoxSummary>
-            <DescText>Plan:</DescText>      
+            <DescText>Plan: {Cookies.get('Plan')}</DescText>
             <Barra />
-            <DescText>Duration:</DescText>
+            <DescText>Duration: {Cookies.get('Duration')}</DescText>
             <Barra />
-            <DescText>Date:</DescText>
+            <DescText>Date: {Cookies.get('Date')}</DescText>
             <Barra />
-            <DescText>Time:</DescText>
+            <DescText>Time: {Cookies.get('Hour')}</DescText>
             <Barra />
-            <DescText>Price per hour:</DescText>
+            <DescText>Price per hour: {Cookies.get('PriceH')}</DescText>
             <Barra />
-            <DescText>Total price:</DescText>
+            <DescText>Total price: {Cookies.get('PriceH')}</DescText>
             <Barra />
-            <DescTextAlt>Total Cost: R$</DescTextAlt>
+            <DescTextAlt>Total Cost: {Cookies.get('PriceH')} $</DescTextAlt>
             <Barra />
             <TextAlt>
               <Smileimg src="/smile.png" />

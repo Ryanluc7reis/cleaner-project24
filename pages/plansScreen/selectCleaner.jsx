@@ -10,7 +10,7 @@ import BoxFilter from '../../src/components/listcleaners/BoxFilter'
 import BarraEtapas from '../../src/components/barraetapas/BarraEtapas'
 import Navbar from '../../src/components/layout/Navbar'
 import { useRouter } from 'next/router'
-
+import Cookies from 'js-cookie'
 const Container = styled.div`
   width: 100%;
   height: auto;
@@ -163,7 +163,13 @@ function SelectCleaner(props) {
           <BolaCleaner image={cleanerSelected?.img}>
             <h2 style={{ marginTop: '60px' }}>{cleanerSelected?.name}</h2>
           </BolaCleaner>
-          <ButtonAlt valor="Proceed to booking" onClick={() => router.push('/booking')} />
+          <ButtonAlt
+            valor="Proceed to booking"
+            onClick={() => {
+              router.push('/booking')
+              Cookies.set('PriceH', cleanerSelected.price)
+            }}
+          />
         </BarraSelectedCleaner>
       </ContBody>
     </Container>

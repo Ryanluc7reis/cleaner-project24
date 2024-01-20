@@ -9,7 +9,7 @@ import Button from '../../src/components/form/Button'
 import React from 'react'
 import { Link } from 'react-scroll'
 import dynamic from 'next/dynamic'
-
+import Cookies from 'js-cookie'
 const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -114,9 +114,8 @@ const BarraAlt = styled(Barra)`
   }
 `
 export const StyledFlexNavBar = styled.div`
-
   background: #edededaf;
-   @media (max-width: 712px) {
+  @media (max-width: 712px) {
     width: 115%;
   }
   @media (max-width: 670px) {
@@ -460,19 +459,22 @@ function HomePlansScreen() {
     3: 'Complete'
   })
 
-
-   const handleSubmit = () => {
-     if (cardValues && region && selectedDate && selectedHour && inputUpdateHour.length > 0) {
-       const queryParams = new URLSearchParams({
-         cardValues: cardValues[activeCard],
-         region: region,
-         selectedDate: selectedDate,
-         selectedHour: selectedHour,
-         inputUpdateHour: inputUpdateHour
-       });
-       router.push(`/plansScreen/selectCleaner?${queryParams.toString()}`);
-     }
-   };
+  const handleSubmit = () => {
+    if (cardValues && region && selectedDate && selectedHour && inputUpdateHour.length > 0) {
+      const queryParams = new URLSearchParams({
+        cardValues: cardValues[activeCard],
+        region: region,
+        selectedDate: selectedDate,
+        selectedHour: selectedHour,
+        inputUpdateHour: inputUpdateHour
+      })
+      Cookies.set('Plan', cardValues[activeCard])
+      Cookies.set('Duration', inputUpdateHour)
+      Cookies.set('Date', selectedDate)
+      Cookies.set('Hour', selectedHour) //Lembrar de excluir os cookies depois
+      router.push(`/plansScreen/selectCleaner?${queryParams.toString()}`)
+    }
+  }
   const totalSteps = 5
 
   const updateInputHour = (clickedWord) => {
@@ -512,7 +514,6 @@ function HomePlansScreen() {
     setDateChosen(true)
     updateProgress()
   }
- 
 
   const router = useRouter()
   const { region } = router.query
@@ -527,11 +528,11 @@ function HomePlansScreen() {
   useEffect(() => {
     updateProgress()
   }, [planChosen, dateChosen, hourChosen, startHourChosen, region])
- 
+
   return (
     <Container>
       <StyledFlexNavBar>
-        <Navbar type2/>
+        <Navbar type2 />
       </StyledFlexNavBar>
       <FlexDivEtapas>
         <DivEtapas>
