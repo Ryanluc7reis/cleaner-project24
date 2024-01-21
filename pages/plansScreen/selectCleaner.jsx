@@ -10,7 +10,6 @@ import BoxFilter from '../../src/components/listcleaners/BoxFilter'
 import BarraEtapas from '../../src/components/barraetapas/BarraEtapas'
 import Navbar from '../../src/components/layout/Navbar'
 import { useRouter } from 'next/router'
-import Cookies from 'js-cookie'
 const Container = styled.div`
   width: 100%;
   height: auto;
@@ -167,7 +166,7 @@ function SelectCleaner(props) {
             valor="Proceed to booking"
             onClick={() => {
               router.push('/booking')
-              Cookies.set('PriceH', cleanerSelected.price)
+              localStorage.setItem('PriceH', cleanerSelected.price)
             }}
           />
         </BarraSelectedCleaner>

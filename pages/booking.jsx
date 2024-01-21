@@ -5,7 +5,7 @@ import Button from '../src/components/form/Button'
 import Steps from '../src/components/steps/Steps'
 import Router, { useRouter } from 'next/router'
 import { useState } from 'react'
-import Cookies from 'js-cookie'
+import dynamic from 'next/dynamic'
 const Container = styled.div`
   width: 100%;
   min-height: 100vh;
@@ -179,13 +179,12 @@ const Smileimg = styled.img``
 function Booking() {
   const [boxSelected, setBoxSelected] = useState(Boolean)
   const router = useRouter()
-  const handleButtonCookie = () => {
-    Cookies.remove('Plan')
-    Cookies.remove('Duration')
-    Cookies.remove('PriceH')
-    Cookies.remove('Hour')
-    Cookies.remove('Date')
-  }
+  const Plan = typeof window !== 'undefined' ? localStorage.getItem('Plan') : null
+  const Duration = typeof window !== 'undefined' ? localStorage.getItem('Duration') : null
+  const Date = typeof window !== 'undefined' ? localStorage.getItem('Date') : null
+  const Hour = typeof window !== 'undefined' ? localStorage.getItem('Hour') : null
+  const PriceH = typeof window !== 'undefined' ? localStorage.getItem('PriceH') : null
+
   return (
     <Container>
       <StyledFlexNavBar>
@@ -221,11 +220,7 @@ function Booking() {
                 unsubscribe at any time via a link in the mail.
               </PolicyAccept>
             </ConsentCheckDiv>
-            <ButtonAlt
-              onClick={handleButtonCookie}
-              valor="Sign-Up"
-              isDisabled={boxSelected === false ? true : false}
-            />
+            <ButtonAlt valor="Sign-Up" isDisabled={boxSelected === false ? true : false} />
           </SecInfos>
           <Text>
             <Smileimg src="/smile.png" />
@@ -236,19 +231,19 @@ function Booking() {
         <FlexSecInfos>
           <TitleSub>Your booking summary</TitleSub>
           <BoxSummary>
-            <DescText>Plan: {Cookies.get('Plan')}</DescText>
+            <DescText>Plan: {Plan}</DescText>
             <Barra />
-            <DescText>Duration: {Cookies.get('Duration')}</DescText>
+            <DescText>Duration: {Duration}</DescText>
             <Barra />
-            <DescText>Date: {Cookies.get('Date')}</DescText>
+            <DescText>Date: {Date}</DescText>
             <Barra />
-            <DescText>Time: {Cookies.get('Hour')}</DescText>
+            <DescText>Time: {Hour}</DescText>
             <Barra />
-            <DescText>Price per hour: {Cookies.get('PriceH')}</DescText>
+            <DescText>Price per hour: {PriceH}</DescText>
             <Barra />
-            <DescText>Total price: {Cookies.get('PriceH')}</DescText>
+            <DescText>Total price: {PriceH} </DescText>
             <Barra />
-            <DescTextAlt>Total Cost: {Cookies.get('PriceH')} $</DescTextAlt>
+            <DescTextAlt>Total Cost: {PriceH} $</DescTextAlt>
             <Barra />
             <TextAlt>
               <Smileimg src="/smile.png" />
@@ -261,4 +256,4 @@ function Booking() {
   )
 }
 
-export default Booking
+export default dynamic(() => Promise.resolve(Booking), { ssr: false })

@@ -9,7 +9,6 @@ import Button from '../../src/components/form/Button'
 import React from 'react'
 import { Link } from 'react-scroll'
 import dynamic from 'next/dynamic'
-import Cookies from 'js-cookie'
 const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -468,10 +467,10 @@ function HomePlansScreen() {
         selectedHour: selectedHour,
         inputUpdateHour: inputUpdateHour
       })
-      Cookies.set('Plan', cardValues[activeCard])
-      Cookies.set('Duration', inputUpdateHour)
-      Cookies.set('Date', selectedDate)
-      Cookies.set('Hour', selectedHour) //Lembrar de excluir os cookies depois
+      localStorage.setItem('Plan', cardValues[activeCard])
+      localStorage.setItem('Duration', inputUpdateHour)
+      localStorage.setItem('Date', selectedDate)
+      localStorage.setItem('Hour', selectedHour) //Lembrar de excluir os cookies depois
       router.push(`/plansScreen/selectCleaner?${queryParams.toString()}`)
     }
   }
