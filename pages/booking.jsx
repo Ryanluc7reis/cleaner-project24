@@ -179,6 +179,13 @@ const Smileimg = styled.img``
 function Booking() {
   const [boxSelected, setBoxSelected] = useState(Boolean)
   const router = useRouter()
+  const handleButtonCookie = () => {
+    Cookies.remove('Plan')
+    Cookies.remove('Duration')
+    Cookies.remove('PriceH')
+    Cookies.remove('Hour')
+    Cookies.remove('Date')
+  }
   return (
     <Container>
       <StyledFlexNavBar>
@@ -214,7 +221,11 @@ function Booking() {
                 unsubscribe at any time via a link in the mail.
               </PolicyAccept>
             </ConsentCheckDiv>
-            <ButtonAlt valor="Sign-Up" isDisabled={boxSelected === false ? true : false} />
+            <ButtonAlt
+              onClick={handleButtonCookie}
+              valor="Sign-Up"
+              isDisabled={boxSelected === false ? true : false}
+            />
           </SecInfos>
           <Text>
             <Smileimg src="/smile.png" />
