@@ -51,6 +51,13 @@ const StyledNavbar = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 20px;
+  @media (max-width: 670px) {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    justify-content: center;
+    padding-bottom: 8px;
+  }
 `;
 const StyledOptionsLogin = styled.div`
   display: flex;
@@ -184,7 +191,7 @@ export default function Navbar({ type1 , type2, ...props}) {
       <StyledNavbar>
         <Logo colorblue />
         <FlexLogin>
-          <CardsLogo src="metodosPay.JPG" height="45px" width="133px" />
+          <CardsLogo src="metodosPay.jpg" height="45px" width="133px" />
           <BarraAlt />
           <OptionsAlt onClick={() => router.push('/login')}>LOG-IN</OptionsAlt>
         </FlexLogin>
