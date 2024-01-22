@@ -168,7 +168,7 @@ function SelectCleaner(props) {
             <h2 style={{ marginTop: '60px' }}>{cleanerSelected?.name}</h2>
           </BolaCleaner>
           <ButtonAlt
-           isDisabled={cleanerSelected  ? false : true}
+            isDisabled={cleanerSelected  ? false : true}
             valor="Proceed to booking"
             onClick={() => {
               router.push('/booking')
