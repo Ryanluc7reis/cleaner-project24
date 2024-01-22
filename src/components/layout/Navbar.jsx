@@ -51,6 +51,13 @@ const StyledNavbar = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 20px;
+  @media (max-width: 670px) {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    justify-content: center;
+    padding-bottom: 8px;
+  }
 `;
 const StyledOptionsLogin = styled.div`
   display: flex;

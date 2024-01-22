@@ -117,6 +117,11 @@ const ButtonAlt = styled(Button)`
   padding: 5px;
   border-radius: 5px;
   font-size: 14px;
+  background-color: ${(props) => (props.isDisabled ? 'grey' : props.theme.colors.ultravio)};
+  cursor: ${(props) => (props.isDisabled ? 'default' : 'pointer')};
+  :hover{
+    background-color: ${(props) => (props.isDisabled ? 'grey' : '#677db7')};
+  }
   @media (max-width: 668px) {
     margin: 0;
   }
@@ -163,6 +168,7 @@ function SelectCleaner(props) {
             <h2 style={{ marginTop: '60px' }}>{cleanerSelected?.name}</h2>
           </BolaCleaner>
           <ButtonAlt
+           isDisabled={cleanerSelected  ? false : true}
             valor="Proceed to booking"
             onClick={() => {
               router.push('/booking')
