@@ -6,4 +6,6 @@ A ser feito em pages/plansScreen/booking -->
 
 - Estilizar formulario com uma imagem se os inputs tiverem valor true , se nao trata error (exemplo no site referencia) <!-- EM ANDAMENTO>
 
+- Adicionar input para cadastro de endreço
+
 - Criar tela de pagamento 
