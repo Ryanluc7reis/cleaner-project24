@@ -59,6 +59,15 @@ const StyledNavbar = styled.div`
     padding-bottom: 8px;
   }
 `;
+const StyledNavBarAlt = styled.div`
+ margin: 0 auto;
+  height: 100px;
+  width: 100%;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+`
 const StyledOptionsLogin = styled.div`
   display: flex;
   gap: 20px;
@@ -169,7 +178,7 @@ export default function Navbar({ type1 , type2, ...props}) {
   return (
     <Container {...props}> 
      {type1 &&  
-     <StyledNavbar>
+     <StyledNavBarAlt>
         <Logo onClick={() => router.push('/')} />
         <NavOptions  show={showD}>
           <Options href='/login'>LOGIN</Options>
@@ -183,7 +192,7 @@ export default function Navbar({ type1 , type2, ...props}) {
             <StyledLogin onClick={() => router.push('/login')}>LOGIN</StyledLogin>
             <StyledRegisterCleaner onClick={(e) =>router.push('/signupAscleaner')}>Register as cleaner</StyledRegisterCleaner>
         </StyledOptionsLogin>
-      </StyledNavbar>
+      </StyledNavBarAlt>
       }
       
     
