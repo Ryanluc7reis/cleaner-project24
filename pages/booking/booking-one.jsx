@@ -1,8 +1,8 @@
 import styled from 'styled-components'
-import Navbar from '../src/components/layout/Navbar'
-import Input from '../src/components/form/Input'
-import Button from '../src/components/form/Button'
-import Steps from '../src/components/steps/Steps'
+import Navbar from '../../src/components/layout/Navbar'
+import Input from '../../src/components/form/Input'
+import Button from '../../src/components/form/Button'
+import Steps from '../../src/components/steps/Steps'
 import Router, { useRouter } from 'next/router'
 import { useState } from 'react'
 import dynamic from 'next/dynamic'
@@ -11,8 +11,7 @@ const Container = styled.div`
   min-height: 100vh;
   height: auto;
   background: #f3f3f3;
-  
-  
+  display: ${(props) => props.isNone ? 'none' : 'block'};
 `
 
 const Title = styled.h1`
@@ -238,13 +237,14 @@ const Smileimg = styled.img``
 
 function Booking() {
   const [boxSelected, setBoxSelected] = useState(Boolean)
+  const [isNone, setisNone] = useState(false)
   const router = useRouter()
   const Plan = typeof window !== 'undefined' ? localStorage.getItem('Plan') : null
   const Duration = typeof window !== 'undefined' ? localStorage.getItem('Duration') : null
   const Date = typeof window !== 'undefined' ? localStorage.getItem('Date') : null
   const Hour = typeof window !== 'undefined' ? localStorage.getItem('Hour') : null
   const PriceH = typeof window !== 'undefined' ? localStorage.getItem('PriceH') : null
- 
+
   return (
     <Container>
       <NavBarAlt type2 />
@@ -286,7 +286,7 @@ function Booking() {
               Do you already have an account? 
               <TextDecoration onClick={()=> router.push('/login')}>Log in here</TextDecoration>
             </Text>
-            <ButtonAlt valor="Sign-Up" isDisabled={boxSelected === false ? true : false} />
+            <ButtonAlt valor="Sign-Up" onClick={() => router.push('/booking/booking-two')}isDisabled={boxSelected === false ? true : false} />
         </FlexSecInfos>
         <FlexSecInfos>
           <TitleSub>Your booking summary</TitleSub>
@@ -334,6 +334,8 @@ function Booking() {
         </FlexSecInfos>
       </PaymentAndRegister>
     </Container>
+    
+    
   )
 }
 

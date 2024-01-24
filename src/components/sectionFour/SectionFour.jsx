@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import Button from "../form/Button";
-import Input from "../form/Input";
+import Selecter from "../form/Selecter";
 import ImageWithServices from "./ImageWithServices";
-import { ErrorMessage } from "../sectionOne/SectionOne";
 import { useState } from "react";
 
 const StyledContainer = styled.div`
@@ -67,39 +66,18 @@ const StyledFlexInputs = styled.div`
 	justify-content: center;
 	gap: 30px;
 `;
-const ErrorMessageAlt = styled(ErrorMessage)`
- margin-left: 445px;
- transform: translate(5%, -110%);
- @media (max-width: 1025px){
-    transform: translate(-40%, -110%);
-  }
-	@media (max-width: 850px){
-    transform: translate(-70%, -110%);
-  }
-	@media (max-width: 600px){
-    transform: translate(-115%, -110%);
-  }
-	@media (max-width: 500px){
-    transform: translate(-140%, -110%);
-  }
-`
+
 
 export default function SectionFour() {
 	
   const [valor, setValor] = useState('')
-  const [error, setError] = useState(false)
 
   const handleInputChange = (event) => {
     setValor(event.target.value)
   }
 
   const handleSubmit = () => {
-    if (valor.trim().length < 3) {
-      setError(true);
-    } else {
-      setError(false);
-      router.push(`/plansScreen?region=${encodeURIComponent(valor)}`)
-    }
+    router.push(`/plansScreen?region=${encodeURIComponent(valor)}`)
   }
 	return (
 		<StyledContainer>
@@ -111,9 +89,8 @@ export default function SectionFour() {
 				confirmed, just let them know what your priorities are and they’ll make
 				your home shine.
 			</StyledSubTitle>
-			{error && <ErrorMessageAlt>That region is invalid.</ErrorMessageAlt>}
 			<StyledFlexInputs>
-				<Input placeholder="Enter your region" value={valor} onChange={handleInputChange}/>
+				<Selecter region value={valor} onChange={handleInputChange}/>
 				<Button onClick={handleSubmit}  >Let´s go</Button>
 			</StyledFlexInputs>
 			<ImageWithServices />

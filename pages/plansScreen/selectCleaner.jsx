@@ -171,7 +171,7 @@ function SelectCleaner(props) {
             isDisabled={cleanerSelected  ? false : true}
             valor="Proceed to booking"
             onClick={() => {
-              router.push('/booking')
+              router.push('/booking/booking-one')
               localStorage.setItem('PriceH', cleanerSelected.price)
             }}
           />
