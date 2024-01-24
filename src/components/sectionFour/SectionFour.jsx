@@ -90,7 +90,7 @@ export default function SectionFour() {
 				your home shine.
 			</StyledSubTitle>
 			<StyledFlexInputs>
-				<Selecter  value={valor} onChange={handleInputChange}/>
+				<Selecter region value={valor} onChange={handleInputChange}/>
 				<Button onClick={handleSubmit}  >Let´s go</Button>
 			</StyledFlexInputs>
 			<ImageWithServices />

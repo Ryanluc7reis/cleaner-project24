@@ -200,7 +200,7 @@ export default function Navbar({ type1 , type2, ...props}) {
       <StyledNavbar>
         <Logo colorblue />
         <FlexLogin>
-          <CardsLogo src="metodosPay.jpg" height="45px" width="133px" />
+          <CardsLogo src='/metodosPay1.jpg' height="45px" width="133px" />
           <BarraAlt />
           <OptionsAlt onClick={() => router.push('/login')}>LOG-IN</OptionsAlt>
         </FlexLogin>

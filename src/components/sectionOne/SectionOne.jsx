@@ -79,7 +79,7 @@ export default function SectionOne() {
             <H5>• Liability Insured Up to £4M</H5>
           </StyledH5>
           <StyledForm onSubmit={(e) => e.preventDefault()} >
-          <Selecter  value={valor} onChange={handleInputChange} />
+          <Selecter region value={valor} onChange={handleInputChange} />
             <Button  type="button" onClick={handleSubmit}>
              Let´s go
             </Button>
