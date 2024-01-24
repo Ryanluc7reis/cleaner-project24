@@ -49,6 +49,9 @@ const Check = styled.img`
  const CheckText = styled.h3`
   padding: 3px 5px;
   color: white;
+  @media(max-width: 470px){
+    font-size: 13px;
+  }
  `
  const CheckTextAlt = styled(CheckText)`
   color: gray;
@@ -85,12 +88,12 @@ export default function Steps({type1, type2, ...props}){
                 <Check src='/Whitecheck.png' />
               </BoxCheck>
               <h2> Your bookings </h2>
-              <h3>------------------------------------------------------ </h3>
+              <Traço>------------------------------------------------------ </Traço>
               <BoxCheck>
                 <Check src='/Whitecheck.png' />
               </BoxCheck>  
               <h2>Your Details</h2> 
-              <h3>------------------------------------------------------ </h3>
+              <Traço>------------------------------------------------------ </Traço>
               <BoxCheck>
                 <CheckText>3</CheckText>
               </BoxCheck>
