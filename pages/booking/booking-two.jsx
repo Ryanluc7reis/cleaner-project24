@@ -92,6 +92,7 @@ const Check = styled.img`
  `
  const StyledFlexSelecter = styled.div`
   display: flex;
+  height: auto;
   gap: 7px;
  `
  const Text = styled.div`
@@ -131,6 +132,10 @@ const Check = styled.img`
     font-size: 19px;
     width: 95%;
  }
+ `
+ const ContSelecters = styled.div`
+  width: 100%;
+  height: auto;
  `
 export default function PaymentPage() {
   return(

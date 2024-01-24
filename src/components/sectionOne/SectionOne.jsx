@@ -50,7 +50,7 @@ const StyledForm = styled.form`
   display: flex;
   gap: 40px;
   padding-top: 40px;
-  padding-left: 20px;
+  align-items: center;
 `
 
 export default function SectionOne() {
@@ -79,10 +79,10 @@ export default function SectionOne() {
             <H5>• Liability Insured Up to £4M</H5>
           </StyledH5>
           <StyledForm onSubmit={(e) => e.preventDefault()} >
-          <Selecter region value={valor} onChange={handleInputChange} />
-            <Button  type="button" onClick={handleSubmit}>
-             Let´s go
-            </Button>
+              <Selecter region value={valor} onChange={handleInputChange} />
+              <Button  type="button" onClick={handleSubmit}>
+                Let´s go
+              </Button>
           </StyledForm>
         </StyledContainer1>
       </BoxShadow>

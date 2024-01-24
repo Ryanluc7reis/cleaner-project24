@@ -1,78 +1,78 @@
 import styled from "styled-components";
+import React from "react";
 
-const Container = styled.div`
-  width: 100%;
-  height: auto;
-`
 const StyledSelect = styled.select`
-padding: 8px;
-color: #474747c2;
-font-weight: 600;
-border-radius: 7px;
-font-size: 15px;
-:focus{
-  outline: none;
-}
-@media (max-width: 635px){
   padding: 10px;
-}
+  width: 190px;
+  height: 47px;
+  color: #474747c2;
+  font-weight: 600;
+  border-radius: 7px;
+  font-size: 15px;
+  :focus{
+    outline: none;
+  }
+  @media (max-width: 635px){
+    padding: 10px;
+  }
 `
 const StyledSelectAlt = styled(StyledSelect)`
- width: 100%;
- margin: 10px 0px;
+  width: 100%;
+  margin: 10px 0px;
 `
 const Selecter = ({region, year, month, parcelas,  ...props}) => {
   return(  
-    <Container {...props}>
+    <React.Fragment {...props}>
          {region &&
-            <StyledSelect >              
-                <option value="" disabled>Select your region</option>
-                <option value="norte">North</option>
-                <option value="sul">South</option>
-                <option value="oeste">East</option>
-                <option value="leste">West</option>
+            <StyledSelect>
+              Select your region                  
+                <option value="Select your region" disabled  >Select your region</option>
+                <option value="north">North</option>
+                <option value="South">South</option>
+                <option value="East">East</option>
+                <option value="West">West</option>
             </StyledSelect>
          }
          {year &&
             <StyledSelectAlt > 
-                Ano
-                <option value="Ano" disabled >Ano</option>
-                <option value="">2022</option>
-                <option value="">2023</option>
-                <option value="">2024</option>
-                <option value="">2025</option>
-                <option value="">2026</option>
+              Ano              
+                <option value="" disabled >Ano</option>
+                <option value="22">2022</option>
+                <option value="23">2023</option>
+                <option value="24">2024</option>
+                <option value="25">2025</option>
+                <option value="26">2026</option>
             </StyledSelectAlt>
          }
          {month &&
-            <StyledSelectAlt >
-                Mês          
-                <option value="Mês" disabled>Mês</option>
-                <option value="">Janeiro</option>
-                <option value="">Fevereiro</option>
-                <option value="">Março</option>
-                <option value="">Abril</option>
-                <option value="">Maio</option>
-                <option value="">Junho</option>
-                <option value="">Julho</option>
-                <option value="">Agosto</option>
-                <option value="">Setembro</option>
-                <option value="">Outubro</option>
-                <option value="">Novembro</option>
-                <option value="">Dezembro</option>
+            <StyledSelectAlt>
+              Mês       
+                <option value="" disabled>Mês</option>
+                <option value="Janeiro">Janeiro</option>
+                <option value="Fevereiro">Fevereiro</option>
+                <option value="Março">Março</option>
+                <option value="Abril">Abril</option>
+                <option value="Maio">Maio</option>
+                <option value="Junho">Junho</option>
+                <option value="Julho">Julho</option>
+                <option value="Agosto">Agosto</option>
+                <option value="Setembro">Setembro</option>
+                <option value="Outubro">Outubro</option>
+                <option value="Novembro">Novembro</option>
+                <option value="Dezembro">Dezembro</option>
             </StyledSelectAlt>
          }
          {parcelas &&
             <StyledSelectAlt >
                 1x de R$290,00         
                 <option value="Pacelas" disabled>Parcelas</option>
-                <option value="">1x de R$290,00  </option>
-                <option value="">3x de R$290,00  </option>
-                <option value="">6x de R$290,00  </option>
-                <option value="">12x de R$290,00  </option>
+                <option value="1x de R$290,00 ">1x de R$290,00  </option>
+                <option value="3x de R$290,00 ">3x de R$290,00  </option>
+                <option value="6x de R$290,00">6x de R$290,00  </option>
+                <option value="12x de R$290,00">12x de R$290,00  </option>
             </StyledSelectAlt>
          }
-    </Container>     
+    </React.Fragment>     
          
   )
       
