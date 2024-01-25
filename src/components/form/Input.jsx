@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 const InputContainer = styled.div`
   width: auto;
+  height: auto;
 `
 const StyledLabel = styled.p`
   font-weight: bold;

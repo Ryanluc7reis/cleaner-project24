@@ -8,12 +8,12 @@ const Container = styled.div`
 const StyledFlex = styled.div`
   display: flex;
 `
-export default function NotificationsPage(){
+export default function HistoricPage(){
   return(
       <Container>
         <StyledFlex>
           <Navdashboard />
-            <h1>notifications</h1>
+            <h1>historic</h1>
         </StyledFlex>
       </Container>
   )
