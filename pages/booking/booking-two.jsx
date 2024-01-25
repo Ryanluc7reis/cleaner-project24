@@ -95,6 +95,9 @@ const Check = styled.img`
   height: auto;
   gap: 7px;
  `
+ const SelecterAlt = styled(Selecter)`
+  width: 100%;
+ `
  const Text = styled.div`
   font-size: 13px;
   color: #808080d4;
@@ -158,8 +161,8 @@ export default function PaymentPage() {
             </VerifiedCard>
             <InputAlt placeholder='Número do cartão' />
             <StyledFlexSelecter>
-                <Selecter year />
-                <Selecter month />
+                <SelecterAlt year />
+                <SelecterAlt month />
             </StyledFlexSelecter>
             <InputAlt placeholder='CVV' />
             <Selecter parcelas />
