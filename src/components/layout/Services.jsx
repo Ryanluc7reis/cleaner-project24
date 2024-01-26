@@ -34,12 +34,18 @@ const DivCard = styled.div`
   margin: 0 0 0 100px;
   width: 999px;
 `
-
+const CardTable = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+`
 const DivCardHeader = styled.div`
   margin-top: 50px;
   width: 100%;
   padding-bottom: 50px;
   background-color: blue;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
 `
 
 const DivCardBody = styled.div`
@@ -70,20 +76,54 @@ export default function Services() {
           <h1>SERVICES</h1>
         </DivCardHeader>
         <DivCardBody>
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-            <TableRow>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Price</th>
-              <th>Date</th>
-            </TableRow>
-            <TableRow>
-              <td>1</td>
-              <td>joao</td>
-              <td>45$</td>
-              <td>26/07/02</td>
-            </TableRow>
-          </table>
+          <CardTable>
+            {/*  */}
+            <tbody>
+              {/* tbody incluso por bug do next.js, não modificar ou gerar componente */}
+              <TableRow>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Date</th>
+              </TableRow>
+              <TableRow>
+                <td>1</td>
+                <td>joao</td>
+                <td>45$</td>
+                <td>26/07/02</td>
+              </TableRow>
+              <TableRow>
+                <td>1</td>
+                <td>joao</td>
+                <td>45$</td>
+                <td>26/07/02</td>
+              </TableRow>
+            </tbody>
+          </CardTable>
+        </DivCardBody>
+      </DivCard>
+
+      <DivCard>
+        <DivCardHeader>
+          <h1>SERVICES</h1>
+        </DivCardHeader>
+        <DivCardBody>
+          <CardTable>
+            <tbody>
+              <TableRow>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Date</th>
+              </TableRow>
+              <TableRow>
+                <td>1</td>
+                <td>Gabriel</td>
+                <td>50$</td>
+                <td>21/02/23</td>
+              </TableRow>
+            </tbody>
+          </CardTable>
         </DivCardBody>
       </DivCard>
     </Container>
