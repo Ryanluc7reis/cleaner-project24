@@ -4,26 +4,26 @@ const Container = styled.div`
   width: 100vw;
   height: auto;
 `
-const DivNavBar = styled.div`
+const DivNavbar = styled.div`
   display: flex;
   justify-content: space-around;
   margin-top: 15px;
 `
 
-const NavBarText = styled.p`
+const NavbarText = styled.p`
   font-size: 2rem;
   cursor: pointer;
 `
 
-const DivNavBarSearch = styled.div`
+const DivNavbarSearch = styled.form`
   margin: 0 100px 0 0;
 `
 
-const NavBarSearch = styled.input`
+const NavbarSearch = styled.input`
   width: 150px;
 `
 
-const NavBarSearchButton = styled.button`
+const NavbarSearchButton = styled.button`
   cursor: pointer;
   margin: 0 0 0 10px;
   width: fit-content;
@@ -31,72 +31,110 @@ const NavBarSearchButton = styled.button`
 `
 
 const DivCard = styled.div`
-  margin: 0 0 0 100px;
+  margin: 100px 0 0 100px;
   width: 999px;
 `
+//////////////////////////////////////////////////////
 const CardTable = styled.table`
   width: 100%;
   border-collapse: collapse;
+  margin-bottom: 20px;
 `
+
+const TableHeader = styled.th`
+  // ESTILOS AQUI
+  text-align: center;
+  border: 2px solid #f2f2f2;
+  height: 35px;
+  font-weight: 700;
+`
+const TableRow = styled.tr`
+  text-align: left;
+  font-size: 16px;
+  :hover {
+    //opacity: 0.5;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+`
+const TableData = styled.td`
+  // ESTILOS AQUI
+  height: 35px;
+  border: 1px solid red;
+  text-align: center;
+  vertical-align: middle;
+`
+//////////////////////////////////////////////////////
 const DivCardHeader = styled.div`
-  margin-top: 50px;
-  width: 100%;
-  padding-bottom: 50px;
-  background-color: blue;
   display: flex;
+  //margin-top: 50px;
+  width: 100%;
+  height: 75px;
+  border-radius: 8px;
+  background-color: blue;
+  justify-content: center;
   flex-direction: column;
   text-align: center;
+  letter-spacing: 4px;
 `
 
 const DivCardBody = styled.div`
   padding-bottom: 500px;
   width: 100%;
-  background-color: rgba(0, 128, 0, 0.2);
+  //background-color: rgba(0, 128, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.9);
+  color: white;
 `
-const TableRow = styled.tr`
-  text-align: left;
-  margin-left: 200px;
-  font-size: 16px;
+const DivShadowHeader = styled.div`
+  display: block;
+  background-color: rgba(0, 0, 0, 0.85);
+  padding: 14px 8px 4px 8px;
+  border-radius: 4px;
+
+  /* box-shadow:
+    -4px -4px 4px rgba(0, 0, 0, 1),
+    2px 2px 2px rgba(0, 0, 0, 1); */
 `
 export default function Services() {
   return (
     <Container>
-      <DivNavBar>
-        <NavBarText>Services</NavBarText>
-        <DivNavBarSearch>
-          <NavBarSearch type="text" />
-          <NavBarSearchButton type="submit">SEARCH</NavBarSearchButton>
-        </DivNavBarSearch>
-      </DivNavBar>
+      <DivNavbar>
+        <NavbarText>Services</NavbarText>
+        <DivNavbarSearch>
+          <NavbarSearch type="text" />
+          <NavbarSearchButton type="submit">SEARCH</NavbarSearchButton>
+        </DivNavbarSearch>
+      </DivNavbar>
 
       {/* LISTA DE SERVICOS CONFIRMADOS */}
 
       <DivCard>
-        <DivCardHeader>
-          <h1>SERVICES</h1>
-        </DivCardHeader>
+        <DivShadowHeader>
+          <DivCardHeader>
+            <h1>SERVICES</h1>
+          </DivCardHeader>
+        </DivShadowHeader>
         <DivCardBody>
           <CardTable>
             {/*  */}
             <tbody>
               {/* tbody incluso por bug do next.js, não modificar ou gerar componente */}
               <TableRow>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Date</th>
+                <TableHeader>ID</TableHeader>
+                <TableHeader>Name</TableHeader>
+                <TableHeader>Price</TableHeader>
+                <TableHeader>Date</TableHeader>
               </TableRow>
               <TableRow>
-                <td>1</td>
-                <td>joao</td>
-                <td>45$</td>
-                <td>26/07/02</td>
+                <TableData>1</TableData>
+                <TableData>joao</TableData>
+                <TableData>45$</TableData>
+                <TableData>26/07/02</TableData>
               </TableRow>
               <TableRow>
-                <td>1</td>
-                <td>joao</td>
-                <td>45$</td>
-                <td>26/07/02</td>
+                <TableData>1</TableData>
+                <TableData>joao</TableData>
+                <TableData>45$</TableData>
+                <TableData>26/07/02</TableData>
               </TableRow>
             </tbody>
           </CardTable>
@@ -104,28 +142,33 @@ export default function Services() {
       </DivCard>
 
       <DivCard>
-        <DivCardHeader>
-          <h1>SERVICES</h1>
-        </DivCardHeader>
+        <DivShadowHeader>
+          <DivCardHeader>
+            <h1>SERVICES</h1>
+          </DivCardHeader>
+        </DivShadowHeader>
         <DivCardBody>
           <CardTable>
             <tbody>
               <TableRow>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Date</th>
+                <TableHeader>ID</TableHeader>
+                <TableHeader>Name</TableHeader>
+                <TableHeader>Price</TableHeader>
+                <TableHeader>Date</TableHeader>
               </TableRow>
               <TableRow>
-                <td>1</td>
-                <td>Gabriel</td>
-                <td>50$</td>
-                <td>21/02/23</td>
+                <TableData>1</TableData>
+                <TableData>Gabriel</TableData>
+                <TableData>50$</TableData>
+                <TableData>21/02/23</TableData>
               </TableRow>
             </tbody>
           </CardTable>
         </DivCardBody>
       </DivCard>
+      <DivCardHeader>
+        <h1>SERVICES</h1>
+      </DivCardHeader>
     </Container>
   )
 }
