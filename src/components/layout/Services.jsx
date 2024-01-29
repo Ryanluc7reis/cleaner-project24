@@ -4,34 +4,9 @@ const Container = styled.div`
   width: 100vw;
   height: auto;
 `
-const DivNavbar = styled.div`
-  display: flex;
-  justify-content: space-around;
-  margin-top: 15px;
-`
-
-const NavbarText = styled.p`
-  font-size: 2rem;
-  cursor: pointer;
-`
-
-const DivNavbarSearch = styled.form`
-  margin: 0 100px 0 0;
-`
-
-const NavbarSearch = styled.input`
-  width: 150px;
-`
-
-const NavbarSearchButton = styled.button`
-  cursor: pointer;
-  margin: 0 0 0 10px;
-  width: fit-content;
-  height: fit-content;
-`
 
 const DivCard = styled.div`
-  margin: 100px 0 0 100px;
+  margin: 50px 0 0 100px;
   width: 999px;
 `
 //////////////////////////////////////////////////////
@@ -97,14 +72,6 @@ const DivShadowHeader = styled.div`
 export default function Services() {
   return (
     <Container>
-      <DivNavbar>
-        <NavbarText>Services</NavbarText>
-        <DivNavbarSearch>
-          <NavbarSearch type="text" />
-          <NavbarSearchButton type="submit">SEARCH</NavbarSearchButton>
-        </DivNavbarSearch>
-      </DivNavbar>
-
       {/* LISTA DE SERVICOS CONFIRMADOS */}
 
       <DivCard>
