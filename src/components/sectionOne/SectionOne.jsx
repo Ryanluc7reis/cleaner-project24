@@ -53,22 +53,62 @@ const StyledForm = styled.form`
   align-items: center;
 `
 
+export const ErrorMessage = styled.span`
+  position: absolute;
+  color: #000;
+  background-color: #ffffffb7;
+  border: 1.2px solid #ff0000;
+  width: 180px;
+  height: 74px;
+  text-align: center;
+  border-radius: 10px;
+  padding: 18px 36px;
+  font-weight: bolder;
+  font-size: 14px;
+  transform: translate(-0%, 70%);
+  @media (max-width: 768px) {
+    font-size: 17px;
+    padding: 10px 36px;
+  }
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: -22%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid #ffffffdd;
+  }
+
+  @media (max-width: 900px) {
+    transform: translate(-70%, 70%);
+  }
+`
+
 export default function SectionOne() {
   const router = useRouter()
   const [valor, setValor] = useState('')
+  const [error, setError] = useState(false)
 
   const handleInputChange = (event) => {
     setValor(event.target.value)
   }
 
   const handleSubmit = () => {
-
-  router.push(`/plansScreen?region=${encodeURIComponent(valor)}`)
     
+    if (valor.length < 3 || valor.length < 4) {
+      setError(true);
+    } else {
+      setError(false);
+      router.push(`/plansScreen?region=${encodeURIComponent(valor)}`);
+    }
   }
 
   return (
-    <ImageSectionOne>
+    <ImageSectionOne >
       <BoxShadow>
         <Navbar type1 />
         <StyledContainer1>
@@ -78,6 +118,7 @@ export default function SectionOne() {
             <H5>• Dedicated Customer Service</H5>
             <H5>• Liability Insured Up to £4M</H5>
           </StyledH5>
+          {error && <ErrorMessage>That region is invalid.</ErrorMessage>}
           <StyledForm onSubmit={(e) => e.preventDefault()} >
               <Selecter region value={valor} onChange={handleInputChange} />
               <Button  type="button" onClick={handleSubmit}>

@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import React from "react";
 
+const StyledContainer = styled.div`
+
+`
 const StyledSelect = styled.select`
   padding: 10px;
   width: 190px;
@@ -15,6 +18,15 @@ const StyledSelect = styled.select`
   @media (max-width: 635px){
     padding: 10px;
   }
+  @media (max-width: 426px){
+    margin-top: 4px;
+    height: 53px;
+    font-size: 18px;
+    width: 212px;
+  }
+  @media (max-width: 375px){
+    font-size: 19px;
+  }
 `
 const StyledSelectAlt = styled(StyledSelect)`
   width: 100%;
@@ -22,11 +34,10 @@ const StyledSelectAlt = styled(StyledSelect)`
 `
 const Selecter = ({region, year, month, parcelas,  ...props}) => {
   return(  
-    <React.Fragment {...props}>
+    <StyledContainer {...props}>
          {region &&
-            <StyledSelect>
-              Select your region                  
-                <option value="Select your region" disabled  >Select your region</option>
+             <StyledSelect >                
+                <option value='' disabled='' >Select your region</option>
                 <option value="north">North</option>
                 <option value="South">South</option>
                 <option value="East">East</option>
@@ -34,9 +45,8 @@ const Selecter = ({region, year, month, parcelas,  ...props}) => {
             </StyledSelect>
          }
          {year &&
-            <StyledSelectAlt > 
-              Ano              
-                <option value="" disabled >Ano</option>
+            <StyledSelectAlt >             
+                <option value="" disabled='' >Ano</option>
                 <option value="22">2022</option>
                 <option value="23">2023</option>
                 <option value="24">2024</option>
@@ -46,8 +56,7 @@ const Selecter = ({region, year, month, parcelas,  ...props}) => {
          }
          {month &&
             <StyledSelectAlt>
-              Mês       
-                <option value="" disabled>Mês</option>
+                <option value="" disabled=''>Mês</option>
                 <option value="Janeiro">Janeiro</option>
                 <option value="Fevereiro">Fevereiro</option>
                 <option value="Março">Março</option>
@@ -72,7 +81,7 @@ const Selecter = ({region, year, month, parcelas,  ...props}) => {
                 <option value="12x de R$290,00">12x de R$290,00  </option>
             </StyledSelectAlt>
          }
-    </React.Fragment>     
+    </StyledContainer>     
          
   )
       

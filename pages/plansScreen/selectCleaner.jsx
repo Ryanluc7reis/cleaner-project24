@@ -14,45 +14,6 @@ const Container = styled.div`
   width: 100%;
   height: auto;
 `
-const LogoAlt = styled(Logo)`
-  margin-left: 40px;
-  font-size: 34px;
-  color: #242c99b7;
-  @media (max-width: 670px) {
-    margin: 0;
-    padding-top: 10px;
-  }
-`
-const Barra = styled.div`
-  width: 2px;
-  height: 45px;
-  margin-top: 7px;
-  background-color: #20202096;
-  @media (max-width: 600px) {
-    width: 45px;
-    height: 2px;
-    display: none;
-  }
-`
-const StyledLogin = styled.h5`
-  cursor: pointer;
-  font-size: 19px;
-  color: #242c99b7;
-  margin-right: 15px;
-  margin-top: 18px;
-  font-weight: 600;
-  transition: all 200ms ease-in-out;
-  :hover {
-    color: #677cb76d;
-  }
-`
-const CardsLogo = styled.img`
-  margin-top: 8px;
-`
-const FlexLogin = styled.div`
-  display: flex;
-  gap: 13px;
-`
 
 const Etapas = styled.h5`
   color: #212020d2;
