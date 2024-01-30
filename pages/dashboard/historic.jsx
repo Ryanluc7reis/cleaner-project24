@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import Navdashboard from '../../src/components/layout/Navdashboard'
+import Historics from '../../src/components/historic/Historic'
 
 const Container = styled.div`
   width: 100%;
@@ -13,7 +14,7 @@ export default function HistoricPage(){
       <Container>
         <StyledFlex>
           <Navdashboard />
-            <h1>historic</h1>
+          <Historics />
         </StyledFlex>
       </Container>
   )

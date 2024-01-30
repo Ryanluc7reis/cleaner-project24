@@ -39,7 +39,6 @@ const LogOut = styled.a`
   cursor: pointer;
   font-size: 17px;
   display: flex;
-  text-decoration: underline;
   :hover{
     color: darkred;
   }
