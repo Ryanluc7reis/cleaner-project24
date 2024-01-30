@@ -93,7 +93,7 @@ export default function Profile({user , cleaner }) {
     <Container>
       {user && 
         <ContainerBox>
-          <NavRoutesDash profile/>
+          <NavRoutesDash profile type1/>
           <BoxProfile>
             <FlexBoxAvatar>
                 <Label >Avatar</Label>

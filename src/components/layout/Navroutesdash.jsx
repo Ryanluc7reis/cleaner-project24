@@ -1,9 +1,14 @@
 import styled from 'styled-components'
+import Input from  '../form/Input'
 
 const Container = styled.div`
+  width: auto;
+  height: auto;
+`
+const ContainerBox = styled.div`
   width: 100%;
   height: 70px;
-  padding: 15px;
+  padding: 25px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -18,6 +23,7 @@ const ImgAvatar = styled.img`
   height: 35px;
   border: 1px solid silver;
   border-radius: 20px;
+  background: #fff;
 `
 const ImgNotifications = styled.img`
   width: 33px;
@@ -39,7 +45,31 @@ const LogOut = styled.a`
   }
 
 `
-export default function NavRoutesDash({profile,notifications, schedule, historic}){
+const InputAlt = styled(Input)`
+  background: transparent;
+  padding: 6px;
+  border: none;
+  width: 200px;
+`
+const Barra = styled.hr`
+  width: 100%;
+`
+const Lupa = styled.img`
+  padding: 5px;
+  border: 1px solid silver;
+  border-radius: 30px;
+  box-shadow: 1px 1px 0px 0px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  background: #fff;
+`
+const FlexInput = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+const StyledFlexSearch = styled.div`
+  display: flex;
+`
+export default function NavRoutesDash({profile,notifications, schedule, historic, type1, type2 }){
   const getTypeRouteValue = () => {
     if (profile) {
       return "Profile";
@@ -53,13 +83,34 @@ export default function NavRoutesDash({profile,notifications, schedule, historic
   };
   return(
     <Container>
-        <TypeRouteTitle >{getTypeRouteValue()}</TypeRouteTitle>
-        <StyledFlex>
-          <ImgAvatar src='/avatar.png'/>
-          <ImgNotifications src='/bell.png' />
-          <LogOut>Logout</LogOut>
-        </StyledFlex>
-       
+        {type1 &&
+          <ContainerBox>
+            <TypeRouteTitle >{getTypeRouteValue()}</TypeRouteTitle>
+            <StyledFlex>             
+              <ImgAvatar src='/avatar.png'/>
+              <ImgNotifications src='/bell.png' />
+              <LogOut>Logout</LogOut>
+            </StyledFlex>
+          </ContainerBox>
+        }
+        {type2 && 
+          <ContainerBox>
+            <TypeRouteTitle >{getTypeRouteValue()}</TypeRouteTitle>
+            <StyledFlex>
+              <StyledFlexSearch>
+                <FlexInput>
+                    <InputAlt placeholder='Search...' />
+                    <Barra />
+                </FlexInput>
+                <Lupa src='/lupa.png' />
+              </StyledFlexSearch>
+              <ImgAvatar src='/avatar.png'/>
+              <ImgNotifications src='/bell.png' />
+              <LogOut>Logout</LogOut>
+            </StyledFlex>
+          </ContainerBox>
+        }
     </Container>
+    
   )
 }

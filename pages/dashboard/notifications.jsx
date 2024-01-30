@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import Navdashboard from '../../src/components/layout/Navdashboard'
+import Notifications from '../../src/components/notificaçao/Notifications'
 
 const Container = styled.div`
   width: 100%;
@@ -13,7 +14,7 @@ export default function NotificationsPage(){
       <Container>
         <StyledFlex>
           <Navdashboard />
-            <h1>notifications</h1>
+          <Notifications />
         </StyledFlex>
       </Container>
   )
