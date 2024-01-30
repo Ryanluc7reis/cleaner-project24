@@ -3,13 +3,14 @@ import styled from 'styled-components'
 const Container = styled.div`
   width: 100vw;
   height: auto;
+  background-color: #eaeaea;
 `
 
 const DivCard = styled.div`
   margin: 50px 0 0 100px;
   width: 999px;
 `
-//////////////////////////////////////////////////////
+
 const CardTable = styled.table`
   width: 100%;
   border-collapse: collapse;
@@ -17,9 +18,8 @@ const CardTable = styled.table`
 `
 
 const TableHeader = styled.th`
-  // ESTILOS AQUI
   text-align: center;
-  border: 2px solid #f2f2f2;
+  border: 1px solid black;
   height: 35px;
   font-weight: 700;
 `
@@ -27,41 +27,41 @@ const TableRow = styled.tr`
   text-align: left;
   font-size: 16px;
   :hover {
-    //opacity: 0.5;
-    background-color: rgba(0, 0, 0, 0.5);
+    td {
+      background-color: rgba(0, 0, 0, 0.5);
+    }
   }
 `
 const TableData = styled.td`
-  // ESTILOS AQUI
   height: 35px;
-  border: 1px solid red;
+  border: 1px solid black;
   text-align: center;
   vertical-align: middle;
 `
-//////////////////////////////////////////////////////
 const DivCardHeader = styled.div`
   display: flex;
-  //margin-top: 50px;
   width: 100%;
   height: 75px;
   border-radius: 8px;
-  background-color: blue;
+  background-color: white;
   justify-content: center;
   flex-direction: column;
-  text-align: center;
+  text-align: start;
   letter-spacing: 4px;
+  h1 {
+    margin-left: 37px;
+  }
 `
 
 const DivCardBody = styled.div`
   padding-bottom: 500px;
   width: 100%;
-  //background-color: rgba(0, 128, 0, 0.2);
-  background-color: rgba(0, 0, 0, 0.9);
-  color: white;
+  background-color: white;
+  color: black;
 `
 const DivShadowHeader = styled.div`
   display: block;
-  background-color: rgba(0, 0, 0, 0.85);
+  background-color: white;
   padding: 14px 8px 4px 8px;
   border-radius: 4px;
 
@@ -133,9 +133,6 @@ export default function Services() {
           </CardTable>
         </DivCardBody>
       </DivCard>
-      <DivCardHeader>
-        <h1>SERVICES</h1>
-      </DivCardHeader>
     </Container>
   )
 }
