@@ -1,24 +1,20 @@
 import styled from 'styled-components'
 import Navdashboard from '../../src/components/layout/Navdashboard'
-import Profile from '../../src/components/profile/Profile'
-
+import Historics from '../../src/components/historic/Historic'
 
 const Container = styled.div`
   width: 100%;
   height: auto;
-  background: #eaeaea;
 `
 const StyledFlex = styled.div`
   display: flex;
 `
-
-
-export default function ProfilePage(){
+export default function HistoricPage(){
   return(
       <Container>
         <StyledFlex>
-          <Navdashboard />      
-          <Profile user />
+          <Navdashboard />
+          <Historics />
         </StyledFlex>
       </Container>
   )

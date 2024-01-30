@@ -3,6 +3,8 @@ import Button from "../form/Button";
 import Selecter from "../form/Selecter";
 import ImageWithServices from "./ImageWithServices";
 import { useState } from "react";
+import { useRouter } from "next/router";
+import { ErrorMessage } from "../sectionOne/SectionOne";
 
 const StyledContainer = styled.div`
 	min-width: 100%;
@@ -66,18 +68,47 @@ const StyledFlexInputs = styled.div`
 	justify-content: center;
 	gap: 30px;
 `;
+const ErrorMessageAlt = styled(ErrorMessage)`
+	//transform: translate(220%, -120%);
+	//left: -9%; 
+	@media (max-width: 1440px) {
+    transform: translate(283%, -120%);
+		left: 0;
+  }
+	@media (max-width: 1024px) {
+    transform: translate(235%, -120%);
+		font-size: 17px;
+    padding: 10px 36px;
+  }
+  @media (max-width:768px) {
+    transform: translate(170%, -120%);
+  }
+	@media (max-width: 425px) {
+    transform: translate(120%, -120%);
+  }
+	@media (max-width: 375px) {
+    transform: translate(108%, -120%);
+  }
+`
 
 
 export default function SectionFour() {
+	const router = useRouter()
 	
   const [valor, setValor] = useState('')
+	const [error, setError] = useState(false)
 
   const handleInputChange = (event) => {
     setValor(event.target.value)
   }
 
-  const handleSubmit = () => {
-    router.push(`/plansScreen?region=${encodeURIComponent(valor)}`)
+	const handleSubmit = () => {
+    if (valor.length < 3 || valor.length < 4) {
+      setError(true);
+    } else {
+      setError(false);
+      router.push(`/plansScreen?region=${encodeURIComponent(valor)}`);
+    }
   }
 	return (
 		<StyledContainer>
@@ -89,6 +120,7 @@ export default function SectionFour() {
 				confirmed, just let them know what your priorities are and they’ll make
 				your home shine.
 			</StyledSubTitle>
+			{error && <ErrorMessageAlt>That region is invalid.</ErrorMessageAlt>}
 			<StyledFlexInputs>
 				<Selecter region value={valor} onChange={handleInputChange}/>
 				<Button onClick={handleSubmit}  >Let´s go</Button>
