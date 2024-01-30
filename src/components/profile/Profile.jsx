@@ -15,7 +15,6 @@ const ContainerBox = styled.div`
 `
 const BoxProfile = styled.div`
   width: auto;
-  //height: auto;
   width: 90%;
   height: 360px;
   margin: 50px;

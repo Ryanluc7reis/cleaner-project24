@@ -5,7 +5,7 @@ import { use } from "react"
 
 const Container = styled.div`
   width: 22%;
-  height: 100vh;
+  min-height: 100vh;
   padding: 10px 26px;
   background: red;
 `
