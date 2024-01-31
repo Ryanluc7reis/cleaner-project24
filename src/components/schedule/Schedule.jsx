@@ -14,6 +14,7 @@ const BoxSchedule = styled.div`
   height: 80%;
   margin: 61px 50px 0px 50px ;
   padding: 20px;
+  border-radius: 15px;
   display: flex;
   flex-direction: column;
 `
@@ -37,7 +38,7 @@ button {
 border: 2px solid #56648f;
 border-radius: 25px;
 margin-top: 50px ;
-background-color: #f0f0f0;
+background-color: #eff5ffb8;
 `
 const FlexTitleText = styled.div`
   display: flex;

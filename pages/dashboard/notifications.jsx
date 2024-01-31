@@ -13,7 +13,7 @@ export default function NotificationsPage(){
   return(
       <Container>
         <StyledFlex>
-          <Navdashboard />
+          <Navdashboard isNotifications />
           <Notifications />
         </StyledFlex>
       </Container>

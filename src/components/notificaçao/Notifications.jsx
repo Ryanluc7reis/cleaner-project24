@@ -12,6 +12,7 @@ const BoxNotifications = styled.div`
   height: 80%;
   margin: 61px 50px 0px 50px ;
   padding: 20px;
+  border-radius: 15px;
 `
 const ConatinerNotificaçao = styled.div`
   display: grid;

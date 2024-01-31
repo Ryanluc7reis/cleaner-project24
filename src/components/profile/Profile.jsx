@@ -13,24 +13,27 @@ const ContainerBox = styled.div`
   display: flex;
   flex-direction: column;
 `
-const BoxProfile = styled.div`
-  width: auto;
-  width: 90%;
+const BoxCont = styled.div`
+  width: 400px;
   height: 360px;
-  margin: 50px;
-  gap: 8px;
+  background-color: #fff;
+  border-radius: 15px;
+`
+const BoxContAlt = styled(BoxCont)`
+  width: 590px;
+`
+const FlexBoxCont = styled.div`
   display: flex;
-  background-color: #4242e1;
-  padding: 15px;
+  margin-top: 50px;
+  padding: 35px 0px 35px 20px;
+  gap: 28px;
 `
 const BoxAvatar = styled.div`
-  background-color: #575757;
   width: 300px;
   height: 80%;
-  margin: 10px;
   border-radius: 7px;;
-  border: 1px solid #fb2d2d;
   display: flex;
+  margin: 20px 48px;
   flex-direction: column;
   padding: 20px 52px;
 `
@@ -38,35 +41,47 @@ const Avatar = styled.img`
   width: 200px;
   height: 200px;
   border-radius: 105px;
-  background: transparent;
-  border: 1px solid silver;
+  background: #3030f4ce;
+
+  border: 4px solid #1f1f8e;
 `
 const InputAlt = styled(Input)`
  width: 270px;
  padding: 10px;
+ background: transparent;
+ border: none;
 `
 const InputAlt1 = styled(Input)`
  width: 390px;
  padding: 10px;  
 `
+const Barra = styled.div`
+  height: 1px;
+  width: 90%;
+  background-color: #2a2af3d3;
+`
 const BoxInputs = styled.div`
-  display: grid;
-  grid-template-columns: 300px 300px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-top: 40px;
+  margin-left: 17px;
 `
 const ButtonAlt = styled(Button)`
   height: 45px;
   width: 170px;
-  margin: 25px 95px 0px 100px;
+  margin: 25px 90px 0px 100px;
   
   `
   const ButtonAlt1 = styled(Button)`
   height: 45px;
   width: 170px;
-  margin: 25px 95px 0px 190px;
+  margin-top: 45px;
   
   `
 const Label = styled.h2`
-  margin: 2px 15px;
+  padding: 9px;
+  color: #A7A7A7 ;
 `
 const EditAvatar = styled.div`
   display: flex;
@@ -75,15 +90,25 @@ const EditAvatar = styled.div`
 `
 const Remove = styled.h2`
   color: red;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
+  :hover{
+    color: darkred;
+  }
 `
 const Edit = styled.h2`
   color: #3232f7;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
+   :hover{
+    color: darkred;
+  }
 `
 const FlexBoxAvatar = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+const ContInput = styled.div`
   display: flex;
   flex-direction: column;
 `
@@ -93,54 +118,101 @@ export default function Profile({user , cleaner }) {
       {user && 
         <ContainerBox>
           <NavRoutesDash profile type1/>
-          <BoxProfile>
-            <FlexBoxAvatar>
-                <Label >Avatar</Label>
-                <BoxAvatar >               
-                    <Avatar src='/avatar.png' />
-                    <EditAvatar>
-                        <Edit >Edit</Edit>
-                        <Remove>Remove</Remove>
-                    </EditAvatar>
-                </BoxAvatar>
-            </FlexBoxAvatar>
-            <BoxInputs>
-                <InputAlt label='first name' placeholder='Ryan' />
-                <InputAlt label='last name'  placeholder='Lucas' />
-                <InputAlt label='E-mail'  placeholder='ryanlucasfr@gmail.com' />
-                <InputAlt label='Phone'  placeholder='34-8989-89898' />
-                <InputAlt label='Adress'  placeholder='Rua Mônaco 656 B.laranjeiras' />
-                <InputAlt label='Region'  placeholder='North' />  
-                <ButtonAlt1 valor='Save changes' /> 
-            </BoxInputs>      
-          </BoxProfile>
+          <FlexBoxCont>
+              <BoxCont>
+                <FlexBoxAvatar>
+                    <Label>Avatar</Label>
+                    <BoxAvatar >               
+                        <Avatar src='/avatar.png' />
+                        <EditAvatar>
+                            <Edit >Edit</Edit>
+                            <Remove>Remove</Remove>
+                        </EditAvatar>
+                    </BoxAvatar>
+                </FlexBoxAvatar>
+                </BoxCont>
+                <BoxContAlt>
+                  <Label>Account Details</Label>
+                  <BoxInputs>
+                      <ContInput>
+                        <InputAlt  placeholder='First name'/>
+                        <Barra />
+                      </ContInput>
+                      <ContInput>
+                        <InputAlt  placeholder='Last name'/>
+                        <Barra />
+                      </ContInput>
+                      <ContInput>
+                        <InputAlt  placeholder='E-mail'/>
+                        <Barra />
+                      </ContInput>
+                      <ContInput>
+                        <InputAlt  placeholder='Phone'/>
+                        <Barra />
+                      </ContInput>
+                      <ContInput>
+                        <InputAlt  placeholder='Adress'/>
+                        <Barra />
+                      </ContInput>
+                      <ContInput>
+                        <InputAlt  placeholder='Region'/>
+                        <Barra />
+                      </ContInput> 
+                      <ButtonAlt1 valor='Save changes' /> 
+                  </BoxInputs> 
+                </BoxContAlt>
+          </FlexBoxCont>     
         </ContainerBox>
        
       }
       {cleaner &&
-      <ContainerBox>
-          <NavRoutesDash profile/>
-          <BoxProfile>
-            <FlexBoxAvatar>
-                <Label >Avatar</Label>
-                <BoxAvatar >               
-                    <Avatar src='/avatar.png' />
-                    <EditAvatar>
-                        <Edit >Edit</Edit>
-                        <Remove>Remove</Remove>
-                    </EditAvatar>
-                </BoxAvatar>
-            </FlexBoxAvatar>
-            <BoxInputs>
-              <InputAlt label='first name' placeholder='Ryan' />
-              <InputAlt label='last name'  placeholder='Lucas' />
-              <InputAlt label='E-mail'  placeholder='ryanlucasfr@gmail.com' />
-              <InputAlt label='Phone'  placeholder='34-8989-89898' />
-              <InputAlt1 label='Type of cleaning'  placeholder='Dry cleaning' /> 
-              <ButtonAlt valor='Save changes' /> 
-            </BoxInputs>      
-          </BoxProfile>
-      </ContainerBox>
+          <ContainerBox>
+            <NavRoutesDash profile type1/>
+            <FlexBoxCont>
+              <BoxCont>
+                <FlexBoxAvatar>
+                    <Label >Avatar</Label>
+                    <BoxAvatar >               
+                        <Avatar src='/avatar.png' />
+                        <EditAvatar>
+                            <Edit >Edit</Edit>
+                            <Remove>Remove</Remove>
+                        </EditAvatar>
+                    </BoxAvatar>
+                </FlexBoxAvatar>
+              </BoxCont>
+              <BoxContAlt>
+                  <Label>Account Details</Label>
+                  <BoxInputs>
+                      <ContInput>
+                        <InputAlt  placeholder='First name'/>
+                        <Barra />
+                      </ContInput>
+                      <ContInput>
+                        <InputAlt  placeholder='Last name'/>
+                        <Barra />
+                      </ContInput>
+                      <ContInput>
+                        <InputAlt  placeholder='E-mail'/>
+                        <Barra />
+                      </ContInput>
+                      <ContInput>
+                        <InputAlt  placeholder='Phone'/>
+                        <Barra />
+                      </ContInput>
+                      <ContInput>
+                        <InputAlt  placeholder='Adress'/>
+                        <Barra />
+                      </ContInput>
+                      <ContInput>
+                        <InputAlt  placeholder='Type of cleaning'/>
+                        <Barra />
+                      </ContInput> 
+                      <ButtonAlt1 valor='Save changes' /> 
+                  </BoxInputs> 
+              </BoxContAlt>
+            </FlexBoxCont>     
+        </ContainerBox>
        
       }
     

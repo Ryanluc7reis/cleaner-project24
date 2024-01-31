@@ -4,7 +4,8 @@ import Profile from '../../src/components/profile/Profile'
 
 
 const Container = styled.div`
-  width: 100%;
+  min-width: 100%;
+  width: auto;
   height: auto;
   background: #eaeaea;
 `
@@ -17,8 +18,8 @@ export default function ProfilePage(){
   return(
       <Container>
         <StyledFlex>
-          <Navdashboard />      
-          <Profile user />
+          <Navdashboard isProfile />      
+          <Profile cleaner />
         </StyledFlex>
       </Container>
   )

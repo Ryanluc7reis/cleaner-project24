@@ -13,7 +13,7 @@ export default function HistoricPage(){
   return(
       <Container>
         <StyledFlex>
-          <Navdashboard />
+          <Navdashboard isHistoric />
           <Historics />
         </StyledFlex>
       </Container>
