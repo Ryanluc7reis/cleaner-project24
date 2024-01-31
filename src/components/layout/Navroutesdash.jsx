@@ -68,7 +68,7 @@ const FlexInput = styled.div`
 const StyledFlexSearch = styled.div`
   display: flex;
 `
-export default function NavRoutesDash({profile,notifications, schedule, historic, type1, type2 }){
+export default function NavRoutesDash({dash, profile,notifications, schedule, historic, type1, type2 }){
   const getTypeRouteValue = () => {
     if (profile) {
       return "Profile";
@@ -78,6 +78,8 @@ export default function NavRoutesDash({profile,notifications, schedule, historic
       return "Schedule";
     } else if (historic) {
       return "Historic";
+    } else if (dash) {
+      return "Services";
     }
   };
   return(

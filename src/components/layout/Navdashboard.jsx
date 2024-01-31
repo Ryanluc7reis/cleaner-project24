@@ -47,7 +47,7 @@ const ImgOptionAlt = styled(ImgOption)`
   width: 26px;
   height: 23px;
 `
-export default function Navdashboard({isProfile, isSchedule, isNotifications, isHistoric }) {
+export default function Navdashboard({isDash,isProfile, isSchedule, isNotifications, isHistoric }) {
   const router = useRouter()
   return(
     <ImageNavdash>
@@ -55,6 +55,15 @@ export default function Navdashboard({isProfile, isSchedule, isNotifications, is
         <Container>
           <StyledLogo />
           <Barra />
+          <FlexOption
+            style={{...isDash && { 
+              backgroundColor: '#2735b0',
+              boxShadow: '0 4px 20px 0 rgb(0 0 0 / 18%), 0 7px 10px -5px rgb(0 178 212 / 50%)'
+            }}} 
+            onClick={() => router.push('/dashboard/dash')}>
+              <ImgOptionAlt src={isDash ? '/dashwhite.png' : '/dash.png' } />
+              <Option style={{...isDash && { color: '#fff' }}}>Dashboard </Option>
+          </FlexOption>
           <FlexOption
             isProfile={isProfile} 
             style={{...isProfile && { 
