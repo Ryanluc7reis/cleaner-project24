@@ -14,7 +14,7 @@ export default function DashboardPage() {
   return (
     <Container>
       <StyledFlex>
-        <Navdashboard />
+        <Navdashboard isDash/>
         <Services />
       </StyledFlex>
     </Container>

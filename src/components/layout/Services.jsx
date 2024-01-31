@@ -1,20 +1,21 @@
 import styled from 'styled-components'
+import NavRoutesDash from './Navroutesdash'
 
 const Container = styled.div`
-  width: 100vw;
+  width: 100%;
   height: auto;
   background-color: #eaeaea;
 `
 
 const DivCard = styled.div`
-  margin: 50px 0 0 100px;
+  margin: 50px 15px 0px 25px ;
+  //padding: 20px;
   width: 999px;
 `
 
 const CardTable = styled.table`
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 20px;
 `
 
 const TableHeader = styled.th`
@@ -38,49 +39,27 @@ const TableData = styled.td`
   text-align: center;
   vertical-align: middle;
 `
-const DivCardHeader = styled.div`
-  display: flex;
-  width: 100%;
-  height: 75px;
-  border-radius: 8px;
-  background-color: white;
-  justify-content: center;
-  flex-direction: column;
-  text-align: start;
-  letter-spacing: 4px;
-  h1 {
-    margin-left: 37px;
-  }
-`
-
 const DivCardBody = styled.div`
-  padding-bottom: 500px;
+  padding-bottom: 200px;
   width: 100%;
+  border-radius: 15px;
   background-color: white;
   color: black;
+  overflow-y: scroll;
 `
-const DivShadowHeader = styled.div`
-  display: block;
-  background-color: white;
-  padding: 14px 8px 4px 8px;
-  border-radius: 4px;
-
-  /* box-shadow:
-    -4px -4px 4px rgba(0, 0, 0, 1),
-    2px 2px 2px rgba(0, 0, 0, 1); */
+const TitleText = styled.h1`
+  font-weight: 500;
+  color: #a4a4a4f5;
+  padding: 13px 10px;
 `
 export default function Services() {
   return (
     <Container>
       {/* LISTA DE SERVICOS CONFIRMADOS */}
-
+      <NavRoutesDash dash type2 />
       <DivCard>
-        <DivShadowHeader>
-          <DivCardHeader>
-            <h1>SERVICES</h1>
-          </DivCardHeader>
-        </DivShadowHeader>
         <DivCardBody>
+          <TitleText>Pending Services</TitleText>
           <CardTable>
             {/*  */}
             <tbody>
@@ -106,17 +85,14 @@ export default function Services() {
             </tbody>
           </CardTable>
         </DivCardBody>
-      </DivCard>
-
-      <DivCard>
-        <DivShadowHeader>
-          <DivCardHeader>
-            <h1>SERVICES</h1>
-          </DivCardHeader>
-        </DivShadowHeader>
+        </DivCard>
+        <DivCard>
         <DivCardBody>
+          <TitleText>Scheduled Services</TitleText>
           <CardTable>
+            {/*  */}
             <tbody>
+              {/* tbody incluso por bug do next.js, não modificar ou gerar componente */}
               <TableRow>
                 <TableHeader>ID</TableHeader>
                 <TableHeader>Name</TableHeader>
@@ -125,9 +101,15 @@ export default function Services() {
               </TableRow>
               <TableRow>
                 <TableData>1</TableData>
-                <TableData>Gabriel</TableData>
-                <TableData>50$</TableData>
-                <TableData>21/02/23</TableData>
+                <TableData>joao</TableData>
+                <TableData>45$</TableData>
+                <TableData>26/07/02</TableData>
+              </TableRow>
+              <TableRow>
+                <TableData>1</TableData>
+                <TableData>joao</TableData>
+                <TableData>45$</TableData>
+                <TableData>26/07/02</TableData>
               </TableRow>
             </tbody>
           </CardTable>
