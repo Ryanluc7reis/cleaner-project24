@@ -17,7 +17,7 @@ export default function ProfilePage(){
   return(
       <Container>
         <StyledFlex>
-          <Navdashboard />      
+          <Navdashboard isProfile />      
           <Profile user />
         </StyledFlex>
       </Container>

@@ -16,7 +16,7 @@ export default function SchedulePage(){
   return(
       <Container>
         <StyledFlex>
-          <NavdashboardAlt />
+          <NavdashboardAlt isSchedule />
           <Schedule />
         </StyledFlex>
       </Container>
