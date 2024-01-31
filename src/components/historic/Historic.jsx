@@ -13,6 +13,7 @@ const BoxHistoric = styled.div`
   height: 80%;
   margin: 61px 50px 0px 50px ;
   padding: 20px;
+  border-radius: 15px;
 `
 const ConatinerHistoric = styled.div`
   display: grid;
