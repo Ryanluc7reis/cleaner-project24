@@ -1,8 +1,5 @@
 import styled from "styled-components";
 import Cards from "../cardsplan/Cards";
-import Button from "../form/Button";
-import { useRouter } from "next/router";
-import { Link } from "react-scroll";
 
 const StyledContainer = styled.div`
 	width: 100%;
@@ -42,27 +39,12 @@ const StyledTitle = styled.h1`
 	font-size: 37px;
 	margin-bottom: 90px;
 `;
-const ButtonAlt = styled(Button)`
-	margin-top: 500px;
-	position: absolute;
-	@media (max-width: 426px) {
-		margin-top: 80px;
-		margin-bottom: 15px;
-		position: relative;
-	}
-`;
-
 
 export default function SectionThree() {
-	const router = useRouter()
 	return (
 		<StyledContainer>
 			<StyledTitle >Services Plans</StyledTitle>
-				<Cards type="5">					
-							<ButtonAlt>
-								<Link to="input1" spy={true} smooth={true} offset={-100} duration={500} >Let´s go</Link>
-							</ButtonAlt>			
-				</Cards>
+				<Cards type="5" />
 		</StyledContainer>
 	);
 }

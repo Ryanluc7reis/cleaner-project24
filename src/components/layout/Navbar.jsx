@@ -60,7 +60,7 @@ const StyledNavbar = styled.div`
   }
 `;
 const StyledNavBarAlt = styled.div`
- margin: 0 auto;
+  margin: 0 auto;
   height: 100px;
   width: 100%;
   align-items: center;
