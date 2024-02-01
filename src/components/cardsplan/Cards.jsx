@@ -13,7 +13,7 @@ const StyledCard = styled.div`
 	display: flex;
 	background-color: #fff;
 	align-items: center;
-	text-align: start;
+	//text-align: start;
 	width: 300px;
 	height: 570px;
 	margin-bottom: 100px;
@@ -24,6 +24,7 @@ const StyledCard = styled.div`
 		rgba(0, 0, 0, 0.09) 0px 8px 4px,
 		rgba(0, 0, 0, 0.09) 0px 16px 8px,
 		rgba(0, 0, 0, 0.09) 0px 32px 16px;
+		padding: 7px;
 	@media (max-width: 426px) {
 		width: 410px;
 		height: 100%;
