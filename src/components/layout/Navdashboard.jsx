@@ -10,6 +10,9 @@ const BoxShadow1 = styled.div`
   background: linear-gradient(rgba(217, 217, 217, 0.698), rgba(220, 220, 220, 0.818));
   z-index: 10;
   height: 100%;
+  @media ( max-width: 1306px){
+    width: 100%;
+  }
 `
 const StyledLogo = styled(Logo)`
   margin: 10px 40px;
@@ -47,10 +50,11 @@ const ImgOptionAlt = styled(ImgOption)`
   width: 26px;
   height: 23px;
 `
-export default function Navdashboard({isDash,isProfile, isSchedule, isNotifications, isHistoric }) {
+export default function Navdashboard({ isDash, isProfile, isSchedule, isNotifications, isHistoric, children, ...props }) {
   const router = useRouter()
   return(
-    <ImageNavdash>
+    <ImageNavdash  {...props} >
+      {children}
       <BoxShadow1>
         <Container>
           <StyledLogo />

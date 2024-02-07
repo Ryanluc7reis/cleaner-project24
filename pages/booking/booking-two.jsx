@@ -4,6 +4,7 @@ import Input from '../../src/components/form/Input'
 import Steps from "../../src/components/steps/Steps";
 import Selecter from "../../src/components/form/Selecter";
 import Button from '../../src/components/form/Button'
+import { useRouter } from "next/router";
 
 const Container = styled.div`
   width: 100%;
@@ -137,6 +138,7 @@ const Check = styled.img`
  }
  `
 export default function PaymentPage() {
+  const router = useRouter()
   return(
     <Container>
       <Navbar type2 />
@@ -176,7 +178,7 @@ export default function PaymentPage() {
                 <TextDecoration>PG*DANK</TextDecoration>
               </Text>
             </div>
-            <ButtonAlt valor='PAGAR AGORA!' />
+            <ButtonAlt valor='PAGAR AGORA!' onClick={() => router.push('/dashboard/dash')} />
           </FormPayment>
       </StyledFlexFormPayment>
     </Container>
