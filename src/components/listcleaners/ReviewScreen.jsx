@@ -12,35 +12,26 @@ const DescAnimation = keyframes`
     color: #1EFF0044;
   }
 `
-
 const Container = styled.div`
+  width: 100%;
+  max-height: 100vh;
+  height: auto;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0000004d;
+  z-index: 100;
   position: absolute;
-  top: 15%;
-  left: 25%;
+  top: 0%;
+  left: 0%;
+  bottom: 0%;
+  right: 0%;
+`
+const ContainerContent = styled.div`
+  display: flex;
   width: 50vw;
   min-height: 65vh;
   height: auto;
-  z-index: 100;
-  @media (max-width: 840px){
-    left: 15%;
-  }
-  @media (max-width: 712px){
-    bottom: 0;
-    top: 100%;
-    height: 90vh
-  }
-  @media (max-width: 712px){
-    left: 7%;
-  } 
-  @media (max-width: 561px){
-    width: 50vh;
-    left: 17%;
-    flex-direction: column;
-  }
-  @media (max-width: 375px){
-    left: 14%;
-  }
 `
 
 const DivCleanerInfos = styled.div`
@@ -53,7 +44,7 @@ const DivReviews = styled.div`
   background: #f3f3f3;
   padding: 7px;
   min-width: 350px;
-  @media (max-width: 561px){
+  @media (max-width: 561px) {
     min-width: 50vh;
   }
 `
@@ -171,8 +162,8 @@ const Close = styled.img`
   width: 20px;
   height: 20px;
   position: absolute;
-  right: 0%;
-  transform: translate(100%, -90%);
+  right: 23%;
+  transform: translate(40%, -50%);
   background-color: #fd3232;
   border-radius: 10px;
   cursor: pointer;
@@ -258,76 +249,78 @@ function ReviewScreen({ name, cleaner, ...props }) {
     setStyleQuit(!styleQuit)
   }
   return (
-    <Container {...props} style={{ ...(styleQuit === true && { display: 'none' }) }}>
-      <Close onClick={handleClick} src="/iconcloseW.png" />
-      <DivCleanerInfos>
-        <ContInfos>
-          <CleanerImg image="/maleicon.png" /* {props.onCleanerinfos.img} */></CleanerImg>
-          <CleanerName>{props.onCleanerinfos.name}</CleanerName>
-          <CleanerPrice>{props.onCleanerinfos.price}</CleanerPrice>
-          <div style={{ display: 'flex', gap: '4px' }}>
-            <RatingAndExpirence>
-              <StarRating src="/star.png" />
-              {props.onCleanerinfos.rating}
-            </RatingAndExpirence>
-            <RatingAndExpirence>{props.onCleanerinfos.cleaningCount}</RatingAndExpirence>
-          </div>
-        </ContInfos>
-        <hr />
-        <DivDocInfos>
-          <CheckInfo src="../checkIconB.png" />
-          <Desc>Id checks out</Desc>
-        </DivDocInfos>
-        <DivDocInfos>
-          <CheckInfo src="../checkIconB.png" />
-          <Desc>Id checks out</Desc>
-        </DivDocInfos>
-        <hr />
-        <TypeCleanings>
-          <ThumbsUp />
-          <Desc>Wet manual cleaning</Desc>
-        </TypeCleanings>
-        <TypeCleanings>
-          <ThumbsUp />
-          <Desc>Dry Cleaning</Desc>
-        </TypeCleanings>
-        <TypeCleanings>
-          <ThumbsUp />
-          <Desc>Dry Cleaning</Desc>
-        </TypeCleanings>
-        <hr></hr>
-        <ButtonAlt
-          valor={cleaner ? 'Remove this cleaner' : 'Selected this cleaner'}
-          onClick={handleClickButton}
-        />
-      </DivCleanerInfos>
-      <DivReviews>
-        <BoxAboutMe>
-          <AboutMeTitle>About Me: </AboutMeTitle>
-          <AboutMeSub>Dedicated to my work</AboutMeSub>
-          <AboutMeDesc>
-            Dedicated to my work. Customer satisfaction is my priority Dedicated to my work.
-            Customer satisfaction is my priority. Good relationship with customer.
-          </AboutMeDesc>
-        </BoxAboutMe>
-        <BoxReviews maxHeight={`${reviews.length * 80}px`}>
-          <ReviewsTitle>Reviews</ReviewsTitle>
-          {reviews.map((review, index) => (
-            <ContReviewsClient key={index}>
-              <FlexClientReviewName>
-                <ClientReviewName>{review.name}</ClientReviewName>
-                <Rating src="/star.png" />
-              </FlexClientReviewName>
-              <ClientReviewDesc>{review.desc}</ClientReviewDesc>
-              <DivStarDate>
-                <ClientReviewDate>26/07/2002</ClientReviewDate>
-                <ClientReviewStars src="/maleicon.png" />
-              </DivStarDate>
-              <hr />
-            </ContReviewsClient>
-          ))}
-        </BoxReviews>
-      </DivReviews>
+    <Container>
+      <ContainerContent {...props} style={{ ...(styleQuit === true && { display: 'none' }) }}>
+        <Close onClick={handleClick} src="/iconcloseW.png" />
+        <DivCleanerInfos>
+          <ContInfos>
+            <CleanerImg image="/maleicon.png" /* {props.onCleanerinfos.img} */></CleanerImg>
+            <CleanerName>{props.onCleanerinfos.name}</CleanerName>
+            <CleanerPrice>{props.onCleanerinfos.price}</CleanerPrice>
+            <div style={{ display: 'flex', gap: '4px' }}>
+              <RatingAndExpirence>
+                <StarRating src="/star.png" />
+                {props.onCleanerinfos.rating}
+              </RatingAndExpirence>
+              <RatingAndExpirence>{props.onCleanerinfos.cleaningCount}</RatingAndExpirence>
+            </div>
+          </ContInfos>
+          <hr />
+          <DivDocInfos>
+            <CheckInfo src="../checkIconB.png" />
+            <Desc>Id checks out</Desc>
+          </DivDocInfos>
+          <DivDocInfos>
+            <CheckInfo src="../checkIconB.png" />
+            <Desc>Id checks out</Desc>
+          </DivDocInfos>
+          <hr />
+          <TypeCleanings>
+            <ThumbsUp />
+            <Desc>Wet manual cleaning</Desc>
+          </TypeCleanings>
+          <TypeCleanings>
+            <ThumbsUp />
+            <Desc>Dry Cleaning</Desc>
+          </TypeCleanings>
+          <TypeCleanings>
+            <ThumbsUp />
+            <Desc>Dry Cleaning</Desc>
+          </TypeCleanings>
+          <hr></hr>
+          <ButtonAlt
+            valor={cleaner ? 'Remove this cleaner' : 'Selected this cleaner'}
+            onClick={handleClickButton}
+          />
+        </DivCleanerInfos>
+        <DivReviews>
+          <BoxAboutMe>
+            <AboutMeTitle>About Me: </AboutMeTitle>
+            <AboutMeSub>Dedicated to my work</AboutMeSub>
+            <AboutMeDesc>
+              Dedicated to my work. Customer satisfaction is my priority Dedicated to my work.
+              Customer satisfaction is my priority. Good relationship with customer.
+            </AboutMeDesc>
+          </BoxAboutMe>
+          <BoxReviews maxHeight={`${reviews.length * 80}px`}>
+            <ReviewsTitle>Reviews</ReviewsTitle>
+            {reviews.map((review, index) => (
+              <ContReviewsClient key={index}>
+                <FlexClientReviewName>
+                  <ClientReviewName>{review.name}</ClientReviewName>
+                  <Rating src="/star.png" />
+                </FlexClientReviewName>
+                <ClientReviewDesc>{review.desc}</ClientReviewDesc>
+                <DivStarDate>
+                  <ClientReviewDate>26/07/2002</ClientReviewDate>
+                  <ClientReviewStars src="/maleicon.png" />
+                </DivStarDate>
+                <hr />
+              </ContReviewsClient>
+            ))}
+          </BoxReviews>
+        </DivReviews>
+      </ContainerContent>
     </Container>
   )
 }

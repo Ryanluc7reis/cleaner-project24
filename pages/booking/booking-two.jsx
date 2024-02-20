@@ -4,6 +4,7 @@ import Input from '../../src/components/form/Input'
 import Steps from "../../src/components/steps/Steps";
 import Selecter from "../../src/components/form/Selecter";
 import Button from '../../src/components/form/Button'
+import { useRouter } from "next/router";
 
 const Container = styled.div`
   width: 100%;
@@ -25,7 +26,7 @@ const VerifiedCard = styled.div`
   height: 35px;
   padding: 10px 40px;
   display: flex;
-  gap:5px;
+  gap: 5px;
   background: transparent;
   border: 1px solid blue;
   margin: 12px 0px;
@@ -58,9 +59,9 @@ const BoxCheck = styled.div`
   align-items: center;
   background: #56dc02;
   border-radius: 35px;
-  position: absolute;
-  right: 62%;
-  transform: translate(70%, -110%);
+  position: relative;
+  left: 50%;
+  transform: translate(40%, -110%);
   @media (max-width: 1440px){
     right: 61%;
     transform: translate(15%, -110%);
@@ -136,11 +137,8 @@ const Check = styled.img`
     width: 95%;
  }
  `
- const ContSelecters = styled.div`
-  width: 100%;
-  height: auto;
- `
 export default function PaymentPage() {
+  const router = useRouter()
   return(
     <Container>
       <Navbar type2 />
@@ -180,7 +178,7 @@ export default function PaymentPage() {
                 <TextDecoration>PG*DANK</TextDecoration>
               </Text>
             </div>
-            <ButtonAlt valor='PAGAR AGORA!' />
+            <ButtonAlt valor='PAGAR AGORA!' onClick={() => router.push('/dashboard/dash')} />
           </FormPayment>
       </StyledFlexFormPayment>
     </Container>
