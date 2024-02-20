@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import NavRoutesDash from './Navroutesdash'
 
 const Container = styled.div`
   width: 100%;
@@ -9,8 +8,20 @@ const Container = styled.div`
 
 const DivCard = styled.div`
   margin: 50px 15px 0px 25px ;
-  //padding: 20px;
   width: 999px;
+   @media  (max-width: 1306px) {
+    margin: 0;
+  }
+   
+`
+const FlexDivCard = styled.div`
+      @media  (max-width: 1306px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+  }
 `
 
 const CardTable = styled.table`
@@ -56,65 +67,67 @@ export default function Services() {
   return (
     <Container>
       {/* LISTA DE SERVICOS CONFIRMADOS */}
-      <NavRoutesDash dash type2 />
-      <DivCard>
-        <DivCardBody>
-          <TitleText>Pending Services</TitleText>
-          <CardTable>
-            {/*  */}
-            <tbody>
-              {/* tbody incluso por bug do next.js, não modificar ou gerar componente */}
-              <TableRow>
-                <TableHeader>ID</TableHeader>
-                <TableHeader>Name</TableHeader>
-                <TableHeader>Price</TableHeader>
-                <TableHeader>Date</TableHeader>
-              </TableRow>
-              <TableRow>
-                <TableData>1</TableData>
-                <TableData>joao</TableData>
-                <TableData>45$</TableData>
-                <TableData>26/07/02</TableData>
-              </TableRow>
-              <TableRow>
-                <TableData>1</TableData>
-                <TableData>joao</TableData>
-                <TableData>45$</TableData>
-                <TableData>26/07/02</TableData>
-              </TableRow>
-            </tbody>
-          </CardTable>
-        </DivCardBody>
-        </DivCard>
+      <FlexDivCard>
         <DivCard>
-        <DivCardBody>
-          <TitleText>Scheduled Services</TitleText>
-          <CardTable>
-            {/*  */}
-            <tbody>
-              {/* tbody incluso por bug do next.js, não modificar ou gerar componente */}
-              <TableRow>
-                <TableHeader>ID</TableHeader>
-                <TableHeader>Name</TableHeader>
-                <TableHeader>Price</TableHeader>
-                <TableHeader>Date</TableHeader>
-              </TableRow>
-              <TableRow>
-                <TableData>1</TableData>
-                <TableData>joao</TableData>
-                <TableData>45$</TableData>
-                <TableData>26/07/02</TableData>
-              </TableRow>
-              <TableRow>
-                <TableData>1</TableData>
-                <TableData>joao</TableData>
-                <TableData>45$</TableData>
-                <TableData>26/07/02</TableData>
-              </TableRow>
-            </tbody>
-          </CardTable>
-        </DivCardBody>
-      </DivCard>
+          <DivCardBody>
+            <TitleText>Pending Services</TitleText>
+            <CardTable>
+              {/*  */}
+              <tbody>
+                {/* tbody incluso por bug do next.js, não modificar ou gerar componente */}
+                <TableRow>
+                  <TableHeader>ID</TableHeader>
+                  <TableHeader>Name</TableHeader>
+                  <TableHeader>Price</TableHeader>
+                  <TableHeader>Date</TableHeader>
+                </TableRow>
+                <TableRow>
+                  <TableData>1</TableData>
+                  <TableData>joao</TableData>
+                  <TableData>45$</TableData>
+                  <TableData>26/07/02</TableData>
+                </TableRow>
+                <TableRow>
+                  <TableData>1</TableData>
+                  <TableData>joao</TableData>
+                  <TableData>45$</TableData>
+                  <TableData>26/07/02</TableData>
+                </TableRow>
+              </tbody>
+            </CardTable>
+          </DivCardBody>
+          </DivCard>
+          <DivCard>
+          <DivCardBody>
+            <TitleText>Scheduled Services</TitleText>
+            <CardTable>
+              {/*  */}
+              <tbody>
+                {/* tbody incluso por bug do next.js, não modificar ou gerar componente */}
+                <TableRow>
+                  <TableHeader>ID</TableHeader>
+                  <TableHeader>Name</TableHeader>
+                  <TableHeader>Price</TableHeader>
+                  <TableHeader>Date</TableHeader>
+                </TableRow>
+                <TableRow>
+                  <TableData>1</TableData>
+                  <TableData>joao</TableData>
+                  <TableData>45$</TableData>
+                  <TableData>26/07/02</TableData>
+                </TableRow>
+                <TableRow>
+                  <TableData>1</TableData>
+                  <TableData>joao</TableData>
+                  <TableData>45$</TableData>
+                  <TableData>26/07/02</TableData>
+                </TableRow>
+              </tbody>
+            </CardTable>
+          </DivCardBody>
+        </DivCard>
+      </FlexDivCard>
+      
     </Container>
   )
 }

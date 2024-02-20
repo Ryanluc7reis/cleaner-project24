@@ -1,11 +1,10 @@
-A ser feito em pages/plansScreen/selectCleaner -->
-
-- Criar logica de quando o estado do review for true o fundo fique com uma opacidade (tem exemplo no site referencia) <!-- TALVEZ NAO PRECISE>
 
 A ser feito em pages/plansScreen/booking -->
 
 - Estilizar formulario com uma imagem se os inputs tiverem valor true , se nao trata error (exemplo no site referencia) <!-- EM ANDAMENTO>
-
 - Adicionar input para cadastro de endreço
 
-- Criar tela de pagamento 
+A ser feito em ReviewScreen -->
+
+- Refazer responsividade
+- Fazer com que seja absoluto na tela inteira e independente de onde for aberto o review. 
