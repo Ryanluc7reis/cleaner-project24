@@ -77,8 +77,9 @@ const Formulario = styled.div`
 	background-color: #cccdee;
 	padding: 3px;
 	border-radius: 8px;
-	height: 525px;
-	width: 340px;
+	height: 470px;
+	width: 327px;
+    margin-top: 30px;
 	box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
 	display: flex;
 	flex-direction: column;
@@ -125,85 +126,21 @@ const FlexLoginAndRegister = styled.div`
 	display: flex;
 	gap: 7px;
 `
-const BoxCleaning = styled.div`
-	height: 117px;
-	width: 245px;
-	background-color: white;
-	border-radius: 3px;
-	display: ${(props) => (props.show ? "flex" : "none")};
-	transform: translate(0%, 80%);
-	position: absolute;
-	bottom: 50%;
-	animation: ${fadeIn} 0.1s ease-in-out;
-	gap: 5px;
-	flex-direction: column;
-	align-items: center;
-	@media (max-width: 900px) {
-		transform: translate(0%, 106%);
-	}
-	@media (max-width: 768px) {
-		transform: translate(0%, 155%);
-	}
-`;
-const TypesCleaning = styled.p`
-	font-size: 14px;
-	margin-left: 4px;
-	cursor: pointer;
-	width: 100%;
-	:hover {
-		border-radius: 3px;
-		background-color: #5757f5c4;
-	}
-`;
 const Cadastro = () => {
 	const router = useRouter();
-	const [show, setShow] = useState(false);
-	const [inputValue, setInputValue] = useState("");
-	const updateInput = (clickedWord) => {
-		setInputValue(clickedWord);
-		setShow(!show);
-	};
 	return (
 		<Container>
 			<StyledFlexNavBar>
 				<Logo />
 				<FlexLoginAndRegister>
 					<StyledLogin onClick={() => router.push("/login")}>Login</StyledLogin>
-					<StyledLogin onClick={() => router.push("/signupAsclient")}>Register as client</StyledLogin>
+					<StyledLogin onClick={() => router.push("/signupAscleaner")}>Register as cleaner</StyledLogin>
 				</FlexLoginAndRegister>			
 			</StyledFlexNavBar>
 			<FlexBoxFormulario>
 				<Formulario>
-					<Titulo>Register as cleaner</Titulo>
+					<Titulo>Register as client</Titulo>
 					<InputAlt label="Full Name" placeholder="FULLNAME" required />
-					<InputAlt
-						value={inputValue}
-						onClick={() => setShow(!show)}
-						label="Type Of Cleaning"
-						placeholder="TYPE OF CLEANING"
-						required
-					/>
-					<BoxCleaning show={show}>
-						<TypesCleaning onClick={() => updateInput("Wet manual cleaning")}>
-							Wet manual cleaning
-						</TypesCleaning>
-						<TypesCleaning onClick={() => updateInput("Window cleaning")}>
-							Window cleaning
-						</TypesCleaning>
-						<TypesCleaning
-							onClick={() => updateInput("Home apliance cleaning")}
-						>
-							Home apliance cleaning
-						</TypesCleaning>
-						<TypesCleaning
-							onClick={() => updateInput("Wet manual cleaning (water)")}
-						>
-							Wet manual cleaning (with water)
-						</TypesCleaning>
-						<TypesCleaning onClick={() => updateInput("Dry cleaning")}>
-							Dry cleaning
-						</TypesCleaning>
-					</BoxCleaning>
 					<InputAlt label="E-mail" placeholder="EMAIL  ADDRESS" required />
 					<InputAlt label="Address" placeholder="ADDRESS" required />
 					<InputAlt label="Phone Number" placeholder="PHONE NUMBER" />
