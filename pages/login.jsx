@@ -56,11 +56,11 @@ const SignYourAcc = styled.p`
 	padding-bottom: 25px;
 `;
 const ButtonAlt = styled(Button)`
-	margin-top: 15px;
+	margin-top: 35px;
 	width: 240px;
 	box-shadow:
-		2px 2px 2px blueviolet,
-		-2px -2px 2px blueviolet;
+		2px 2px 2px #5176da,
+		-2px -2px 2px #5176da;
 	@media (max-width: 430px) {
 		font-size: 16px;
 	}
@@ -82,11 +82,12 @@ const InputAlt = styled(Input)`
 	@media (max-width: 430px) {
 		font-size: 16px;
 	}
+	font-size: 12px;
 `;
 
 const StyledRegisterCleaner = styled.a`
 	cursor: pointer;
-	font-size: 24px;
+	font-size: 20px;
 	background: #56648f;
 	padding: 15px;
 	border-radius: 10px;

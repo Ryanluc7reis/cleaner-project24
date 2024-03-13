@@ -18,8 +18,8 @@ const ButtonAlt = styled(Button)`
 	margin-top: 23px;
 	margin-bottom: 15px;
 	box-shadow:
-		2px 2px 2px blueviolet,
-		-2px -2px 2px blueviolet;
+		2px 2px 2px #5176da,
+		-2px -2px 2px #5176da;
 	@media (max-width: 1025px) {
 		padding: 12px 17px;
 	}
@@ -58,7 +58,8 @@ const InputAlt = styled(Input)`
 		2px 2px 2px #5176da,
 		-2px -2px 2px #5176da;
 	border-color: #5176da;
-	font-size: 15px;
+	font-size: 12px;
+	padding: 12px;
 	@media (max-width: 1025px) {
 		padding: 10px 17px;
 	}
@@ -74,9 +75,10 @@ const FlexBoxFormulario = styled.div`
 
 const Formulario = styled.div`
 	background-color: #cccdee;
+	padding: 3px;
 	border-radius: 8px;
-	height: 560px;
-	width: 360px;
+	height: 525px;
+	width: 340px;
 	box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
 	display: flex;
 	flex-direction: column;
@@ -94,9 +96,9 @@ const Formulario = styled.div`
 `;
 const StyledLogin = styled.a`
 	cursor: pointer;
-	font-size: 24px;
+	font-size: 20px;
 	background: #56648f;
-	padding: 15px 40px;
+	padding: 15px 25px;
 	border-radius: 10px;
 	color: #fff;
 	text-align: center;
@@ -119,6 +121,10 @@ const StyledFlexNavBar = styled.div`
 		gap: 15px;
 	}
 `;
+const FlexLoginAndRegister = styled.div`
+	display: flex;
+	gap: 7px;
+`
 const BoxCleaning = styled.div`
 	height: 117px;
 	width: 245px;
@@ -161,7 +167,10 @@ const Cadastro = () => {
 		<Container>
 			<StyledFlexNavBar>
 				<Logo />
-				<StyledLogin onClick={() => router.push("/login")}>Login</StyledLogin>
+				<FlexLoginAndRegister>
+					<StyledLogin onClick={() => router.push("/login")}>Login</StyledLogin>
+					<StyledLogin onClick={() => router.push("/signupAsclient")}>Register as client</StyledLogin>
+				</FlexLoginAndRegister>			
 			</StyledFlexNavBar>
 			<FlexBoxFormulario>
 				<Formulario>
