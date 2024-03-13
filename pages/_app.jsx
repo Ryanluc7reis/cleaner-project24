@@ -1,4 +1,4 @@
-import { createGlobalStyle,ThemeProvider } from 'styled-components';
+import { createGlobalStyle, ThemeProvider } from 'styled-components'
 import theme from '../theme'
 
 const GlobalStyles = createGlobalStyle`
@@ -16,21 +16,18 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 h1,h2,h3,h4,h5 {
- font-family: ${props => props.theme.font.family.heading}
+ font-family: ${(props) => props.theme.font.family.heading}
 }
  `
-;
-
-
 function MyApp({ Component, pageProps }) {
   return (
-    <ThemeProvider theme={theme} >
+    <ThemeProvider theme={theme}>
       <>
-        <Component {...pageProps}  />
+        <Component {...pageProps} />
         <GlobalStyles />
       </>
     </ThemeProvider>
-  );
+  )
 }
 
-export default MyApp;
+export default MyApp

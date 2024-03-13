@@ -1,9 +1,9 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 const Container = styled.div`
   width: 100%;
   height: auto;
-  @media (max-width: 1190px){
+  @media (max-width: 1190px) {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -17,15 +17,15 @@ const DivSteps = styled.div`
   width: 1000px;
   width: auto;
   margin: 20px 15%;
-  padding: 15px ;
+  padding: 15px;
   gap: 7px;
-  @media (max-width: 1190px){
+  @media (max-width: 1190px) {
     width: 80vw;
   }
-  @media (max-width: 650px){
+  @media (max-width: 650px) {
     max-height: 80px;
   }
-  @media (max-width: 470px){
+  @media (max-width: 470px) {
     width: 90%;
     font-size: 8px;
   }
@@ -33,7 +33,7 @@ const DivSteps = styled.div`
 const BoxCheck = styled.div`
   padding: 3px 5px;
   align-items: center;
-  text-align: center ;
+  text-align: center;
   background: #242c99e1;
   border-radius: 25px;
 `
@@ -42,68 +42,65 @@ const BoxCheckAlt = styled(BoxCheck)`
   border: 1px solid gray;
 `
 const Check = styled.img`
- height: 15px;
- width: 17px;
- margin-top: 4px;
- `
- const CheckText = styled.h3`
+  height: 15px;
+  width: 17px;
+  margin-top: 4px;
+`
+const CheckText = styled.h3`
   padding: 3px 5px;
   color: white;
-  @media(max-width: 470px){
+  @media (max-width: 470px) {
     font-size: 13px;
   }
- `
- const CheckTextAlt = styled(CheckText)`
+`
+const CheckTextAlt = styled(CheckText)`
   color: gray;
- `
- const Traço = styled.h3`
-  @media (max-width: 650px){
+`
+const Traço = styled.h3`
+  @media (max-width: 650px) {
     visibility: hidden;
   }
- `
-export default function Steps({type1, type2, ...props}){
-  return(
+`
+export default function Steps({ type1, type2, ...props }) {
+  return (
     <Container {...props}>
-        {type1 &&
-          <DivSteps >
-            <BoxCheck>
-              <Check src='/Whitecheck.png' />
-            </BoxCheck>
-            <h2> Your bookings </h2>
-            <Traço>------------------------------------------------------ </Traço>
-            <BoxCheck>
-              <CheckText>2</CheckText>
-            </BoxCheck>  
-            <h2>Your Details</h2> 
-            <Traço>------------------------------------------------------ </Traço>
-            <BoxCheckAlt>
-              <CheckTextAlt>3</CheckTextAlt>
-            </BoxCheckAlt>
-            <h2>Your Payment </h2>
-          </DivSteps>}
-      
-        {type2 &&
-            <DivSteps>
-              <BoxCheck>
-                <Check src='/Whitecheck.png' />
-              </BoxCheck>
-              <h2> Your bookings </h2>
-              <Traço>------------------------------------------------------ </Traço>
-              <BoxCheck>
-                <Check src='/Whitecheck.png' />
-              </BoxCheck>  
-              <h2>Your Details</h2> 
-              <Traço>------------------------------------------------------ </Traço>
-              <BoxCheck>
-                <CheckText>3</CheckText>
-              </BoxCheck>
-              <h2>Your Payment </h2>
-            </DivSteps >
-           }
-    </Container>
-    
-     
-    
+      {type1 && (
+        <DivSteps>
+          <BoxCheck>
+            <Check src="/Whitecheck.png" />
+          </BoxCheck>
+          <h2> Your bookings </h2>
+          <Traço>------------------------------------------------------ </Traço>
+          <BoxCheck>
+            <CheckText>2</CheckText>
+          </BoxCheck>
+          <h2>Your Details</h2>
+          <Traço>------------------------------------------------------ </Traço>
+          <BoxCheckAlt>
+            <CheckTextAlt>3</CheckTextAlt>
+          </BoxCheckAlt>
+          <h2>Your Payment </h2>
+        </DivSteps>
+      )}
 
+      {type2 && (
+        <DivSteps>
+          <BoxCheck>
+            <Check src="/Whitecheck.png" />
+          </BoxCheck>
+          <h2> Your bookings </h2>
+          <Traço>------------------------------------------------------ </Traço>
+          <BoxCheck>
+            <Check src="/Whitecheck.png" />
+          </BoxCheck>
+          <h2>Your Details</h2>
+          <Traço>------------------------------------------------------ </Traço>
+          <BoxCheck>
+            <CheckText>3</CheckText>
+          </BoxCheck>
+          <h2>Your Payment </h2>
+        </DivSteps>
+      )}
+    </Container>
   )
-} 
+}

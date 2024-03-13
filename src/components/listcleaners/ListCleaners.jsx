@@ -147,11 +147,8 @@ const BoxFilterShortby = styled.div`
   background-color: #f4f4f4;
   position: absolute;
   transform: translate(-3%, 65%);
-  box-shadow:
-    rgba(201, 201, 201, 0.777) 0px 2px 1px,
-    rgba(195, 195, 195, 0.337) 0px 4px 2px,
-    rgba(164, 163, 163, 0.25) 0px 8px 4px,
-    rgba(185, 185, 185, 0.09) 0px 16px 8px,
+  box-shadow: rgba(201, 201, 201, 0.777) 0px 2px 1px, rgba(195, 195, 195, 0.337) 0px 4px 2px,
+    rgba(164, 163, 163, 0.25) 0px 8px 4px, rgba(185, 185, 185, 0.09) 0px 16px 8px,
     rgba(172, 172, 172, 0.339) 0px 32px 16px;
 `
 const ShortbyOption = styled.p`

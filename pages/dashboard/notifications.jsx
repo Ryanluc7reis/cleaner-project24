@@ -9,13 +9,13 @@ const Container = styled.div`
 const StyledFlex = styled.div`
   display: flex;
 `
-export default function NotificationsPage(){
-  return(
-      <Container>
-        <StyledFlex>
-          <Navdashboard isNotifications />
-          <Notifications />
-        </StyledFlex>
-      </Container>
+export default function NotificationsPage() {
+  return (
+    <Container>
+      <StyledFlex>
+        <Navdashboard isNotifications />
+        <Notifications />
+      </StyledFlex>
+    </Container>
   )
 }

@@ -98,17 +98,16 @@ export default function SectionOne() {
   }
 
   const handleSubmit = () => {
-    
     if (valor.length < 3 || valor.length < 4) {
-      setError(true);
+      setError(true)
     } else {
-      setError(false);
-      router.push(`/plansScreen?region=${encodeURIComponent(valor)}`);
+      setError(false)
+      router.push(`/plansScreen?region=${encodeURIComponent(valor)}`)
     }
   }
 
   return (
-    <ImageSectionOne >
+    <ImageSectionOne>
       <BoxShadow>
         <Navbar type1 />
         <StyledContainer1>
@@ -119,11 +118,11 @@ export default function SectionOne() {
             <H5>• Liability Insured Up to £4M</H5>
           </StyledH5>
           {error && <ErrorMessage>That region is invalid.</ErrorMessage>}
-          <StyledForm onSubmit={(e) => e.preventDefault()} >
-              <Selecter region value={valor} onChange={handleInputChange} />
-              <Button  type="button" onClick={handleSubmit}>
-                Let´s go
-              </Button>
+          <StyledForm onSubmit={(e) => e.preventDefault()}>
+            <Selecter region value={valor} onChange={handleInputChange} />
+            <Button type="button" onClick={handleSubmit}>
+              Let´s go
+            </Button>
           </StyledForm>
         </StyledContainer1>
       </BoxShadow>

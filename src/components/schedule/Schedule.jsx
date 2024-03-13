@@ -7,12 +7,12 @@ const Container = styled.div`
   width: 100%;
   height: auto;
   background-color: #efefef;
-` 
+`
 const BoxSchedule = styled.div`
   background: #fff;
   min-width: 90%;
   height: 80%;
-  margin: 61px 50px 0px 50px ;
+  margin: 61px 50px 0px 50px;
   padding: 20px;
   border-radius: 15px;
   display: flex;
@@ -20,25 +20,25 @@ const BoxSchedule = styled.div`
 `
 
 const DateCalenderAlt = styled(BasicDateCalendar)`
-> div {
-  > .css-cyfsxc-MuiPickersCalendarHeader-labelContainer {
-    color: #212020d2;
-    font-size: 17px;
-    font-weight: 700;
+  > div {
+    > .css-cyfsxc-MuiPickersCalendarHeader-labelContainer {
+      color: #212020d2;
+      font-size: 17px;
+      font-weight: 700;
+    }
   }
-}
-span {
-  font-size: 14px;
-  font-weight: 700;
-  color: #212020d2;
-}
-button {
-  font-size: 12px;
-}
-border: 2px solid #56648f;
-border-radius: 25px;
-margin-top: 50px ;
-background-color: #eff5ffb8;
+  span {
+    font-size: 14px;
+    font-weight: 700;
+    color: #212020d2;
+  }
+  button {
+    font-size: 12px;
+  }
+  border: 2px solid #56648f;
+  border-radius: 25px;
+  margin-top: 50px;
+  background-color: #eff5ffb8;
 `
 const FlexTitleText = styled.div`
   display: flex;
@@ -63,7 +63,7 @@ const TitleTextSubAlt = styled(TitleText)`
   font-size: 18px;
 `
 const ButtonAlt = styled(Button)`
-  color: #fff; 
+  color: #fff;
   padding: 7px;
   width: 130px;
   font-size: 14px;
@@ -82,7 +82,7 @@ const FlexTextDate = styled.div`
 `
 
 export default function Schedule() {
-  return(
+  return (
     <Container>
       <NavRoutesDash schedule type1 />
       <BoxSchedule>
@@ -95,20 +95,19 @@ export default function Schedule() {
           <FlexTextDate>
             <TitleTextSub>
               <TitleTextSubAlt>Schedule avaible:</TitleTextSubAlt>
-               27 January Wed - 27 Fevereiro Wed 
+              27 January Wed - 27 Fevereiro Wed
             </TitleTextSub>
             <TitleTextSub>
               <TitleTextSubAlt>Schedule avaible:</TitleTextSubAlt>
-               27 January Wed - 27 Fevereiro Wed 
+              27 January Wed - 27 Fevereiro Wed
             </TitleTextSub>
             <TitleTextSub>
               <TitleTextSubAlt>Schedule avaible:</TitleTextSubAlt>
-               27 January Wed - 27 Fevereiro Wed 
+              27 January Wed - 27 Fevereiro Wed
             </TitleTextSub>
           </FlexTextDate>
         </StyledFlex>
       </BoxSchedule>
     </Container>
-   
   )
 }

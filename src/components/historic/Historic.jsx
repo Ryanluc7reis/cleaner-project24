@@ -6,12 +6,12 @@ const Container = styled.div`
   width: 100%;
   height: auto;
   background-color: #efefef;
-` 
+`
 const BoxHistoric = styled.div`
   background: #fff;
   min-width: 90%;
   height: 80%;
-  margin: 61px 50px 0px 50px ;
+  margin: 61px 50px 0px 50px;
   padding: 20px;
   border-radius: 15px;
 `
@@ -44,7 +44,7 @@ const TitleText = styled.h1`
 `
 const ButtonAlt = styled(Button)`
   border: 1px solid #959eb6;
-  color: #fff; 
+  color: #fff;
   padding: 7px;
   width: 130px;
   font-size: 14px;
@@ -54,7 +54,7 @@ const Date = styled.div`
 `
 
 export default function Historics() {
-  return(
+  return (
     <Container>
       <NavRoutesDash historic type2 />
       <BoxHistoric>
@@ -64,24 +64,23 @@ export default function Historics() {
         </FlexTitleText>
         <ConatinerHistoric>
           <Historic>
-            <h3 >Limpeza (complete) feita para Maria joana</h3>
-            <Date >27/05/2024</Date>
+            <h3>Limpeza (complete) feita para Maria joana</h3>
+            <Date>27/05/2024</Date>
           </Historic>
           <Historic>
-          <h3 >Limpeza (complete) feita para Ryam</h3>
-            <Date >27/05/2024</Date>
+            <h3>Limpeza (complete) feita para Ryam</h3>
+            <Date>27/05/2024</Date>
           </Historic>
           <Historic>
-            <h3 >Limpeza (complete) feita para Gabs</h3>
-            <Date >27/05/2024</Date>
+            <h3>Limpeza (complete) feita para Gabs</h3>
+            <Date>27/05/2024</Date>
           </Historic>
           <Historic>
-            <h3 >Limpeza (complete) feita para Joao</h3>
-            <Date >27/05/2024</Date>
+            <h3>Limpeza (complete) feita para Joao</h3>
+            <Date>27/05/2024</Date>
           </Historic>
-        </ConatinerHistoric>        
+        </ConatinerHistoric>
       </BoxHistoric>
     </Container>
-   
   )
 }

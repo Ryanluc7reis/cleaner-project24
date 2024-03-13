@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes } from 'styled-components'
 
 const fadeIn = keyframes`
   from {
@@ -7,7 +7,7 @@ const fadeIn = keyframes`
   to {
     opacity: 6;
   }
-`;
+`
 const StyledTextBoxService = styled.div`
   width: 400px;
   height: 200px;
@@ -19,7 +19,7 @@ const StyledTextBoxService = styled.div`
     height: 255px;
     margin-top: 18px;
   }
-`;
+`
 const TitleTextBox = styled.h3`
   align-items: center;
   font-size: 17px;
@@ -37,7 +37,7 @@ const TitleTextBox = styled.h3`
     font-size: 25px;
     font-weight: 700;
   }
-`;
+`
 const TextBox = styled.h4`
   align-items: center;
   background-image: linear-gradient(15deg, #242c9999, #25a0a8, #242c9998);
@@ -52,51 +52,45 @@ const TextBox = styled.h4`
   justify-content: center;
   margin-top: 30px;
   margin-right: 10px;
-`;
+`
 export default function TextBoxService({ type }) {
   return (
     <StyledTextBoxService>
-      {type === "1" && (
+      {type === '1' && (
         <TitleTextBox>
           Wet Manual Cleaning
           <TextBox>
-            Tenha sua casa limpa composta por uma geral nos móveis e pano úmido
-            na casa toda.
+            Tenha sua casa limpa composta por uma geral nos móveis e pano úmido na casa toda.
           </TextBox>
         </TitleTextBox>
       )}
-      {type === "2" && (
+      {type === '2' && (
         <TitleTextBox>
           Dry Cleaning
-          <TextBox>
-            Tenha sua casa limpa composta por uma geral com vassoura na casa
-            toda.
-          </TextBox>
+          <TextBox>Tenha sua casa limpa composta por uma geral com vassoura na casa toda.</TextBox>
         </TitleTextBox>
       )}
-      {type === "3" && (
+      {type === '3' && (
         <TitleTextBox>
           Window Cleaning
           <TextBox>Tenha todas janelas da casa limpa com água.</TextBox>
         </TitleTextBox>
       )}
-      {type === "4" && (
+      {type === '4' && (
         <TitleTextBox>
           Home apliance cleaning
-          <TextBox>
-            Tenha todos eletrodomésticos da casa limpo com água e sabão.
-          </TextBox>
+          <TextBox>Tenha todos eletrodomésticos da casa limpo com água e sabão.</TextBox>
         </TitleTextBox>
       )}
-      {type === "5" && (
+      {type === '5' && (
         <TitleTextBox>
           Wet manual cleaning (water)
           <TextBox>
-            Tenha sua casa limpa composta por uma geral nos móveis e na casa
-            toda com água + produtos de limpeza.
+            Tenha sua casa limpa composta por uma geral nos móveis e na casa toda com água +
+            produtos de limpeza.
           </TextBox>
         </TitleTextBox>
       )}
     </StyledTextBoxService>
-  );
+  )
 }

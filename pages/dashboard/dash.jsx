@@ -11,22 +11,20 @@ const Container = styled.div`
 
 const StyledFlex = styled.div`
   display: flex;
-  
 `
 const StyledFlexServices = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: #EAEAEA;
+  background-color: #eaeaea;
   width: 100%;
 `
 const NavdashboardAlt = styled(Navdashboard)`
-@media (max-width: 1306px) {
-  display: ${(props) => props.show ? 'flex' : 'none'};
-}
- 
+  @media (max-width: 1306px) {
+    display: ${(props) => (props.show ? 'flex' : 'none')};
+  }
 `
 export default function DashboardPage() {
-  const  [showDash, setShowDash] = useState(false)
+  const [showDash, setShowDash] = useState(false)
 
   const handleDash = () => {
     setShowDash(!showDash)
@@ -36,8 +34,8 @@ export default function DashboardPage() {
       <StyledFlex>
         <NavdashboardAlt show={showDash} isDash />
         <StyledFlexServices>
-            <NavRoutesDash onClickDash={handleDash}  dash type2 />
-            <Services />
+          <NavRoutesDash onClickDash={handleDash} dash type2 />
+          <Services />
         </StyledFlexServices>
       </StyledFlex>
     </Container>

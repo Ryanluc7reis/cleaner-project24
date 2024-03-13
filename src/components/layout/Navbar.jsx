@@ -1,8 +1,8 @@
-import styled, {keyframes} from 'styled-components';
-import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
+import styled, { keyframes } from 'styled-components'
+import { useRouter } from 'next/router'
+import { useState, useEffect } from 'react'
 
-import Logo from '../logo/Logo';
+import Logo from '../logo/Logo'
 const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -12,7 +12,7 @@ const fadeIn = keyframes`
     opacity: 6;
     
   }
-`;
+`
 const Container = styled.div`
   width: 100%;
   height: auto;
@@ -30,7 +30,7 @@ const StyledRegisterCleaner = styled.a`
   :hover {
     background-color: #677db7;
   }
-`;
+`
 const StyledLogin = styled.a`
   cursor: pointer;
   font-size: 20px;
@@ -42,7 +42,7 @@ const StyledLogin = styled.a`
   :hover {
     color: #677db7;
   }
-`;
+`
 const StyledNavbar = styled.div`
   margin: 0 auto;
   height: 100px;
@@ -58,7 +58,7 @@ const StyledNavbar = styled.div`
     justify-content: center;
     padding-bottom: 8px;
   }
-`;
+`
 const StyledNavBarAlt = styled.div`
   margin: 0 auto;
   height: 100px;
@@ -74,14 +74,14 @@ const StyledOptionsLogin = styled.div`
   @media (max-width: 768px) {
     display: none;
   }
-`;
+`
 
 const NavOptions = styled.div`
   text-align: center;
   box-shadow: 6px 5px 15px 5px rgba(0, 0, 0, 0.15);
   background: ${(props) => props.theme.colors.azulclaro};
   display: ${(props) => (props.show ? 'flex' : 'none')};
-  justify-content: center ;
+  justify-content: center;
   align-items: center;
   flex-direction: column;
   z-index: 100;
@@ -90,29 +90,29 @@ const NavOptions = styled.div`
   gap: 19px;
   position: absolute;
   bottom: 50%;
-  transform: translate( -60%);
-  animation: ${fadeIn} 0.4s ease-in-out ;
-  @media (min-width: 769px){
+  transform: translate(-60%);
+  animation: ${fadeIn} 0.4s ease-in-out;
+  @media (min-width: 769px) {
     display: none;
   }
-  @media (max-width: 769px){
-    transform: translate( 210%, -80%);
+  @media (max-width: 769px) {
+    transform: translate(210%, -80%);
   }
-  @media (max-width: 578px){
-    transform: translate( 115%, -30%);
+  @media (max-width: 578px) {
+    transform: translate(115%, -30%);
   }
-  @media (max-width: 478px){
-    transform: translate( 138%, -30%);
+  @media (max-width: 478px) {
+    transform: translate(138%, -30%);
   }
-  @media (max-width: 358px){
-    transform: translate( 120%, -30%)
+  @media (max-width: 358px) {
+    transform: translate(120%, -30%);
   }
 `
 const DotsX = styled.img`
-   display: none;
-   margin-top: 20px;
+  display: none;
+  margin-top: 20px;
   @media (max-width: 768px) {
-    display: flex; 
+    display: flex;
   }
 `
 const Dots = styled.img`
@@ -126,7 +126,7 @@ const Options = styled.a`
   font-size: 24px;
   font-weight: 700;
   color: white;
-  @media (max-width: 358px){
+  @media (max-width: 358px) {
     font-size: 27px;
   }
 `
@@ -162,53 +162,59 @@ const BarraAlt = styled(Barra)`
   background-color: #20202096;
 `
 
-export default function Navbar({ type1 , type2, ...props}) {
-  const router = useRouter();
+export default function Navbar({ type1, type2, ...props }) {
+  const router = useRouter()
   const [showD, setShowD] = useState(false)
   useEffect(() => {
     const handleClickOutSide = (event) => {
-      if (event.target.closest('showDD') === null)  {
-        setShowD(false);
+      if (event.target.closest('showDD') === null) {
+        setShowD(false)
       }
     }
-    document.addEventListener('click',handleClickOutSide,true)
-   
-  },[])
-  
-  return (
-    <Container {...props}> 
-     {type1 &&  
-     <StyledNavBarAlt>
-        <Logo onClick={() => router.push('/')} />
-        <NavOptions  show={showD}>
-          <Options href='/login'>LOGIN</Options>
-          <Barra />
-          <Options href='/signupAscleaner'>REGISTER AS CLEANER</Options>
-        </NavOptions>
+    document.addEventListener('click', handleClickOutSide, true)
+  }, [])
 
-        {showD ? <DotsX src='/Xwhite.svg' height='45px' width='80px' /> 
-        :  <Dots id='showDD' onClick={() =>setShowD(!showD) } src='/hamburgericon.png' height= '65px' width='75px' />}
-        <StyledOptionsLogin>
+  return (
+    <Container {...props}>
+      {type1 && (
+        <StyledNavBarAlt>
+          <Logo onClick={() => router.push('/')} />
+          <NavOptions show={showD}>
+            <Options href="/login">LOGIN</Options>
+            <Barra />
+            <Options href="/signupAscleaner">REGISTER AS CLEANER</Options>
+          </NavOptions>
+
+          {showD ? (
+            <DotsX src="/Xwhite.svg" height="45px" width="80px" />
+          ) : (
+            <Dots
+              id="showDD"
+              onClick={() => setShowD(!showD)}
+              src="/hamburgericon.png"
+              height="65px"
+              width="75px"
+            />
+          )}
+          <StyledOptionsLogin>
             <StyledLogin onClick={() => router.push('/login')}>LOGIN</StyledLogin>
-            <StyledRegisterCleaner onClick={(e) =>router.push('/signupAscleaner')}>Register as cleaner</StyledRegisterCleaner>
-        </StyledOptionsLogin>
-      </StyledNavBarAlt>
-      }
-      
-    
-      {type2  &&
-      <StyledNavbar>
-        <Logo colorblue />
-        <FlexLogin>
-          <CardsLogo src='/metodosPay1.jpg' height="45px" width="133px" />
-          <BarraAlt />
-          <OptionsAlt onClick={() => router.push('/login')}>LOG-IN</OptionsAlt>
-        </FlexLogin>
-      </StyledNavbar>
-    }
+            <StyledRegisterCleaner onClick={(e) => router.push('/signupAscleaner')}>
+              Register as cleaner
+            </StyledRegisterCleaner>
+          </StyledOptionsLogin>
+        </StyledNavBarAlt>
+      )}
+
+      {type2 && (
+        <StyledNavbar>
+          <Logo colorblue />
+          <FlexLogin>
+            <CardsLogo src="/metodosPay1.jpg" height="45px" width="133px" />
+            <BarraAlt />
+            <OptionsAlt onClick={() => router.push('/login')}>LOG-IN</OptionsAlt>
+          </FlexLogin>
+        </StyledNavbar>
+      )}
     </Container>
-    
-  
-     
-  );
+  )
 }

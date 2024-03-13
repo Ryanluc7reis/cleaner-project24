@@ -9,13 +9,13 @@ const Container = styled.div`
 const StyledFlex = styled.div`
   display: flex;
 `
-export default function HistoricPage(){
-  return(
-      <Container>
-        <StyledFlex>
-          <Navdashboard isHistoric />
-          <Historics />
-        </StyledFlex>
-      </Container>
+export default function HistoricPage() {
+  return (
+    <Container>
+      <StyledFlex>
+        <Navdashboard isHistoric />
+        <Historics />
+      </StyledFlex>
+    </Container>
   )
 }

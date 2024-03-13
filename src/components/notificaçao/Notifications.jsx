@@ -5,12 +5,12 @@ const Container = styled.div`
   width: 100%;
   height: auto;
   background-color: #efefef;
-` 
+`
 const BoxNotifications = styled.div`
   background: #fff;
   min-width: 90%;
   height: 80%;
-  margin: 61px 50px 0px 50px ;
+  margin: 61px 50px 0px 50px;
   padding: 20px;
   border-radius: 15px;
 `
@@ -30,7 +30,7 @@ const Notificaçao = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0px 25px;
-  `
+`
 const Close = styled.img`
   width: 20px;
   height: 20px;
@@ -44,31 +44,30 @@ const TitleText = styled.h1`
 `
 
 export default function Notifications() {
-  return(
+  return (
     <Container>
       <NavRoutesDash notifications type2 />
       <BoxNotifications>
         <TitleText>New notifications</TitleText>
         <ConatinerNotificaçao>
           <Notificaçao>
-            <h3 >Nova requisição para limpeza</h3>
-            <Close src='/Xwhite.svg' />
+            <h3>Nova requisição para limpeza</h3>
+            <Close src="/Xwhite.svg" />
           </Notificaçao>
           <Notificaçao>
-            <h3 >Nova requisição para limpeza</h3>
-            <Close src='/Xwhite.svg' />
+            <h3>Nova requisição para limpeza</h3>
+            <Close src="/Xwhite.svg" />
           </Notificaçao>
           <Notificaçao>
-            <h3 >Nova requisição para limpeza</h3>
-            <Close src='/Xwhite.svg' />
+            <h3>Nova requisição para limpeza</h3>
+            <Close src="/Xwhite.svg" />
           </Notificaçao>
           <Notificaçao>
-            <h3 >Nova requisição para limpeza</h3>
-            <Close src='/Xwhite.svg' />
+            <h3>Nova requisição para limpeza</h3>
+            <Close src="/Xwhite.svg" />
           </Notificaçao>
-        </ConatinerNotificaçao>        
+        </ConatinerNotificaçao>
       </BoxNotifications>
     </Container>
-   
   )
 }
