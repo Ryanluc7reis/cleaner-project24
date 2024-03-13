@@ -1,16 +1,16 @@
-import styled from "styled-components"
+import styled from 'styled-components'
 import Logo from '../../components/logo/Logo'
 import { useRouter } from 'next/router'
-import ImageNavdash from "./imagenavdashboard/ImageNavdash"
+import ImageNavdash from './imagenavdashboard/ImageNavdash'
 
- const Container = styled.div`
+const Container = styled.div`
   padding: 10px 26px;
- `
+`
 const BoxShadow1 = styled.div`
   background: linear-gradient(rgba(217, 217, 217, 0.698), rgba(220, 220, 220, 0.818));
   z-index: 10;
   height: 100%;
-  @media ( max-width: 1306px){
+  @media (max-width: 1306px) {
     width: 100%;
   }
 `
@@ -32,7 +32,7 @@ const FlexOption = styled.div`
   gap: 6px;
   align-items: center;
   margin: 15px;
-  :hover{
+  :hover {
     cursor: pointer;
     background-color: #d4d4d4a9;
     transition: 0.3s;
@@ -50,63 +50,83 @@ const ImgOptionAlt = styled(ImgOption)`
   width: 26px;
   height: 23px;
 `
-export default function Navdashboard({ isDash, isProfile, isSchedule, isNotifications, isHistoric, children, ...props }) {
+export default function Navdashboard({
+  isDash,
+  isProfile,
+  isSchedule,
+  isNotifications,
+  isHistoric,
+  children,
+  ...props
+}) {
   const router = useRouter()
-  return(
-    <ImageNavdash  {...props} >
+  return (
+    <ImageNavdash {...props}>
       {children}
       <BoxShadow1>
         <Container>
           <StyledLogo />
           <Barra />
           <FlexOption
-            style={{...isDash && { 
-              backgroundColor: '#2735b0',
-              boxShadow: '0 4px 20px 0 rgb(0 0 0 / 18%), 0 7px 10px -5px rgb(0 178 212 / 50%)'
-            }}} 
-            onClick={() => router.push('/dashboard/dash')}>
-              <ImgOptionAlt src={isDash ? '/dashwhite.png' : '/dash.png' } />
-              <Option style={{...isDash && { color: '#fff' }}}>Dashboard </Option>
+            style={{
+              ...(isDash && {
+                backgroundColor: '#2735b0',
+                boxShadow: '0 4px 20px 0 rgb(0 0 0 / 18%), 0 7px 10px -5px rgb(0 178 212 / 50%)'
+              })
+            }}
+            onClick={() => router.push('/dashboard/dash')}
+          >
+            <ImgOptionAlt src={isDash ? '/dashwhite.png' : '/dash.png'} />
+            <Option style={{ ...(isDash && { color: '#fff' }) }}>Dashboard </Option>
           </FlexOption>
           <FlexOption
-            isProfile={isProfile} 
-            style={{...isProfile && { 
-              backgroundColor: '#2735b0',
-              boxShadow: '0 4px 20px 0 rgb(0 0 0 / 18%), 0 7px 10px -5px rgb(0 178 212 / 50%)'
-            }}} 
-            onClick={() => router.push('/dashboard/profile')}>
-              <ImgOptionAlt src={isProfile ? '/userwhite.png' : '/user.png' } />
-              <Option style={{...isProfile && { color: '#fff' }}}>Profile </Option>
+            isProfile={isProfile}
+            style={{
+              ...(isProfile && {
+                backgroundColor: '#2735b0',
+                boxShadow: '0 4px 20px 0 rgb(0 0 0 / 18%), 0 7px 10px -5px rgb(0 178 212 / 50%)'
+              })
+            }}
+            onClick={() => router.push('/dashboard/profile')}
+          >
+            <ImgOptionAlt src={isProfile ? '/userwhite.png' : '/user.png'} />
+            <Option style={{ ...(isProfile && { color: '#fff' }) }}>Profile </Option>
           </FlexOption>
           <FlexOption
-            style={{...isSchedule && { 
-              backgroundColor: '#2735b0',
-              boxShadow: '0 4px 20px 0 rgb(0 0 0 / 18%), 0 7px 10px -5px rgb(0 178 212 / 50%)' 
-            }}} 
+            style={{
+              ...(isSchedule && {
+                backgroundColor: '#2735b0',
+                boxShadow: '0 4px 20px 0 rgb(0 0 0 / 18%), 0 7px 10px -5px rgb(0 178 212 / 50%)'
+              })
+            }}
             onClick={() => router.push('/dashboard/schedule')}
           >
-              <ImgOption src={isSchedule ? '/agendawhite.png' : '/agenda.png' } />
-              <Option  style={{...isSchedule && { color: '#fff' }}}>Schedule </Option>
+            <ImgOption src={isSchedule ? '/agendawhite.png' : '/agenda.png'} />
+            <Option style={{ ...(isSchedule && { color: '#fff' }) }}>Schedule </Option>
           </FlexOption>
           <FlexOption
-            style={{...isNotifications && { 
-              backgroundColor: '#2735b0',
-              boxShadow: '0 4px 20px 0 rgb(0 0 0 / 18%), 0 7px 10px -5px rgb(0 178 212 / 50%)'
-            }}}  
+            style={{
+              ...(isNotifications && {
+                backgroundColor: '#2735b0',
+                boxShadow: '0 4px 20px 0 rgb(0 0 0 / 18%), 0 7px 10px -5px rgb(0 178 212 / 50%)'
+              })
+            }}
             onClick={() => router.push('/dashboard/notifications')}
           >
-              <ImgOptionAlt src={isNotifications ? '/bellwhite.png' : '/bell.png' } />
-              <Option style={{...isNotifications && { color: '#fff' }}}>Notifications</Option>
+            <ImgOptionAlt src={isNotifications ? '/bellwhite.png' : '/bell.png'} />
+            <Option style={{ ...(isNotifications && { color: '#fff' }) }}>Notifications</Option>
           </FlexOption>
           <FlexOption
-            style={{...isHistoric && { 
-              backgroundColor: '#2735b0',
-              boxShadow: '0 4px 20px 0 rgb(0 0 0 / 18%), 0 7px 10px -5px rgb(0 178 212 / 50%)' 
-            }}} 
+            style={{
+              ...(isHistoric && {
+                backgroundColor: '#2735b0',
+                boxShadow: '0 4px 20px 0 rgb(0 0 0 / 18%), 0 7px 10px -5px rgb(0 178 212 / 50%)'
+              })
+            }}
             onClick={() => router.push('/dashboard/historic')}
           >
-              <ImgOption src={isHistoric ? '/historywhite.png' : '/history.png' } />
-              <Option style={{...isHistoric && { color: '#fff' }}} >Historic</Option>
+            <ImgOption src={isHistoric ? '/historywhite.png' : '/history.png'} />
+            <Option style={{ ...(isHistoric && { color: '#fff' }) }}>Historic</Option>
           </FlexOption>
         </Container>
       </BoxShadow1>

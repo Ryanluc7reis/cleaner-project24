@@ -11,7 +11,7 @@ const Container = styled.div`
   min-height: 100vh;
   height: auto;
   background: #f3f3f3;
-  display: ${(props) => props.isNone ? 'none' : 'block'};
+  display: ${(props) => (props.isNone ? 'none' : 'block')};
 `
 
 const Title = styled.h1`
@@ -33,13 +33,13 @@ const BoxInput = styled.div`
   height: 70px;
   width: 300px;
   border: 1px solid #999999aa;
-  @media (max-width: 612px){
-    margin : 10px 0;
+  @media (max-width: 612px) {
+    margin: 10px 0;
   }
-  @media (max-width: 612px){
-  width: 250px;
-  height: 50px;
- }
+  @media (max-width: 612px) {
+    width: 250px;
+    height: 50px;
+  }
 `
 
 const NameInput = styled(Input)`
@@ -88,25 +88,24 @@ const SecInfos = styled.form`
     'EmailInput PasswordInput'
     'ConsentCheck ConsentCheck';
   background-color: #ffffff;
-  @media (max-width: 612px){
+  @media (max-width: 612px) {
     grid-template-areas:
-    'NameInput '
-    'SurnameInput'
-    'EmailInput '
-    'PasswordInput'
-    'ConsentCheck '
-    'ConsentCheck';
-   align-items: center;
-   display: flex;
-   justify-content: center;
-   flex-direction: column;
+      'NameInput '
+      'SurnameInput'
+      'EmailInput '
+      'PasswordInput'
+      'ConsentCheck '
+      'ConsentCheck';
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
     width: 80%;
     max-height: 90%;
   }
-  @media (max-width: 350px){
+  @media (max-width: 350px) {
     width: 270px;
   }
-
 `
 const BoxSummary = styled.div`
   width: 270px;
@@ -121,7 +120,7 @@ const PaymentAndRegister = styled.div`
   gap: 18px;
   justify-content: center;
   padding-bottom: 50px;
-  @media (max-width: 936px){
+  @media (max-width: 936px) {
     align-items: center;
     flex-direction: column;
   }
@@ -135,16 +134,16 @@ const DescText = styled.div`
   padding: 5px;
 `
 const TitleText = styled.h3`
-   font-weight: 500;
-   font-size: 15px;
+  font-weight: 500;
+  font-size: 15px;
 `
 const DataText = styled.h3`
-  color: #222222
-;`
+  color: #222222;
+`
 const DataTextAlt = styled(DataText)`
- color: #2b4df3;
- font-size: 17px;
-;`
+  color: #2b4df3;
+  font-size: 17px;
+`
 const TitleTextAlt = styled(TitleText)`
   font-size: 19px;
 `
@@ -162,21 +161,20 @@ const PolicyAccept = styled.div`
   display: flex;
   margin: 20px;
   color: #999999;
- @media (max-width: 612px){
-  width: 60vw;
-  word-break: break-all;
-  text-align: center;
-  height: 100%;
-  margin: 0;
-};
+  @media (max-width: 612px) {
+    width: 60vw;
+    word-break: break-all;
+    text-align: center;
+    height: 100%;
+    margin: 0;
+  }
 `
 const TextPolicy = styled.h3`
- @media (max-width: 612px){
-  font-size: 12px;
-  font-weight: 500;
- }
+  @media (max-width: 612px) {
+    font-size: 12px;
+    font-weight: 500;
+  }
 `
-  
 
 const ButtonAlt = styled(Button)`
   width: 610px;
@@ -186,25 +184,23 @@ const ButtonAlt = styled(Button)`
   :hover {
     background-color: ${(props) => (props.isDisabled ? 'grey' : props.theme.colors.ultravio)};
   }
-  @media (max-width: 612px){
+  @media (max-width: 612px) {
     width: 80vw;
   }
-  @media (max-width: 430px){
-   
+  @media (max-width: 430px) {
     font-size: 13px;
   }
 `
 const NavBarAlt = styled(Navbar)`
   background: #f3f3f3;
-
 `
 const FlexSecInfos = styled.div`
   display: flex;
   flex-direction: column;
   gap: 7px;
-  @media (max-width: 612px){
+  @media (max-width: 612px) {
     justify-content: center;
-    align-items:center;
+    align-items: center;
   }
 `
 const Label = styled.h4`
@@ -255,15 +251,15 @@ function Booking() {
           <SecInfos>
             <BoxInput>
               <Label>Name*</Label>
-              <NameInput  />
+              <NameInput />
             </BoxInput>
             <BoxInput>
               <Label>Surname*</Label>
-              <SurnameInput  />
+              <SurnameInput />
             </BoxInput>
             <BoxInput>
               <Label>Email address*</Label>
-              <EmailInput type="email"  />
+              <EmailInput type="email" />
             </BoxInput>
             <BoxInput>
               <Label>Password*</Label>
@@ -273,20 +269,25 @@ function Booking() {
               <PolicyAccept>
                 <InputCheckBox onClick={() => setBoxSelected(!boxSelected)} type={'checkbox'} />
                 <TextPolicy>
-                  I accept the <TextDecoration >Terms of Use </TextDecoration> and the <TextDecoration>Privacy Policy</TextDecoration>. As a customer of Helpling.co.uk, the
-                  information provided is necessary for your booking and is collected in order for you
-                  to receive information about the Helpling platform via email, from which you can
-                  unsubscribe at any time via a link in the mail.
-                </TextPolicy>          
+                  I accept the <TextDecoration>Terms of Use </TextDecoration> and the{' '}
+                  <TextDecoration>Privacy Policy</TextDecoration>. As a customer of Helpling.co.uk,
+                  the information provided is necessary for your booking and is collected in order
+                  for you to receive information about the Helpling platform via email, from which
+                  you can unsubscribe at any time via a link in the mail.
+                </TextPolicy>
               </PolicyAccept>
             </ConsentCheckDiv>
           </SecInfos>
           <Text>
-              <Smileimg src='/smile.png'/>
-              Do you already have an account? 
-              <TextDecoration onClick={()=> router.push('/login')}>Log in here</TextDecoration>
-            </Text>
-            <ButtonAlt valor="Sign-Up" onClick={() => router.push('/booking/booking-two')}isDisabled={boxSelected === false ? true : false} />
+            <Smileimg src="/smile.png" />
+            Do you already have an account?
+            <TextDecoration onClick={() => router.push('/login')}>Log in here</TextDecoration>
+          </Text>
+          <ButtonAlt
+            valor="Sign-Up"
+            onClick={() => router.push('/booking/booking-two')}
+            isDisabled={boxSelected === false ? true : false}
+          />
         </FlexSecInfos>
         <FlexSecInfos>
           <TitleSub>Your booking summary</TitleSub>
@@ -334,9 +335,8 @@ function Booking() {
         </FlexSecInfos>
       </PaymentAndRegister>
     </Container>
-    
-    
   )
 }
 
+// eslint-disable-next-line no-undef
 export default dynamic(() => Promise.resolve(Booking), { ssr: false })

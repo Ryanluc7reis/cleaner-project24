@@ -9,16 +9,14 @@ const Container = styled.div`
 const StyledFlex = styled.div`
   display: flex;
 `
-const NavdashboardAlt = styled(Navdashboard)`
-
-`
-export default function SchedulePage(){
-  return(
-      <Container>
-        <StyledFlex>
-          <NavdashboardAlt isSchedule />
-          <Schedule />
-        </StyledFlex>
-      </Container>
+const NavdashboardAlt = styled(Navdashboard)``
+export default function SchedulePage() {
+  return (
+    <Container>
+      <StyledFlex>
+        <NavdashboardAlt isSchedule />
+        <Schedule />
+      </StyledFlex>
+    </Container>
   )
 }

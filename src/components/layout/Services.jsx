@@ -7,15 +7,14 @@ const Container = styled.div`
 `
 
 const DivCard = styled.div`
-  margin: 50px 15px 0px 25px ;
+  margin: 50px 15px 0px 25px;
   width: 999px;
-   @media  (max-width: 1306px) {
+  @media (max-width: 1306px) {
     margin: 0;
   }
-   
 `
 const FlexDivCard = styled.div`
-      @media  (max-width: 1306px) {
+  @media (max-width: 1306px) {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -96,8 +95,8 @@ export default function Services() {
               </tbody>
             </CardTable>
           </DivCardBody>
-          </DivCard>
-          <DivCard>
+        </DivCard>
+        <DivCard>
           <DivCardBody>
             <TitleText>Scheduled Services</TitleText>
             <CardTable>
@@ -127,7 +126,6 @@ export default function Services() {
           </DivCardBody>
         </DivCard>
       </FlexDivCard>
-      
     </Container>
   )
 }

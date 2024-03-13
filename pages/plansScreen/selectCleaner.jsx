@@ -44,11 +44,8 @@ const BarraSelectedCleaner = styled.div`
   align-items: center;
   display: flex;
   justify-content: space-between;
-  box-shadow:
-    rgba(54, 54, 54, 0.777) 0px 2px 1px,
-    rgba(82, 82, 82, 0.337) 0px 4px 2px,
-    rgba(70, 70, 70, 0.25) 0px 8px 4px,
-    rgba(85, 85, 85, 0.09) 0px 16px 8px,
+  box-shadow: rgba(54, 54, 54, 0.777) 0px 2px 1px, rgba(82, 82, 82, 0.337) 0px 4px 2px,
+    rgba(70, 70, 70, 0.25) 0px 8px 4px, rgba(85, 85, 85, 0.09) 0px 16px 8px,
     rgba(95, 95, 95, 0.339) 0px 32px 16px;
   @media (max-width: 1100px) {
     left: 20%;
@@ -80,7 +77,7 @@ const ButtonAlt = styled(Button)`
   font-size: 14px;
   background-color: ${(props) => (props.isDisabled ? 'grey' : props.theme.colors.ultravio)};
   cursor: ${(props) => (props.isDisabled ? 'default' : 'pointer')};
-  :hover{
+  :hover {
     background-color: ${(props) => (props.isDisabled ? 'grey' : '#677db7')};
   }
   @media (max-width: 668px) {
@@ -129,7 +126,7 @@ function SelectCleaner(props) {
             <h2 style={{ marginTop: '60px' }}>{cleanerSelected?.name}</h2>
           </BolaCleaner>
           <ButtonAlt
-            isDisabled={cleanerSelected  ? false : true}
+            isDisabled={cleanerSelected ? false : true}
             valor="Proceed to booking"
             onClick={() => {
               router.push('/booking/booking-one')

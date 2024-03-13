@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import Input from  '../form/Input'
+import Input from '../form/Input'
 import { useState } from 'react'
 
 const Container = styled.div`
@@ -13,8 +13,7 @@ const ContainerBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  @media  (max-width: 1306px) {
-   
+  @media (max-width: 1306px) {
   }
 `
 const TypeRouteTitle = styled.h1`
@@ -43,10 +42,9 @@ const LogOut = styled.a`
   cursor: pointer;
   font-size: 17px;
   display: flex;
-  :hover{
+  :hover {
     color: darkred;
   }
-
 `
 const InputAlt = styled(Input)`
   background: transparent;
@@ -76,60 +74,68 @@ const Hamburguer = styled.img`
   display: none;
   width: 60px;
   height: 45px;
-  @media (max-width: 1306px){
+  @media (max-width: 1306px) {
     display: flex;
   }
 `
-export default function NavRoutesDash({dash, profile,notifications, schedule, historic, type1, type2,...props }){
+export default function NavRoutesDash({
+  dash,
+  profile,
+  notifications,
+  schedule,
+  historic,
+  type1,
+  type2,
+  ...props
+}) {
   const [clicked, setClicked] = useState(false)
   const handleClick = (click) => {
     props.onClickDash(click === setClicked(!clicked))
   }
   const getTypeRouteValue = () => {
     if (profile) {
-      return "Profile";
+      return 'Profile'
     } else if (notifications) {
-      return "Notifications";
+      return 'Notifications'
     } else if (schedule) {
-      return "Schedule";
+      return 'Schedule'
     } else if (historic) {
-      return "Historic";
+      return 'Historic'
     } else if (dash) {
-      return "Services";
+      return 'Services'
     }
-  };
-  return(
+  }
+  return (
     <Container {...props}>
-        {type1 &&
-          <ContainerBox>
-            <Hamburguer onClick={handleClick} src={clicked  ? '/x.png' : '/hamburgericon.png'}/>
-            <TypeRouteTitle >{getTypeRouteValue()}</TypeRouteTitle>
-            <StyledFlex>             
-              <ImgAvatar src='/avatar.png'/>
-              <ImgNotifications src='/bell.png' />
-              <LogOut>Logout</LogOut>
-            </StyledFlex>
-          </ContainerBox>
-        }
-        {type2 && 
-          <ContainerBox>
-            <Hamburguer  onClick={handleClick} src={clicked  ? '/x.png' : '/hamburgericon.png'}/>
-            <TypeRouteTitle >{getTypeRouteValue()}</TypeRouteTitle>
-            <StyledFlex>
-              <StyledFlexSearch>
-                <FlexInput>
-                    <InputAlt placeholder='Search...' />
-                    <Barra />
-                </FlexInput>
-                <Lupa src='/lupa.png' />
-              </StyledFlexSearch>
-              <ImgAvatar src='/avatar.png'/>
-              <ImgNotifications src='/bell.png' />
-              <LogOut>Logout</LogOut>
-            </StyledFlex>
-          </ContainerBox>
-        }
+      {type1 && (
+        <ContainerBox>
+          <Hamburguer onClick={handleClick} src={clicked ? '/x.png' : '/hamburgericon.png'} />
+          <TypeRouteTitle>{getTypeRouteValue()}</TypeRouteTitle>
+          <StyledFlex>
+            <ImgAvatar src="/avatar.png" />
+            <ImgNotifications src="/bell.png" />
+            <LogOut>Logout</LogOut>
+          </StyledFlex>
+        </ContainerBox>
+      )}
+      {type2 && (
+        <ContainerBox>
+          <Hamburguer onClick={handleClick} src={clicked ? '/x.png' : '/hamburgericon.png'} />
+          <TypeRouteTitle>{getTypeRouteValue()}</TypeRouteTitle>
+          <StyledFlex>
+            <StyledFlexSearch>
+              <FlexInput>
+                <InputAlt placeholder="Search..." />
+                <Barra />
+              </FlexInput>
+              <Lupa src="/lupa.png" />
+            </StyledFlexSearch>
+            <ImgAvatar src="/avatar.png" />
+            <ImgNotifications src="/bell.png" />
+            <LogOut>Logout</LogOut>
+          </StyledFlex>
+        </ContainerBox>
+      )}
     </Container>
-    
   )
 }

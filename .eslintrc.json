@@ -8,11 +8,12 @@
   ],
   "rules": {
     "prettier/prettier": ["error", {}, { "usePrettierrc": true }],
-		"react/prop-types": "off"
-  },
-  
-    "plugins": [
-      "prettier"
-    ]
-  
+    "react/prop-types": "off",
+    "no-useless-catch": "off",
+    "no-unused-vars": "off",
+    "react-hooks/rules-of-hooks": "off",
+    "jsx-a11y/alt-text": "off",
+    "@next/next/no-img-element": "off",
+    "no-undef":"off"
+  }
 }

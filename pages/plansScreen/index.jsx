@@ -23,11 +23,8 @@ const DateCalendarAlt = styled(BasicDateCalendar)`
   background: #ebf0f3;
   border-radius: 9px;
   font-size: 32rem;
-  box-shadow:
-    rgba(0, 0, 0, 0.19) 0px 2px 1px,
-    rgba(68, 62, 62, 0.09) 0px 4px 2px,
-    rgba(0, 0, 0, 0.09) 0px 8px 4px,
-    rgba(0, 0, 0, 0.09) 0px 16px 8px,
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 2px 1px, rgba(68, 62, 62, 0.09) 0px 4px 2px,
+    rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
     rgba(0, 0, 0, 0.09) 0px 32px 16px;
   > div {
     font-size: 42rem;
@@ -264,11 +261,8 @@ const SelectHour = styled.div`
   align-items: center;
   background-color: rgb(255, 255, 255);
   border-radius: 10px;
-  box-shadow:
-    rgba(0, 0, 0, 0.19) 0px 2px 1px,
-    rgba(68, 62, 62, 0.09) 0px 4px 2px,
-    rgba(0, 0, 0, 0.09) 0px 8px 4px,
-    rgba(33, 32, 32, 0.08) 0px 16px 8px,
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 2px 1px, rgba(68, 62, 62, 0.09) 0px 4px 2px,
+    rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(33, 32, 32, 0.08) 0px 16px 8px,
     rgba(8, 8, 8, 0.08) 0px 20px 16px;
 
   @media (max-width: 646px) {
@@ -348,9 +342,7 @@ const InputHour = styled.div`
   background-color: ${(props) => props.theme.colors.inputBackground};
   align-items: center;
   border-radius: 10px;
-  box-shadow:
-    2px 2px 2px #5176da,
-    -2px 2px 2px #5176da;
+  box-shadow: 2px 2px 2px #5176da, -2px 2px 2px #5176da;
   border-color: #5176da;
   :hover {
     cursor: pointer;
@@ -526,6 +518,7 @@ function HomePlansScreen() {
 
   useEffect(() => {
     updateProgress()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [planChosen, dateChosen, hourChosen, startHourChosen, region])
 
   return (
