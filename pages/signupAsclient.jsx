@@ -34,7 +34,8 @@ const ButtonAlt = styled(Button)`
 `
 const Container = styled.div`
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  height: 120vh;
   background-color: #223677;
   @media (max-width: 768px) {
     display: flex;
@@ -57,7 +58,7 @@ const InputAlt = styled(Input)`
   box-shadow: 2px 2px 2px #5176da, -2px -2px 2px #5176da;
   border-color: #5176da;
   font-size: 12px;
-  padding: 12px;
+  padding: 9px;
   @media (max-width: 1025px) {
     padding: 10px 17px;
   }
@@ -75,7 +76,7 @@ const Formulario = styled.form`
   background-color: #cccdee;
   padding: 3px;
   border-radius: 8px;
-  height: 470px;
+  height: 545px;
   width: 327px;
   margin-top: 30px;
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
@@ -218,7 +219,9 @@ const Cadastro = () => {
             value={number}
             required
           />
-          <ButtonAlt valor={'Register'} loading={loading} type="submit" />
+          <ButtonAlt loading={loading} type="submit">
+            Register
+          </ButtonAlt>
         </Formulario>
       </FlexBoxFormulario>
     </Container>
