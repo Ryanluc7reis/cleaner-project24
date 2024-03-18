@@ -4,6 +4,8 @@ import Logo from '../src/components/logo/Logo'
 import Button from '../src/components/form/Button'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
+import axios from 'axios'
 
 const Container = styled.div`
   background: #223677;
@@ -22,7 +24,7 @@ const StyledFlexBoxInputs = styled.div`
   display: flex;
   justify-content: center;
 `
-const StyledBoxInputs = styled.div`
+const StyledBoxInputs = styled.form`
   width: 330px;
   height: 400px;
   margin-top: 70px;
@@ -101,6 +103,32 @@ const StyledRegisterCleaner = styled.a`
 
 export default function LoginPage() {
   const router = useRouter()
+  const [loading, setLoading] = useState(false)
+  const [userOrEmail, setUserOrEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const onSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      setLoading(true)
+      const { status } = await axios.post(`http://localhost:3333/user/login`, {
+        userOrEmail,
+        password
+      })
+      if (status === 200) {
+        router.push('/')
+      }
+    } catch (error) {
+      if (error.response && error.response.password === 'password incorrect') {
+        console.log('A senha está incorreta.')
+      } else if (error.response && error.response.userOrEmail === 'not found') {
+        console.log('Usuário ou e-mail não encontrado.')
+      } else {
+        console.log('Erro desconhecido:', error.message)
+      }
+    } finally {
+      setLoading(false)
+    }
+  }
   return (
     <Container>
       <StyledFlexNavBar>
@@ -110,11 +138,27 @@ export default function LoginPage() {
         </StyledRegisterCleaner>
       </StyledFlexNavBar>
       <StyledFlexBoxInputs>
-        <StyledBoxInputs>
+        <StyledBoxInputs onSubmit={onSubmit}>
           <SignYourAcc>Sign in to your account</SignYourAcc>
-          <InputAlt label="Email Address" placeholder="Email" />
-          <InputAlt label="Password" placeholder="Password" password />
-          <ButtonAlt>Lets´go</ButtonAlt>
+          <InputAlt
+            label="E-mail or User"
+            placeholder="E-mail  or User"
+            value={userOrEmail}
+            onChange={(e) => setUserOrEmail(e.target.value)}
+            required
+          />
+          <InputAlt
+            label="Password"
+            placeholder="Password"
+            password
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <ButtonAlt loading={loading} type="submit">
+            Lets´go
+          </ButtonAlt>
           <EsqueceuAsenha>
             <Link href="/">Forgot you password ?</Link>{' '}
           </EsqueceuAsenha>
