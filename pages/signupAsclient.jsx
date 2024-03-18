@@ -4,6 +4,8 @@ import Input from '../src/components/form/Input'
 import Logo from '../src/components/logo/Logo'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
+import axios from 'axios'
+
 const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -69,7 +71,7 @@ const FlexBoxFormulario = styled.div`
   align-items: center;
 `
 
-const Formulario = styled.div`
+const Formulario = styled.form`
   background-color: #cccdee;
   padding: 3px;
   border-radius: 8px;
@@ -122,6 +124,38 @@ const FlexLoginAndRegister = styled.div`
 `
 const Cadastro = () => {
   const router = useRouter()
+  const [loading, setLoading] = useState(false)
+  const [fullName, setfullName] = useState('')
+  const [user, setUser] = useState('')
+  const [password, setPassword] = useState('')
+  const [address, setAddress] = useState('')
+  const [number, setNumber] = useState('')
+  const [email, setEmail] = useState('')
+  const handleForm = async (e) => {
+    e.preventDefault()
+    try {
+      setLoading(true)
+      const { status } = await axios.post(`http://localhost:3333/user/signup`, {
+        fullName,
+        user,
+        email,
+        password,
+        address,
+        number
+      })
+      if (status === 201) {
+        router.push('/login')
+      }
+    } catch (err) {
+      if (err.response && err.response.email.code === 11000) {
+        console.log('Ja existe uma conta com esse valor')
+      } else {
+        console.error('Erro ao cadastrar usuário:', err.message)
+      }
+    } finally {
+      setLoading(false)
+    }
+  }
   return (
     <Container>
       <StyledFlexNavBar>
@@ -134,13 +168,57 @@ const Cadastro = () => {
         </FlexLoginAndRegister>
       </StyledFlexNavBar>
       <FlexBoxFormulario>
-        <Formulario>
+        <Formulario onSubmit={handleForm}>
           <Titulo>Register as client</Titulo>
-          <InputAlt label="Full Name" placeholder="FULLNAME" required />
-          <InputAlt label="E-mail" placeholder="EMAIL  ADDRESS" required />
-          <InputAlt label="Address" placeholder="ADDRESS" required />
-          <InputAlt label="Phone Number" placeholder="PHONE NUMBER" />
-          <ButtonAlt valor={'Register'} />
+          <InputAlt
+            label="Full Name"
+            placeholder="FULLNAME"
+            type="text"
+            onChange={(e) => setfullName(e.target.value)}
+            value={fullName}
+            required
+          />
+          <InputAlt
+            label="User"
+            placeholder="USER"
+            type="text"
+            onChange={(e) => setUser(e.target.value)}
+            value={user}
+            required
+          />
+          <InputAlt
+            label="E-mail"
+            placeholder="EMAIL  ADDRESS"
+            type="text"
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+            required
+          />
+          <InputAlt
+            label="Password"
+            placeholder="PASSWORD"
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+            required
+          />
+          <InputAlt
+            label="Address"
+            placeholder="ADDRESS"
+            type="text"
+            onChange={(e) => setAddress(e.target.value)}
+            value={address}
+            required
+          />
+          <InputAlt
+            label="Phone Number"
+            placeholder="PHONE NUMBER"
+            type="text"
+            onChange={(e) => setNumber(e.target.value)}
+            value={number}
+            required
+          />
+          <ButtonAlt valor={'Register'} loading={loading} type="submit" />
         </Formulario>
       </FlexBoxFormulario>
     </Container>
