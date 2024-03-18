@@ -4,6 +4,7 @@ import Input from '../src/components/form/Input'
 import Logo from '../src/components/logo/Logo'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
+
 const fadeIn = keyframes`
   from {
     opacity: 0;

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+
 import styled from 'styled-components'
 
 const InputContainer = styled.div`
@@ -29,16 +30,11 @@ const StyledInput = styled.input`
   }
 `
 const Input = ({ label, password, ...props }) => {
-  const [valor, setValor] = useState(null)
-  const handleInputChange = (event) => {
-    setValor(event.target.value)
-  }
   return (
     <InputContainer>
       <StyledLabel> {label}</StyledLabel>
       <StyledInput
         type={password ? 'password' : 'text'}
-        onChange={handleInputChange}
         autoComplete={password ? 'auto-complete' : null}
         {...props}
       />
