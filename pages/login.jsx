@@ -45,7 +45,7 @@ const StyledBoxInputs = styled.form`
 const StyledFlexNavBar = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 10px 20px;
+  padding: 14px 20px;
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: center;
@@ -100,6 +100,10 @@ const StyledRegisterCleaner = styled.a`
     padding: 10px;
   }
 `
+const FlexRegisters = styled.div`
+  display: flex;
+  gap: 15px;
+`
 
 export default function LoginPage() {
   const router = useRouter()
@@ -129,13 +133,19 @@ export default function LoginPage() {
       setLoading(false)
     }
   }
+
   return (
     <Container>
       <StyledFlexNavBar>
         <Logo />
-        <StyledRegisterCleaner onClick={() => router.push('/signupAscleaner')}>
-          Become a cleaner
-        </StyledRegisterCleaner>
+        <FlexRegisters>
+          <StyledRegisterCleaner onClick={() => router.push('/signupAscleaner')}>
+            Become a cleaner
+          </StyledRegisterCleaner>
+          <StyledRegisterCleaner onClick={() => router.push('/signupAsclient')}>
+            Becomea a client
+          </StyledRegisterCleaner>
+        </FlexRegisters>
       </StyledFlexNavBar>
       <StyledFlexBoxInputs>
         <StyledBoxInputs onSubmit={onSubmit}>
