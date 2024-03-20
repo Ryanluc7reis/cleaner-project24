@@ -30,7 +30,36 @@ const StyledSelectAlt = styled(StyledSelect)`
   width: 100%;
   margin: 10px 0px;
 `
-const Selecter = ({ region, year, month, parcelas, ...props }) => {
+const StyledLabel = styled.p`
+  font-weight: bold;
+  font-size: 14px;
+  padding: 10px 0px;
+`
+const InputContainer = styled.div`
+  width: auto;
+  height: auto;
+`
+const StyledSelecterAlt1 = styled(StyledSelect)`
+  box-shadow: 2px 2px 2px #5176da, -2px -2px 2px #5176da;
+  background-color: ${(props) => props.theme.colors.inputBackground};
+  border-color: #5176da;
+  width: 240px;
+  font-size: 12px;
+  padding: 13px 8px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  :focus {
+    outline: none;
+  }
+  @media (max-width: 1025px) {
+    padding: 10px 17px;
+  }
+  @media (max-width: 900px) {
+    padding: 6px 13px;
+  }
+`
+
+const Selecter = ({ region, year, month, parcelas, typeCleaning, ...props }) => {
   return (
     <StyledContainer {...props}>
       {region && (
@@ -86,6 +115,29 @@ const Selecter = ({ region, year, month, parcelas, ...props }) => {
           <option value="6x de R$290,00">6x de R$290,00 </option>
           <option value="12x de R$290,00">12x de R$290,00 </option>
         </StyledSelectAlt>
+      )}
+      {typeCleaning && (
+        <InputContainer>
+          <StyledLabel>Type of cleaning</StyledLabel>
+          <StyledSelecterAlt1>
+            Type of cleaning
+            <option style={{ fontSize: '12px' }} value="" disabled="">
+              TYPE OF CLEANING
+            </option>
+            <option style={{ fontSize: '14px' }} value="Wet manual cleaning">
+              Wet manual cleaning
+            </option>
+            <option style={{ fontSize: '14px' }} value="Window cleaning ">
+              Window cleaning
+            </option>
+            <option style={{ fontSize: '14px' }} value="Home apliance cleaning">
+              Home apliance cleaning{' '}
+            </option>
+            <option style={{ fontSize: '14px' }} value="Wet manual cleaning (water)">
+              Wet manual cleaning (water){' '}
+            </option>
+          </StyledSelecterAlt1>
+        </InputContainer>
       )}
     </StyledContainer>
   )
