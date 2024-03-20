@@ -123,7 +123,7 @@ const FlexLoginAndRegister = styled.div`
   display: flex;
   gap: 7px;
 `
-const Cadastro = () => {
+const SignupAsClient = () => {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [fullName, setfullName] = useState('')
@@ -228,4 +228,4 @@ const Cadastro = () => {
   )
 }
 
-export default Cadastro
+export default SignupAsClient

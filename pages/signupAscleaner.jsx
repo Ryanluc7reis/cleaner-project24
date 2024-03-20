@@ -1,9 +1,11 @@
 import styled, { keyframes } from 'styled-components'
+import { useState } from 'react'
+import { useRouter } from 'next/router'
+import axios from 'axios'
+
 import Button from '../src/components/form/Button'
 import Input from '../src/components/form/Input'
 import Logo from '../src/components/logo/Logo'
-import { useState } from 'react'
-import { useRouter } from 'next/router'
 
 const fadeIn = keyframes`
   from {
@@ -33,7 +35,8 @@ const ButtonAlt = styled(Button)`
 `
 const Container = styled.div`
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  height: 120vh;
   background-color: #223677;
   @media (max-width: 768px) {
     display: flex;
@@ -56,7 +59,7 @@ const InputAlt = styled(Input)`
   box-shadow: 2px 2px 2px #5176da, -2px -2px 2px #5176da;
   border-color: #5176da;
   font-size: 12px;
-  padding: 12px;
+  padding: 9px;
   @media (max-width: 1025px) {
     padding: 10px 17px;
   }
@@ -70,12 +73,13 @@ const FlexBoxFormulario = styled.div`
   align-items: center;
 `
 
-const Formulario = styled.div`
+const Formulario = styled.form`
   background-color: #cccdee;
   padding: 3px;
   border-radius: 8px;
-  height: 525px;
-  width: 340px;
+  height: 545px;
+  width: 327px;
+  margin-top: 30px;
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
@@ -120,44 +124,41 @@ const FlexLoginAndRegister = styled.div`
   display: flex;
   gap: 7px;
 `
-const BoxCleaning = styled.div`
-  height: 117px;
-  width: 245px;
-  background-color: white;
-  border-radius: 3px;
-  display: ${(props) => (props.show ? 'flex' : 'none')};
-  transform: translate(0%, 80%);
-  position: absolute;
-  bottom: 50%;
-  animation: ${fadeIn} 0.1s ease-in-out;
-  gap: 5px;
-  flex-direction: column;
-  align-items: center;
-  @media (max-width: 900px) {
-    transform: translate(0%, 106%);
-  }
-  @media (max-width: 768px) {
-    transform: translate(0%, 155%);
-  }
-`
-const TypesCleaning = styled.p`
-  font-size: 14px;
-  margin-left: 4px;
-  cursor: pointer;
-  width: 100%;
-  :hover {
-    border-radius: 3px;
-    background-color: #5757f5c4;
-  }
-`
-const Cadastro = () => {
+const SignupAsCleaner = () => {
   const router = useRouter()
-  const [show, setShow] = useState(false)
-  const [inputValue, setInputValue] = useState('')
-  const updateInput = (clickedWord) => {
-    setInputValue(clickedWord)
-    setShow(!show)
+  const [loading, setLoading] = useState(false)
+  const [fullName, setfullName] = useState('')
+  const [user, setUser] = useState('')
+  const [password, setPassword] = useState('')
+  const [address, setAddress] = useState('')
+  const [number, setNumber] = useState('')
+  const [email, setEmail] = useState('')
+  const handleForm = async (e) => {
+    e.preventDefault()
+    try {
+      setLoading(true)
+      const { status } = await axios.post(`http://localhost:3333/user/signupAscleaner`, {
+        fullName,
+        user,
+        email,
+        address,
+        password,
+        number
+      })
+      if (status === 201) {
+        router.push('/login')
+      }
+    } catch (err) {
+      if (err.response && err.response.email.code === 11000) {
+        console.log('Ja existe uma conta com esse valor')
+      } else {
+        console.error('Erro ao cadastrar usuário:', err.message)
+      }
+    } finally {
+      setLoading(false)
+    }
   }
+
   return (
     <Container>
       <StyledFlexNavBar>
@@ -170,39 +171,63 @@ const Cadastro = () => {
         </FlexLoginAndRegister>
       </StyledFlexNavBar>
       <FlexBoxFormulario>
-        <Formulario>
+        <Formulario onSubmit={handleForm}>
           <Titulo>Register as cleaner</Titulo>
-          <InputAlt label="Full Name" placeholder="FULLNAME" required />
           <InputAlt
-            value={inputValue}
-            onClick={() => setShow(!show)}
-            label="Type Of Cleaning"
-            placeholder="TYPE OF CLEANING"
+            label="Full Name"
+            placeholder="FULLNAME"
+            type="text"
+            onChange={(e) => setfullName(e.target.value)}
+            value={fullName}
             required
           />
-          <BoxCleaning show={show}>
-            <TypesCleaning onClick={() => updateInput('Wet manual cleaning')}>
-              Wet manual cleaning
-            </TypesCleaning>
-            <TypesCleaning onClick={() => updateInput('Window cleaning')}>
-              Window cleaning
-            </TypesCleaning>
-            <TypesCleaning onClick={() => updateInput('Home apliance cleaning')}>
-              Home apliance cleaning
-            </TypesCleaning>
-            <TypesCleaning onClick={() => updateInput('Wet manual cleaning (water)')}>
-              Wet manual cleaning (with water)
-            </TypesCleaning>
-            <TypesCleaning onClick={() => updateInput('Dry cleaning')}>Dry cleaning</TypesCleaning>
-          </BoxCleaning>
-          <InputAlt label="E-mail" placeholder="EMAIL  ADDRESS" required />
-          <InputAlt label="Address" placeholder="ADDRESS" required />
-          <InputAlt label="Phone Number" placeholder="PHONE NUMBER" />
-          <ButtonAlt valor={'Register'} />
+          <InputAlt
+            label="User"
+            placeholder="USER"
+            type="text"
+            onChange={(e) => setUser(e.target.value)}
+            value={user}
+            required
+          />
+          <InputAlt
+            label="E-mail"
+            placeholder="EMAIL  ADDRESS"
+            type="text"
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+            required
+          />
+          <InputAlt
+            label="Password"
+            placeholder="PASSWORD"
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+            required
+          />
+          <InputAlt
+            label="Address"
+            placeholder="ADDRESS"
+            type="text"
+            onChange={(e) => setAddress(e.target.value)}
+            value={address}
+            required
+          />
+          <InputAlt
+            label="Phone Number"
+            placeholder="PHONE NUMBER"
+            type="text"
+            onChange={(e) => setNumber(e.target.value)}
+            value={number}
+            required
+          />
+          <ButtonAlt loading={loading} type="submit">
+            Register
+          </ButtonAlt>
         </Formulario>
       </FlexBoxFormulario>
     </Container>
   )
 }
 
-export default Cadastro
+export default SignupAsCleaner
