@@ -7,7 +7,8 @@ import Navbar from '../layout/Navbar'
 import H2 from '../typography/H2'
 import H5 from '../typography/H5'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { UserContext } from '../../context/useContext'
 
 const BoxShadow = styled.div`
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
@@ -92,11 +93,11 @@ export default function SectionOne() {
   const router = useRouter()
   const [valor, setValor] = useState('')
   const [error, setError] = useState(false)
+  const [userData, setUserData] = useContext(UserContext)
 
   const handleInputChange = (event) => {
     setValor(event.target.value)
   }
-
   const handleSubmit = () => {
     if (valor.length < 3 || valor.length < 4) {
       setError(true)
@@ -109,7 +110,7 @@ export default function SectionOne() {
   return (
     <ImageSectionOne>
       <BoxShadow>
-        <Navbar type1 />
+        {userData ? <Navbar username={userData} /> : <Navbar type1 />}
         <StyledContainer1>
           <H2>Find Top Rated Cleaners!</H2>
           <StyledH5 id="input1">

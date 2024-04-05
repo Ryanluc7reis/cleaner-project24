@@ -1,8 +1,12 @@
 import styled, { keyframes } from 'styled-components'
 import { useRouter } from 'next/router'
-import { useState, useEffect } from 'react'
-
+import { useState, useEffect, useContext } from 'react'
+import axios from 'axios'
 import Logo from '../logo/Logo'
+import Login from './Login'
+import Button from '../form/Button'
+import { UserContext } from '../../context/useContext'
+
 const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -63,17 +67,19 @@ const StyledNavBarAlt = styled.div`
   margin: 0 auto;
   height: 100px;
   width: 100%;
-  align-items: center;
   display: flex;
   justify-content: space-between;
-  padding: 20px;
+  padding: 21px;
 `
 const StyledOptionsLogin = styled.div`
   display: flex;
-  gap: 20px;
+  gap: 13px;
   @media (max-width: 768px) {
     display: none;
   }
+`
+const StyledOptionsLoginAlt = styled(StyledOptionsLogin)`
+  align-items: center;
 `
 
 const NavOptions = styled.div`
@@ -130,6 +136,7 @@ const Options = styled.a`
     font-size: 27px;
   }
 `
+
 const Barra = styled.div`
   width: 300px;
   height: 1px;
@@ -161,47 +168,116 @@ const BarraAlt = styled(Barra)`
   margin-top: 7px;
   background-color: #20202096;
 `
+const Logout = styled.a`
+  color: white;
+  cursor: pointer;
+  font-size: 13px;
+`
+const LoginAlt = styled.div`
+  position: fixed;
+  z-index: 100;
+  width: 100%;
+  height: 100vh;
+  background: #ffffff58;
+  justify-content: center;
+  align-items: center;
+  display: ${(props) => (props.showLogin ? 'flex' : 'none')};
+`
+const ButttonLogin = styled(Button)`
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+`
 
-export default function Navbar({ type1, type2, ...props }) {
+export default function Navbar({ type1, type2, username, ...props }) {
   const router = useRouter()
   const [showD, setShowD] = useState(false)
+  const [showLogin, setShowLogin] = useState(false)
+  const [userData, setUserData] = useContext(UserContext)
+
   useEffect(() => {
+    const body = document.querySelector('body')
+
+    if (showLogin) {
+      body.classList.add('no-scroll')
+    } else {
+      body.classList.remove('no-scroll')
+    }
+
     const handleClickOutSide = (event) => {
-      if (event.target.closest('showDD') === null) {
+      if (!event.target.closest('#showD')) {
         setShowD(false)
       }
     }
-    document.addEventListener('click', handleClickOutSide, true)
-  }, [])
 
+    document.addEventListener('click', handleClickOutSide, true)
+  }, [showLogin])
+
+  const handleLogout = async () => {
+    try {
+      const token = localStorage.getItem('token')
+      const config = {
+        headers: {
+          authorization: token
+        }
+      }
+      const response = await axios.post('http://localhost:3333/user/logout', {}, config)
+      if (response.status === 200) {
+        console.log('Logout realizado com sucesso')
+        setUserData(false)
+        setShowLogin(false)
+      }
+    } catch (error) {
+      console.error('Erro durante o logout:', error)
+    }
+  }
   return (
     <Container {...props}>
       {type1 && (
+        <div>
+          <LoginAlt showLogin={showLogin}>
+            <Login />
+            <ButttonLogin onClick={() => setShowLogin(false)}>close</ButttonLogin>
+          </LoginAlt>
+          <StyledNavBarAlt>
+            <Logo onClick={() => router.push('/')} />
+            <NavOptions show={showD}>
+              <Options href="/login">LOGIN</Options>
+              <Barra />
+              <Options href="/signupAscleaner">REGISTER AS CLEANER</Options>
+            </NavOptions>
+            {showD ? (
+              <DotsX src="/Xwhite.svg" height="45px" width="80px" />
+            ) : (
+              <Dots
+                id="showD"
+                onClick={() => setShowD(!showD)}
+                src="/hamburgericon.png"
+                height="65px"
+                width="75px"
+              />
+            )}
+            <StyledOptionsLogin>
+              <StyledLogin onClick={() => setShowLogin(!showLogin)}>LOGIN</StyledLogin>
+              <StyledRegisterCleaner onClick={(e) => router.push('/signupAscleaner')}>
+                Register as cleaner
+              </StyledRegisterCleaner>
+            </StyledOptionsLogin>
+          </StyledNavBarAlt>
+        </div>
+      )}
+      {username && (
         <StyledNavBarAlt>
           <Logo onClick={() => router.push('/')} />
-          <NavOptions show={showD}>
-            <Options href="/login">LOGIN</Options>
-            <Barra />
-            <Options href="/signupAscleaner">REGISTER AS CLEANER</Options>
-          </NavOptions>
-
-          {showD ? (
-            <DotsX src="/Xwhite.svg" height="45px" width="80px" />
-          ) : (
-            <Dots
-              id="showDD"
-              onClick={() => setShowD(!showD)}
-              src="/hamburgericon.png"
-              height="65px"
-              width="75px"
-            />
-          )}
-          <StyledOptionsLogin>
-            <StyledLogin onClick={() => router.push('/login')}>LOGIN</StyledLogin>
+          <StyledOptionsLoginAlt>
+            <h1 style={{ color: 'white' }}>Olá, {username}</h1>
+            <Logout onClick={handleLogout} style={{ color: 'white' }}>
+              Logout
+            </Logout>
             <StyledRegisterCleaner onClick={(e) => router.push('/signupAscleaner')}>
               Register as cleaner
             </StyledRegisterCleaner>
-          </StyledOptionsLogin>
+          </StyledOptionsLoginAlt>
         </StyledNavBarAlt>
       )}
 
