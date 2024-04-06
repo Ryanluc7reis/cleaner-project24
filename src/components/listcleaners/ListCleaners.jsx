@@ -1,6 +1,6 @@
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import Button from '../form/Button'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import React from 'react'
 import ReviewScreen from './ReviewScreen'
 
@@ -231,6 +231,13 @@ export default function ListCleaners(props) {
   }
   const handleButtonReviews = (index) => {
     setSelectedCardIndex(index === selectedCardIndex ? null : index)
+    const body = document.querySelector('body')
+
+    if (index === selectedCardIndex ? false : true) {
+      body.classList.add('no-scroll')
+    } else {
+      body.classList.remove('no-scroll')
+    }
   }
 
   return (

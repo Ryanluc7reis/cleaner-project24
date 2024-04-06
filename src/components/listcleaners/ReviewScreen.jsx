@@ -1,31 +1,20 @@
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
 import Button from '../form/Button'
 import dynamic from 'next/dynamic'
 import { useState } from 'react'
-import { cleanersData } from './ListCleaners'
 
-const DescAnimation = keyframes`
-  from {
-    color: #77d2df;
-  }
-  to {
-    color: #1EFF0044;
-  }
-`
 const Container = styled.div`
-  width: 100%;
-  max-height: 100vh;
+  width: 100vw;
+  min-height: 100vh;
   height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #0000004d;
+  position: fixed;
   z-index: 100;
-  position: absolute;
-  top: 0%;
   left: 0%;
-  bottom: 0%;
-  right: 0%;
+  top: 0%;
 `
 const ContainerContent = styled.div`
   display: flex;
@@ -87,7 +76,6 @@ const TypeCleanings = styled.div`
 const Desc = styled.h2`
   margin: 10px 5px;
   color: rgb(68, 68, 68);
-  //animation: ${DescAnimation} 4s ease-in-out infinite alternate;
 `
 const BoxAboutMe = styled.div`
   padding: 10px;
