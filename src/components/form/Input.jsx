@@ -1,10 +1,8 @@
-import { useState } from 'react'
-
 import styled from 'styled-components'
 
 const InputContainer = styled.div`
-  width: auto;
-  height: auto;
+  display: flex;
+  flex-direction: column;
 `
 const StyledLabel = styled.p`
   font-weight: bold;
@@ -29,6 +27,7 @@ const StyledInput = styled.input`
     width: 255px;
   }
 `
+
 const Input = ({ label, password, ...props }) => {
   return (
     <InputContainer>

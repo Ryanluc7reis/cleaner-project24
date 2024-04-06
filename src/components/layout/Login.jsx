@@ -2,7 +2,6 @@ import styled from 'styled-components'
 import Input from '../form/Input'
 import Button from '../form/Button'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import { useState, useContext } from 'react'
 import axios from 'axios'
 import { UserContext } from '../../context/useContext'
@@ -49,17 +48,23 @@ const EsqueceuAsenha = styled.p`
 const InputAlt = styled(Input)`
   box-shadow: 2px 2px 2px #5176da, -2px -2px 2px #5176da;
   border-color: #5176da;
+  border: ${(props) =>
+    props.error && props.error.length > 0 && `2px solid ${props.theme.colors.error}`};
   @media (max-width: 430px) {
     font-size: 16px;
   }
   font-size: 12px;
 `
-
+const ErrorLabel = styled.span`
+  color: ${(props) => props.theme.colors.error};
+  font-weight: bold;
+  font-size: 13px;
+`
 export default function LoginForm() {
-  const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [userOrEmail, setUserOrEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState({})
   const [userData, setUserData] = useContext(UserContext)
   const onSubmit = async (e) => {
     e.preventDefault()
@@ -71,11 +76,11 @@ export default function LoginForm() {
       })
       const { token } = response.data
       localStorage.setItem('token', token)
-    } catch (error) {
-      if (error.response && error.response.data.password === 'password incorrect') {
-        console.log('A senha está incorreta.')
-      } else if (error.response && error.response.data.userOrEmail === 'not found') {
-        console.log('Usuário ou e-mail não encontrado.')
+    } catch (err) {
+      if (err.response && err.response.data === 'password incorrect') {
+        setError({ ...error, password: 'A senha está incorreta' })
+      } else if (err.response && err.response.data === 'not found') {
+        setError({ ...error, userOrEmail: 'Usuário ou e-mail não encontrado' })
       } else {
         console.log('Erro desconhecido:', error.message)
       }
@@ -103,8 +108,10 @@ export default function LoginForm() {
         placeholder="E-mail  or username"
         value={userOrEmail}
         onChange={(e) => setUserOrEmail(e.target.value)}
+        error={error.userOrEmail}
         required
       />
+      {error.userOrEmail && <ErrorLabel>{error.userOrEmail}</ErrorLabel>}
       <InputAlt
         label="Password"
         placeholder="Password"
@@ -112,8 +119,10 @@ export default function LoginForm() {
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
+        error={error.password}
         required
       />
+      {error.password && <ErrorLabel>{error.password}</ErrorLabel>}
       <ButtonAlt loading={loading} type="submit">
         Lets´go
       </ButtonAlt>
