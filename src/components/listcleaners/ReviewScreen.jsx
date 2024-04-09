@@ -224,33 +224,32 @@ const reviews = [
     rating: 4.6
   }
 ]
-function ReviewScreen({ name, cleaner, ...props }) {
-  const [styleQuit, setStyleQuit] = useState(false)
+function ReviewScreen({ name, price, rating, cleaningCount, cleaner, ...props }) {
+  const [closeReview, setCloseReview] = useState(false)
 
-  const handleClick = () => {
-    setStyleQuit(!styleQuit)
+  const handleCloseReview = () => {
     props.onClose()
   }
-  const handleClickButton = () => {
-    props.onButtonClick()
-    props.onClose()
-    setStyleQuit(!styleQuit)
+  const handleSelectCleaner = () => {
+    props.onSelectCleaner()
+    setCloseReview(!closeReview)
   }
+
   return (
-    <Container>
-      <ContainerContent {...props} style={{ ...(styleQuit === true && { display: 'none' }) }}>
-        <Close onClick={handleClick} src="/iconcloseW.png" />
+    <Container {...props} style={{ ...(closeReview && { display: 'none' }) }}>
+      <ContainerContent>
+        <Close onClick={handleCloseReview} src="/iconcloseW.png" />
         <DivCleanerInfos>
           <ContInfos>
             <CleanerImg image="/maleicon.png" /* {props.onCleanerinfos.img} */></CleanerImg>
-            <CleanerName>{props.onCleanerinfos.name}</CleanerName>
-            <CleanerPrice>{props.onCleanerinfos.price}</CleanerPrice>
+            <CleanerName>{name || '-'}</CleanerName>
+            <CleanerPrice>{price || '-'}</CleanerPrice>
             <div style={{ display: 'flex', gap: '4px' }}>
               <RatingAndExpirence>
                 <StarRating src="/star.png" />
-                {props.onCleanerinfos.rating}
+                {rating || '-'}
               </RatingAndExpirence>
-              <RatingAndExpirence>{props.onCleanerinfos.cleaningCount}</RatingAndExpirence>
+              <RatingAndExpirence>{cleaningCount || '-'}</RatingAndExpirence>
             </div>
           </ContInfos>
           <hr />
@@ -277,8 +276,8 @@ function ReviewScreen({ name, cleaner, ...props }) {
           </TypeCleanings>
           <hr></hr>
           <ButtonAlt
-            valor={cleaner ? 'Remove this cleaner' : 'Selected this cleaner'}
-            onClick={handleClickButton}
+            valor={cleaner ? 'Selected this cleaner' : 'Remove this cleaner'}
+            onClick={handleSelectCleaner}
           />
         </DivCleanerInfos>
         <DivReviews>
