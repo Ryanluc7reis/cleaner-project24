@@ -11,9 +11,12 @@ const StyledButton = styled.button`
   font-size: 16px;
   width: 200px;
   transition: all 200ms ease-in-out;
-  cursor: pointer;
+  :disabled {
+    background-color: ${(props) => props.theme.colors.disabled};
+  }
+  ${(props) => !props.disabled && 'cursor: pointer'};
   :hover {
-    background-color: #677db7;
+    background-color: ${(props) => !props.disabled && '#677db7'};
   }
   @media (max-width: 430px) {
     font-size: 25px;
@@ -34,7 +37,7 @@ const RightButton = styled.img`
 `
 export default function Button({ children, disabled, loading, arrowButton, ...props }) {
   return (
-    <StyledButton disabled={props.isDisabled} {...props}>
+    <StyledButton disabled={disabled || loading} {...props}>
       {props.valor ? props.valor : ''}
       {loading && <img src="./loader.svg" width="15px" />}
       {!loading && children}
