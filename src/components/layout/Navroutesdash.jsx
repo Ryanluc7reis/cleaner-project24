@@ -1,6 +1,9 @@
 import styled from 'styled-components'
+import { useState, useEffect, useContext } from 'react'
+import { UserContext } from '../../context/useContext'
+import axios from 'axios'
+
 import Input from '../form/Input'
-import { useState } from 'react'
 
 const Container = styled.div`
   width: auto;
@@ -88,7 +91,9 @@ export default function NavRoutesDash({
   type2,
   ...props
 }) {
+  const [userData, setUserData] = useContext(UserContext)
   const [clicked, setClicked] = useState(false)
+
   const handleClick = (click) => {
     props.onClickDash(click === setClicked(!clicked))
   }
@@ -105,6 +110,22 @@ export default function NavRoutesDash({
       return 'Services'
     }
   }
+  useEffect(() => {
+    const verifyUser = async () => {
+      try {
+        const token = localStorage.getItem('token')
+        const response = await axios.get('http://localhost:3333/user/verify-session', {
+          headers: {
+            authorization: token
+          }
+        })
+        setUserData(response.data)
+      } catch (error) {
+        console.error('Erro ao verificar sessão:', error)
+      }
+    }
+    verifyUser()
+  }, [setUserData])
   return (
     <Container {...props}>
       {type1 && (
@@ -112,6 +133,7 @@ export default function NavRoutesDash({
           <Hamburguer onClick={handleClick} src={clicked ? '/x.png' : '/hamburgericon.png'} />
           <TypeRouteTitle>{getTypeRouteValue()}</TypeRouteTitle>
           <StyledFlex>
+            <h1 style={{ color: 'white' }}>Olá, {userData}</h1>
             <ImgAvatar src="/avatar.png" />
             <ImgNotifications src="/bell.png" />
             <LogOut>Logout</LogOut>
@@ -130,6 +152,7 @@ export default function NavRoutesDash({
               </FlexInput>
               <Lupa src="/lupa.png" />
             </StyledFlexSearch>
+            <h1 style={{ color: 'blue' }}>Olá, {userData}</h1>
             <ImgAvatar src="/avatar.png" />
             <ImgNotifications src="/bell.png" />
             <LogOut>Logout</LogOut>
