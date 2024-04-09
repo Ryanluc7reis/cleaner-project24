@@ -281,13 +281,9 @@ const SelectHour = styled.div`
   }
 `
 const ButtonAlt = styled(Button)`
-  background-color: ${(props) => (props.isDisabled ? 'grey' : props.theme.colors.ultravio)};
   width: 400px;
   border-radius: 25px;
-  cursor: ${(props) => (props.isDisabled ? 'default' : 'pointer')};
-  :hover {
-    background-color: ${(props) => (props.isDisabled ? 'grey' : props.theme.colors.ultravio)};
-  }
+
   @media (max-width: 426px) {
     width: 370px;
     font-size: 18px;
@@ -632,7 +628,7 @@ function HomePlansScreen() {
       <ContainerButton>
         <ButtonAlt
           onClick={handleSubmit}
-          isDisabled={
+          disabled={
             cardValues && region && selectedDate && selectedHour && inputUpdateHour ? false : true
           }
           valor="NEXT"
