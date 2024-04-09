@@ -1,14 +1,15 @@
 import styled from 'styled-components'
+import { useRouter } from 'next/router'
+import { useState, useContext, useEffect } from 'react'
+import { UserContext } from '../../context/useContext'
+import axios from 'axios'
+
 import ImageSectionOne from './ImageSectionOne'
 import Selecter from '../form/Selecter'
 import Button from '../form/Button'
 import Navbar from '../layout/Navbar'
-
 import H2 from '../typography/H2'
 import H5 from '../typography/H5'
-import { useRouter } from 'next/router'
-import { useState, useContext } from 'react'
-import { UserContext } from '../../context/useContext'
 
 const BoxShadow = styled.div`
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
@@ -106,6 +107,22 @@ export default function SectionOne() {
       router.push(`/plansScreen?region=${encodeURIComponent(valor)}`)
     }
   }
+  useEffect(() => {
+    const verifyUser = async () => {
+      try {
+        const token = localStorage.getItem('token')
+        const response = await axios.get('http://localhost:3333/user/verify-session', {
+          headers: {
+            authorization: token
+          }
+        })
+        setUserData(response.data)
+      } catch (error) {
+        console.error('Erro ao verificar sessão:', error)
+      }
+    }
+    verifyUser()
+  }, [setUserData])
 
   return (
     <ImageSectionOne>

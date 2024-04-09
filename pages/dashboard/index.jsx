@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import Navdashboard from '../../src/components/layout/Navdashboard'
+import NavBarDashboard from '../../src/components/layout/NavBarDashboard'
 import Services from '../../src/components/layout/Services'
 import NavRoutesDash from '../../src/components/layout/Navroutesdash'
 import { useState } from 'react'
@@ -18,7 +18,7 @@ const StyledFlexServices = styled.div`
   background-color: #eaeaea;
   width: 100%;
 `
-const NavdashboardAlt = styled(Navdashboard)`
+const NavBarDashboardAlt = styled(NavBarDashboard)`
   @media (max-width: 1306px) {
     display: ${(props) => (props.show ? 'flex' : 'none')};
   }
@@ -32,7 +32,7 @@ export default function DashboardPage() {
   return (
     <Container>
       <StyledFlex>
-        <NavdashboardAlt show={showDash} isDash />
+        <NavBarDashboardAlt show={showDash} isDash />
         <StyledFlexServices>
           <NavRoutesDash onClickDash={handleDash} dash type2 />
           <Services />

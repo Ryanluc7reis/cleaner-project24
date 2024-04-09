@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import Navdashboard from '../../src/components/layout/Navdashboard'
+import NavBarDashboard from '../../src/components/layout/NavBarDashboard'
 import Notifications from '../../src/components/notificaçao/Notifications'
 
 const Container = styled.div`
@@ -13,7 +13,7 @@ export default function NotificationsPage() {
   return (
     <Container>
       <StyledFlex>
-        <Navdashboard isNotifications />
+        <NavBarDashboard isNotifications />
         <Notifications />
       </StyledFlex>
     </Container>

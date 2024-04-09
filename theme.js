@@ -9,7 +9,8 @@ const theme = {
     inputBackground: '#F5F5F5',
     inputBorder: '#E6E6E6',
     greenMoney: '#1EFF00E6',
-    error: 'red'
+    error: 'red',
+    disabled: 'grey'
   },
   font: {
     family: {

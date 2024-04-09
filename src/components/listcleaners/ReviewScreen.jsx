@@ -1,31 +1,20 @@
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
 import Button from '../form/Button'
 import dynamic from 'next/dynamic'
 import { useState } from 'react'
-import { cleanersData } from './ListCleaners'
 
-const DescAnimation = keyframes`
-  from {
-    color: #77d2df;
-  }
-  to {
-    color: #1EFF0044;
-  }
-`
 const Container = styled.div`
-  width: 100%;
-  max-height: 100vh;
+  width: 100vw;
+  min-height: 100vh;
   height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #0000004d;
+  position: fixed;
   z-index: 100;
-  position: absolute;
-  top: 0%;
   left: 0%;
-  bottom: 0%;
-  right: 0%;
+  top: 0%;
 `
 const ContainerContent = styled.div`
   display: flex;
@@ -87,7 +76,6 @@ const TypeCleanings = styled.div`
 const Desc = styled.h2`
   margin: 10px 5px;
   color: rgb(68, 68, 68);
-  //animation: ${DescAnimation} 4s ease-in-out infinite alternate;
 `
 const BoxAboutMe = styled.div`
   padding: 10px;
@@ -236,33 +224,32 @@ const reviews = [
     rating: 4.6
   }
 ]
-function ReviewScreen({ name, cleaner, ...props }) {
-  const [styleQuit, setStyleQuit] = useState(false)
+function ReviewScreen({ name, price, rating, cleaningCount, cleaner, ...props }) {
+  const [closeReview, setCloseReview] = useState(false)
 
-  const handleClick = () => {
-    setStyleQuit(!styleQuit)
+  const handleCloseReview = () => {
     props.onClose()
   }
-  const handleClickButton = () => {
-    props.onButtonClick()
-    props.onClose()
-    setStyleQuit(!styleQuit)
+  const handleSelectCleaner = () => {
+    props.onSelectCleaner()
+    setCloseReview(!closeReview)
   }
+
   return (
-    <Container>
-      <ContainerContent {...props} style={{ ...(styleQuit === true && { display: 'none' }) }}>
-        <Close onClick={handleClick} src="/iconcloseW.png" />
+    <Container {...props} style={{ ...(closeReview && { display: 'none' }) }}>
+      <ContainerContent>
+        <Close onClick={handleCloseReview} src="/iconcloseW.png" />
         <DivCleanerInfos>
           <ContInfos>
             <CleanerImg image="/maleicon.png" /* {props.onCleanerinfos.img} */></CleanerImg>
-            <CleanerName>{props.onCleanerinfos.name}</CleanerName>
-            <CleanerPrice>{props.onCleanerinfos.price}</CleanerPrice>
+            <CleanerName>{name || '-'}</CleanerName>
+            <CleanerPrice>{price || '-'}</CleanerPrice>
             <div style={{ display: 'flex', gap: '4px' }}>
               <RatingAndExpirence>
                 <StarRating src="/star.png" />
-                {props.onCleanerinfos.rating}
+                {rating || '-'}
               </RatingAndExpirence>
-              <RatingAndExpirence>{props.onCleanerinfos.cleaningCount}</RatingAndExpirence>
+              <RatingAndExpirence>{cleaningCount || '-'}</RatingAndExpirence>
             </div>
           </ContInfos>
           <hr />
@@ -289,8 +276,8 @@ function ReviewScreen({ name, cleaner, ...props }) {
           </TypeCleanings>
           <hr></hr>
           <ButtonAlt
-            valor={cleaner ? 'Remove this cleaner' : 'Selected this cleaner'}
-            onClick={handleClickButton}
+            valor={cleaner ? 'Selected this cleaner' : 'Remove this cleaner'}
+            onClick={handleSelectCleaner}
           />
         </DivCleanerInfos>
         <DivReviews>
