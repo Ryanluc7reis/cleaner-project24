@@ -103,7 +103,6 @@ export default function CardCleaner({
   amountCleaning,
   experience,
   none,
-  haveCard,
   ...props
 }) {
   const [showReview, setshowReview] = useState(false)
@@ -144,7 +143,7 @@ export default function CardCleaner({
           <MaleIcon src="/maleicon.png" />
           <NameCleaner>{name || '-'}</NameCleaner>
         </div>
-        <PriceCleaner>{'$' + price + 'p/h' || '-'}</PriceCleaner>
+        <PriceCleaner>{'$' + '-' + 'p/h' || '$' + price + 'p/h'}</PriceCleaner>
       </NameandPric>
       <Barra />
       <ContAbout>
