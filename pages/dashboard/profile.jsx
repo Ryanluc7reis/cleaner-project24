@@ -47,6 +47,11 @@ const CardAlt = styled(Card)`
   margin-bottom: 90px;
   background-color: #d8d8ffd5;
 `
+const CardAlt1 = styled(Card)`
+  border: 2px solid ${(props) => props.theme.colors.primaryColor};
+
+  background-color: #d8d8ffd5;
+`
 const CreateCard = styled.a`
   font-size: 18px;
   font-weight: 600;
@@ -60,13 +65,12 @@ const Label = styled.h2`
   padding: 9px;
   color: #a7a7a7;
 `
-const fetcher = (url, token) =>
-  axios.get(url, { headers: { authorization: token } }).then((res) => res.data)
 
 const ProfilePage = () => {
   const router = useRouter()
   const [userData] = useContext(UserContext)
   const [card, setCard] = useState(null)
+  const [userCleaner, setUserCleaner] = useState(null)
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
   const getCard = async () => {
     try {
@@ -79,42 +83,63 @@ const ProfilePage = () => {
       console.error('Erro ao obter os dados do cartão:', error)
     }
   }
+  const findCleaner = async () => {
+    try {
+      const response = await axios.get('http://localhost:3333/user/verify-user', {
+        headers: { authorization: token }
+      })
+      const cleaner = response.data
+      setUserCleaner(cleaner)
+    } catch (error) {
+      console.error('Erro ao obter os dados do cartão:', error)
+    }
+  }
 
   useEffect(() => {
     getCard()
+    findCleaner()
   }, [])
   return (
     <Container>
-      <FlexContainer>
-        <StyledFlex>
-          <NavBarDashboard isProfile />
-          <Profile cleaner />
-        </StyledFlex>
-        {userData && card ? (
-          <BoxCardCleaner key={card._id}>
-            <Label>Card cleaner</Label>
-            <FlexBoxCardCleaner>
-              <CardAlt
-                name={card.name}
-                price={card.price}
-                rating={card.rating}
-                experience={card.experience}
-                amountCleaning={card.amountCleaning}
-                none
-              />
-              <EditCard />
-            </FlexBoxCardCleaner>
-          </BoxCardCleaner>
-        ) : (
-          <BoxCardCleaner>
-            <Label>Card cleaner</Label>
-            <FlexBoxCardCleaner>
-              <CardAlt none />
-              <CreateCard onClick={() => router.push('/createCard')}>Crie seu card</CreateCard>
-            </FlexBoxCardCleaner>
-          </BoxCardCleaner>
-        )}
-      </FlexContainer>
+      {userCleaner ? (
+        <FlexContainer>
+          <StyledFlex>
+            <NavBarDashboard isProfile />
+            <Profile cleaner />
+          </StyledFlex>
+          {userData && card ? (
+            <BoxCardCleaner key={card._id}>
+              <Label>Card cleaner</Label>
+              <FlexBoxCardCleaner>
+                <CardAlt
+                  name={card.name}
+                  price={card.price}
+                  rating={card.rating}
+                  experience={card.experience}
+                  amountCleaning={card.amountCleaning}
+                  none
+                />
+                <EditCard />
+              </FlexBoxCardCleaner>
+            </BoxCardCleaner>
+          ) : (
+            <BoxCardCleaner>
+              <Label>Card cleaner</Label>
+              <FlexBoxCardCleaner>
+                <CardAlt1 none />
+                <CreateCard onClick={() => router.push('/createCard')}>Crie seu card</CreateCard>
+              </FlexBoxCardCleaner>
+            </BoxCardCleaner>
+          )}
+        </FlexContainer>
+      ) : (
+        <FlexContainer>
+          <StyledFlex>
+            <NavBarDashboard isProfile />
+            <Profile cleaner />
+          </StyledFlex>
+        </FlexContainer>
+      )}
     </Container>
   )
 }

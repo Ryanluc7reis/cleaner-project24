@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { useState, useEffect, useContext } from 'react'
 import { UserContext } from '../../context/useContext'
+import { useRouter } from 'next/router'
 import axios from 'axios'
 
 import Input from '../form/Input'
@@ -91,6 +92,7 @@ export default function NavRoutesDash({
   type2,
   ...props
 }) {
+  const router = useRouter()
   const [userData, setUserData] = useContext(UserContext)
   const [clicked, setClicked] = useState(false)
 
@@ -126,6 +128,24 @@ export default function NavRoutesDash({
     }
     verifyUser()
   }, [setUserData])
+  const handleLogout = async () => {
+    try {
+      const token = localStorage.getItem('token')
+      const config = {
+        headers: {
+          authorization: token
+        }
+      }
+      const response = await axios.post('http://localhost:3333/user/logout', {}, config)
+      if (response.status === 200) {
+        router.push('/')
+        setUserData(false)
+        setShowLogin(false)
+      }
+    } catch (error) {
+      console.error('Erro durante o logout:', error)
+    }
+  }
   return (
     <Container {...props}>
       {type1 && (
@@ -136,7 +156,7 @@ export default function NavRoutesDash({
             <h1 style={{ color: 'white' }}>Olá, {userData}</h1>
             <ImgAvatar src="/avatar.png" />
             <ImgNotifications src="/bell.png" />
-            <LogOut>Logout</LogOut>
+            <LogOut onClick={handleLogout}>Logout</LogOut>
           </StyledFlex>
         </ContainerBox>
       )}
@@ -155,7 +175,7 @@ export default function NavRoutesDash({
             <h1 style={{ color: 'blue' }}>Olá, {userData}</h1>
             <ImgAvatar src="/avatar.png" />
             <ImgNotifications src="/bell.png" />
-            <LogOut>Logout</LogOut>
+            <LogOut onClick={handleLogout}>Logout</LogOut>
           </StyledFlex>
         </ContainerBox>
       )}
