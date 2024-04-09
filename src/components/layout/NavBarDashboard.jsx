@@ -1,15 +1,15 @@
 import styled from 'styled-components'
-import Logo from '../../components/logo/Logo'
+import Logo from '../logo/Logo'
 import { useRouter } from 'next/router'
 import ImageNavdash from './imagenavdashboard/ImageNavdash'
 
 const Container = styled.div`
-  padding: 10px 26px;
+  padding: 10px 19px;
 `
 const BoxShadow1 = styled.div`
   background: linear-gradient(rgba(217, 217, 217, 0.698), rgba(220, 220, 220, 0.818));
   z-index: 10;
-  height: 100%;
+  height: 100vh;
   @media (max-width: 1306px) {
     width: 100%;
   }
@@ -50,7 +50,7 @@ const ImgOptionAlt = styled(ImgOption)`
   width: 26px;
   height: 23px;
 `
-export default function Navdashboard({
+export default function NavBarDashboard({
   isDash,
   isProfile,
   isSchedule,
@@ -74,7 +74,7 @@ export default function Navdashboard({
                 boxShadow: '0 4px 20px 0 rgb(0 0 0 / 18%), 0 7px 10px -5px rgb(0 178 212 / 50%)'
               })
             }}
-            onClick={() => router.push('/dashboard/dash')}
+            onClick={() => router.push('/dashboard/')}
           >
             <ImgOptionAlt src={isDash ? '/dashwhite.png' : '/dash.png'} />
             <Option style={{ ...(isDash && { color: '#fff' }) }}>Dashboard </Option>

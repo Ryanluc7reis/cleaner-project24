@@ -188,22 +188,14 @@ const ButttonLogin = styled(Button)`
   position: fixed;
   bottom: 0;
 `
+const Mydashboard = styled(Logout)``
 
 export default function Navbar({ type1, type2, username, ...props }) {
   const router = useRouter()
   const [showD, setShowD] = useState(false)
   const [showLogin, setShowLogin] = useState(false)
   const [userData, setUserData] = useContext(UserContext)
-
   useEffect(() => {
-    const body = document.querySelector('body')
-
-    if (showLogin) {
-      body.classList.add('no-scroll')
-    } else {
-      body.classList.remove('no-scroll')
-    }
-
     const handleClickOutSide = (event) => {
       if (!event.target.closest('#showD')) {
         setShowD(false)
@@ -211,7 +203,7 @@ export default function Navbar({ type1, type2, username, ...props }) {
     }
 
     document.addEventListener('click', handleClickOutSide, true)
-  }, [showLogin])
+  }, [setShowLogin])
 
   const handleLogout = async () => {
     try {
@@ -271,10 +263,11 @@ export default function Navbar({ type1, type2, username, ...props }) {
           <Logo onClick={() => router.push('/')} />
           <StyledOptionsLoginAlt>
             <h1 style={{ color: 'white' }}>Olá, {username}</h1>
+            <Mydashboard onClick={() => router.push('/dashboard')}>Dashboard</Mydashboard>
             <Logout onClick={handleLogout} style={{ color: 'white' }}>
               Logout
             </Logout>
-            <StyledRegisterCleaner onClick={(e) => router.push('/signupAscleaner')}>
+            <StyledRegisterCleaner onClick={() => router.push('/signupAscleaner')}>
               Register as cleaner
             </StyledRegisterCleaner>
           </StyledOptionsLoginAlt>
