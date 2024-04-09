@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import Navdashboard from '../../src/components/layout/Navdashboard'
+import NavBarDashboard from '../../src/components/layout/NavBarDashboard'
 import Schedule from '../../src/components/schedule/Schedule'
 
 const Container = styled.div`
@@ -9,12 +9,12 @@ const Container = styled.div`
 const StyledFlex = styled.div`
   display: flex;
 `
-const NavdashboardAlt = styled(Navdashboard)``
+const NavBarDashboardAlt = styled(NavBarDashboard)``
 export default function SchedulePage() {
   return (
     <Container>
       <StyledFlex>
-        <NavdashboardAlt isSchedule />
+        <NavBarDashboardAlt isSchedule />
         <Schedule />
       </StyledFlex>
     </Container>
