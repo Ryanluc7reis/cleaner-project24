@@ -6,7 +6,7 @@ import { useState } from 'react'
 
 const Container = styled.div`
   width: 100%;
-  height: auto;
+  min-height: 100vh;
 `
 
 const StyledFlex = styled.div`

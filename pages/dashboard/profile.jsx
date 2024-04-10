@@ -20,8 +20,6 @@ const Container = styled.div`
 const FlexContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: end;
-  padding: 10px;
 `
 const StyledFlex = styled.div`
   display: flex;

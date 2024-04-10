@@ -4,12 +4,12 @@ import Button from '../form/Button'
 
 const Container = styled.div`
   width: 100%;
-  height: auto;
+  min-height: 100vh;
   background-color: #efefef;
 `
 const BoxHistoric = styled.div`
   background: #fff;
-  min-width: 90%;
+  width: 93%;
   height: 80%;
   margin: 61px 50px 0px 50px;
   padding: 20px;

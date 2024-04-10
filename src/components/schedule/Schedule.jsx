@@ -5,7 +5,7 @@ import Button from '../form/Button'
 
 const Container = styled.div`
   width: 100%;
-  height: auto;
+  min-height: 100vh;
   background-color: #efefef;
 `
 const BoxSchedule = styled.div`

@@ -12,7 +12,7 @@ const Container = styled.div`
 const BoxShadow1 = styled.div`
   background: linear-gradient(rgba(217, 217, 217, 0.698), rgba(220, 220, 220, 0.818));
   z-index: 10;
-  height: 100vh;
+  min-height: 100%;
   @media (max-width: 1306px) {
     width: 100%;
   }
