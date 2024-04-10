@@ -28,10 +28,10 @@ const StyledInput = styled.input`
   }
 `
 
-const Input = ({ label, password, ...props }) => {
+const Input = ({ label, colorlabel, password, ...props }) => {
   return (
     <InputContainer>
-      <StyledLabel> {label}</StyledLabel>
+      <StyledLabel style={{ ...(colorlabel && { color: 'white' }) }}> {label}</StyledLabel>
       <StyledInput
         type={password ? 'password' : 'text'}
         autoComplete={password ? 'auto-complete' : null}

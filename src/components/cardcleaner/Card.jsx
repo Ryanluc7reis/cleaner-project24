@@ -4,7 +4,7 @@ import Button from '../form/Button'
 import { useState } from 'react'
 
 const Card = styled.div`
-  min-width: 327px;
+  width: 327px;
   height: 210px;
   border-radius: 7px;
   background: white;
@@ -143,7 +143,7 @@ export default function CardCleaner({
           <MaleIcon src="/maleicon.png" />
           <NameCleaner>{name || '-'}</NameCleaner>
         </div>
-        <PriceCleaner>{'$' + '-' + 'p/h' || '$' + price + 'p/h'}</PriceCleaner>
+        <PriceCleaner>{'$' + price + 'p/h' || '$' + '-' + 'p/h'}</PriceCleaner>
       </NameandPric>
       <Barra />
       <ContAbout>
