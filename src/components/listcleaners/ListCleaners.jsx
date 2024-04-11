@@ -4,6 +4,7 @@ import axios from 'axios'
 import useSWR from 'swr'
 
 import Card from '../cardcleaner/Card'
+import SelectedCleaner from './SelectedCleaner'
 
 const ContListCleaners = styled.div`
   display: flex;
@@ -101,14 +102,16 @@ const GridCardCleaner = styled.div`
     justify-content: center;
   }
 `
+
 const fetcher = async (url) => {
   const response = await axios.get(url)
   return response.data
 }
 
-export default function ListCleaners(props) {
+export default function ListCleaners({ name, price, img }) {
   const [showOption, setshowOption] = useState(false)
   const [updateShortby, setupdateShortby] = useState(null)
+  const [selectedCleaner, setSelectedCleaner] = useState(null)
 
   const listOption = [
     'Relevance',
@@ -116,9 +119,11 @@ export default function ListCleaners(props) {
     'Price low to high',
     'Highest number of cleans'
   ]
-
   const updateShortBy = (updateShort) => {
     setupdateShortby(updateShort)
+  }
+  const handleCardSelect = (index) => {
+    setSelectedCleaner(index === selectedCleaner ? null : index)
   }
   const { data, error } = useSWR(`http://localhost:3333/getCards`, fetcher)
   if (error) return <div>Erro ao carregar os dados</div>
@@ -145,9 +150,11 @@ export default function ListCleaners(props) {
         <SetaDown src="/setadown1.svg" height="25px" width="20px" />
       </FilterSortby>
       <GridCardCleaner>
-        {data.map((card) => (
+        {data.map((card, index) => (
           <Card
             key={card._id}
+            isSelected={index === selectedCleaner}
+            onSelectCleaner={() => handleCardSelect(index)}
             name={card.name}
             rating={card.rating}
             price={card.price}
@@ -157,6 +164,12 @@ export default function ListCleaners(props) {
           />
         ))}
       </GridCardCleaner>
+      <SelectedCleaner
+        name={data[selectedCleaner]?.name}
+        price={data[selectedCleaner]?.price}
+        img={data[selectedCleaner] && '/maleicon.png'}
+        selected={selectedCleaner !== null ? true : false}
+      />
     </ContListCleaners>
   )
 }

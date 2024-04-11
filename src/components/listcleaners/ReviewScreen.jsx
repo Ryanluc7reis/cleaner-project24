@@ -226,13 +226,11 @@ const reviews = [
 ]
 function ReviewScreen({ name, price, rating, cleaningCount, cleaner, ...props }) {
   const [closeReview, setCloseReview] = useState(false)
-
   const handleCloseReview = () => {
     props.onClose()
   }
   const handleSelectCleaner = () => {
     props.onSelectCleaner()
-    setCloseReview(!closeReview)
   }
 
   return (
