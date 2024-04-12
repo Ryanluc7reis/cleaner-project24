@@ -20,8 +20,6 @@ const Container = styled.div`
 const FlexContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: end;
-  padding: 10px;
 `
 const StyledFlex = styled.div`
   display: flex;
@@ -31,7 +29,6 @@ const BoxCardCleaner = styled.div`
   min-height: 360px;
   background-color: #fff;
   border-radius: 15px;
-  margin-right: 160px;
   display: flex;
   flex-direction: column;
 `
@@ -64,6 +61,11 @@ const CreateCard = styled.a`
 const Label = styled.h2`
   padding: 9px;
   color: #a7a7a7;
+`
+const FlexProfileAndCard = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 `
 
 const ProfilePage = () => {
@@ -105,32 +107,36 @@ const ProfilePage = () => {
         <FlexContainer>
           <StyledFlex>
             <NavBarDashboard isProfile />
-            <Profile cleaner />
+            <FlexProfileAndCard>
+              <Profile cleaner />
+              {userData && card ? (
+                <BoxCardCleaner key={card._id}>
+                  <Label>Card cleaner</Label>
+                  <FlexBoxCardCleaner>
+                    <CardAlt
+                      name={card.name}
+                      price={card.price}
+                      rating={card.rating}
+                      experience={card.experience}
+                      amountCleaning={card.amountCleaning}
+                      none
+                    />
+                    <EditCard />
+                  </FlexBoxCardCleaner>
+                </BoxCardCleaner>
+              ) : (
+                <BoxCardCleaner>
+                  <Label>Card cleaner</Label>
+                  <FlexBoxCardCleaner>
+                    <CardAlt1 none />
+                    <CreateCard onClick={() => router.push('/createCard')}>
+                      Crie seu card
+                    </CreateCard>
+                  </FlexBoxCardCleaner>
+                </BoxCardCleaner>
+              )}
+            </FlexProfileAndCard>
           </StyledFlex>
-          {userData && card ? (
-            <BoxCardCleaner key={card._id}>
-              <Label>Card cleaner</Label>
-              <FlexBoxCardCleaner>
-                <CardAlt
-                  name={card.name}
-                  price={card.price}
-                  rating={card.rating}
-                  experience={card.experience}
-                  amountCleaning={card.amountCleaning}
-                  none
-                />
-                <EditCard />
-              </FlexBoxCardCleaner>
-            </BoxCardCleaner>
-          ) : (
-            <BoxCardCleaner>
-              <Label>Card cleaner</Label>
-              <FlexBoxCardCleaner>
-                <CardAlt1 none />
-                <CreateCard onClick={() => router.push('/createCard')}>Crie seu card</CreateCard>
-              </FlexBoxCardCleaner>
-            </BoxCardCleaner>
-          )}
         </FlexContainer>
       ) : (
         <FlexContainer>

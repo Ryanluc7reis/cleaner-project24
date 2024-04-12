@@ -1,5 +1,7 @@
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
 import { UserProvider } from '../src/context/useContext'
+import { LoginProvider } from '../src/context/useContextLogin'
+
 import theme from '../theme'
 
 const GlobalStyles = createGlobalStyle`
@@ -24,14 +26,16 @@ h1,h2,h3,h4,h5 {
  `
 function MyApp({ Component, pageProps }) {
   return (
-    <UserProvider>
-      <ThemeProvider theme={theme}>
-        <>
-          <Component {...pageProps} />
-          <GlobalStyles />
-        </>
-      </ThemeProvider>
-    </UserProvider>
+    <LoginProvider>
+      <UserProvider>
+        <ThemeProvider theme={theme}>
+          <>
+            <Component {...pageProps} />
+            <GlobalStyles />
+          </>
+        </ThemeProvider>
+      </UserProvider>
+    </LoginProvider>
   )
 }
 

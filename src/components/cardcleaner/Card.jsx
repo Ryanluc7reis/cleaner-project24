@@ -4,7 +4,7 @@ import Button from '../form/Button'
 import { useState } from 'react'
 
 const Card = styled.div`
-  min-width: 327px;
+  width: 327px;
   height: 210px;
   border-radius: 7px;
   background: white;
@@ -84,16 +84,6 @@ const BarraAlt = styled(Barra)`
   height: 43px;
   width: 1px;
 `
-const cleanersData = [
-  {
-    img: '/maleicon.png',
-    name: 'Ryan Lucas',
-    price: '$18.90 /h',
-    rating: 4.6,
-    cleaningCount: 10,
-    experience: '6 months'
-  }
-]
 
 export default function CardCleaner({
   index,
@@ -103,10 +93,10 @@ export default function CardCleaner({
   amountCleaning,
   experience,
   none,
+  isSelected,
   ...props
 }) {
   const [showReview, setshowReview] = useState(false)
-  const [selectedCleaner, setSelectedCleaner] = useState(null)
   const handleReviews = () => {
     setshowReview(!showReview)
     const body = document.querySelector('body')
@@ -117,24 +107,22 @@ export default function CardCleaner({
       body.classList.remove('no-scroll')
     }
   }
-  const handleCleanerSelected = () => {
-    setSelectedCleaner(index === selectedCleaner ? null : index)
+
+  const CleanerSelected = () => {
+    props.onSelectCleaner(index)
   }
-  const CleanerSelectByReview = () => {
-    setSelectedCleaner(!selectedCleaner)
+  const CleanerSelectedByReview = () => {
+    props.onSelectCleaner(index)
     setshowReview(!showReview)
   }
+
   return (
-    <Card
-      style={{ ...(none && { height: '180px' }) }}
-      isSelected={selectedCleaner === index}
-      {...props}
-    >
+    <Card style={{ ...(none && { height: '180px' }) }} isSelected={isSelected} {...props}>
       {showReview && (
         <ReviewScreen
           onClose={() => setshowReview(!showReview)}
-          onSelectCleaner={CleanerSelectByReview}
-          cleaner={index === !selectedCleaner ? false : true}
+          onSelectCleaner={() => CleanerSelectedByReview(index)}
+          cleaner={isSelected ? false : true}
         />
       )}
 
@@ -143,7 +131,7 @@ export default function CardCleaner({
           <MaleIcon src="/maleicon.png" />
           <NameCleaner>{name || '-'}</NameCleaner>
         </div>
-        <PriceCleaner>{'$' + '-' + 'p/h' || '$' + price + 'p/h'}</PriceCleaner>
+        <PriceCleaner>{'$' + price + 'p/h' || '$' + '-' + 'p/h'}</PriceCleaner>
       </NameandPric>
       <Barra />
       <ContAbout>
@@ -177,9 +165,9 @@ export default function CardCleaner({
         />
 
         <ButtonAltStyled
-          valor={index === selectedCleaner ? 'SELECTED' : 'SELECT'}
-          arrowButton={index === selectedCleaner ? false : true}
-          onClick={handleCleanerSelected}
+          valor={isSelected ? 'SELECTED' : 'SELECT'}
+          arrowButton={isSelected ? false : true}
+          onClick={() => CleanerSelected(index)}
         />
       </FlexButtons>
     </Card>

@@ -27,6 +27,9 @@ const FlexInputAndCard = styled.div`
   display: flex;
   gap: 35px;
   align-items: center;
+  @media (max-width: 634px) {
+    flex-direction: column;
+  }
 `
 const Title = styled.h1`
   font-size: 25px;
@@ -42,6 +45,19 @@ const FlexButton = styled.div`
 `
 const InputAlt = styled(Input)`
   padding: 13px 17px;
+  @media (max-width: 430px) {
+    font-size: 13px;
+  }
+`
+const ButtonAlt = styled(Button)`
+  @media (max-width: 430px) {
+    font-size: 15px;
+  }
+`
+const CardAlt = styled(Card)`
+  @media (max-width: 356px) {
+    width: 305px;
+  }
 `
 const LogoAlt = styled(Logo)`
   padding: 17px 18px;
@@ -127,23 +143,23 @@ export default function CreateCardCleaner() {
               placeholder="amount of cleaning"
             />
           </FlexInputs>
-          <Card
+          <CardAlt
             none
             name={name}
-            price={'$' + price + 'p/h'}
+            price={price}
             experience={experience}
             amountCleaning={amountCleaning}
           />
         </FlexInputAndCard>
 
         <FlexButton>
-          <Button
+          <ButtonAlt
             loading={loading}
             type="submit"
             disabled={name && price && experience && amountCleaning ? false : true}
           >
             Create card
-          </Button>
+          </ButtonAlt>
         </FlexButton>
       </Form>
     </Container>

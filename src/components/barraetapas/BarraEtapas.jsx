@@ -291,7 +291,7 @@ const listStartTime = [
   '07:00 PM'
 ]
 const listPlans = ['Optional', 'Basic', 'Medium', 'Complete']
-export default function BarraEtapas(props) {
+export default function BarraEtapas() {
   const [Updateplan, setUpdatePlan] = useState(false)
   const [UpdateHour, setUpdateHour] = useState(false)
   const [UpdateDate, setUpdateDate] = useState(false)
@@ -305,8 +305,7 @@ export default function BarraEtapas(props) {
   const [isFlexEtapasClicked3, setIsFlexEtapasClicked3] = useState(false)
   const [isFlexEtapasClicked4, setIsFlexEtapasClicked4] = useState(false)
   const router = useRouter()
-  const { cardValues, region, selectedDate, selectedHour, inputUpdateHour } = router.query
-
+  const { cardValues, region, selectedDate, selectedHour, selectedDuration } = router.query
   const handleFlexEtapasClick = () => {
     setIsFlexEtapasClicked(!isFlexEtapasClicked)
     setTimeout(() => {
@@ -333,21 +332,25 @@ export default function BarraEtapas(props) {
   }
   const updatePlan = (newplan) => {
     setUpdatePlan(newplan)
+    localStorage.setItem('Plan', newplan)
     setBoxPlans(!BoxPlans)
   }
   const updateHour = (newHour) => {
     setUpdateHour(newHour)
+    localStorage.setItem('Duration', newHour)
     setBoxHour(!BoxHour)
   }
   const updateStatTime = (newStartTime) => {
     setUpdateStartTime(newStartTime)
+    localStorage.setItem('Hour', newStartTime)
     setBoxStartTime(!BoxStartTime)
   }
   const updateDate = (date) => {
     let getdate = `${date.$d.toDateString()} `
     setUpdateDate(getdate)
-    setBoxDate(!BoxDate)
+    localStorage.setItem('Date', `${date.$d.toDateString()} `), setBoxDate(!BoxDate)
   }
+
   return (
     <Container>
       <DivEtapas>
@@ -431,7 +434,7 @@ export default function BarraEtapas(props) {
         <Barra />
         <FlexEtapas isClicked={isFlexEtapasClicked4}>
           <StyledEtapas>
-            <Etapas>{UpdateStartTime ? UpdateStartTime : inputUpdateHour}</Etapas>
+            <Etapas>{UpdateStartTime ? UpdateStartTime : selectedDuration}</Etapas>
             <SubEtapas>STARTING TIME</SubEtapas>
           </StyledEtapas>
           <SetaDown

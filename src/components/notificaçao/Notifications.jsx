@@ -3,14 +3,14 @@ import NavRoutesDash from '../layout/Navroutesdash'
 
 const Container = styled.div`
   width: 100%;
-  height: auto;
+  min-height: 100vh;
   background-color: #efefef;
 `
 const BoxNotifications = styled.div`
   background: #fff;
-  min-width: 90%;
+  width: 93%;
   height: 80%;
-  margin: 61px 50px 0px 50px;
+  margin: 61px 35px 0px 50px;
   padding: 20px;
   border-radius: 15px;
 `
