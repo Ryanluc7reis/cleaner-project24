@@ -3,8 +3,8 @@ import Input from '../form/Input'
 import Button from '../form/Button'
 
 const Form = styled.form`
-  display: flex;
-  //flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 250px 250px;
   flex-direction: column;
 `
 const InputAlt = styled(Input)`
@@ -15,28 +15,47 @@ const InputAlt = styled(Input)`
 `
 const Barra = styled.div`
   height: 1px;
-  width: 100%;
+  width: 85%;
   background-color: #2a2af3d3;
 `
 const ButtonAlt = styled(Button)`
   height: 45px;
   width: 170px;
-  margin: 45px;
+  margin: 45px 150px;
+`
+const FlexCont = styled.div`
+  display: flex;
+  flex-direction: column;
 `
 
-export default function EditCard() {
+export default function EditCard({ ...props }) {
   return (
-    <Form>
-      <InputAlt placeholder="name" />
-      <Barra />
-      <InputAlt placeholder="rating" />
-      <Barra />
-      <InputAlt placeholder="price" />
-      <Barra />
-      <InputAlt placeholder="amountOfCleaning" />
-      <Barra />
-      <InputAlt placeholder="experience" />
-      <Barra />
+    <Form {...props}>
+      <FlexCont>
+        <InputAlt placeholder="Name" />
+        <Barra />
+      </FlexCont>
+      <FlexCont>
+        <InputAlt placeholder="Rating" />
+        <Barra />
+      </FlexCont>
+      <FlexCont>
+        <InputAlt placeholder="Price" />
+        <Barra />
+      </FlexCont>
+      <FlexCont>
+        <InputAlt placeholder="AmountOfCleaning" />
+        <Barra />
+      </FlexCont>
+      <FlexCont>
+        <InputAlt placeholder="Experience" />
+        <Barra />
+      </FlexCont>
+      <FlexCont>
+        <InputAlt placeholder="Region" />
+        <Barra />
+      </FlexCont>
+
       <ButtonAlt>Save changes</ButtonAlt>
     </Form>
   )

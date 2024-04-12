@@ -7,10 +7,11 @@ import Card from '../src/components/cardcleaner/Card'
 import Input from '../src/components/form/Input'
 import Logo from '../src/components/logo/Logo'
 import Button from '../src/components/form/Button'
+import Selecter from '../src/components/form/Selecter'
 
 const Container = styled.div`
   width: 100%;
-  min-height: 100vh;
+  min-height: 107vh;
   background-color: #223677;
 `
 const Form = styled.form`
@@ -45,6 +46,7 @@ const FlexButton = styled.div`
 `
 const InputAlt = styled(Input)`
   padding: 13px 17px;
+
   @media (max-width: 430px) {
     font-size: 13px;
   }
@@ -63,6 +65,13 @@ const LogoAlt = styled(Logo)`
   padding: 17px 18px;
   text-align: center;
 `
+const Label = styled.h1`
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 5px;
+  margin-top: 7px;
+`
 
 export default function CreateCardCleaner() {
   const router = useRouter()
@@ -71,6 +80,7 @@ export default function CreateCardCleaner() {
   const [price, setPrice] = useState('')
   const [experience, setExperience] = useState('')
   const [amountCleaning, setAmountCleaning] = useState('')
+  const [region, setRegion] = useState('')
 
   const handleNameChange = (event) => {
     const newName = event.target.value.slice(0, 22)
@@ -87,6 +97,9 @@ export default function CreateCardCleaner() {
 
   const handleCleaningChange = (event) => {
     setAmountCleaning(event.target.value)
+  }
+  const handleRegionChange = (event) => {
+    setRegion(event.target.value)
   }
 
   const onSubmit = async (e) => {
@@ -105,7 +118,8 @@ export default function CreateCardCleaner() {
           name,
           price,
           experience,
-          amountCleaning
+          amountCleaning,
+          region
         },
         config
       )
@@ -120,7 +134,6 @@ export default function CreateCardCleaner() {
       setLoading(false)
     }
   }
-
   return (
     <Container>
       <LogoAlt />
@@ -152,10 +165,13 @@ export default function CreateCardCleaner() {
             <InputAlt
               colorlabel
               label="Amount of cleaning"
+              type="number"
               onChange={handleCleaningChange}
               placeholder="amount of cleaning"
               required
             />
+            <Label>Region</Label>
+            <Selecter region2 onChange={handleRegionChange} />
           </FlexInputs>
           <CardAlt
             none
@@ -163,7 +179,6 @@ export default function CreateCardCleaner() {
             price={price}
             experience={experience}
             amountCleaning={amountCleaning}
-            required
           />
         </FlexInputAndCard>
 
@@ -171,7 +186,7 @@ export default function CreateCardCleaner() {
           <ButtonAlt
             loading={loading}
             type="submit"
-            disabled={name && price && experience && amountCleaning ? false : true}
+            disabled={name && price && experience && amountCleaning && region ? false : true}
           >
             Create card
           </ButtonAlt>

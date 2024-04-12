@@ -161,6 +161,7 @@ export default function ListCleaners({ name, price, img }) {
             experience={card.experience}
             amountCleaning={card.amountCleaning}
             id={card._id}
+            noneR
           />
         ))}
       </GridCardCleaner>

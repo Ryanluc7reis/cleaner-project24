@@ -84,6 +84,11 @@ const BarraAlt = styled(Barra)`
   height: 43px;
   width: 1px;
 `
+const Region = styled.h2`
+  color: #4b4b4bc6;
+  text-align: center;
+  margin: 7px 0px;
+`
 
 export default function CardCleaner({
   index,
@@ -92,7 +97,9 @@ export default function CardCleaner({
   rating,
   amountCleaning,
   experience,
+  region,
   none,
+  noneR,
   isSelected,
   ...props
 }) {
@@ -153,6 +160,7 @@ export default function CardCleaner({
           <AboutSub>{experience || '-'}</AboutSub>
         </FlexAbout>
       </ContAbout>
+      <Region style={{ ...(noneR && { display: 'none' }) }}>Operates in : {region}</Region>
       <FlexButtons style={{ ...(none && { display: 'none' }) }}>
         <ButtonAlt
           valor="REVIEWS"

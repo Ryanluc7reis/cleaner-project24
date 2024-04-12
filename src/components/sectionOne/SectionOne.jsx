@@ -89,9 +89,13 @@ export const ErrorMessage = styled.span`
     transform: translate(-70%, 70%);
   }
 `
-
+const ButtonAlt = styled(Button)`
+  background-color: ${(props) => (props.color ? '#24d601' : null)};
+  animation: 0.1s;
+`
 export default function SectionOne() {
   const router = useRouter()
+  const [color, setColor] = useState(false)
   const [valor, setValor] = useState('')
   const [error, setError] = useState(false)
   const [userData, setUserData] = useContext(UserContext)
@@ -100,8 +104,10 @@ export default function SectionOne() {
     setValor(event.target.value)
   }
   const handleSubmit = () => {
+    setColor(true)
     if (valor.length < 3 || valor.length < 4) {
       setError(true)
+      setColor(false)
     } else {
       setError(false)
       router.push(`/plansScreen?region=${encodeURIComponent(valor)}`)
@@ -138,9 +144,9 @@ export default function SectionOne() {
           {error && <ErrorMessage>That region is invalid.</ErrorMessage>}
           <StyledForm onSubmit={(e) => e.preventDefault()}>
             <Selecter region value={valor} onChange={handleInputChange} />
-            <Button type="button" onClick={handleSubmit}>
+            <ButtonAlt color={color ? true : false} onClick={handleSubmit} type="button">
               Let´s go
-            </Button>
+            </ButtonAlt>
           </StyledForm>
         </StyledContainer1>
       </BoxShadow>

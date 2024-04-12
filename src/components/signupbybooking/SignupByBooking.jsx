@@ -193,7 +193,6 @@ const FlexButton = styled.div`
   display: flex;
   flex-direction: column;
   position: absolute;
-  //background-color: red;
   padding-bottom: 75px;
   bottom: -18%;
   left: 16%;

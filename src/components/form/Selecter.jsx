@@ -58,8 +58,19 @@ const StyledSelecterAlt1 = styled(StyledSelect)`
     padding: 6px 13px;
   }
 `
+const StyledSelectAlt2 = styled.select`
+  width: 240px;
+  border: 1px solid ${(props) => props.theme.colors.inputBorder};
+  background-color: ${(props) => props.theme.colors.inputBackground};
+  padding: 13px 20px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  :focus {
+    outline: none;
+  }
+`
 
-const Selecter = ({ region, year, month, parcelas, typeCleaning, ...props }) => {
+const Selecter = ({ region, year, month, parcelas, typeCleaning, region2, ...props }) => {
   return (
     <StyledContainer {...props}>
       {region && (
@@ -72,6 +83,25 @@ const Selecter = ({ region, year, month, parcelas, typeCleaning, ...props }) => 
           <option value="East">East</option>
           <option value="West">West</option>
         </StyledSelect>
+      )}
+      {region2 && (
+        <StyledSelectAlt2>
+          <option value="" disabled="">
+            select your region
+          </option>
+          <option style={{ color: 'black' }} value="North">
+            North
+          </option>
+          <option style={{ color: 'black' }} value="South">
+            South
+          </option>
+          <option style={{ color: 'black' }} value="East">
+            East
+          </option>
+          <option style={{ color: 'black' }} value="West">
+            West
+          </option>
+        </StyledSelectAlt2>
       )}
       {year && (
         <StyledSelectAlt>

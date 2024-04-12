@@ -25,7 +25,7 @@ const StyledFlex = styled.div`
   display: flex;
 `
 const BoxCardCleaner = styled.div`
-  width: 60%;
+  min-width: 90%;
   min-height: 360px;
   background-color: #fff;
   border-radius: 15px;
@@ -42,7 +42,7 @@ const FlexBoxCardCleaner = styled.div`
 const CardAlt = styled(Card)`
   border: 2px solid ${(props) => props.theme.colors.primaryColor};
   margin-bottom: 90px;
-  background-color: #d8d8ffd5;
+  background-color: #d9d9f8e6;
 `
 const CardAlt1 = styled(Card)`
   border: 2px solid ${(props) => props.theme.colors.primaryColor};
@@ -119,6 +119,7 @@ const ProfilePage = () => {
                       rating={card.rating}
                       experience={card.experience}
                       amountCleaning={card.amountCleaning}
+                      region={card.region}
                       none
                     />
                     <EditCard />
