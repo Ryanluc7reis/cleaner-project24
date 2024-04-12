@@ -1,7 +1,8 @@
 import styled from 'styled-components'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import axios from 'axios'
 import useSWR from 'swr'
+import { RegionContext } from '../../context/useContextRegion'
 
 import Card from '../cardcleaner/Card'
 import SelectedCleaner from './SelectedCleaner'
@@ -108,10 +109,11 @@ const fetcher = async (url) => {
   return response.data
 }
 
-export default function ListCleaners({ name, price, img }) {
+export default function ListCleaners() {
   const [showOption, setshowOption] = useState(false)
   const [updateShortby, setupdateShortby] = useState(null)
   const [selectedCleaner, setSelectedCleaner] = useState(null)
+  const [region, setRegion] = useContext(RegionContext)
 
   const listOption = [
     'Relevance',
@@ -129,6 +131,8 @@ export default function ListCleaners({ name, price, img }) {
   if (error) return <div>Erro ao carregar os dados</div>
   if (!data) return <div>Carregando...</div>
 
+  const lowerRegion = region.toLowerCase()
+  const filterData = data.filter((card) => card.region.toLowerCase().includes(lowerRegion))
   return (
     <ContListCleaners>
       <FilterSortby showOption={showOption} onClick={() => setshowOption(!showOption)}>
@@ -150,7 +154,7 @@ export default function ListCleaners({ name, price, img }) {
         <SetaDown src="/setadown1.svg" height="25px" width="20px" />
       </FilterSortby>
       <GridCardCleaner>
-        {data.map((card, index) => (
+        {filterData.map((card, index) => (
           <Card
             key={card._id}
             isSelected={index === selectedCleaner}
