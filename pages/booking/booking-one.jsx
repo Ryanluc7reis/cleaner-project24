@@ -236,9 +236,9 @@ function Booking() {
   const [isNone, setisNone] = useState(false)
   const router = useRouter()
   const Plan = typeof window !== 'undefined' ? localStorage.getItem('Plan') : null
-  const Duration = typeof window !== 'undefined' ? localStorage.getItem('Duration') : null
   const Date = typeof window !== 'undefined' ? localStorage.getItem('Date') : null
   const Hour = typeof window !== 'undefined' ? localStorage.getItem('Hour') : null
+  const Duration = typeof window !== 'undefined' ? localStorage.getItem('Duration') : null
   const PriceH = typeof window !== 'undefined' ? localStorage.getItem('PriceH') : null
 
   return (

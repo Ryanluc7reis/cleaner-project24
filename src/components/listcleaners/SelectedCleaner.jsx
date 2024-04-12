@@ -77,10 +77,14 @@ const Etapas = styled.h5`
   color: #212020d2;
   font-size: 16px;
 `
-export default function SelectedCleaner({ name, price, selected, img }) {
+export default function SelectedCleaner({ name, price, selected, img, ...props }) {
   const router = useRouter()
+  const handleProceedToBooking = () => {
+    router.push('/booking/booking-one')
+    localStorage.setItem('PriceH', price)
+  }
   return (
-    <BarraSelectedCleaner>
+    <BarraSelectedCleaner {...props}>
       <Etapas>Selected Cleaner</Etapas>
       <BolaCleaner image={img}>
         <h2 style={{ marginTop: '60px' }}>{name}</h2>
@@ -88,10 +92,7 @@ export default function SelectedCleaner({ name, price, selected, img }) {
       <ButtonAlt
         isDisabled={selected ? false : true}
         valor="Proceed to booking"
-        onClick={() => {
-          router.push('/booking/booking-one')
-          localStorage.setItem('PriceH', price)
-        }}
+        onClick={handleProceedToBooking}
       />
     </BarraSelectedCleaner>
   )

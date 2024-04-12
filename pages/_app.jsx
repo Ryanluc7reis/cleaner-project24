@@ -1,5 +1,6 @@
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
 import { UserProvider } from '../src/context/useContext'
+
 import theme from '../theme'
 
 const GlobalStyles = createGlobalStyle`
