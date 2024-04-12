@@ -128,19 +128,33 @@ export default function CreateCardCleaner() {
       <Form onSubmit={onSubmit}>
         <FlexInputAndCard>
           <FlexInputs>
-            <InputAlt colorlabel label="Name" onChange={handleNameChange} placeholder="name" />
-            <InputAlt colorlabel label="Price" onChange={handlePriceChange} placeholder="price" />
+            <InputAlt
+              colorlabel
+              label="Name"
+              onChange={handleNameChange}
+              placeholder="name"
+              required
+            />
+            <InputAlt
+              colorlabel
+              label="Price"
+              onChange={handlePriceChange}
+              placeholder="price"
+              required
+            />
             <InputAlt
               colorlabel
               label="Experience"
               onChange={handleExperienceChange}
               placeholder=" time experience"
+              required
             />
             <InputAlt
               colorlabel
               label="Amount of cleaning"
               onChange={handleCleaningChange}
               placeholder="amount of cleaning"
+              required
             />
           </FlexInputs>
           <CardAlt
@@ -149,6 +163,7 @@ export default function CreateCardCleaner() {
             price={price}
             experience={experience}
             amountCleaning={amountCleaning}
+            required
           />
         </FlexInputAndCard>
 
