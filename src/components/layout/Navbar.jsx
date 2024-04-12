@@ -6,6 +6,7 @@ import Logo from '../logo/Logo'
 import Login from './Login'
 import Button from '../form/Button'
 import { UserContext } from '../../context/useContext'
+import { LoginContext } from '../../context/useContextLogin'
 
 const fadeIn = keyframes`
   from {
@@ -175,7 +176,7 @@ const Logout = styled.a`
 `
 const LoginAlt = styled.div`
   position: fixed;
-  z-index: 100;
+  z-index: 101;
   width: 100%;
   height: 100vh;
   background: #ffffff58;
@@ -195,6 +196,7 @@ export default function Navbar({ type1, type2, username, ...props }) {
   const [showD, setShowD] = useState(false)
   const [showLogin, setShowLogin] = useState(false)
   const [userData, setUserData] = useContext(UserContext)
+  const [login, setLogin] = useContext(LoginContext)
   useEffect(() => {
     const handleClickOutSide = (event) => {
       if (!event.target.closest('#showD')) {
@@ -223,6 +225,7 @@ export default function Navbar({ type1, type2, username, ...props }) {
       console.error('Erro durante o logout:', error)
     }
   }
+
   return (
     <Container {...props}>
       {type1 && (
@@ -275,14 +278,35 @@ export default function Navbar({ type1, type2, username, ...props }) {
       )}
 
       {type2 && (
-        <StyledNavbar>
-          <Logo colorblue />
-          <FlexLogin>
-            <CardsLogo src="/metodosPay1.jpg" height="45px" width="133px" />
-            <BarraAlt />
-            <OptionsAlt onClick={() => router.push('/login')}>LOG-IN</OptionsAlt>
-          </FlexLogin>
-        </StyledNavbar>
+        <div>
+          {userData ? (
+            <div>
+              <StyledNavbar>
+                <Logo colorblue />
+                <FlexLogin>
+                  <CardsLogo src="/metodosPay1.jpg" height="45px" width="133px" />
+                  <BarraAlt />
+                  <OptionsAlt>Olá, {userData}</OptionsAlt>
+                </FlexLogin>
+              </StyledNavbar>
+            </div>
+          ) : (
+            <div>
+              <LoginAlt showLogin={login}>
+                <Login />
+                <ButttonLogin onClick={() => setLogin(false)}>close</ButttonLogin>
+              </LoginAlt>
+              <StyledNavbar>
+                <Logo colorblue />
+                <FlexLogin>
+                  <CardsLogo src="/metodosPay1.jpg" height="45px" width="133px" />
+                  <BarraAlt />
+                  <OptionsAlt onClick={() => setLogin(true)}>LOG-IN</OptionsAlt>
+                </FlexLogin>
+              </StyledNavbar>
+            </div>
+          )}
+        </div>
       )}
     </Container>
   )
