@@ -160,7 +160,7 @@ export default function CardCleaner({
           <AboutSub>{experience || '-'}</AboutSub>
         </FlexAbout>
       </ContAbout>
-      <Region style={{ ...(noneR && { display: 'none' }) }}>Operates in : {region}</Region>
+      <Region style={{ ...(noneR && { display: 'none' }) }}>Operates in : {region || '-'}</Region>
       <FlexButtons style={{ ...(none && { display: 'none' }) }}>
         <ButtonAlt
           valor="REVIEWS"

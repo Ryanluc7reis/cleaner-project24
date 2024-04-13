@@ -44,7 +44,7 @@ export default function EditCard({ ...props }) {
         <Barra />
       </FlexCont>
       <FlexCont>
-        <InputAlt placeholder="AmountOfCleaning" />
+        <InputAlt placeholder="Amount of cleaning" />
         <Barra />
       </FlexCont>
       <FlexCont>

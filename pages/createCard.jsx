@@ -179,6 +179,7 @@ export default function CreateCardCleaner() {
             price={price}
             experience={experience}
             amountCleaning={amountCleaning}
+            region={region}
           />
         </FlexInputAndCard>
 
