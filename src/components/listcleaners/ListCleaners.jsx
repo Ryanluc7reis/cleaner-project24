@@ -121,18 +121,44 @@ export default function ListCleaners() {
     'Price low to high',
     'Highest number of cleans'
   ]
+
   const updateShortBy = (updateShort) => {
     setupdateShortby(updateShort)
   }
+
   const handleCardSelect = (index) => {
     setSelectedCleaner(index === selectedCleaner ? null : index)
   }
+
   const { data, error } = useSWR(`http://localhost:3333/getCards`, fetcher)
   if (error) return <div>Erro ao carregar os dados</div>
   if (!data) return <div>Carregando...</div>
 
   const lowerRegion = region.toLowerCase()
-  const filterData = data.filter((card) => card.region.toLowerCase().includes(lowerRegion))
+  let filterData = data.filter((card) => card.region.toLowerCase().includes(lowerRegion))
+
+  let sortData = [...filterData]
+  switch (updateShortby) {
+    case 'Price high to low':
+      sortData.sort(
+        (a, b) => parseFloat(b.price.replace(',', '.')) - parseFloat(a.price.replace(',', '.'))
+      )
+      break
+    case 'Price low to high':
+      sortData.sort(
+        (a, b) => parseFloat(a.price.replace(',', '.')) - parseFloat(b.price.replace(',', '.'))
+      )
+      break
+    case 'Highest number of cleans':
+      sortData.sort((a, b) => b.amountCleaning - a.amountCleaning)
+      break
+    case 'Relevance':
+      sortData.sort((a, b) => b.rating - a.rating)
+      break
+    default:
+      break
+  }
+
   return (
     <ContListCleaners>
       <FilterSortby showOption={showOption} onClick={() => setshowOption(!showOption)}>
@@ -154,7 +180,7 @@ export default function ListCleaners() {
         <SetaDown src="/setadown1.svg" height="25px" width="20px" />
       </FilterSortby>
       <GridCardCleaner>
-        {filterData.map((card, index) => (
+        {sortData.map((card, index) => (
           <Card
             key={card._id}
             isSelected={index === selectedCleaner}
