@@ -8,6 +8,7 @@ import Input from '../src/components/form/Input'
 import Logo from '../src/components/logo/Logo'
 import Button from '../src/components/form/Button'
 import Selecter from '../src/components/form/Selecter'
+import Textarea from '../src/components/form/Textarea'
 
 const Container = styled.div`
   width: 100%;
@@ -43,6 +44,7 @@ const FlexButton = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 35px;
+  padding-bottom: 30px;
 `
 const InputAlt = styled(Input)`
   padding: 13px 17px;
@@ -76,30 +78,23 @@ const Label = styled.h1`
 export default function CreateCardCleaner() {
   const router = useRouter()
   const [loading, setLoading] = useState(null)
-  const [name, setName] = useState('')
-  const [price, setPrice] = useState('')
-  const [experience, setExperience] = useState('')
-  const [amountCleaning, setAmountCleaning] = useState('')
-  const [region, setRegion] = useState('')
+  const [formData, setFormData] = useState({
+    name: '',
+    price: '',
+    experience: '',
+    amountCleaning: '',
+    region: '',
+    about: '',
+    cleaning: '',
+    cleaning2: '',
+    cleaning3: ''
+  })
 
-  const handleNameChange = (event) => {
-    const newName = event.target.value.slice(0, 22)
-    setName(newName)
-  }
-
-  const handlePriceChange = (event) => {
-    setPrice(event.target.value)
-  }
-
-  const handleExperienceChange = (event) => {
-    setExperience(event.target.value)
-  }
-
-  const handleCleaningChange = (event) => {
-    setAmountCleaning(event.target.value)
-  }
-  const handleRegionChange = (event) => {
-    setRegion(event.target.value)
+  const handleChange = (name, value) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value
+    }))
   }
 
   const onSubmit = async (e) => {
@@ -113,14 +108,8 @@ export default function CreateCardCleaner() {
         }
       }
       const { status } = await axios.post(
-        `http://localhost:3333/createCard`,
-        {
-          name,
-          price,
-          experience,
-          amountCleaning,
-          region
-        },
+        `http://localhost:3333/cleaner/createCard`,
+        formData,
         config
       )
       if (status === 201) {
@@ -144,50 +133,102 @@ export default function CreateCardCleaner() {
             <InputAlt
               colorlabel
               label="Name"
-              onChange={handleNameChange}
               placeholder="name"
+              name="name"
+              value={formData.name}
+              onChange={(e) => handleChange('name', e.target.value)}
               required
             />
             <InputAlt
               colorlabel
               label="Price"
-              onChange={handlePriceChange}
               placeholder="price"
+              name="price"
+              value={formData.price}
+              onChange={(e) => handleChange('price', e.target.value)}
               required
             />
             <InputAlt
               colorlabel
               label="Experience"
-              onChange={handleExperienceChange}
-              placeholder=" time experience"
+              placeholder="experience"
+              name="experience"
+              value={formData.experience}
+              onChange={(e) => handleChange('experience', e.target.value)}
               required
             />
             <InputAlt
               colorlabel
               label="Amount of cleaning"
               type="number"
-              onChange={handleCleaningChange}
               placeholder="amount of cleaning"
+              name="amountCleaning"
+              value={formData.amountCleaning}
+              onChange={(e) => handleChange('amountCleaning', e.target.value)}
               required
             />
             <Label>Region</Label>
-            <Selecter region2 onChange={handleRegionChange} />
+            <Selecter
+              region2
+              name="region"
+              value={formData.region}
+              onChange={(e) => handleChange('region', e.target.value)}
+            />
           </FlexInputs>
           <CardAlt
             none
-            name={name}
-            price={price}
-            experience={experience}
-            amountCleaning={amountCleaning}
-            region={region}
+            name={formData.name}
+            price={formData.price}
+            experience={formData.experience}
+            amountCleaning={formData.amountCleaning}
+            region={formData.region}
           />
         </FlexInputAndCard>
+        <Title>Crie seu review</Title>
+        <FlexInputs>
+          <Label>Talk about cleaner</Label>
+          <Textarea
+            placeholder="Olá eu sou o Gabs..."
+            name="about"
+            value={formData.about}
+            onChange={(e) => handleChange('about', e.target.value)} // Alteração aqui
+          />
+          <Label>Type of cleaning 1</Label>
+          <Selecter
+            name="cleaning"
+            onChange={(e) => handleChange('cleaning', e.target.value)} // Alteração aqui
+            value={formData.cleaning}
+            typeCleaning
+          />
+          <Label>Type of cleaning 2</Label>
+          <Selecter
+            onChange={(e) => handleChange('cleaning2', e.target.value)} // Alteração aqui
+            name="cleaning2"
+            value={formData.cleaning2}
+            typeCleaning
+          />
+          <Label>Type of cleaning 3</Label>
+          <Selecter
+            onChange={(e) => handleChange('cleaning3', e.target.value)} // Alteração aqui
+            name="cleaning3"
+            value={formData.cleaning3}
+            typeCleaning
+          />
+        </FlexInputs>
 
         <FlexButton>
           <ButtonAlt
             loading={loading}
             type="submit"
-            disabled={name && price && experience && amountCleaning && region ? false : true}
+            disabled={
+              formData.name &&
+              formData.price &&
+              formData.experience &&
+              formData.amountCleaning &&
+              formData.region
+                ? false
+                : true
+            }
           >
             Create card
           </ButtonAlt>

@@ -2,13 +2,13 @@ import styled from 'styled-components'
 import { useRouter } from 'next/router'
 import { useContext, useState, useEffect } from 'react'
 import { UserContext } from '../../src/context/useContext'
-import useSWR from 'swr'
 import axios from 'axios'
 
 import NavBarDashboard from '../../src/components/layout/NavBarDashboard'
 import Profile from '../../src/components/profile/Profile'
 import Card from '../../src/components/cardcleaner/Card'
 import EditCard from '../../src/components/cardcleaner/EditCard'
+import About from '../../src/components/aboutcleaner/About'
 
 const Container = styled.div`
   min-width: 100%;
@@ -32,12 +32,21 @@ const BoxCardCleaner = styled.div`
   display: flex;
   flex-direction: column;
 `
+const BoxAboutCleaner = styled.div`
+  width: 87%;
+  margin-top: 30px;
+  height: 450px;
+  background-color: #fff;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+`
 const FlexBoxCardCleaner = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
   gap: 20px;
-  padding-top: 45px;
+  padding: 25px;
 `
 const CardAlt = styled(Card)`
   border: 2px solid ${(props) => props.theme.colors.primaryColor};
@@ -76,7 +85,7 @@ const ProfilePage = () => {
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
   const getCard = async () => {
     try {
-      const response = await axios.get('http://localhost:3333/findCard', {
+      const response = await axios.get('http://localhost:3333/cleaner/findCard', {
         headers: { authorization: token }
       })
       const data = response.data
@@ -85,6 +94,7 @@ const ProfilePage = () => {
       console.error('Erro ao obter os dados do cartão:', error)
     }
   }
+
   const findCleaner = async () => {
     try {
       const response = await axios.get('http://localhost:3333/user/verify-user', {
@@ -110,21 +120,42 @@ const ProfilePage = () => {
             <FlexProfileAndCard>
               <Profile cleaner />
               {userData && card ? (
-                <BoxCardCleaner key={card._id}>
-                  <Label>Card cleaner</Label>
-                  <FlexBoxCardCleaner>
-                    <CardAlt
-                      name={card.name}
-                      price={card.price}
-                      rating={card.rating}
-                      experience={card.experience}
-                      amountCleaning={card.amountCleaning}
-                      region={card.region}
-                      none
-                    />
-                    <EditCard />
-                  </FlexBoxCardCleaner>
-                </BoxCardCleaner>
+                <div>
+                  <BoxCardCleaner key={card._id}>
+                    <Label>Card cleaner</Label>
+                    <FlexBoxCardCleaner>
+                      <CardAlt
+                        name={card.name}
+                        price={card.price}
+                        rating={card.rating}
+                        experience={card.experience}
+                        amountCleaning={card.amountCleaning}
+                        region={card.region}
+                        none
+                      />
+                      <EditCard />
+                    </FlexBoxCardCleaner>
+                  </BoxCardCleaner>
+                  <BoxAboutCleaner>
+                    <Label>About Cleaner</Label>
+                    {card && (
+                      <About
+                        key={card._id}
+                        id={card._id}
+                        name={card.name}
+                        price={card.price}
+                        rating={card.rating}
+                        experience={card.experience}
+                        amountCleaning={card.amountCleaning}
+                        region={card.region}
+                        about={card.about}
+                        cleaning={card.cleaning}
+                        cleaning2={card.cleaning2}
+                        cleaning3={card.cleaning3}
+                      />
+                    )}
+                  </BoxAboutCleaner>
+                </div>
               ) : (
                 <BoxCardCleaner>
                   <Label>Card cleaner</Label>

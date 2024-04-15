@@ -39,10 +39,9 @@ const InputContainer = styled.div`
   width: auto;
   height: auto;
 `
-const StyledSelecterAlt1 = styled(StyledSelect)`
-  box-shadow: 2px 2px 2px #5176da, -2px -2px 2px #5176da;
+const StyledSelecterAlt1 = styled.select`
   background-color: ${(props) => props.theme.colors.inputBackground};
-  border-color: #5176da;
+
   width: 240px;
   font-size: 12px;
   padding: 13px 8px;
@@ -70,7 +69,19 @@ const StyledSelectAlt2 = styled.select`
   }
 `
 
-const Selecter = ({ region, year, month, parcelas, typeCleaning, region2, ...props }) => {
+const Selecter = ({
+  region,
+  year,
+  month,
+  parcelas,
+  typeCleaning,
+  cleaning,
+  cleaning2,
+  cleaning3,
+  region2,
+  label,
+  ...props
+}) => {
   return (
     <StyledContainer {...props}>
       {region && (
@@ -147,27 +158,38 @@ const Selecter = ({ region, year, month, parcelas, typeCleaning, region2, ...pro
         </StyledSelectAlt>
       )}
       {typeCleaning && (
-        <InputContainer>
-          <StyledLabel>Type of cleaning</StyledLabel>
-          <StyledSelecterAlt1>
-            Type of cleaning
-            <option style={{ fontSize: '12px' }} value="" disabled="">
-              TYPE OF CLEANING
+        <StyledSelecterAlt1>
+          {cleaning ? (
+            <option style={{ fontSize: '12px' }} disabled="">
+              {cleaning}
             </option>
-            <option style={{ fontSize: '14px' }} value="Wet manual cleaning">
-              Wet manual cleaning
+          ) : null}
+          {cleaning2 ? (
+            <option style={{ fontSize: '12px' }} disabled="">
+              {cleaning2}
             </option>
-            <option style={{ fontSize: '14px' }} value="Window cleaning ">
-              Window cleaning
+          ) : null}
+          {cleaning3 ? (
+            <option style={{ fontSize: '12px' }} disabled="">
+              {cleaning3}
             </option>
-            <option style={{ fontSize: '14px' }} value="Home apliance cleaning">
-              Home apliance cleaning{' '}
-            </option>
-            <option style={{ fontSize: '14px' }} value="Wet manual cleaning (water)">
-              Wet manual cleaning (water){' '}
-            </option>
-          </StyledSelecterAlt1>
-        </InputContainer>
+          ) : null}
+          <option style={{ fontSize: '14px' }} value="Wet manual cleaning">
+            Wet manual cleaning
+          </option>
+          <option style={{ fontSize: '14px' }} value="Window cleaning ">
+            Window cleaning
+          </option>
+          <option style={{ fontSize: '14px' }} value="Home apliance cleaning">
+            Home apliance cleaning{' '}
+          </option>
+          <option style={{ fontSize: '14px' }} value="Dry cleaning">
+            Dry cleaning{' '}
+          </option>
+          <option style={{ fontSize: '14px' }} value="Wet manual cleaning (water)">
+            Wet manual cleaning (water){' '}
+          </option>
+        </StyledSelecterAlt1>
       )}
     </StyledContainer>
   )
