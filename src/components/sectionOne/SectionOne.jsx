@@ -91,12 +91,12 @@ export const ErrorMessage = styled.span`
   }
 `
 const ButtonAlt = styled(Button)`
-  background-color: ${(props) => (props.color ? '#24d601' : null)};
+  background-color: ${(props) => (props.colorButton ? '#24d601' : null)};
   animation: 0.1s;
 `
 export default function SectionOne() {
   const router = useRouter()
-  const [color, setColor] = useState(false)
+  const [color, setColor] = useState(null)
   const [valor, setValor] = useState('')
   const [error, setError] = useState(false)
   const [userData, setUserData] = useContext(UserContext)
@@ -127,10 +127,11 @@ export default function SectionOne() {
         setUserData(response.data)
       } catch (error) {
         console.error('Erro ao verificar sessão:', error)
+        setUserData(false)
       }
     }
     verifyUser()
-  }, [userData])
+  }, [setUserData])
 
   return (
     <ImageSectionOne>
@@ -146,7 +147,7 @@ export default function SectionOne() {
           {error && <ErrorMessage>That region is invalid.</ErrorMessage>}
           <StyledForm onSubmit={(e) => e.preventDefault()}>
             <Selecter region value={region} onChange={handleInputChange} />
-            <ButtonAlt color={color ? true : false} onClick={handleSubmit} type="button">
+            <ButtonAlt colorButton={color ? true : false} onClick={handleSubmit} type="button">
               Let´s go
             </ButtonAlt>
           </StyledForm>
