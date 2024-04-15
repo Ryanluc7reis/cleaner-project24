@@ -130,7 +130,7 @@ export default function ListCleaners() {
     setSelectedCleaner(index === selectedCleaner ? null : index)
   }
 
-  const { data, error } = useSWR(`http://localhost:3333/getCards`, fetcher)
+  const { data, error } = useSWR(`http://localhost:3333/cleaner/getCards`, fetcher)
   if (error) return <div>Erro ao carregar os dados</div>
   if (!data) return <div>Carregando...</div>
 
@@ -185,6 +185,7 @@ export default function ListCleaners() {
             key={card._id}
             isSelected={index === selectedCleaner}
             onSelectCleaner={() => handleCardSelect(index)}
+            index={index}
             name={card.name}
             rating={card.rating}
             price={card.price}
@@ -196,9 +197,9 @@ export default function ListCleaners() {
         ))}
       </GridCardCleaner>
       <SelectedCleaner
-        name={data[selectedCleaner]?.name}
-        price={data[selectedCleaner]?.price}
-        img={data[selectedCleaner] && '/maleicon.png'}
+        name={sortData[selectedCleaner]?.name}
+        price={sortData[selectedCleaner]?.price}
+        img={sortData[selectedCleaner] && '/maleicon.png'}
         selected={selectedCleaner !== null ? true : false}
       />
     </ContListCleaners>
