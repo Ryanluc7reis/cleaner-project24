@@ -143,6 +143,13 @@ const SignupAsClient = () => {
         [name]: isValidEmail ? null : 'Por favor, digite um e-mail válido.'
       }))
     }
+    if (name) {
+      const isValidValue = [!value]
+      setError((prevErrors) => ({
+        ...prevErrors,
+        [name]: isValidValue === true && null
+      }))
+    }
 
     setFormData({
       ...formData,
@@ -200,7 +207,6 @@ const SignupAsClient = () => {
             onChange={handleChange}
             value={formData.fullName}
             error={error.fullName}
-            required
           />
           {error.fullName && <ErrorLabel>{error.fullName}</ErrorLabel>}
           <InputAlt
@@ -211,7 +217,6 @@ const SignupAsClient = () => {
             onChange={handleChange}
             value={formData.user}
             error={error.user}
-            required
           />
           {error.user && <ErrorLabel>{error.user}</ErrorLabel>}
           <InputAlt
@@ -222,7 +227,6 @@ const SignupAsClient = () => {
             onChange={handleChange}
             value={formData.email}
             error={error.email}
-            required
           />
           {error.email && <ErrorLabel>{error.email}</ErrorLabel>}
           <InputAlt
@@ -233,7 +237,6 @@ const SignupAsClient = () => {
             onChange={handleChange}
             value={formData.password}
             error={error.password}
-            required
           />
           {error.password && <ErrorLabel>{error.password}</ErrorLabel>}
           <InputAlt
@@ -244,7 +247,6 @@ const SignupAsClient = () => {
             onChange={handleChange}
             value={formData.address}
             error={error.address}
-            required
           />
           {error.address && <ErrorLabel>{error.address}</ErrorLabel>}
           <InputAlt
@@ -255,7 +257,6 @@ const SignupAsClient = () => {
             onChange={handleChange}
             value={formData.number}
             error={error.number}
-            required
           />
           {error.number && <ErrorLabel>{error.number}</ErrorLabel>}
           <ButtonAlt loading={loading} type="submit">

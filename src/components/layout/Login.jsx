@@ -62,18 +62,17 @@ const ErrorLabel = styled.span`
 `
 export default function LoginForm() {
   const [loading, setLoading] = useState(false)
-  const [userOrEmail, setUserOrEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [formData, setFormData] = useState({
+    userOrEmail: '',
+    password: ''
+  })
   const [error, setError] = useState({})
   const [userData, setUserData] = useContext(UserContext)
   const onSubmit = async (e) => {
     e.preventDefault()
     try {
       setLoading(true)
-      const response = await axios.post(`http://localhost:3333/user/login`, {
-        userOrEmail,
-        password
-      })
+      const response = await axios.post(`http://localhost:3333/user/login`, formData)
       const { token } = response.data
       localStorage.setItem('token', token)
     } catch (err) {
@@ -100,14 +99,31 @@ export default function LoginForm() {
     }
   }
 
+  const handleChange = (event) => {
+    const { name, value } = event.target
+
+    if (name) {
+      const isValidValue = [!value]
+      setError((prevErrors) => ({
+        ...prevErrors,
+        [name]: isValidValue === true && null
+      }))
+    }
+    setFormData({
+      ...formData,
+      [name]: value
+    })
+  }
+
   return (
     <Form onSubmit={onSubmit}>
       <SignYourAcc>Sign in to your account</SignYourAcc>
       <InputAlt
         label="E-mail or username"
         placeholder="E-mail  or username"
-        value={userOrEmail}
-        onChange={(e) => setUserOrEmail(e.target.value)}
+        name="userOrEmail"
+        value={formData.userOrEmail}
+        onChange={handleChange}
         error={error.userOrEmail}
         required
       />
@@ -116,9 +132,9 @@ export default function LoginForm() {
         label="Password"
         placeholder="Password"
         password
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        name="password"
+        value={formData.password}
+        onChange={handleChange}
         error={error.password}
         required
       />

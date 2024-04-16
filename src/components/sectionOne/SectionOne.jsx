@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { useRouter } from 'next/router'
 import { useState, useContext, useEffect } from 'react'
 import { UserContext } from '../../context/useContext'
+import { RegionContext } from '../../context/useContextRegion'
 import axios from 'axios'
 
 import ImageSectionOne from './ImageSectionOne'
@@ -89,22 +90,29 @@ export const ErrorMessage = styled.span`
     transform: translate(-70%, 70%);
   }
 `
-
+const ButtonAlt = styled(Button)`
+  background-color: ${(props) => (props.colorButton ? '#24d601' : null)};
+  animation: 0.1s;
+`
 export default function SectionOne() {
   const router = useRouter()
+  const [color, setColor] = useState(null)
   const [valor, setValor] = useState('')
   const [error, setError] = useState(false)
   const [userData, setUserData] = useContext(UserContext)
+  const [region, setRegion] = useContext(RegionContext)
 
   const handleInputChange = (event) => {
-    setValor(event.target.value)
+    setRegion(event.target.value)
   }
   const handleSubmit = () => {
-    if (valor.length < 3 || valor.length < 4) {
+    setColor(true)
+    if (region.length < 3 || region.length < 4) {
       setError(true)
+      setColor(false)
     } else {
       setError(false)
-      router.push(`/plansScreen?region=${encodeURIComponent(valor)}`)
+      router.push(`/plansScreen?region=${encodeURIComponent(region)}`)
     }
   }
   useEffect(() => {
@@ -119,6 +127,7 @@ export default function SectionOne() {
         setUserData(response.data)
       } catch (error) {
         console.error('Erro ao verificar sessão:', error)
+        setUserData(false)
       }
     }
     verifyUser()
@@ -137,10 +146,10 @@ export default function SectionOne() {
           </StyledH5>
           {error && <ErrorMessage>That region is invalid.</ErrorMessage>}
           <StyledForm onSubmit={(e) => e.preventDefault()}>
-            <Selecter region value={valor} onChange={handleInputChange} />
-            <Button type="button" onClick={handleSubmit}>
+            <Selecter region value={region} onChange={handleInputChange} />
+            <ButtonAlt colorButton={color ? true : false} onClick={handleSubmit} type="button">
               Let´s go
-            </Button>
+            </ButtonAlt>
           </StyledForm>
         </StyledContainer1>
       </BoxShadow>

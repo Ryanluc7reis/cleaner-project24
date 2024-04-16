@@ -127,7 +127,7 @@ export default function NavRoutesDash({
       }
     }
     verifyUser()
-  }, [setUserData])
+  }, [userData])
   const handleLogout = async () => {
     try {
       const token = localStorage.getItem('token')

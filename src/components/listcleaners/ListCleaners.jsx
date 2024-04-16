@@ -1,7 +1,8 @@
 import styled from 'styled-components'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import axios from 'axios'
 import useSWR from 'swr'
+import { RegionContext } from '../../context/useContextRegion'
 
 import Card from '../cardcleaner/Card'
 import SelectedCleaner from './SelectedCleaner'
@@ -108,10 +109,11 @@ const fetcher = async (url) => {
   return response.data
 }
 
-export default function ListCleaners({ name, price, img }) {
+export default function ListCleaners() {
   const [showOption, setshowOption] = useState(false)
   const [updateShortby, setupdateShortby] = useState(null)
   const [selectedCleaner, setSelectedCleaner] = useState(null)
+  const [region, setRegion] = useContext(RegionContext)
 
   const listOption = [
     'Relevance',
@@ -119,15 +121,43 @@ export default function ListCleaners({ name, price, img }) {
     'Price low to high',
     'Highest number of cleans'
   ]
+
   const updateShortBy = (updateShort) => {
     setupdateShortby(updateShort)
   }
+
   const handleCardSelect = (index) => {
     setSelectedCleaner(index === selectedCleaner ? null : index)
   }
-  const { data, error } = useSWR(`http://localhost:3333/getCards`, fetcher)
+
+  const { data, error } = useSWR(`http://localhost:3333/cleaner/getCards`, fetcher)
   if (error) return <div>Erro ao carregar os dados</div>
   if (!data) return <div>Carregando...</div>
+
+  const lowerRegion = region.toLowerCase()
+  let filterData = data.filter((card) => card.region.toLowerCase().includes(lowerRegion))
+
+  let sortData = [...filterData]
+  switch (updateShortby) {
+    case 'Price high to low':
+      sortData.sort(
+        (a, b) => parseFloat(b.price.replace(',', '.')) - parseFloat(a.price.replace(',', '.'))
+      )
+      break
+    case 'Price low to high':
+      sortData.sort(
+        (a, b) => parseFloat(a.price.replace(',', '.')) - parseFloat(b.price.replace(',', '.'))
+      )
+      break
+    case 'Highest number of cleans':
+      sortData.sort((a, b) => b.amountCleaning - a.amountCleaning)
+      break
+    case 'Relevance':
+      sortData.sort((a, b) => b.rating - a.rating)
+      break
+    default:
+      break
+  }
 
   return (
     <ContListCleaners>
@@ -150,24 +180,26 @@ export default function ListCleaners({ name, price, img }) {
         <SetaDown src="/setadown1.svg" height="25px" width="20px" />
       </FilterSortby>
       <GridCardCleaner>
-        {data.map((card, index) => (
+        {sortData.map((card, index) => (
           <Card
             key={card._id}
             isSelected={index === selectedCleaner}
             onSelectCleaner={() => handleCardSelect(index)}
+            index={index}
             name={card.name}
             rating={card.rating}
             price={card.price}
             experience={card.experience}
             amountCleaning={card.amountCleaning}
             id={card._id}
+            noneR
           />
         ))}
       </GridCardCleaner>
       <SelectedCleaner
-        name={data[selectedCleaner]?.name}
-        price={data[selectedCleaner]?.price}
-        img={data[selectedCleaner] && '/maleicon.png'}
+        name={sortData[selectedCleaner]?.name}
+        price={sortData[selectedCleaner]?.price}
+        img={sortData[selectedCleaner] && '/maleicon.png'}
         selected={selectedCleaner !== null ? true : false}
       />
     </ContListCleaners>

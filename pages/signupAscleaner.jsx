@@ -144,7 +144,13 @@ const SignupAsCleaner = () => {
         [name]: isValidEmail ? null : 'Por favor, digite um e-mail válido.'
       }))
     }
-
+    if (name) {
+      const isValidValue = [!value]
+      setError((prevErrors) => ({
+        ...prevErrors,
+        [name]: isValidValue === true && null
+      }))
+    }
     setFormData({
       ...formData,
       [name]: value

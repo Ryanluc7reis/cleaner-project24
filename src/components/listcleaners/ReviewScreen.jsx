@@ -142,9 +142,6 @@ const DivStarDate = styled.div`
 const ThumbsUp = styled.img`
   width: 30px;
   content: ${(props) => (props.tmbs ? 'none' : "url('../thumbsupguy.svg')")};
-  :hover {
-    width: 40px;
-  }
 `
 const Close = styled.img`
   width: 20px;
@@ -224,7 +221,19 @@ const reviews = [
     rating: 4.6
   }
 ]
-function ReviewScreen({ name, price, rating, cleaningCount, cleaner, ...props }) {
+function ReviewScreen({
+  name,
+  price,
+  rating,
+  cleaningCount,
+  cleaner,
+  typeCleaning1,
+  typeCleaning2,
+  typeCleaning3,
+  aboutCleaner,
+  id,
+  ...props
+}) {
   const [closeReview, setCloseReview] = useState(false)
   const handleCloseReview = () => {
     props.onClose()
@@ -262,15 +271,15 @@ function ReviewScreen({ name, price, rating, cleaningCount, cleaner, ...props })
           <hr />
           <TypeCleanings>
             <ThumbsUp />
-            <Desc>Wet manual cleaning</Desc>
+            <Desc>{typeCleaning1 || '-'}</Desc>
           </TypeCleanings>
           <TypeCleanings>
             <ThumbsUp />
-            <Desc>Dry Cleaning</Desc>
+            <Desc>{typeCleaning2 || '-'}</Desc>
           </TypeCleanings>
           <TypeCleanings>
             <ThumbsUp />
-            <Desc>Dry Cleaning</Desc>
+            <Desc>{typeCleaning3 || '-'}</Desc>
           </TypeCleanings>
           <hr></hr>
           <ButtonAlt
@@ -282,10 +291,7 @@ function ReviewScreen({ name, price, rating, cleaningCount, cleaner, ...props })
           <BoxAboutMe>
             <AboutMeTitle>About Me: </AboutMeTitle>
             <AboutMeSub>Dedicated to my work</AboutMeSub>
-            <AboutMeDesc>
-              Dedicated to my work. Customer satisfaction is my priority Dedicated to my work.
-              Customer satisfaction is my priority. Good relationship with customer.
-            </AboutMeDesc>
+            <AboutMeDesc>{aboutCleaner || '-'}</AboutMeDesc>
           </BoxAboutMe>
           <BoxReviews maxHeight={`${reviews.length * 80}px`}>
             <ReviewsTitle>Reviews</ReviewsTitle>

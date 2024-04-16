@@ -1,7 +1,9 @@
 import styled from 'styled-components'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+
 import ReviewScreen from '../listcleaners/ReviewScreen'
 import Button from '../form/Button'
-import { useState } from 'react'
 
 const Card = styled.div`
   width: 327px;
@@ -84,6 +86,11 @@ const BarraAlt = styled(Barra)`
   height: 43px;
   width: 1px;
 `
+const Region = styled.h2`
+  color: #4b4b4bc6;
+  text-align: center;
+  margin: 7px 0px;
+`
 
 export default function CardCleaner({
   index,
@@ -92,35 +99,57 @@ export default function CardCleaner({
   rating,
   amountCleaning,
   experience,
+  region,
   none,
+  noneR,
   isSelected,
+  id,
   ...props
 }) {
-  const [showReview, setshowReview] = useState(false)
-  const handleReviews = () => {
-    setshowReview(!showReview)
-    const body = document.querySelector('body')
+  const [showReview, setShowReview] = useState(false)
+  const [aboutData, setAboutData] = useState({})
 
-    if (showReview === true) {
-      body.classList.add('no-scroll')
-    } else {
-      body.classList.remove('no-scroll')
-    }
+  const handleReviews = () => {
+    setShowReview(!showReview)
   }
 
   const CleanerSelected = () => {
     props.onSelectCleaner(index)
   }
+
   const CleanerSelectedByReview = () => {
     props.onSelectCleaner(index)
-    setshowReview(!showReview)
+    setShowReview(!showReview)
   }
 
+  const getCard = async () => {
+    try {
+      const response = await axios.get('http://localhost:3333/cleaner/getOneCard', {
+        params: { id }
+      })
+      const data = response.data
+      setAboutData(data)
+    } catch (error) {
+      console.error('Erro ao obter os dados do cartão:', error)
+    }
+  }
+  useEffect(() => {
+    getCard()
+  }, [id])
   return (
     <Card style={{ ...(none && { height: '180px' }) }} isSelected={isSelected} {...props}>
       {showReview && (
         <ReviewScreen
-          onClose={() => setshowReview(!showReview)}
+          name={name}
+          price={'$' + price + 'p/h'}
+          rating={rating}
+          cleaningCount={amountCleaning}
+          id={id}
+          aboutCleaner={aboutData.about}
+          typeCleaning1={aboutData.cleaning}
+          typeCleaning2={aboutData.cleaning2}
+          typeCleaning3={aboutData.cleaning3}
+          onClose={() => setShowReview(false)}
           onSelectCleaner={() => CleanerSelectedByReview(index)}
           cleaner={isSelected ? false : true}
         />
@@ -131,7 +160,7 @@ export default function CardCleaner({
           <MaleIcon src="/maleicon.png" />
           <NameCleaner>{name || '-'}</NameCleaner>
         </div>
-        <PriceCleaner>{'$' + price + 'p/h' || '$' + '-' + 'p/h'}</PriceCleaner>
+        <PriceCleaner>{'$' + (price || '-') + 'p/h'}</PriceCleaner>
       </NameandPric>
       <Barra />
       <ContAbout>
@@ -153,17 +182,17 @@ export default function CardCleaner({
           <AboutSub>{experience || '-'}</AboutSub>
         </FlexAbout>
       </ContAbout>
+      <Region style={{ ...(noneR && { display: 'none' }) }}>Operates in : {region || '-'}</Region>
       <FlexButtons style={{ ...(none && { display: 'none' }) }}>
         <ButtonAlt
           valor="REVIEWS"
           style={{
             backgroundColor: 'white',
             color: '#999999',
-            border: '1PX solid #5e5ef5af'
+            border: '1px solid #5e5ef5af'
           }}
           onClick={handleReviews}
         />
-
         <ButtonAltStyled
           valor={isSelected ? 'SELECTED' : 'SELECT'}
           arrowButton={isSelected ? false : true}
