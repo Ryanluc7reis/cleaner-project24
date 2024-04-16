@@ -69,6 +69,7 @@ export default function EditAbout({
       const response = await axios.patch(`http://localhost:3333/cleaner/editCard`, formData, config)
       if (response.status === 200) {
         onSave()
+        alert('About cleaner editado com sucesso')
       }
     } catch (err) {
       console.error(err.message)

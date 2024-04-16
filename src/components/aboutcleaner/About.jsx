@@ -6,7 +6,6 @@ import { useSWRConfig } from 'swr'
 import EditAbout from './EditAbout'
 
 const AboutCleanerContainer = styled.div`
-  min-height: 100%;
   width: 100%;
 `
 

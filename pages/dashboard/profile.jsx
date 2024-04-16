@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { useContext, useState, useEffect } from 'react'
 import { UserContext } from '../../src/context/useContext'
 import axios from 'axios'
+import { useSWRConfig } from 'swr'
 
 import NavBarDashboard from '../../src/components/layout/NavBarDashboard'
 import Profile from '../../src/components/profile/Profile'
@@ -33,13 +34,14 @@ const BoxCardCleaner = styled.div`
   flex-direction: column;
 `
 const BoxAboutCleaner = styled.div`
-  width: 87%;
+  min-width: 97%;
   margin-top: 30px;
   height: 450px;
   background-color: #fff;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
+  padding: 10px;
 `
 const FlexBoxCardCleaner = styled.div`
   display: flex;
@@ -81,7 +83,9 @@ const ProfilePage = () => {
   const router = useRouter()
   const [userData] = useContext(UserContext)
   const [card, setCard] = useState(null)
+  const [editCard, setEditCard] = useState(false)
   const [userCleaner, setUserCleaner] = useState(null)
+  const { mutate } = useSWRConfig()
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
   const getCard = async () => {
     try {
@@ -106,11 +110,15 @@ const ProfilePage = () => {
       console.error('Erro ao obter os dados do cartão:', error)
     }
   }
-
+  const handleSaveEditCard = () => {
+    setEditCard(false)
+    mutate(`http://localhost:3333/cleaner/editAbout`)
+  }
   useEffect(() => {
     getCard()
     findCleaner()
   }, [])
+
   return (
     <Container>
       {userCleaner ? (
@@ -121,10 +129,12 @@ const ProfilePage = () => {
               <Profile cleaner />
               {userData && card ? (
                 <div>
-                  <BoxCardCleaner key={card._id}>
+                  <BoxCardCleaner>
                     <Label>Card cleaner</Label>
                     <FlexBoxCardCleaner>
                       <CardAlt
+                        key={card._id}
+                        id={card._id}
                         name={card.name}
                         price={card.price}
                         rating={card.rating}
@@ -133,7 +143,21 @@ const ProfilePage = () => {
                         region={card.region}
                         none
                       />
-                      <EditCard />
+                      <EditCard
+                        key={card._id}
+                        id={card._id}
+                        name={card.name}
+                        price={card.price}
+                        rating={card.rating}
+                        experience={card.experience}
+                        amountCleaning={card.amountCleaning}
+                        region={card.region}
+                        about={card.about}
+                        cleaning={card.cleaning}
+                        cleaning2={card.cleaning2}
+                        cleaning3={card.cleaning3}
+                        onSave={handleSaveEditCard}
+                      />
                     </FlexBoxCardCleaner>
                   </BoxCardCleaner>
                   <BoxAboutCleaner>

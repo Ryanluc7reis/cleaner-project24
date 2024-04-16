@@ -1,10 +1,14 @@
 import styled from 'styled-components'
+import { useState } from 'react'
+import axios from 'axios'
+import { useForm } from 'react-hook-form'
+
 import Input from '../form/Input'
 import Button from '../form/Button'
 
 const Form = styled.form`
   display: grid;
-  grid-template-columns: 250px 250px;
+  grid-template-columns: 250px;
   flex-direction: column;
 `
 const InputAlt = styled(Input)`
@@ -21,42 +25,121 @@ const Barra = styled.div`
 const ButtonAlt = styled(Button)`
   height: 45px;
   width: 170px;
-  margin: 45px 150px;
+  margin-top: 15px;
+  margin-left: 25px;
 `
 const FlexCont = styled.div`
   display: flex;
   flex-direction: column;
 `
 
-export default function EditCard({ ...props }) {
+export default function EditCard({
+  id,
+  name,
+  price,
+  rating,
+  amountCleaning,
+  experience,
+  region,
+  about,
+  cleaning,
+  cleaning2,
+  cleaning3,
+  onSave
+}) {
+  const { handleSubmit } = useForm({
+    mode: 'all'
+  })
+
+  const [loading, setLoading] = useState(false)
+  const [formData, setFormData] = useState({
+    id: id,
+    name: name,
+    price: price,
+    amountCleaning: amountCleaning,
+    experience: experience,
+    region: region,
+    about: about,
+    cleaning: cleaning,
+    cleaning2: cleaning2,
+    cleaning3: cleaning3
+  })
+
+  const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
+  const handleFormSaveEdit = async () => {
+    setLoading(true)
+
+    const config = {
+      headers: {
+        authorization: token
+      }
+    }
+    try {
+      const response = await axios.patch(`http://localhost:3333/cleaner/editCard`, formData, config)
+      if (response.status === 200) {
+        onSave()
+        alert('Card editado com sucesso')
+      }
+    } catch (err) {
+      console.error(err.message)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleChange = (name, value) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value
+    }))
+  }
+
   return (
-    <Form {...props}>
+    <Form onSubmit={handleSubmit(handleFormSaveEdit)}>
       <FlexCont>
-        <InputAlt placeholder="Name" />
+        <InputAlt
+          name="name"
+          value={formData.name}
+          onChange={(e) => handleChange('name', e.target.value)}
+        />
         <Barra />
       </FlexCont>
       <FlexCont>
-        <InputAlt placeholder="Rating" />
+        <InputAlt
+          name="price"
+          value={formData.price}
+          onChange={(e) => handleChange('price', e.target.value)}
+        />
         <Barra />
       </FlexCont>
       <FlexCont>
-        <InputAlt placeholder="Price" />
+        <InputAlt
+          name="amountCleaning"
+          value={formData.amountCleaning}
+          onChange={(e) => handleChange('amountCleaning', e.target.value)}
+        />
         <Barra />
       </FlexCont>
       <FlexCont>
-        <InputAlt placeholder="Amount of cleaning" />
+        <InputAlt
+          name="experience"
+          value={formData.experience}
+          onChange={(e) => handleChange('experience', e.target.value)}
+        />
         <Barra />
       </FlexCont>
       <FlexCont>
-        <InputAlt placeholder="Experience" />
-        <Barra />
-      </FlexCont>
-      <FlexCont>
-        <InputAlt placeholder="Region" />
+        <InputAlt
+          name="region"
+          value={formData.region}
+          onChange={(e) => handleChange('region', e.target.value)}
+        />
         <Barra />
       </FlexCont>
 
-      <ButtonAlt>Save changes</ButtonAlt>
+      <ButtonAlt loading={loading} type="submit">
+        Save changes
+      </ButtonAlt>
     </Form>
   )
 }
