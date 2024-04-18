@@ -10,10 +10,11 @@ const Form = styled.form`
   display: grid;
   grid-template-columns: 250px;
   flex-direction: column;
+  gap: 8px;
 `
 const InputAlt = styled(Input)`
   width: 270px;
-  padding: 10px;
+  padding: 7px;
   background: transparent;
   border: none;
 `
@@ -32,12 +33,14 @@ const FlexCont = styled.div`
   display: flex;
   flex-direction: column;
 `
-
+const Label = styled.h3`
+  color: #8080809d;
+  padding-top: 5px;
+`
 export default function EditCard({
   id,
   name,
   price,
-  rating,
   amountCleaning,
   experience,
   region,
@@ -97,6 +100,7 @@ export default function EditCard({
   return (
     <Form onSubmit={handleSubmit(handleFormSaveEdit)}>
       <FlexCont>
+        <Label>Name</Label>
         <InputAlt
           name="name"
           value={formData.name}
@@ -105,6 +109,7 @@ export default function EditCard({
         <Barra />
       </FlexCont>
       <FlexCont>
+        <Label>Price</Label>
         <InputAlt
           name="price"
           value={formData.price}
@@ -113,6 +118,7 @@ export default function EditCard({
         <Barra />
       </FlexCont>
       <FlexCont>
+        <Label>Amount of cleaning</Label>
         <InputAlt
           name="amountCleaning"
           value={formData.amountCleaning}
@@ -121,6 +127,7 @@ export default function EditCard({
         <Barra />
       </FlexCont>
       <FlexCont>
+        <Label>Experience</Label>
         <InputAlt
           name="experience"
           value={formData.experience}
@@ -129,6 +136,7 @@ export default function EditCard({
         <Barra />
       </FlexCont>
       <FlexCont>
+        <Label>Region</Label>
         <InputAlt
           name="region"
           value={formData.region}
