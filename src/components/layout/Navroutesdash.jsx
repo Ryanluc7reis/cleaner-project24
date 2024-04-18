@@ -7,12 +7,10 @@ import axios from 'axios'
 import Input from '../form/Input'
 
 const Container = styled.div`
-  width: auto;
+  width: 100%;
   height: auto;
 `
 const ContainerBox = styled.div`
-  width: 100%;
-  height: 70px;
   padding: 25px;
   display: flex;
   align-items: center;
@@ -95,7 +93,7 @@ export default function NavRoutesDash({
   const router = useRouter()
   const [userData, setUserData] = useContext(UserContext)
   const [clicked, setClicked] = useState(false)
-
+  const { user, userId } = userData
   const handleClick = (click) => {
     props.onClickDash(click === setClicked(!clicked))
   }
@@ -127,7 +125,7 @@ export default function NavRoutesDash({
       }
     }
     verifyUser()
-  }, [userData])
+  }, [])
   const handleLogout = async () => {
     try {
       const token = localStorage.getItem('token')
@@ -153,7 +151,7 @@ export default function NavRoutesDash({
           <Hamburguer onClick={handleClick} src={clicked ? '/x.png' : '/hamburgericon.png'} />
           <TypeRouteTitle>{getTypeRouteValue()}</TypeRouteTitle>
           <StyledFlex>
-            <h1 style={{ color: 'white' }}>Olá, {userData}</h1>
+            <h1 style={{ color: 'white' }}>Olá, {user}</h1>
             <ImgAvatar src="/avatar.png" />
             <ImgNotifications src="/bell.png" />
             <LogOut onClick={handleLogout}>Logout</LogOut>
@@ -172,7 +170,7 @@ export default function NavRoutesDash({
               </FlexInput>
               <Lupa src="/lupa.png" />
             </StyledFlexSearch>
-            <h1 style={{ color: 'blue' }}>Olá, {userData}</h1>
+            <h1 style={{ color: 'blue' }}>Olá, {user}</h1>
             <ImgAvatar src="/avatar.png" />
             <ImgNotifications src="/bell.png" />
             <LogOut onClick={handleLogout}>Logout</LogOut>

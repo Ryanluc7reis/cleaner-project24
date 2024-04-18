@@ -97,11 +97,10 @@ const ButtonAlt = styled(Button)`
 export default function SectionOne() {
   const router = useRouter()
   const [color, setColor] = useState(null)
-  const [valor, setValor] = useState('')
   const [error, setError] = useState(false)
   const [userData, setUserData] = useContext(UserContext)
   const [region, setRegion] = useContext(RegionContext)
-
+  const { user, userId } = userData
   const handleInputChange = (event) => {
     setRegion(event.target.value)
   }
@@ -130,13 +129,14 @@ export default function SectionOne() {
         setUserData(false)
       }
     }
+
     verifyUser()
   }, [setUserData])
 
   return (
     <ImageSectionOne>
       <BoxShadow>
-        {userData ? <Navbar username={userData} /> : <Navbar type1 />}
+        {user ? <Navbar username={user} /> : <Navbar type1 />}
         <StyledContainer1>
           <H2>Find Top Rated Cleaners!</H2>
           <StyledH5 id="input1">
