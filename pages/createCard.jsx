@@ -198,21 +198,21 @@ export default function CreateCardCleaner() {
             name="cleaning"
             onChange={(e) => handleChange('cleaning', e.target.value)} // Alteração aqui
             value={formData.cleaning}
-            typeCleaning
+            typeCleaningCreate
           />
           <Label>Type of cleaning 2</Label>
           <Selecter
             onChange={(e) => handleChange('cleaning2', e.target.value)} // Alteração aqui
             name="cleaning2"
             value={formData.cleaning2}
-            typeCleaning
+            typeCleaningCreate
           />
           <Label>Type of cleaning 3</Label>
           <Selecter
             onChange={(e) => handleChange('cleaning3', e.target.value)} // Alteração aqui
             name="cleaning3"
             value={formData.cleaning3}
-            typeCleaning
+            typeCleaningCreate
           />
         </FlexInputs>
 

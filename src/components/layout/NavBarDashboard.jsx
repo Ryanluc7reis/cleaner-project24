@@ -71,7 +71,7 @@ export default function NavBarDashboard({
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
   const findCleaner = async () => {
     try {
-      const response = await axios.get('http://localhost:3333/user/verify-user', {
+      const response = await axios.get('http://localhost:3333/user/verify-cleaner', {
         headers: { authorization: token }
       })
       const cleaner = response.data
