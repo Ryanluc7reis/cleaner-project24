@@ -1,41 +1,32 @@
 import styled from 'styled-components'
-import Input from '../form/Input'
-import Button from '../form/Button'
+import { useState, useEffect } from 'react'
+import { useSWRConfig } from 'swr'
+
 import NavRoutesDash from '../layout/Navroutesdash'
+import EditUserProfile from './EditUserProfile'
+import EditPassword from './EditPassword'
 
 const Container = styled.div`
-  width: auto;
+  width: 100%;
   height: auto;
 `
-const ContainerBox = styled.div`
-  width: auto;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-`
-const BoxCont = styled.div`
-  width: 400px;
+
+const BoxProfileImage = styled.div`
+  width: 442px;
   height: 360px;
-  background-color: #fff;
+
   border-radius: 15px;
+  background: white;
 `
-const BoxContAlt = styled(BoxCont)`
-  width: 590px;
-`
-const FlexBoxCont = styled.div`
-  display: flex;
-  margin-top: 50px;
-  padding: 35px 0px 35px 20px;
-  gap: 28px;
-`
+
 const BoxAvatar = styled.div`
   width: 300px;
   height: 80%;
   border-radius: 7px;
   display: flex;
-  margin: 20px 48px;
+  padding: 40px 55px;
+
   flex-direction: column;
-  padding: 20px 52px;
 `
 const Avatar = styled.img`
   width: 200px;
@@ -45,38 +36,7 @@ const Avatar = styled.img`
 
   border: 4px solid #1f1f8e;
 `
-const InputAlt = styled(Input)`
-  width: 270px;
-  padding: 10px;
-  background: transparent;
-  border: none;
-`
-const InputAlt1 = styled(Input)`
-  width: 390px;
-  padding: 10px;
-`
-const Barra = styled.div`
-  height: 1px;
-  width: 90%;
-  background-color: #2a2af3d3;
-`
-const BoxInputs = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  margin-top: 40px;
-  margin-left: 17px;
-`
-const ButtonAlt = styled(Button)`
-  height: 45px;
-  width: 170px;
-  margin: 25px 90px 0px 100px;
-`
-const ButtonAlt1 = styled(Button)`
-  height: 45px;
-  width: 170px;
-  margin-top: 45px;
-`
+
 const Label = styled.h2`
   padding: 9px;
   color: #a7a7a7;
@@ -102,115 +62,70 @@ const Edit = styled.h2`
     color: darkred;
   }
 `
-const FlexBoxAvatar = styled.div`
+const FlexContainer = styled.div`
   display: flex;
-  flex-direction: column;
+
+  gap: 20px;
+  padding: 25px;
 `
-const ContInput = styled.div`
-  display: flex;
-  flex-direction: column;
-`
-export default function Profile({ user, cleaner }) {
+
+export default function Profile({
+  id,
+  fullName,
+  user,
+  email,
+  password,
+  address,
+  number,
+  ...props
+}) {
+  const [editPassword, setEditPassword] = useState(false)
+
+  const { mutate } = useSWRConfig()
+
+  const handleSaveEdit = () => {
+    mutate(`http://localhost:3333/cleaner/editAbout`)
+  }
   return (
-    <Container>
-      {user && (
-        <ContainerBox>
-          <NavRoutesDash profile type1 />
-          <FlexBoxCont>
-            <BoxCont>
-              <FlexBoxAvatar>
-                <Label>Avatar</Label>
-                <BoxAvatar>
-                  <Avatar src="/avatar.png" />
-                  <EditAvatar>
-                    <Edit>Edit</Edit>
-                    <Remove>Remove</Remove>
-                  </EditAvatar>
-                </BoxAvatar>
-              </FlexBoxAvatar>
-            </BoxCont>
-            <BoxContAlt>
-              <Label>Account Details</Label>
-              <BoxInputs>
-                <ContInput>
-                  <InputAlt placeholder="First name" />
-                  <Barra />
-                </ContInput>
-                <ContInput>
-                  <InputAlt placeholder="Last name" />
-                  <Barra />
-                </ContInput>
-                <ContInput>
-                  <InputAlt placeholder="E-mail" />
-                  <Barra />
-                </ContInput>
-                <ContInput>
-                  <InputAlt placeholder="Phone" />
-                  <Barra />
-                </ContInput>
-                <ContInput>
-                  <InputAlt placeholder="Adress" />
-                  <Barra />
-                </ContInput>
-                <ContInput>
-                  <InputAlt placeholder="Region" />
-                  <Barra />
-                </ContInput>
-                <ButtonAlt1 valor="Save changes" />
-              </BoxInputs>
-            </BoxContAlt>
-          </FlexBoxCont>
-        </ContainerBox>
-      )}
-      {cleaner && (
-        <ContainerBox>
-          <NavRoutesDash profile type1 />
-          <FlexBoxCont>
-            <BoxCont>
-              <FlexBoxAvatar>
-                <Label>Avatar</Label>
-                <BoxAvatar>
-                  <Avatar src="/avatar.png" />
-                  <EditAvatar>
-                    <Edit>Edit</Edit>
-                    <Remove>Remove</Remove>
-                  </EditAvatar>
-                </BoxAvatar>
-              </FlexBoxAvatar>
-            </BoxCont>
-            <BoxContAlt>
-              <Label>Account Details</Label>
-              <BoxInputs>
-                <ContInput>
-                  <InputAlt placeholder="First name" />
-                  <Barra />
-                </ContInput>
-                <ContInput>
-                  <InputAlt placeholder="Last name" />
-                  <Barra />
-                </ContInput>
-                <ContInput>
-                  <InputAlt placeholder="E-mail" />
-                  <Barra />
-                </ContInput>
-                <ContInput>
-                  <InputAlt placeholder="Phone" />
-                  <Barra />
-                </ContInput>
-                <ContInput>
-                  <InputAlt placeholder="Adress" />
-                  <Barra />
-                </ContInput>
-                <ContInput>
-                  <InputAlt placeholder="Type of cleaning" />
-                  <Barra />
-                </ContInput>
-                <ButtonAlt1 valor="Save changes" />
-              </BoxInputs>
-            </BoxContAlt>
-          </FlexBoxCont>
-        </ContainerBox>
-      )}
+    <Container {...props}>
+      <NavRoutesDash profile type1 />
+      <FlexContainer>
+        <BoxProfileImage>
+          <Label>Avatar</Label>
+          <BoxAvatar>
+            <Avatar src="/avatar.png" />
+            <EditAvatar>
+              <Edit>Edit</Edit>
+              <Remove>Remove</Remove>
+            </EditAvatar>
+          </BoxAvatar>
+        </BoxProfileImage>
+        {editPassword ? (
+          <EditPassword
+            id={id}
+            fullName={fullName}
+            user={user}
+            email={email}
+            password={password}
+            address={address}
+            number={number}
+            onButton={() => setEditPassword(!editPassword)}
+            onSave={handleSaveEdit}
+          />
+        ) : (
+          <EditUserProfile
+            id={id}
+            fullName={fullName}
+            user={user}
+            email={email}
+            password={password}
+            address={address}
+            number={number}
+            onHandleButton={() => setEditPassword(!editPassword)}
+            onSave={handleSaveEdit}
+          />
+        )}
+      </FlexContainer>
     </Container>
   )
 }

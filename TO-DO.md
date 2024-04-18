@@ -1,7 +1,6 @@
-A ser feito em pages/plansScreen/booking -->
+A ser feito em pages/booking/booking-one -->
 
 - Estilizar formulario com uma imagem se os inputs tiverem valor true , se nao trata error  <!-- EM ANDAMENTO>
-- Integrar backend para cadastro
 
 A ser feito em ReviewScreen -->
 
@@ -9,7 +8,11 @@ A ser feito em ReviewScreen -->
 
 A ser feito em pages/plansScreen/selectCleaner -->
 
-- Buscar os cards de acordo com a regiao
+- Fazer a filtragem pela BoxFilter
+
+A ser feito em pages/plansScreen/index -->
+
+- Mudar para o calendario react
 
 A ser feito em pages/index -->
  - Fazer responsividade  de login quando for true/ adaptar o login em  dots quando a tela estiver responsiva
@@ -18,6 +21,17 @@ A ser feito em pages/index -->
 A ser feito em dashboard -->
  - Caso nao tiver alguem logado redirect para pagina inicial
 
- A ser feito em dashboard/profile -->
- - Quando o cleaner criar seu card , colocar opção para escolher regiao q ele irá atuar
+
+ A ser feito em plansScreen/index.jsx -->
+ - Arrumar o click para selecionar o plan 
+
+  A ser feito em plansScreen/index.jsx -->
+ - Arrumar layout booking-one
+
+
+
+
+
+ 
+ 
 

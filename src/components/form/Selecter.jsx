@@ -75,6 +75,7 @@ const Selecter = ({
   month,
   parcelas,
   typeCleaning,
+  typeCleaningCreate,
   cleaning,
   cleaning2,
   cleaning3,
@@ -174,6 +175,28 @@ const Selecter = ({
               {cleaning3}
             </option>
           ) : null}
+          <option style={{ fontSize: '14px' }} value="Wet manual cleaning">
+            Wet manual cleaning
+          </option>
+          <option style={{ fontSize: '14px' }} value="Window cleaning ">
+            Window cleaning
+          </option>
+          <option style={{ fontSize: '14px' }} value="Home apliance cleaning">
+            Home apliance cleaning{' '}
+          </option>
+          <option style={{ fontSize: '14px' }} value="Dry cleaning">
+            Dry cleaning{' '}
+          </option>
+          <option style={{ fontSize: '14px' }} value="Wet manual cleaning (water)">
+            Wet manual cleaning (water){' '}
+          </option>
+        </StyledSelecterAlt1>
+      )}
+      {typeCleaningCreate && (
+        <StyledSelecterAlt1>
+          <option style={{ fontSize: '12px' }} disabled="">
+            select your region
+          </option>
           <option style={{ fontSize: '14px' }} value="Wet manual cleaning">
             Wet manual cleaning
           </option>

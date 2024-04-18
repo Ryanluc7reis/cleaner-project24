@@ -13,16 +13,20 @@ const Form = styled.form`
   gap: 45px;
   justify-content: space-around;
 `
-const Label = styled.h2`
+const Label = styled.h3`
   color: #8080809d;
-  padding: 7px;
 `
 const FlexInputs = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
   gap: 18px;
+`
+const ButtonAlt = styled(Button)`
+  margin-left: 28px;
+  margin-top: 20px;
+  padding: 13px;
+  width: 170px;
 `
 export default function EditAbout({
   id,
@@ -56,8 +60,8 @@ export default function EditAbout({
     cleaning3: cleaning3
   })
 
-  const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
   const handleFormSaveEdit = async () => {
+    const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
     setLoading(true)
 
     const config = {
@@ -122,9 +126,9 @@ export default function EditAbout({
           typeCleaning
         />
 
-        <Button loading={loading} type="submit">
+        <ButtonAlt loading={loading} type="submit">
           {'Save changes'}
-        </Button>
+        </ButtonAlt>
       </FlexInputs>
     </Form>
   )
