@@ -12,8 +12,7 @@ import EditCard from '../../src/components/cardcleaner/EditCard'
 import About from '../../src/components/aboutcleaner/About'
 
 const Container = styled.div`
-  min-width: 100%;
-  width: auto;
+  width: 100%;
   min-height: 100vh;
   height: auto;
   background: #eaeaea;
@@ -81,12 +80,26 @@ const FlexProfileAndCard = styled.div`
 
 const ProfilePage = () => {
   const router = useRouter()
-  const [userData] = useContext(UserContext)
+  const [userData, setUserData] = useContext(UserContext)
+  const { user, userId } = userData
   const [card, setCard] = useState(null)
-  const [editCard, setEditCard] = useState(false)
   const [userCleaner, setUserCleaner] = useState(null)
+  const [userCurrentUserData, setCurrentUserData] = useState({})
+
   const { mutate } = useSWRConfig()
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
+
+  const findUser = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3333/user/findUser`, {
+        headers: { authorization: token }
+      })
+      const data = response.data
+      setCurrentUserData(data)
+    } catch (error) {
+      console.error('Erro ao obter os dados do cartão:', error)
+    }
+  }
   const getCard = async () => {
     try {
       const response = await axios.get('http://localhost:3333/cleaner/findCard', {
@@ -101,7 +114,7 @@ const ProfilePage = () => {
 
   const findCleaner = async () => {
     try {
-      const response = await axios.get('http://localhost:3333/user/verify-user', {
+      const response = await axios.get('http://localhost:3333/user/verify-cleaner', {
         headers: { authorization: token }
       })
       const cleaner = response.data
@@ -110,14 +123,15 @@ const ProfilePage = () => {
       console.error('Erro ao obter os dados do cartão:', error)
     }
   }
+
   const handleSaveEditCard = () => {
-    setEditCard(false)
     mutate(`http://localhost:3333/cleaner/editAbout`)
   }
   useEffect(() => {
     getCard()
+    findUser()
     findCleaner()
-  }, [])
+  }, [setUserCleaner, setCard, setCurrentUserData])
 
   return (
     <Container>
@@ -126,14 +140,21 @@ const ProfilePage = () => {
           <StyledFlex>
             <NavBarDashboard isProfile />
             <FlexProfileAndCard>
-              <Profile cleaner />
+              <Profile
+                id={userCurrentUserData._id}
+                fullName={userCurrentUserData.fullName}
+                user={userCurrentUserData.user}
+                email={userCurrentUserData.email}
+                password={userCurrentUserData.password}
+                address={userCurrentUserData.address}
+                number={userCurrentUserData.number}
+              />
               {userData && card ? (
                 <div>
                   <BoxCardCleaner>
                     <Label>Card cleaner</Label>
                     <FlexBoxCardCleaner>
                       <CardAlt
-                        key={card._id}
                         id={card._id}
                         name={card.name}
                         price={card.price}
@@ -144,7 +165,6 @@ const ProfilePage = () => {
                         none
                       />
                       <EditCard
-                        key={card._id}
                         id={card._id}
                         name={card.name}
                         price={card.price}
@@ -164,7 +184,6 @@ const ProfilePage = () => {
                     <Label>About Cleaner</Label>
                     {card && (
                       <About
-                        key={card._id}
                         id={card._id}
                         name={card.name}
                         price={card.price}
@@ -185,9 +204,12 @@ const ProfilePage = () => {
                   <Label>Card cleaner</Label>
                   <FlexBoxCardCleaner>
                     <CardAlt1 none />
-                    <CreateCard onClick={() => router.push('/createCard')}>
-                      Crie seu card
-                    </CreateCard>
+                    <div style={{ display: 'flex' }}>
+                      <CreateCard onClick={() => router.push('/createCard')}>
+                        Crie seu card
+                      </CreateCard>
+                      <img src="/arrowClick.png" width="25px" height="25px"></img>
+                    </div>
                   </FlexBoxCardCleaner>
                 </BoxCardCleaner>
               )}
@@ -198,7 +220,15 @@ const ProfilePage = () => {
         <FlexContainer>
           <StyledFlex>
             <NavBarDashboard isProfile />
-            <Profile cleaner />
+            <Profile
+              id={userCurrentUserData._id}
+              fullName={userCurrentUserData.fullName}
+              user={userCurrentUserData.user}
+              email={userCurrentUserData.email}
+              password={userCurrentUserData.password}
+              address={userCurrentUserData.address}
+              number={userCurrentUserData.number}
+            />
           </StyledFlex>
         </FlexContainer>
       )}
