@@ -1,10 +1,24 @@
 import styled from 'styled-components'
-import Input from '../form/Input'
-import Button from '../form/Button'
+import { UserContext } from '../../context/useContext'
 import Link from 'next/link'
 import { useState, useContext } from 'react'
 import axios from 'axios'
-import { UserContext } from '../../context/useContext'
+
+import Input from '../form/Input'
+import Button from '../form/Button'
+
+const Container = styled.div`
+  width: 100%;
+  min-height: 100vh;
+  background: #000000c1;
+  position: fixed;
+  z-index: 102;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
 
 const Form = styled.form`
   width: 330px;
@@ -60,7 +74,7 @@ const ErrorLabel = styled.span`
   font-weight: bold;
   font-size: 13px;
 `
-export default function LoginForm() {
+export default function LoginForm({ ...props }) {
   const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState({
     userOrEmail: '',
@@ -114,37 +128,43 @@ export default function LoginForm() {
       [name]: value
     })
   }
-
+  const handleClick = (event) => {
+    if (!event.target.closest('form')) {
+      props.onClose()
+    }
+  }
   return (
-    <Form onSubmit={onSubmit}>
-      <SignYourAcc>Sign in to your account</SignYourAcc>
-      <InputAlt
-        label="E-mail or username"
-        placeholder="E-mail  or username"
-        name="userOrEmail"
-        value={formData.userOrEmail}
-        onChange={handleChange}
-        error={error.userOrEmail}
-        required
-      />
-      {error.userOrEmail && <ErrorLabel>{error.userOrEmail}</ErrorLabel>}
-      <InputAlt
-        label="Password"
-        placeholder="Password"
-        password
-        name="password"
-        value={formData.password}
-        onChange={handleChange}
-        error={error.password}
-        required
-      />
-      {error.password && <ErrorLabel>{error.password}</ErrorLabel>}
-      <ButtonAlt loading={loading} type="submit">
-        Lets´go
-      </ButtonAlt>
-      <EsqueceuAsenha>
-        <Link href="/">Forgot you password ?</Link>{' '}
-      </EsqueceuAsenha>
-    </Form>
+    <Container onClick={handleClick}>
+      <Form onSubmit={onSubmit} onClick={(e) => e.stopPropagation()}>
+        <SignYourAcc>Sign in to your account</SignYourAcc>
+        <InputAlt
+          label="E-mail or username"
+          placeholder="E-mail  or username"
+          name="userOrEmail"
+          value={formData.userOrEmail}
+          onChange={handleChange}
+          error={error.userOrEmail}
+          required
+        />
+        {error.userOrEmail && <ErrorLabel>{error.userOrEmail}</ErrorLabel>}
+        <InputAlt
+          label="Password"
+          placeholder="Password"
+          password
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          error={error.password}
+          required
+        />
+        {error.password && <ErrorLabel>{error.password}</ErrorLabel>}
+        <ButtonAlt loading={loading} type="submit">
+          Lets´go
+        </ButtonAlt>
+        <EsqueceuAsenha>
+          <Link href="/">Forgot you password ?</Link>{' '}
+        </EsqueceuAsenha>
+      </Form>
+    </Container>
   )
 }

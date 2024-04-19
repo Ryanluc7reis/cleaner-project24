@@ -9,7 +9,7 @@ import Button from '../form/Button'
 const Container = styled.div`
   width: 100%;
   min-height: 100vh;
-  background: #ffffffc1;
+  background: #000000c1;
   position: fixed;
   z-index: 102;
   top: 0;

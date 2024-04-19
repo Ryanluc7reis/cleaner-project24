@@ -6,7 +6,6 @@ import Logo from '../logo/Logo'
 import Login from './Login'
 import Button from '../form/Button'
 import { UserContext } from '../../context/useContext'
-import { LoginContext } from '../../context/useContextLogin'
 
 const fadeIn = keyframes`
   from {
@@ -181,21 +180,7 @@ const LogoutAlt = styled(Logout)`
   font-size: 16px;
   font-weight: 600;
 `
-const LoginAlt = styled.div`
-  position: fixed;
-  z-index: 101;
-  width: 100%;
-  height: 100vh;
-  background: #ffffff58;
-  justify-content: center;
-  align-items: center;
-  display: ${(props) => (props.showLogin ? 'flex' : 'none')};
-`
-const ButttonLogin = styled(Button)`
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-`
+
 const Mydashboard = styled(Logout)``
 
 export default function Navbar({ type1, type2, username, ...props }) {
@@ -204,7 +189,6 @@ export default function Navbar({ type1, type2, username, ...props }) {
   const [showLogin, setShowLogin] = useState(false)
   const [userData, setUserData] = useContext(UserContext)
   const { user, userId } = userData
-  const [login, setLogin] = useContext(LoginContext)
   useEffect(() => {
     const handleClickOutSide = (event) => {
       if (!event.target.closest('#showD')) {
@@ -249,14 +233,17 @@ export default function Navbar({ type1, type2, username, ...props }) {
     }
   }
 
+  const handleClickOutsideEditAddress = () => {
+    if (showLogin) {
+      setShowLogin(false)
+    }
+  }
+
   return (
-    <Container {...props}>
+    <Container onClik={handleClickOutsideEditAddress} {...props}>
       {type1 && (
         <div>
-          <LoginAlt showLogin={showLogin}>
-            <Login />
-            <ButttonLogin onClick={() => setShowLogin(false)}>close</ButttonLogin>
-          </LoginAlt>
+          {showLogin && <Login onClose={() => setShowLogin(!showLogin)} />}
           <StyledNavBarAlt>
             <Logo onClick={() => router.push('/')} />
             <NavOptions show={showD}>
@@ -316,16 +303,13 @@ export default function Navbar({ type1, type2, username, ...props }) {
             </div>
           ) : (
             <div>
-              <LoginAlt showLogin={login}>
-                <Login />
-                <ButttonLogin onClick={() => setLogin(false)}>close</ButttonLogin>
-              </LoginAlt>
+              {showLogin && <Login onClose={() => setShowLogin(!showLogin)} />}
               <StyledNavbar>
                 <Logo colorblue />
                 <FlexLogin>
                   <CardsLogo src="/metodosPay1.jpg" height="45px" width="133px" />
                   <BarraAlt />
-                  <OptionsAlt onClick={() => setLogin(true)}>LOG-IN</OptionsAlt>
+                  <OptionsAlt onClick={() => setShowLogin(!showLogin)}>LOG-IN</OptionsAlt>
                 </FlexLogin>
               </StyledNavbar>
             </div>
