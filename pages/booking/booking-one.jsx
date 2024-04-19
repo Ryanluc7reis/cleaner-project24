@@ -4,11 +4,13 @@ import { useRouter } from 'next/router'
 import { UserContext } from '../../src/context/useContext'
 import dynamic from 'next/dynamic'
 import axios from 'axios'
+import useSWRConfig from 'swr'
 
 import Navbar from '../../src/components/layout/Navbar'
 import Button from '../../src/components/form/Button'
 import Steps from '../../src/components/steps/Steps'
 import SignupByBooking from '../../src/components/signupbybooking/SignupByBooking'
+import EditAddress from '../../src/components/profile/EditAddress'
 
 const Container = styled.div`
   width: 100%;
@@ -108,7 +110,8 @@ function Booking() {
   const [userData, setUserData] = useContext(UserContext)
   const { user, userId } = userData
   const [userCurrentUserData, setCurrentUserData] = useState({})
-
+  const [showEditAddress, setShowEditAddress] = useState(false)
+  const { mutate } = useSWRConfig()
   const router = useRouter()
   const Plan = typeof window !== 'undefined' ? localStorage.getItem('Plan') : null
   const Date = typeof window !== 'undefined' ? localStorage.getItem('Date') : null
@@ -130,11 +133,21 @@ function Booking() {
       console.error('Erro ao obter os dados do cartão:', error)
     }
   }
+
+  const handleSaveEdit = () => {
+    mutate(`http://localhost:3333/cleaner/editAbout`)
+  }
   useEffect(() => {
     findUser()
-  }, [user])
+  }, [user, showEditAddress])
+  const handleClickOutsideEditAddress = () => {
+    if (showEditAddress) {
+      setShowEditAddress(false)
+    }
+  }
+
   return (
-    <Container>
+    <Container onClick={handleClickOutsideEditAddress}>
       <NavBarAlt type2 />
       <Steps type1 />
       <PaymentAndRegister>
@@ -143,10 +156,24 @@ function Booking() {
             <h1>Olá, {user}</h1>
             <h1>Seu serviço será no endereço ({userCurrentUserData.address}) ?</h1>
             <Button onClick={() => router.push('/booking/booking-two')}> Yes! Pay now</Button>
-            <Button onClick={() => router.push('/booking/booking-two')}>
+            <Button onClick={() => setShowEditAddress(!showEditAddress)}>
               {' '}
               No! I want to change my address
             </Button>
+            {showEditAddress && (
+              <EditAddress
+                onButtonClose={() => setShowEditAddress(!showEditAddress)}
+                onClose={() => setShowEditAddress(!showEditAddress)}
+                id={userId}
+                fullName={userCurrentUserData.fullName}
+                user={user}
+                email={userCurrentUserData.email}
+                password={userCurrentUserData.password}
+                address={userCurrentUserData.address}
+                number={userCurrentUserData.number}
+                onSave={handleSaveEdit}
+              />
+            )}
           </ConfirmationToPay>
         ) : (
           <SignupByBooking />
