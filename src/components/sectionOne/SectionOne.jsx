@@ -104,9 +104,10 @@ export default function SectionOne() {
   const handleInputChange = (event) => {
     setRegion(event.target.value)
   }
+  console.log(region)
   const handleSubmit = () => {
     setColor(true)
-    if (region.length < 3 || region.length < 4) {
+    if (region === '') {
       setError(true)
       setColor(false)
     } else {
