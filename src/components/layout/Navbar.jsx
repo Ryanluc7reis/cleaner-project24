@@ -1,11 +1,12 @@
 import styled, { keyframes } from 'styled-components'
 import { useRouter } from 'next/router'
 import { useState, useEffect, useContext } from 'react'
+
 import axios from 'axios'
 import Logo from '../logo/Logo'
 import Login from './Login'
-import Button from '../form/Button'
 import { UserContext } from '../../context/useContext'
+import { LoginContext } from '../../context/useContextLogin'
 
 const fadeIn = keyframes`
   from {
@@ -187,6 +188,7 @@ export default function Navbar({ type1, type2, username, ...props }) {
   const router = useRouter()
   const [showD, setShowD] = useState(false)
   const [showLogin, setShowLogin] = useState(false)
+  const [login, setLogin] = useContext(LoginContext)
   const [userData, setUserData] = useContext(UserContext)
   const { user, userId } = userData
   useEffect(() => {
@@ -238,12 +240,20 @@ export default function Navbar({ type1, type2, username, ...props }) {
       setShowLogin(false)
     }
   }
+  const handleClickOutsideLogin = () => {
+    if (login) {
+      setLogin(false)
+    }
+  }
 
+  const handleLogin = () => {
+    setShowLogin(!showLogin)
+  }
   return (
     <Container onClik={handleClickOutsideEditAddress} {...props}>
       {type1 && (
         <div>
-          {showLogin && <Login onClose={() => setShowLogin(!showLogin)} />}
+          {showLogin && <Login onClose={handleLogin} />}
           <StyledNavBarAlt>
             <Logo onClick={() => router.push('/')} />
             <NavOptions show={showD}>
@@ -303,13 +313,15 @@ export default function Navbar({ type1, type2, username, ...props }) {
             </div>
           ) : (
             <div>
-              {showLogin && <Login onClose={() => setShowLogin(!showLogin)} />}
+              {(showLogin && <Login onClose={handleLogin} />) ||
+                (login && <Login onClose={handleClickOutsideLogin} />)}
+
               <StyledNavbar>
                 <Logo colorblue />
                 <FlexLogin>
                   <CardsLogo src="/metodosPay1.jpg" height="45px" width="133px" />
                   <BarraAlt />
-                  <OptionsAlt onClick={() => setShowLogin(!showLogin)}>LOG-IN</OptionsAlt>
+                  <OptionsAlt onClick={handleLogin}>LOG-IN</OptionsAlt>
                 </FlexLogin>
               </StyledNavbar>
             </div>

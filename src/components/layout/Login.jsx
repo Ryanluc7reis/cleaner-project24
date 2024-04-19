@@ -1,11 +1,11 @@
 import styled from 'styled-components'
-import { UserContext } from '../../context/useContext'
 import Link from 'next/link'
 import { useState, useContext } from 'react'
 import axios from 'axios'
 
 import Input from '../form/Input'
 import Button from '../form/Button'
+import { UserContext } from '../../context/useContext'
 
 const Container = styled.div`
   width: 100%;
@@ -82,6 +82,7 @@ export default function LoginForm({ ...props }) {
   })
   const [error, setError] = useState({})
   const [userData, setUserData] = useContext(UserContext)
+
   const onSubmit = async (e) => {
     e.preventDefault()
     try {
@@ -133,6 +134,7 @@ export default function LoginForm({ ...props }) {
       props.onClose()
     }
   }
+
   return (
     <Container onClick={handleClick}>
       <Form onSubmit={onSubmit} onClick={(e) => e.stopPropagation()}>

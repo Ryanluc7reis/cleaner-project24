@@ -19,8 +19,8 @@ const Container = styled.div`
   justify-content: center;
 `
 const Form = styled.form`
-  width: 400px;
-  height: 250px;
+  width: 360px;
+  height: 220px;
   border-radius: 10px;
   background: #3030f0;
   display: flex;

@@ -197,11 +197,11 @@ const FlexButton = styled.div`
   bottom: -18%;
   left: 16%;
 `
-export default function SignupByBooking() {
+export default function SignupByBooking({ ...props }) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState({})
-  const [login, setLogin] = useContext(LoginContext)
   const [boxSelected, setBoxSelected] = useState(Boolean)
+  const [login, setLogin] = useContext(LoginContext)
   const [formData, setFormData] = useState({
     fullName: '',
     user: '',
@@ -263,6 +263,7 @@ export default function SignupByBooking() {
       setLoading(false)
     }
   }
+
   return (
     <Conatiner>
       <Title>Ready to book? Set your account details</Title>
