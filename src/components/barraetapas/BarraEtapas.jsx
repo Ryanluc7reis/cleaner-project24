@@ -407,7 +407,7 @@ export default function BarraEtapas() {
         <Barra />
         <FlexEtapas isClicked={isFlexEtapasClicked3}>
           <StyledEtapas>
-            <Etapas>{UpdateHour ? UpdateHour : selectedHour}</Etapas>
+            <Etapas>{UpdateHour ? UpdateHour : selectedDuration}</Etapas>
             <SubEtapas>DURATION</SubEtapas>
           </StyledEtapas>
           <SetaDown
@@ -434,7 +434,7 @@ export default function BarraEtapas() {
         <Barra />
         <FlexEtapas isClicked={isFlexEtapasClicked4}>
           <StyledEtapas>
-            <Etapas>{UpdateStartTime ? UpdateStartTime : selectedDuration}</Etapas>
+            <Etapas>{UpdateStartTime ? UpdateStartTime : selectedHour}</Etapas>
             <SubEtapas>STARTING TIME</SubEtapas>
           </StyledEtapas>
           <SetaDown

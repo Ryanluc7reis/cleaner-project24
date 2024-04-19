@@ -174,6 +174,9 @@ export default function ListCleaners({ selectedPrice, selectedClean, region, ...
     setCleaner(sortData.length)
   }, [sortData.length])
 
+  if (error) return <div>Erro ao carregar os dados</div>
+  if (!data) return <div>Carregando...</div>
+
   if (filterData.length === 0) {
     return <div>Nenhum resultado encontrado.</div>
   }
