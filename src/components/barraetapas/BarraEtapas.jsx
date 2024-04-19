@@ -342,7 +342,7 @@ export default function BarraEtapas() {
   }
   const updateStatTime = (newStartTime) => {
     setUpdateStartTime(newStartTime)
-    localStorage.setItem('Hour', newStartTime)
+    localStorage.setItem('Time', newStartTime)
     setBoxStartTime(!BoxStartTime)
   }
   const updateDate = (date) => {

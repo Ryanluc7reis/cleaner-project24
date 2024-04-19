@@ -8,8 +8,6 @@ import Cards from '../../src/components/cardsplan/Cards'
 import Navbar from '../../src/components/layout/Navbar'
 import BasicDateCalendar from '../../src/components/calendario/Calendario'
 import Button from '../../src/components/form/Button'
-import Logo from '../../src/components/logo/Logo'
-import Login from '../../src/components/layout/Login'
 
 const DateCalendarAlt = styled(BasicDateCalendar)`
   background: #ebf0f3;
@@ -55,31 +53,7 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
 `
-const LogoAlt = styled(Logo)`
-  margin-left: 40px;
-  color: #242c99b7;
-  @media (max-width: 670px) {
-    margin: 0;
-    padding-top: 10px;
-  }
-`
-const StyledLogin = styled.h5`
-  cursor: pointer;
-  font-size: 22px;
-  color: #242c99b7;
-  margin-right: 15px;
-  margin-top: 18px;
-  font-weight: 600;
-  transition: all 200ms ease-in-out;
-  :hover {
-    color: #677cb76d;
-  }
-`
 
-const FlexLogin = styled.div`
-  display: flex;
-  gap: 13px;
-`
 const Barra = styled.div`
   width: 2px;
   height: 45px;
@@ -419,7 +393,7 @@ function HomePlansScreen({ ...props }) {
   const [dateChosen, setDateChosen] = useState(false)
   const [hourChosen, setHourChosen] = useState(false)
   const [startHourChosen, setStartHourChosen] = useState(false)
-  const [selectedDuration, setSelectedDuration] = useState('')
+  const [selectedDuration, setSelectedDuration] = useState(null)
   const [showBoxHour, setshowBoxHour] = useState(false)
   const [listHour2, setListHour2] = useState(null)
   const [isRightArrowDisabled, setRightArrowDisabled] = useState(false)
@@ -446,9 +420,9 @@ function HomePlansScreen({ ...props }) {
         selectedDuration: selectedDuration
       })
       localStorage.setItem('Plan', cardValues[activeCard])
-      localStorage.setItem('Duration', selectedDuration)
+      localStorage.setItem('Time', selectedHour)
       localStorage.setItem('Date', selectedDate)
-      localStorage.setItem('Hour', selectedHour)
+      localStorage.setItem('Duration', selectedDuration)
       router.push(`/plansScreen/selectCleaner?${queryParams.toString()}`)
     }
   }
@@ -456,7 +430,6 @@ function HomePlansScreen({ ...props }) {
 
   const updateDuration = (clickedWord) => {
     setSelectedDuration(clickedWord)
-    setshowBoxHour(!showBoxHour)
     setStartHourChosen(true)
     updateProgress()
   }
@@ -470,6 +443,7 @@ function HomePlansScreen({ ...props }) {
   }
   const handleClickHour = (hour) => {
     setSelectedHour((prevHour) => (prevHour === hour ? null : hour))
+    setshowBoxHour(!showBoxHour)
     setHourChosen(true)
     updateProgress()
   }
@@ -529,12 +503,12 @@ function HomePlansScreen({ ...props }) {
           </FlexEtapas>
           <Barra />
           <FlexEtapas>
-            <Etapas>{selectedHour || '-'}</Etapas>
+            <Etapas>{selectedDuration || '-'}</Etapas>
             <SubEtapas>DURATION</SubEtapas>
           </FlexEtapas>
           <Barra />
           <FlexEtapas>
-            <Etapas>{selectedDuration || '-'}</Etapas>
+            <Etapas>{selectedHour || '-'}</Etapas>
             <SubEtapas>STARTING TIME</SubEtapas>
           </FlexEtapas>
         </DivEtapas>
@@ -579,8 +553,8 @@ function HomePlansScreen({ ...props }) {
                   >
                     {' '}
                     <ContHour
-                      isSelected={selectedHour === `${item} hours`}
-                      onClick={() => handleClickHour(`${item} hours`)}
+                      isSelected={selectedDuration === `${item} hours`}
+                      onClick={() => updateDuration(`${item} hours`)}
                     >
                       <OptionHour>{item}</OptionHour>
                       <Hours>hours</Hours>
@@ -599,8 +573,8 @@ function HomePlansScreen({ ...props }) {
                   >
                     {' '}
                     <ContHour
-                      isSelected={selectedHour === `${item} hours`}
-                      onClick={() => handleClickHour(`${item} hours`)}
+                      isSelected={selectedDuration === `${item} hours`}
+                      onClick={() => updateDuration(`${item} hours`)}
                     >
                       <OptionHour>{item}</OptionHour>
                       <Hours>hours</Hours>
@@ -619,12 +593,10 @@ function HomePlansScreen({ ...props }) {
         </FlexSeta>
         <TilteText>Starts at</TilteText>
         <SubTitle>Click and choose your startint time</SubTitle>
-        <InputHour onClick={() => setshowBoxHour(!showBoxHour)}>
-          {selectedDuration || '-'}
-        </InputHour>
+        <InputHour onClick={() => setshowBoxHour(!showBoxHour)}>{selectedHour || '-'}</InputHour>
         <BoxHours showBoxHour={showBoxHour}>
           {ListStartHours.map((item, indice) => (
-            <TypesHours key={indice} onClick={() => updateDuration(`${item} `)}>
+            <TypesHours key={indice} onClick={() => handleClickHour(`${item} `)}>
               {item}
             </TypesHours>
           ))}
