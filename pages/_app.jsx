@@ -2,6 +2,7 @@ import { createGlobalStyle, ThemeProvider } from 'styled-components'
 import { UserProvider } from '../src/context/useContext'
 import { LoginProvider } from '../src/context/useContextLogin'
 import { RegionProvider } from '../src/context/useContextRegion'
+import { CleanerAvailableProvider } from '../src/context/useContextCleanersAvailable'
 
 import theme from '../theme'
 
@@ -27,18 +28,20 @@ h1,h2,h3,h4,h5 {
  `
 function MyApp({ Component, pageProps }) {
   return (
-    <RegionProvider>
-      <LoginProvider>
-        <UserProvider>
-          <ThemeProvider theme={theme}>
-            <>
-              <Component {...pageProps} />
-              <GlobalStyles />
-            </>
-          </ThemeProvider>
-        </UserProvider>
-      </LoginProvider>
-    </RegionProvider>
+    <CleanerAvailableProvider>
+      <RegionProvider>
+        <LoginProvider>
+          <UserProvider>
+            <ThemeProvider theme={theme}>
+              <>
+                <Component {...pageProps} />
+                <GlobalStyles />
+              </>
+            </ThemeProvider>
+          </UserProvider>
+        </LoginProvider>
+      </RegionProvider>
+    </CleanerAvailableProvider>
   )
 }
 

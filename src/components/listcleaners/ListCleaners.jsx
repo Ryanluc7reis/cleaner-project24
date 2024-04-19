@@ -1,8 +1,8 @@
 import styled from 'styled-components'
-import { useState, useContext } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
 import useSWR from 'swr'
-import { RegionContext } from '../../context/useContextRegion'
+import { CleanerAvailable } from '../../context/useContextCleanersAvailable'
 
 import Card from '../cardcleaner/Card'
 import SelectedCleaner from './SelectedCleaner'
@@ -109,11 +109,11 @@ const fetcher = async (url) => {
   return response.data
 }
 
-export default function ListCleaners() {
+export default function ListCleaners({ selectedPrice, selectedClean, region, ...props }) {
   const [showOption, setshowOption] = useState(false)
   const [updateShortby, setupdateShortby] = useState(null)
   const [selectedCleaner, setSelectedCleaner] = useState(null)
-  const [region, setRegion] = useContext(RegionContext)
+  const [cleaners, setCleaner] = useContext(CleanerAvailable)
 
   const listOption = [
     'Relevance',
@@ -131,12 +131,23 @@ export default function ListCleaners() {
   }
 
   const { data, error } = useSWR(`http://localhost:3333/cleaner/getCards`, fetcher)
-  if (error) return <div>Erro ao carregar os dados</div>
-  if (!data) return <div>Carregando...</div>
 
   const lowerRegion = region.toLowerCase()
-  let filterData = data.filter((card) => card.region.toLowerCase().includes(lowerRegion))
+  let filterData = data
+    ? data.filter((card) => card.region.toLowerCase().includes(lowerRegion))
+    : []
 
+  if (selectedPrice) {
+    const selectedPriceNumeric = selectedPrice.replace(/[^\d.-]/g, '')
+    filterData = filterData.filter((card) => {
+      const cardPriceNumeric = card.price.replace(/[^\d.-]/g, '')
+
+      return cardPriceNumeric.includes(selectedPriceNumeric)
+    })
+  }
+  if (selectedClean) {
+    filterData = filterData.filter((card) => card.amountCleaning >= parseInt(selectedClean))
+  }
   let sortData = [...filterData]
   switch (updateShortby) {
     case 'Price high to low':
@@ -159,8 +170,16 @@ export default function ListCleaners() {
       break
   }
 
+  useEffect(() => {
+    setCleaner(sortData.length)
+  }, [sortData.length])
+
+  if (filterData.length === 0) {
+    return <div>Nenhum resultado encontrado.</div>
+  }
+
   return (
-    <ContListCleaners>
+    <ContListCleaners {...props}>
       <FilterSortby showOption={showOption} onClick={() => setshowOption(!showOption)}>
         <Sortby>Sort by:</Sortby>
         <SortSub>{updateShortby || 'Relevance'}</SortSub>

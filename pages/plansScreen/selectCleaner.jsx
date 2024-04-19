@@ -1,5 +1,6 @@
 import styled from 'styled-components'
-import dynamic from 'next/dynamic'
+import { useState, useContext } from 'react'
+import { RegionContext } from '../../src/context/useContextRegion'
 
 import ListCleaners from '../../src/components/listcleaners/ListCleaners'
 import BoxFilter from '../../src/components/listcleaners/BoxFilter'
@@ -8,12 +9,14 @@ import Navbar from '../../src/components/layout/Navbar'
 
 const Container = styled.div`
   width: 100%;
+  min-height: 100vh;
   height: auto;
 `
 
 const ContBody = styled.div`
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
+  height: auto;
   display: flex;
   background: #edededaf;
   @media (max-width: 712px) {
@@ -25,16 +28,20 @@ const ContBody = styled.div`
   }
 `
 
-function SelectCleaner() {
+export default function SelectCleaner() {
+  const [selectedPrice, setSelectedPrice] = useState(null)
+  const [selectedClean, setSelectedClean] = useState(null)
+  const [cleanersCount, setCleanersCount] = useState(0)
+  const [region, setRegion] = useContext(RegionContext)
+
   return (
     <Container>
       <Navbar style={{ background: '#edededaf' }} type2 />
       <BarraEtapas />
       <ContBody>
-        <BoxFilter />
-        <ListCleaners />
+        <BoxFilter onPriceSelect={setSelectedPrice} onCleanSelect={setSelectedClean} />
+        <ListCleaners selectedPrice={selectedPrice} selectedClean={selectedClean} region={region} />
       </ContBody>
     </Container>
   )
 }
-export default dynamic(() => Promise.resolve(SelectCleaner), { ssr: false })

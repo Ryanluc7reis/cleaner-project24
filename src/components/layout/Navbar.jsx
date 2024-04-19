@@ -196,6 +196,7 @@ export default function Navbar({ type1, type2, username, ...props }) {
   const [showD, setShowD] = useState(false)
   const [showLogin, setShowLogin] = useState(false)
   const [userData, setUserData] = useContext(UserContext)
+  const { user, userId } = userData
   const [login, setLogin] = useContext(LoginContext)
   useEffect(() => {
     const handleClickOutSide = (event) => {
@@ -279,14 +280,14 @@ export default function Navbar({ type1, type2, username, ...props }) {
 
       {type2 && (
         <div>
-          {userData ? (
+          {user ? (
             <div>
               <StyledNavbar>
                 <Logo colorblue />
                 <FlexLogin>
                   <CardsLogo src="/metodosPay1.jpg" height="45px" width="133px" />
                   <BarraAlt />
-                  <OptionsAlt>Olá, {userData}</OptionsAlt>
+                  <OptionsAlt>Olá, {user}</OptionsAlt>
                 </FlexLogin>
               </StyledNavbar>
             </div>
