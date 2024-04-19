@@ -1,8 +1,9 @@
 import styled from 'styled-components'
-import { useState, useContext } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useRouter } from 'next/router'
 import { UserContext } from '../../src/context/useContext'
 import dynamic from 'next/dynamic'
+import axios from 'axios'
 
 import Navbar from '../../src/components/layout/Navbar'
 import Button from '../../src/components/form/Button'
@@ -105,14 +106,33 @@ const ConfirmationToPay = styled.div`
 `
 function Booking() {
   const [userData, setUserData] = useContext(UserContext)
+  const { user, userId } = userData
+  const [userCurrentUserData, setCurrentUserData] = useState({})
 
   const router = useRouter()
   const Plan = typeof window !== 'undefined' ? localStorage.getItem('Plan') : null
   const Date = typeof window !== 'undefined' ? localStorage.getItem('Date') : null
-  const Hour = typeof window !== 'undefined' ? localStorage.getItem('Hour') : null
   const Duration = typeof window !== 'undefined' ? localStorage.getItem('Duration') : null
+  const Time = typeof window !== 'undefined' ? localStorage.getItem('Time') : null
   const PriceH = typeof window !== 'undefined' ? localStorage.getItem('PriceH') : null
+  const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
+  const rate = 8.5
+  const totalPrice = PriceH ? (parseFloat(PriceH) * parseFloat(Duration) + rate).toFixed(2) : null
 
+  const findUser = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3333/user/findUser`, {
+        headers: { authorization: token }
+      })
+      const data = response.data
+      setCurrentUserData(data)
+    } catch (error) {
+      console.error('Erro ao obter os dados do cartão:', error)
+    }
+  }
+  useEffect(() => {
+    findUser()
+  }, [user])
   return (
     <Container>
       <NavBarAlt type2 />
@@ -120,8 +140,8 @@ function Booking() {
       <PaymentAndRegister>
         {userData ? (
           <ConfirmationToPay>
-            <h1>Olá, {userData}</h1>
-            <h1>Seu serviço será no endereço (Rua Monaco 646,B. BELFOROXO) ?</h1>
+            <h1>Olá, {user}</h1>
+            <h1>Seu serviço será no endereço ({userCurrentUserData.address}) ?</h1>
             <Button onClick={() => router.push('/booking/booking-two')}> Yes! Pay now</Button>
             <Button onClick={() => router.push('/booking/booking-two')}>
               {' '}
@@ -150,8 +170,8 @@ function Booking() {
             </DescText>
             <Barra />
             <DescText>
-              <TitleText>Time:</TitleText>
-              <DataText>{Hour}</DataText>
+              <TitleText>Starting Time:</TitleText>
+              <DataText>{Time}</DataText>
             </DescText>
             <Barra />
             <DescText>
@@ -161,12 +181,12 @@ function Booking() {
             <Barra />
             <DescText>
               <TitleText>Total price:</TitleText>
-              <DataText>{PriceH}</DataText>
+              <DataText>{totalPrice}</DataText>
             </DescText>
             <Barra />
             <DescText>
               <TitleTextAlt>Total cost:</TitleTextAlt>
-              <DataTextAlt>{PriceH}</DataTextAlt>
+              <DataTextAlt>{totalPrice}</DataTextAlt>
             </DescText>
             <Barra />
             <TextAlt>

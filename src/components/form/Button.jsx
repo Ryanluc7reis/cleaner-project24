@@ -39,7 +39,7 @@ export default function Button({ children, disabled, loading, arrowButton, ...pr
   return (
     <StyledButton disabled={disabled || loading} {...props}>
       {props.valor ? props.valor : ''}
-      {loading && <img src="./loader.svg" width="15px" />}
+      {loading && <img src="/loader.svg" width="15px" />}
       {!loading && children}
       {arrowButton === true && <SetaButton src="/arrowrightWhite.png" />}
       {arrowButton === false && <RightButton src="/Whitecheck.png" />}

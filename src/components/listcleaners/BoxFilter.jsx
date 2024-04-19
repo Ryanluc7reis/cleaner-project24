@@ -1,5 +1,6 @@
 import styled from 'styled-components'
-import { useState } from 'react'
+import { useState, useEffect, useContext } from 'react'
+import { CleanerAvailable } from '../../context/useContextCleanersAvailable'
 
 const Container = styled.div`
   width: 450px;
@@ -101,13 +102,15 @@ const FlexHeader = styled.div`
   align-items: center;
   gap: 10px;
 `
-export default function BoxFilter(props) {
+export default function BoxFilter({ onCleanersCountChange, ...props }) {
   const [selectPrice, setselectPrice] = useState(null)
   const [updatePrice, setupdatePrice] = useState(null)
   const [selectMinimumCleans, setMinimumCleans] = useState(null)
   const [updateCleans, setupdateCleans] = useState(null)
   const [opacity, setOpacity] = useState(null)
+  const [cleaners, setCleaner] = useContext(CleanerAvailable)
   const Prices = [
+    'All',
     '$ 18p/h',
     '$ 19p/h',
     '$ 20p/h',
@@ -120,9 +123,14 @@ export default function BoxFilter(props) {
   const Cleans = ['-10', '+15', '+30', '+50', '+100']
   const handlePrice = (selectedprice) => {
     setupdatePrice(selectedprice)
+
+    props.onPriceSelect(selectedprice)
   }
+
   const handleClean = (selectedclean) => {
     setupdateCleans(selectedclean)
+
+    props.onCleanSelect(selectedclean)
   }
   const renderStars = () => {
     const numberOfStars = 5
@@ -135,10 +143,11 @@ export default function BoxFilter(props) {
       />
     ))
   }
+
   return (
     <Container>
       <FlexHeader>
-        <HeaderAlt>Filter: 1</HeaderAlt>
+        <HeaderAlt>Filter: {cleaners}</HeaderAlt>
         <HeaderAlt1>cleaners available</HeaderAlt1>
       </FlexHeader>
       <Flexfilters>

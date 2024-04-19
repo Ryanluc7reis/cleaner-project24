@@ -146,12 +146,13 @@ const Barra = styled.div`
 `
 const FlexLogin = styled.div`
   display: flex;
+
   gap: 13px;
 `
 const CardsLogo = styled.img`
   margin-top: 8px;
 `
-const OptionsAlt = styled(Options)`
+const OptionsAlt = styled.a`
   cursor: pointer;
   font-size: 22px;
   color: #242c99b7;
@@ -173,6 +174,12 @@ const Logout = styled.a`
   color: white;
   cursor: pointer;
   font-size: 13px;
+`
+const LogoutAlt = styled(Logout)`
+  margin-top: 23px;
+  color: #242c99b7;
+  font-size: 16px;
+  font-weight: 600;
 `
 const LoginAlt = styled.div`
   position: fixed;
@@ -196,6 +203,7 @@ export default function Navbar({ type1, type2, username, ...props }) {
   const [showD, setShowD] = useState(false)
   const [showLogin, setShowLogin] = useState(false)
   const [userData, setUserData] = useContext(UserContext)
+  const { user, userId } = userData
   const [login, setLogin] = useContext(LoginContext)
   useEffect(() => {
     const handleClickOutSide = (event) => {
@@ -205,8 +213,23 @@ export default function Navbar({ type1, type2, username, ...props }) {
     }
 
     document.addEventListener('click', handleClickOutSide, true)
-  }, [setShowLogin])
+    verifyUser()
+  }, [setShowLogin, setUserData])
 
+  const verifyUser = async () => {
+    try {
+      const token = localStorage.getItem('token')
+      const response = await axios.get('http://localhost:3333/user/verify-session', {
+        headers: {
+          authorization: token
+        }
+      })
+      setUserData(response.data)
+    } catch (error) {
+      console.error('Erro ao verificar sessão:', error)
+      setUserData(false)
+    }
+  }
   const handleLogout = async () => {
     try {
       const token = localStorage.getItem('token')
@@ -279,14 +302,15 @@ export default function Navbar({ type1, type2, username, ...props }) {
 
       {type2 && (
         <div>
-          {userData ? (
+          {user ? (
             <div>
               <StyledNavbar>
                 <Logo colorblue />
                 <FlexLogin>
                   <CardsLogo src="/metodosPay1.jpg" height="45px" width="133px" />
                   <BarraAlt />
-                  <OptionsAlt>Olá, {userData}</OptionsAlt>
+                  <OptionsAlt>Olá, {user}</OptionsAlt>
+                  <LogoutAlt onClick={handleLogout}>Logout</LogoutAlt>
                 </FlexLogin>
               </StyledNavbar>
             </div>
