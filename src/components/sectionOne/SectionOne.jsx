@@ -106,7 +106,7 @@ export default function SectionOne() {
   }
   const handleSubmit = () => {
     setColor(true)
-    if (region.length < 3 || region.length < 4) {
+    if (region === '') {
       setError(true)
       setColor(false)
     } else {

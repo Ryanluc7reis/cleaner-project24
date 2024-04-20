@@ -195,7 +195,7 @@ const Selecter = ({
       {typeCleaningCreate && (
         <StyledSelecterAlt1>
           <option style={{ fontSize: '12px' }} disabled="">
-            select your region
+            Select your cleaning
           </option>
           <option style={{ fontSize: '14px' }} value="Wet manual cleaning">
             Wet manual cleaning

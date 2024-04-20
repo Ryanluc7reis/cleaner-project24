@@ -131,7 +131,7 @@ const ProfilePage = () => {
     getCard()
     findUser()
     findCleaner()
-  }, [setUserCleaner, setCard, setCurrentUserData])
+  }, [])
 
   return (
     <Container>

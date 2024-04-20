@@ -4,18 +4,20 @@ import { useRouter } from 'next/router'
 import { UserContext } from '../../src/context/useContext'
 import dynamic from 'next/dynamic'
 import axios from 'axios'
+import useSWRConfig from 'swr'
 
 import Navbar from '../../src/components/layout/Navbar'
 import Button from '../../src/components/form/Button'
 import Steps from '../../src/components/steps/Steps'
 import SignupByBooking from '../../src/components/signupbybooking/SignupByBooking'
+import EditAddress from '../../src/components/profile/EditAddress'
+import Selecter from '../../src/components/form/Selecter'
 
 const Container = styled.div`
   width: 100%;
   min-height: 100vh;
   height: auto;
   background: #f3f3f3;
-  display: ${(props) => (props.isNone ? 'none' : 'block')};
 `
 
 const TitleSub = styled.h1`
@@ -36,7 +38,6 @@ const BoxSummary = styled.div`
 `
 const PaymentAndRegister = styled.div`
   display: flex;
-  gap: 18px;
   justify-content: center;
   padding-bottom: 50px;
   @media (max-width: 936px) {
@@ -82,6 +83,9 @@ const FlexSecInfos = styled.div`
     align-items: center;
   }
 `
+const ButtonAlt = styled(Button)`
+  padding: 10px;
+`
 
 const Text = styled.h2`
   color: gray;
@@ -98,17 +102,19 @@ const TextAlt = styled(Text)`
 const Smileimg = styled.img``
 const ConfirmationToPay = styled.div`
   display: flex;
+  border-radius: 10px;
   flex-direction: column;
-  gap: 25px;
+  gap: 20px;
   align-items: center;
   justify-content: center;
-  padding-right: 175px;
+  padding: 25px;
 `
 function Booking() {
   const [userData, setUserData] = useContext(UserContext)
   const { user, userId } = userData
   const [userCurrentUserData, setCurrentUserData] = useState({})
-
+  const [showEditAddress, setShowEditAddress] = useState(false)
+  const { mutate } = useSWRConfig()
   const router = useRouter()
   const Plan = typeof window !== 'undefined' ? localStorage.getItem('Plan') : null
   const Date = typeof window !== 'undefined' ? localStorage.getItem('Date') : null
@@ -130,23 +136,58 @@ function Booking() {
       console.error('Erro ao obter os dados do cartão:', error)
     }
   }
+
+  const handleSaveEdit = () => {
+    mutate(`http://localhost:3333/cleaner/editAbout`)
+  }
   useEffect(() => {
     findUser()
-  }, [user])
+  }, [user, showEditAddress])
+  const handleClickOutsideEditAddress = () => {
+    if (showEditAddress) {
+      setShowEditAddress(false)
+    }
+  }
+
   return (
-    <Container>
+    <Container onClick={handleClickOutsideEditAddress}>
       <NavBarAlt type2 />
       <Steps type1 />
-      <PaymentAndRegister>
+      <PaymentAndRegister style={userData ? { gap: '25px' } : { gap: '18px' }}>
         {userData ? (
           <ConfirmationToPay>
             <h1>Olá, {user}</h1>
+            {Plan === 'Optional' && (
+              <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <h1>Escolha qual limpeza você deseja :</h1>
+                <Selecter typeCleaningCreate />
+              </div>
+            )}
             <h1>Seu serviço será no endereço ({userCurrentUserData.address}) ?</h1>
-            <Button onClick={() => router.push('/booking/booking-two')}> Yes! Pay now</Button>
-            <Button onClick={() => router.push('/booking/booking-two')}>
-              {' '}
-              No! I want to change my address
-            </Button>
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <ButtonAlt onClick={() => router.push('/booking/booking-two')}>
+                {' '}
+                Yes! Pay now
+              </ButtonAlt>
+              <ButtonAlt onClick={() => setShowEditAddress(!showEditAddress)}>
+                {' '}
+                No, i want to change my address
+              </ButtonAlt>
+              {showEditAddress && (
+                <EditAddress
+                  onButtonClose={() => setShowEditAddress(!showEditAddress)}
+                  onClose={() => setShowEditAddress(!showEditAddress)}
+                  id={userId}
+                  fullName={userCurrentUserData.fullName}
+                  user={user}
+                  email={userCurrentUserData.email}
+                  password={userCurrentUserData.password}
+                  address={userCurrentUserData.address}
+                  number={userCurrentUserData.number}
+                  onSave={handleSaveEdit}
+                />
+              )}
+            </div>
           </ConfirmationToPay>
         ) : (
           <SignupByBooking />
