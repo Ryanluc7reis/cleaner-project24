@@ -1,8 +1,7 @@
 A ser feito em pages/booking/booking-one -->
 
 - Estilizar formulario com uma imagem se os inputs tiverem valor true , se nao trata error  <!-- EM ANDAMENTO>
-- Editar endereço
-- Botao para pagar pro cleaner
+- Botao para pagar direto pro cleaner pessoalmente
 
 A ser feito em ReviewScreen -->
 
@@ -23,7 +22,16 @@ A ser feito em dashboard -->
  - Refazer responsividade
 
 
+A ser feito em dashboard/index,jsx -->
+(visao do cleaner ):
+- Fazer com que serviços recusados seja apagados
+- Fazer com que serviços aceitos ir para box de serviços  aceitados
+- Fazer com que  serviços finalizados vão para o historicos
+
+(visao do client - A SER FEITO AINDA)
+
  A ser feito em plansScreen/index.jsx -->
+
  - Arrumar o click para selecionar o plan 
 
  A ser feito em backend -->
