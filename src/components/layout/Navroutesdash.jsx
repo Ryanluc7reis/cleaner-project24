@@ -13,13 +13,14 @@ const Container = styled.div`
 const ContainerBox = styled.div`
   padding: 25px;
   display: flex;
+  background-color: #001044eb;
   align-items: center;
   justify-content: space-between;
   @media (max-width: 1306px) {
   }
 `
 const TypeRouteTitle = styled.h1`
-  color: black;
+  color: white;
   font-size: 22px;
   font-weight: 400;
 `
@@ -40,7 +41,7 @@ const StyledFlex = styled.div`
   align-items: center;
 `
 const LogOut = styled.a`
-  color: #223ff6;
+  color: white;
   cursor: pointer;
   font-size: 17px;
   display: flex;
@@ -53,6 +54,9 @@ const InputAlt = styled(Input)`
   padding: 6px;
   border: none;
   width: 200px;
+  ::placeholder {
+    color: white;
+  }
 `
 const Barra = styled.hr`
   width: 100%;
@@ -170,7 +174,7 @@ export default function NavRoutesDash({
               </FlexInput>
               <Lupa src="/lupa.png" />
             </StyledFlexSearch>
-            <h1 style={{ color: 'blue' }}>Olá, {user}</h1>
+            <h1 style={{ color: 'white' }}>Olá, {user}</h1>
             <ImgAvatar src="/avatar.png" />
             <ImgNotifications src="/bell.png" />
             <LogOut onClick={handleLogout}>Logout</LogOut>
