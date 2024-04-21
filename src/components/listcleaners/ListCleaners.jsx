@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
 import useSWR from 'swr'
 import { CleanerAvailable } from '../../context/useContextCleanersAvailable'
+import { CardIdContext } from '../../context/useContextCardId'
 
 import Card from '../cardcleaner/Card'
 import SelectedCleaner from './SelectedCleaner'
@@ -114,6 +115,7 @@ export default function ListCleaners({ selectedPrice, selectedClean, region, ...
   const [updateShortby, setupdateShortby] = useState(null)
   const [selectedCleaner, setSelectedCleaner] = useState(null)
   const [cleaners, setCleaner] = useContext(CleanerAvailable)
+  const [cardId, setCardId] = useContext(CardIdContext)
 
   const listOption = [
     'Relevance',
@@ -172,7 +174,10 @@ export default function ListCleaners({ selectedPrice, selectedClean, region, ...
 
   useEffect(() => {
     setCleaner(sortData.length)
-  }, [sortData.length])
+    if (sortData[selectedCleaner]) {
+      setCardId(sortData[selectedCleaner]._id)
+    }
+  }, [sortData.length, sortData[selectedCleaner]])
 
   if (error) return <div>Erro ao carregar os dados</div>
   if (!data) return <div>Carregando...</div>

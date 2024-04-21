@@ -120,7 +120,7 @@ export default function CleaningServices({
         <Text>Plan : {'Medium'}</Text>
         <Text>Duration : {'3 hours'}</Text>
         <Text>Starting Time : {'06:00pm'}</Text>
-        <Text>Service to day : {'03/05/2024'}</Text>
+        <Text>Service to date : {'03/05/2024'}</Text>
         <Text>Address : {'Rua Adamastor 255 Leocadio'}</Text>
         <Text>Number of client : {'8989809090'}</Text>
         <Text>Total cost : {'$ 80,90'}</Text>
