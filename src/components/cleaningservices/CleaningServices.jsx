@@ -1,5 +1,6 @@
 import styled, { keyframes } from 'styled-components'
 import { useState } from 'react'
+import moment from 'moment'
 
 import Button from '../../components/form/Button'
 
@@ -92,6 +93,11 @@ const ButtonAlt = styled(Button)`
     background: darkcyan;
   }
 `
+const StyledFlexButtons = styled.div`
+  display: ${(props) => (props.hasUser ? 'none' : 'flex')};
+  gap: 5px;
+  //color: #f31818;
+`
 
 export default function CleaningServices({
   plan,
@@ -99,9 +105,15 @@ export default function CleaningServices({
   startingTime,
   address,
   number,
-  date,
+  createdDate,
   totalCost,
-  cleanAccepted
+  serviceDate,
+  requester,
+  cleaner,
+  cleanerNumber,
+  cleanAccepted,
+  hasUser,
+  ...props
 }) {
   const [informations, setInformations] = useState(false)
 
@@ -110,28 +122,45 @@ export default function CleaningServices({
   }
 
   return (
-    <Container>
+    <Container {...props}>
       <Service onClick={toggleInformations}>
-        <Text>Limpeza ({'Medium'}) para Pedro Reis</Text>
-        <Text>29/04/2024</Text>
+        <Text>
+          Limpeza ({plan}) para {requester}
+        </Text>
+        <Text>Solicitação feita em: {moment(createdDate).format('LLL')}</Text>
         {informations ? <ArrowImage src="/arrowcima.png" /> : <ArrowImage src="/arrowbaixo.png" />}
       </Service>
       <DropInformations informations={informations}>
-        <Text>Plan : {'Medium'}</Text>
-        <Text>Duration : {'3 hours'}</Text>
-        <Text>Starting Time : {'06:00pm'}</Text>
-        <Text>Service to day : {'03/05/2024'}</Text>
-        <Text>Address : {'Rua Adamastor 255 Leocadio'}</Text>
-        <Text>Number of client : {'8989809090'}</Text>
-        <Text>Total cost : {'$ 80,90'}</Text>
+        <Text>Plan : {plan}</Text>
+        <Text>Duration : {duration}</Text>
+        <Text>Starting Time : {startingTime}</Text>
+        <Text>Service to date : {serviceDate}</Text>
+        <Text>Address : {address}</Text>
+        <Text>Number of client : {number}</Text>
+        <Text>Requester : {requester}</Text>
+
         {cleanAccepted ? (
-          <div style={{ display: 'flex', gap: '5px' }}>
-            <ButtonAlt>Finish service</ButtonAlt>
-          </div>
+          <Text>
+            Cleaner: {cleaner} (Number of contact : {cleanerNumber})
+          </Text>
         ) : (
-          <div style={{ display: 'flex', gap: '5px' }}>
-            <ButtonAccept>Accept</ButtonAccept>
-            <ButtonRefuse>Refuse</ButtonRefuse>
+          <Text>Cleaner: {cleaner}</Text>
+        )}
+        <Text>Total cost : {totalCost}</Text>
+        {cleanAccepted ? (
+          <ButtonAlt>Finish service</ButtonAlt>
+        ) : (
+          <div>
+            {hasUser && (
+              <Text style={{ color: '#f31818', fontSize: '13px' }}>
+                {' '}
+                Waiting for an answer from the cleaner...
+              </Text>
+            )}
+            <StyledFlexButtons hasUser={hasUser}>
+              <ButtonAccept>Accept</ButtonAccept>
+              <ButtonRefuse>Refuse</ButtonRefuse>
+            </StyledFlexButtons>
           </div>
         )}
       </DropInformations>

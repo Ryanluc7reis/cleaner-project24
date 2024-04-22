@@ -13,7 +13,6 @@ const StyledCard = styled.div`
   display: flex;
   background-color: #fff;
   align-items: center;
-  //text-align: start;
   width: 300px;
   height: 570px;
   margin-bottom: 100px;

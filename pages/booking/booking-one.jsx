@@ -2,9 +2,11 @@ import styled from 'styled-components'
 import { useState, useEffect, useContext } from 'react'
 import { useRouter } from 'next/router'
 import { UserContext } from '../../src/context/useContext'
+import { CardIdContext } from '../../src/context/useContextCardId'
 import dynamic from 'next/dynamic'
 import axios from 'axios'
 import useSWRConfig from 'swr'
+import { useForm } from 'react-hook-form'
 
 import Navbar from '../../src/components/layout/Navbar'
 import Button from '../../src/components/form/Button'
@@ -74,7 +76,7 @@ const Barra = styled.hr`
 const NavBarAlt = styled(Navbar)`
   background: #f3f3f3;
 `
-const FlexSecInfos = styled.div`
+const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 7px;
@@ -109,11 +111,30 @@ const ConfirmationToPay = styled.div`
   justify-content: center;
   padding: 25px;
 `
+const PayToCleaner = styled(Button)`
+  padding: 10px;
+  width: 230px;
+  position: absolute;
+  bottom: 14%;
+  right: 43%;
+`
+const StyledFlexButtons = styled.div`
+  display: flex;
+  gap: 17px;
+  align-items: center;
+  position: absolute;
+  bottom: 14%;
+  right: 61%;
+`
 function Booking() {
   const [userData, setUserData] = useContext(UserContext)
   const { user, userId } = userData
   const [userCurrentUserData, setCurrentUserData] = useState({})
   const [showEditAddress, setShowEditAddress] = useState(false)
+  const [cardId, setCardId] = useContext(CardIdContext)
+  const [cleanerSelectedData, setCleanerSelectedData] = useState({})
+  const [cleanerNameData, setCleanerNameData] = useState({})
+  const [loading, setLoading] = useState(false)
   const { mutate } = useSWRConfig()
   const router = useRouter()
   const Plan = typeof window !== 'undefined' ? localStorage.getItem('Plan') : null
@@ -124,12 +145,44 @@ function Booking() {
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
   const rate = 8.5
   const totalPrice = PriceH ? (parseFloat(PriceH) * parseFloat(Duration) + rate).toFixed(2) : null
+  const handleFormSubmit = async () => {
+    try {
+      setLoading(true)
+      const { status } = await axios.post(
+        `http://localhost:3333/createService`,
+        {
+          plan: Plan,
+          duration: Duration,
+          startingTime: Time,
+          totalCost: totalPrice,
+          serviceDate: Date,
+          address: userCurrentUserData.address,
+          number: userCurrentUserData.number,
+          cleaner: cleanerNameData
+        },
+        {
+          headers: {
+            authorization: token
+          }
+        }
+      )
+      if (status === 201) {
+        router.push('/dashboard/')
+        alert('Service criado com sucesso')
+      }
+    } catch (err) {
+      console.error('Erro ao criar service:', err.message)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const findUser = async () => {
     try {
       const response = await axios.get(`http://localhost:3333/user/findUser`, {
         headers: { authorization: token }
       })
+
       const data = response.data
       setCurrentUserData(data)
     } catch (error) {
@@ -137,17 +190,46 @@ function Booking() {
     }
   }
 
-  const handleSaveEdit = () => {
-    mutate(`http://localhost:3333/cleaner/editAbout`)
+  const getCard = async () => {
+    try {
+      const response = await axios.get('http://localhost:3333/cleaner/getOneCard', {
+        params: { cardId }
+      })
+      const data = response.data
+      setCleanerSelectedData(data)
+      if (response.status === 200) {
+        const cleaner = await axios.post(
+          `http://localhost:3333/user/findCleanerName`,
+          {
+            cleanerName: data.creator
+          },
+          {
+            headers: { authorization: token }
+          }
+        )
+        const datacleaner = cleaner.data
+        setCleanerNameData(datacleaner.fullName)
+      }
+    } catch (error) {
+      console.error('Erro ao obter os dados do cartão:', error)
+    }
   }
+
   useEffect(() => {
     findUser()
-  }, [user, showEditAddress])
+    getCard()
+  }, [user, showEditAddress, setCleanerSelectedData])
   const handleClickOutsideEditAddress = () => {
     if (showEditAddress) {
       setShowEditAddress(false)
     }
   }
+  const handleSaveEdit = () => {
+    mutate(`http://localhost:3333/cleaner/editAbout`)
+  }
+  const { handleSubmit } = useForm({
+    mode: 'all'
+  })
 
   return (
     <Container onClick={handleClickOutsideEditAddress}>
@@ -164,35 +246,37 @@ function Booking() {
               </div>
             )}
             <h1>Seu serviço será no endereço ({userCurrentUserData.address}) ?</h1>
-            <div style={{ display: 'flex', gap: '10px' }}>
+
+            <ButtonAlt onClick={() => setShowEditAddress(!showEditAddress)}>
+              {' '}
+              No, i want to change my address
+            </ButtonAlt>
+            {showEditAddress && (
+              <EditAddress
+                onButtonClose={() => setShowEditAddress(!showEditAddress)}
+                onClose={() => setShowEditAddress(!showEditAddress)}
+                id={userId}
+                fullName={userCurrentUserData.fullName}
+                user={user}
+                email={userCurrentUserData.email}
+                password={userCurrentUserData.password}
+                address={userCurrentUserData.address}
+                number={userCurrentUserData.number}
+                onSave={handleSaveEdit}
+              />
+            )}
+            <StyledFlexButtons>
               <ButtonAlt onClick={() => router.push('/booking/booking-two')}>
                 {' '}
-                Yes! Pay now
+                Yes! Pay with card now
               </ButtonAlt>
-              <ButtonAlt onClick={() => setShowEditAddress(!showEditAddress)}>
-                {' '}
-                No, i want to change my address
-              </ButtonAlt>
-              {showEditAddress && (
-                <EditAddress
-                  onButtonClose={() => setShowEditAddress(!showEditAddress)}
-                  onClose={() => setShowEditAddress(!showEditAddress)}
-                  id={userId}
-                  fullName={userCurrentUserData.fullName}
-                  user={user}
-                  email={userCurrentUserData.email}
-                  password={userCurrentUserData.password}
-                  address={userCurrentUserData.address}
-                  number={userCurrentUserData.number}
-                  onSave={handleSaveEdit}
-                />
-              )}
-            </div>
+              <h1>Or</h1>
+            </StyledFlexButtons>
           </ConfirmationToPay>
         ) : (
           <SignupByBooking />
         )}
-        <FlexSecInfos>
+        <Form onSubmit={handleSubmit(handleFormSubmit)}>
           <TitleSub>Your booking summary</TitleSub>
           <BoxSummary>
             <DescText>
@@ -235,7 +319,12 @@ function Booking() {
               The rate of the first cleaner who accepts your booking is what you will be charged.
             </TextAlt>
           </BoxSummary>
-        </FlexSecInfos>
+          {userData && (
+            <PayToCleaner type="submit" loading={loading}>
+              Yes! Pay directly to cleaner
+            </PayToCleaner>
+          )}
+        </Form>
       </PaymentAndRegister>
     </Container>
   )

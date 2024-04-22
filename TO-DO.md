@@ -23,12 +23,13 @@ A ser feito em dashboard -->
 
 
 A ser feito em dashboard/index,jsx -->
-(visao do cleaner ):
+
 - Fazer com que serviços recusados seja apagados
 - Fazer com que serviços aceitos ir para box de serviços  aceitados
 - Fazer com que  serviços finalizados vão para o historicos
+- Se o serviço for aceito, achar o cleaner e retornar o numero dele no service
 
-(visao do client - A SER FEITO AINDA)
+
 
  A ser feito em plansScreen/index.jsx -->
 
@@ -37,6 +38,12 @@ A ser feito em dashboard/index,jsx -->
  A ser feito em backend -->
  
  - Criar os dados de serviço
+
+ A SER FEITO EM TODAS REQUISIÇÕES AO BACKEND -->
+ 
+- Colocar uma imagem de loading ate que o conteudo seja verdadeiro
+- Tratar erro caso nao retorne nenhum dado
+
 
 
 
