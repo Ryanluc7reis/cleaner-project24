@@ -115,14 +115,16 @@ const PayToCleaner = styled(Button)`
   padding: 10px;
   width: 230px;
   position: absolute;
-  bottom: 18%;
-  right: 41%;
+  bottom: 14%;
+  right: 43%;
 `
 const StyledFlexButtons = styled.div`
   display: flex;
-  gap: 27px;
+  gap: 17px;
   align-items: center;
-  width: 72%;
+  position: absolute;
+  bottom: 14%;
+  right: 61%;
 `
 function Booking() {
   const [userData, setUserData] = useContext(UserContext)
@@ -131,6 +133,7 @@ function Booking() {
   const [showEditAddress, setShowEditAddress] = useState(false)
   const [cardId, setCardId] = useContext(CardIdContext)
   const [cleanerSelectedData, setCleanerSelectedData] = useState({})
+  const [cleanerNameData, setCleanerNameData] = useState({})
   const [loading, setLoading] = useState(false)
   const { mutate } = useSWRConfig()
   const router = useRouter()
@@ -142,8 +145,6 @@ function Booking() {
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
   const rate = 8.5
   const totalPrice = PriceH ? (parseFloat(PriceH) * parseFloat(Duration) + rate).toFixed(2) : null
-  const cleanerService = cleanerSelectedData.creator
-
   const handleFormSubmit = async () => {
     try {
       setLoading(true)
@@ -155,7 +156,9 @@ function Booking() {
           startingTime: Time,
           totalCost: totalPrice,
           serviceDate: Date,
-          cleaner: cleanerService
+          address: userCurrentUserData.address,
+          number: userCurrentUserData.number,
+          cleaner: cleanerNameData
         },
         {
           headers: {
@@ -179,12 +182,14 @@ function Booking() {
       const response = await axios.get(`http://localhost:3333/user/findUser`, {
         headers: { authorization: token }
       })
+
       const data = response.data
       setCurrentUserData(data)
     } catch (error) {
       console.error('Erro ao obter os dados do cartão:', error)
     }
   }
+
   const getCard = async () => {
     try {
       const response = await axios.get('http://localhost:3333/cleaner/getOneCard', {
@@ -192,6 +197,19 @@ function Booking() {
       })
       const data = response.data
       setCleanerSelectedData(data)
+      if (response.status === 200) {
+        const cleaner = await axios.post(
+          `http://localhost:3333/user/findCleanerName`,
+          {
+            cleanerName: data.creator
+          },
+          {
+            headers: { authorization: token }
+          }
+        )
+        const datacleaner = cleaner.data
+        setCleanerNameData(datacleaner.fullName)
+      }
     } catch (error) {
       console.error('Erro ao obter os dados do cartão:', error)
     }
