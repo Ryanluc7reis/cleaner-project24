@@ -1,5 +1,4 @@
 import styled, { keyframes } from 'styled-components'
-import { useState } from 'react'
 import moment from 'moment'
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
@@ -141,9 +140,6 @@ export default function CleaningServices({
     }
   }
 
-  const handleButtonAccepted = () => {
-    props.onCloseByAcceptedButton()
-  }
   const handleDelete = async (e) => {
     e.preventDefault()
     props.onClose()
@@ -180,6 +176,7 @@ export default function CleaningServices({
   }
 
   const handleForm = async () => {
+    props.onClose()
     const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
     const config = {
       headers: {
@@ -300,9 +297,7 @@ export default function CleaningServices({
               </Text>
             )}
             <StyledFlexButtons hasUser={hasUser}>
-              <ButtonAccept type="submit" onClick={handleButtonAccepted}>
-                Accept
-              </ButtonAccept>
+              <ButtonAccept type="submit">Accept</ButtonAccept>
               <ButtonRefuse onClick={handleDelete}>Refuse</ButtonRefuse>
             </StyledFlexButtons>
           </div>

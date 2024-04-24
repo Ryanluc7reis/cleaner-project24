@@ -194,7 +194,6 @@ export default function Services({ ...props }) {
                     <CleaningServices
                       onIndex={() => handleInformationsSelect(index)}
                       isInformations={index === informations}
-                      onCloseByAcceptedButton={() => setInformations(!informations)}
                       onClose={() => setInformations(!informations)}
                       index={index}
                       key={service._id}
@@ -215,8 +214,6 @@ export default function Services({ ...props }) {
                     <CleaningServices
                       onIndex={() => handleInformationsSelect(index)}
                       isInformations={index === informations}
-                      onCloseByAcceptedButton={() => setInformations(!informations)}
-                      onClose={() => setInformations(!informations)}
                       index={index}
                       key={service._id}
                       id={service._id}
