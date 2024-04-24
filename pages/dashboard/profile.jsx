@@ -140,15 +140,17 @@ const ProfilePage = () => {
           <StyledFlex>
             <NavBarDashboard isProfile />
             <FlexProfileAndCard>
-              <Profile
-                id={userCurrentUserData._id}
-                fullName={userCurrentUserData.fullName}
-                user={userCurrentUserData.user}
-                email={userCurrentUserData.email}
-                password={userCurrentUserData.password}
-                address={userCurrentUserData.address}
-                number={userCurrentUserData.number}
-              />
+              {Object.keys(userCurrentUserData).length !== 0 && (
+                <Profile
+                  id={userCurrentUserData._id}
+                  fullName={userCurrentUserData.fullName}
+                  user={userCurrentUserData.user}
+                  email={userCurrentUserData.email}
+                  password={userCurrentUserData.password}
+                  address={userCurrentUserData.address}
+                  number={userCurrentUserData.number}
+                />
+              )}
               {userData && card ? (
                 <div>
                   <BoxCardCleaner>
@@ -220,15 +222,17 @@ const ProfilePage = () => {
         <FlexContainer>
           <StyledFlex>
             <NavBarDashboard isProfile />
-            <Profile
-              id={userCurrentUserData._id}
-              fullName={userCurrentUserData.fullName}
-              user={userCurrentUserData.user}
-              email={userCurrentUserData.email}
-              password={userCurrentUserData.password}
-              address={userCurrentUserData.address}
-              number={userCurrentUserData.number}
-            />
+            {Object.keys(userCurrentUserData).length !== 0 && (
+              <Profile
+                id={userCurrentUserData._id}
+                fullName={userCurrentUserData.fullName}
+                user={userCurrentUserData.user}
+                email={userCurrentUserData.email}
+                password={userCurrentUserData.password}
+                address={userCurrentUserData.address}
+                number={userCurrentUserData.number}
+              />
+            )}
           </StyledFlex>
         </FlexContainer>
       )}
