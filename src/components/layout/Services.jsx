@@ -8,7 +8,7 @@ import ErrorMessage from '../errormessage/ErrorMessage'
 const Container = styled.div`
   width: 100%;
   min-height: 100vh;
-  background-color: #001044eb;
+  background-color: #001044;
   display: flex;
   flex-direction: column;
   gap: 20px;

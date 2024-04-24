@@ -7,7 +7,7 @@ import { useSWRConfig } from 'swr'
 
 import Button from '../../components/form/Button'
 
-const Container = styled.form`
+const Form = styled.form`
   width: 100%;
   height: auto;
 `
@@ -79,8 +79,16 @@ const ButtonAccept = styled(Button)`
     background: darkcyan;
   }
 `
-const ButtonRefuse = styled(Button)`
+const ButtonRefuse = styled.div`
+  border-radius: 10px;
+  border: 0;
+  cursor: pointer;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+  transition: all 200ms ease-in-out;
   padding: 7px;
+  border-radius: 8px;
   width: 90px;
   font-size: 15px;
   background: #dd0202;
@@ -136,16 +144,39 @@ export default function CleaningServices({
   const handleButtonAccepted = () => {
     props.onCloseByAcceptedButton()
   }
-  const handleDelete = async () => {
+  const handleDelete = async (e) => {
+    e.preventDefault()
     props.onClose()
-    const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
-    const config = {
-      headers: {
-        authorization: token
-      },
-      data: { id: id }
+    try {
+      const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
+      const config = {
+        headers: {
+          authorization: token
+        },
+        data: { id: id }
+      }
+      const serviceDelete = await axios.delete('http://localhost:3333/deleteService', config)
+      if (serviceDelete.status === 200) {
+        try {
+          await axios.post(
+            'http://localhost:3333/createNotification',
+            {
+              for: requester,
+              notificationType: ` O cleaner (${cleaner}) recusou sua limpeza`
+            },
+            {
+              headers: {
+                authorization: token
+              }
+            }
+          )
+        } catch (err) {
+          console.error(err.message)
+        }
+      }
+    } catch (err) {
+      console.error(err.message)
     }
-    await axios.delete('http://localhost:3333/deleteService', config)
   }
 
   const handleForm = async () => {
@@ -191,12 +222,30 @@ export default function CleaningServices({
           console.error(err.message)
         }
       }
+      if (responseCreateService.status === 201) {
+        try {
+          await axios.post(
+            'http://localhost:3333/createNotification',
+            {
+              for: requester,
+              notificationType: ` O cleaner (${cleaner}) aceitou sua limpeza`
+            },
+            {
+              headers: {
+                authorization: token
+              }
+            }
+          )
+        } catch (err) {
+          console.error(err.message)
+        }
+      }
     } catch (err) {
       console.error(err.message)
     }
   }
   return (
-    <Container
+    <Form
       onClick={() => toggleInformations(index || index2)}
       onSubmit={handleSubmit(handleForm)}
       {...props}
@@ -259,6 +308,6 @@ export default function CleaningServices({
           </div>
         )}
       </DropInformations>
-    </Container>
+    </Form>
   )
 }
