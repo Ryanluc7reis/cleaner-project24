@@ -1,23 +1,8 @@
 import styled from 'styled-components'
-import NavRoutesDash from '../layout/Navroutesdash'
+import { useRouter } from 'next/router'
+import axios from 'axios'
+import { useSWRConfig } from 'swr'
 
-const Container = styled.div`
-  width: 100%;
-  min-height: 100vh;
-  background-color: #001044;
-`
-const BoxNotifications = styled.div`
-  background: #fff;
-  width: 93%;
-  height: 80%;
-  margin: 61px 35px 0px 50px;
-  padding: 20px;
-  border-radius: 15px;
-`
-const ConatinerNotificaçao = styled.div`
-  display: grid;
-  grid-template-columns: 480px 420px;
-`
 const Notificaçao = styled.div`
   width: 448px;
   height: 60px;
@@ -31,43 +16,45 @@ const Notificaçao = styled.div`
   justify-content: space-between;
   padding: 0px 25px;
 `
+const Text = styled.h3`
+  cursor: pointer;
+  padding: 20px 0px;
+`
 const Close = styled.img`
-  width: 20px;
-  height: 20px;
+  padding: 2px;
   cursor: pointer;
   opacity: 0.6;
 `
-const TitleText = styled.h1`
-  font-weight: 500;
-  color: #a4a4a4f5;
-  padding: 9px 0px;
-`
 
-export default function Notifications() {
+export default function Notifications({ notificationType, id, index, ...props }) {
+  const { mutate } = useSWRConfig()
+  const handleDelete = async (e) => {
+    e.preventDefault()
+    props.onDelete()
+    try {
+      const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
+      const config = {
+        headers: {
+          authorization: token
+        },
+        data: { id: id }
+      }
+      const deleteNotification = await axios.delete(
+        'http://localhost:3333/deleteNotification',
+        config
+      )
+      if (deleteNotification.status === 200) {
+        mutate('http://localhost:3333/getNotifications')
+      }
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+  const router = useRouter()
   return (
-    <Container>
-      <NavRoutesDash notifications type2 />
-      <BoxNotifications>
-        <TitleText>New notifications</TitleText>
-        <ConatinerNotificaçao>
-          <Notificaçao>
-            <h3>Nova requisição para limpeza</h3>
-            <Close src="/Xwhite.svg" />
-          </Notificaçao>
-          <Notificaçao>
-            <h3>Nova requisição para limpeza</h3>
-            <Close src="/Xwhite.svg" />
-          </Notificaçao>
-          <Notificaçao>
-            <h3>Nova requisição para limpeza</h3>
-            <Close src="/Xwhite.svg" />
-          </Notificaçao>
-          <Notificaçao>
-            <h3>Nova requisição para limpeza</h3>
-            <Close src="/Xwhite.svg" />
-          </Notificaçao>
-        </ConatinerNotificaçao>
-      </BoxNotifications>
-    </Container>
+    <Notificaçao {...props}>
+      <Text onClick={() => router.push('/dashboard/')}>{notificationType}</Text>
+      <Close onClick={handleDelete} src="/Xwhite.svg" />
+    </Notificaçao>
   )
 }
