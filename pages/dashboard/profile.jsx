@@ -15,7 +15,7 @@ const Container = styled.div`
   width: 100%;
   min-height: 100vh;
   height: auto;
-  background: #eaeaea;
+  background: #001044;
 `
 const FlexContainer = styled.div`
   display: flex;

@@ -13,7 +13,7 @@ const Container = styled.div`
 const ContainerBox = styled.div`
   padding: 25px;
   display: flex;
-  background-color: #001044eb;
+  background-color: #001044;
   align-items: center;
   justify-content: space-between;
   @media (max-width: 1306px) {

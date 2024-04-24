@@ -5,7 +5,7 @@ import Button from '../form/Button'
 const Container = styled.div`
   width: 100%;
   min-height: 100vh;
-  background-color: #efefef;
+  background-color: #001044;
 `
 const BoxHistoric = styled.div`
   background: #fff;
