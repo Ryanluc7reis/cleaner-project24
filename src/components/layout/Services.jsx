@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 
 import CleaningServices from '../cleaningservices/CleaningServices'
+import ErrorMessage from '../errormessage/ErrorMessage'
 
 const Container = styled.div`
   width: 100%;
@@ -29,34 +30,33 @@ const Title = styled.h1`
 `
 const GridServices = styled.div`
   display: grid;
-  grid-template-columns: 450px 400px;
+  grid-template-columns: 460px 400px;
   gap: 10px;
 `
-
+const ErrorMessageAlt = styled(ErrorMessage)`
+  padding: 100px 360px;
+`
 export default function Services({ ...props }) {
-  const [serviceCleaner, setServiceCleaner] = useState(null)
-  const [serviceUser, setServiceUser] = useState({})
+  const [serviceCleaner, setServiceCleaner] = useState([])
+  const [serviceUser, setServiceUser] = useState([])
   const [cleaner, setCleaner] = useState({})
+  const [serviceCleanerAccepted, setServiceCleanerAccepted] = useState([])
+  const [serviceUserAccepted, setServiceUserAccepted] = useState([])
+  const [index, setIndex] = useState(-1)
+  const [informations, setInformations] = useState(null)
+  const [informations2, setInformations2] = useState(null)
+
+  const handleInformationsSelect = (index) => {
+    setInformations(index === informations ? null : index)
+    setIndex(index === informations ? null : index)
+  }
+  const handleInformationsSelect2 = (index2) => {
+    setInformations2(index2 === informations2 ? null : index2)
+    setIndex(index2 === informations2 ? null : index2)
+  }
 
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
 
-  const getCleanerByName = async () => {
-    try {
-      const response = await axios.post(
-        `http://localhost:3333/user/findCleanerName`,
-        {
-          cleanerName: serviceUser.cleaner
-        },
-        {
-          headers: { authorization: token }
-        }
-      )
-      const datacleaner = response.data
-      setCleaner(datacleaner)
-    } catch (err) {
-      console.error(err.message)
-    }
-  }
   const getServiceCleaner = async () => {
     try {
       const verifyCleaner = await axios.get(`http://localhost:3333/user/verify-cleaner`, {
@@ -116,78 +116,180 @@ export default function Services({ ...props }) {
       console.error(err.message)
     }
   }
+  const getServiceUserAccepted = async () => {
+    try {
+      const serviceUserAccepted = await axios.get(`http://localhost:3333/getServiceAccepted-user`, {
+        headers: {
+          authorization: token
+        }
+      })
+      const dataServiceUserAccepted = serviceUserAccepted.data
+
+      setServiceUserAccepted(dataServiceUserAccepted)
+      if (serviceUserAccepted.status === 200) {
+        const response = await axios.post(
+          `http://localhost:3333/user/findCleanerName`,
+          {
+            cleanerName: dataServiceUserAccepted[index].cleaner
+          },
+          {
+            headers: { authorization: token }
+          }
+        )
+        const datacleaner = response.data
+        setCleaner(datacleaner)
+      }
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+  const getServiceCleanerAccepted = async () => {
+    try {
+      const serviceCleanerAccepted = await axios.get(
+        `http://localhost:3333/getServiceAccepted-cleaner`,
+        {
+          headers: {
+            authorization: token
+          }
+        }
+      )
+      const dataServiceCleanerAccepted = serviceCleanerAccepted.data
+      setServiceCleanerAccepted(dataServiceCleanerAccepted)
+      if (serviceCleanerAccepted.status === 200) {
+        const response = await axios.post(
+          `http://localhost:3333/user/findCleanerName`,
+          {
+            cleanerName: dataServiceCleanerAccepted[index].cleaner
+          },
+          {
+            headers: { authorization: token }
+          }
+        )
+        const datacleaner = response.data
+        setCleaner(datacleaner)
+      }
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
 
   useEffect(() => {
     getServiceCleaner()
     getServiceUser()
-    getCleanerByName()
-  }, [setServiceCleaner, setServiceUser])
+    getServiceUserAccepted()
+    getServiceCleanerAccepted()
+  }, [index, informations, informations2])
+
   return (
     <Container {...props}>
       <BoxServices>
         <Title>Pending Services</Title>
-        <GridServices>
-          {serviceCleaner !== null ? (
-            <CleaningServices
-              plan={serviceCleaner.plan}
-              duration={serviceCleaner.duration}
-              startingTime={serviceCleaner.startingTime}
-              serviceDate={serviceCleaner.serviceDate}
-              createdDate={serviceCleaner.createdDate}
-              totalCost={serviceCleaner.totalCost}
-              requester={serviceCleaner.requester}
-              cleaner={serviceCleaner.cleaner}
-            />
-          ) : (
-            <CleaningServices
-              plan={serviceUser.plan}
-              duration={serviceUser.duration}
-              startingTime={serviceUser.startingTime}
-              serviceDate={serviceUser.serviceDate}
-              createdDate={serviceUser.createdDate}
-              totalCost={serviceUser.totalCost}
-              requester={serviceUser.requester}
-              cleaner={serviceUser.cleaner}
-              address={serviceUser.address}
-              number={serviceUser.number}
-              hasUser
-            />
-          )}
-        </GridServices>
+        {serviceCleaner.length === 0 && serviceUser.length === 0 ? (
+          <ErrorMessageAlt message={'Nenhum serviço encontrado...'} />
+        ) : (
+          <>
+            <GridServices>
+              {serviceCleaner.length > 0
+                ? serviceCleaner.map((service, index) => (
+                    <CleaningServices
+                      onIndex={() => handleInformationsSelect(index)}
+                      isInformations={index === informations}
+                      onCloseByAcceptedButton={() => setInformations(!informations)}
+                      onClose={() => setInformations(!informations)}
+                      index={index}
+                      key={service._id}
+                      id={service._id}
+                      plan={service.plan}
+                      duration={service.duration}
+                      startingTime={service.startingTime}
+                      serviceDate={service.serviceDate}
+                      createdDate={service.createdDate}
+                      totalCost={service.totalCost}
+                      address={service.address}
+                      number={service.number}
+                      requester={service.requester}
+                      cleaner={service.cleaner}
+                    />
+                  ))
+                : serviceUser.map((service, index) => (
+                    <CleaningServices
+                      onIndex={() => handleInformationsSelect(index)}
+                      isInformations={index === informations}
+                      onCloseByAcceptedButton={() => setInformations(!informations)}
+                      onClose={() => setInformations(!informations)}
+                      index={index}
+                      key={service._id}
+                      id={service._id}
+                      plan={service.plan}
+                      duration={service.duration}
+                      startingTime={service.startingTime}
+                      serviceDate={service.serviceDate}
+                      createdDate={service.createdDate}
+                      totalCost={service.totalCost}
+                      address={service.address}
+                      number={service.number}
+                      requester={service.requester}
+                      cleaner={service.cleaner}
+                      hasUser
+                    />
+                  ))}
+            </GridServices>
+          </>
+        )}
       </BoxServices>
       <BoxServices>
         <Title>Accepted Services</Title>
-        <GridServices>
-          {serviceCleaner ? (
-            <CleaningServices
-              plan={serviceCleaner.plan}
-              duration={serviceCleaner.duration}
-              startingTime={serviceCleaner.startingTime}
-              serviceDate={serviceCleaner.serviceDate}
-              createdDate={serviceCleaner.createdDate}
-              totalCost={serviceCleaner.totalCost}
-              requester={serviceCleaner.requester}
-              cleaner={serviceCleaner.cleaner}
-              cleanerNumber={cleaner.number}
-              cleanAccepted
-            />
-          ) : (
-            <CleaningServices
-              plan={serviceUser.plan}
-              duration={serviceUser.duration}
-              startingTime={serviceUser.startingTime}
-              serviceDate={serviceUser.serviceDate}
-              createdDate={serviceUser.createdDate}
-              totalCost={serviceUser.totalCost}
-              requester={serviceUser.requester}
-              cleaner={serviceUser.cleaner}
-              address={serviceUser.address}
-              number={serviceUser.number}
-              cleanerNumber={cleaner.number}
-              cleanAccepted
-            />
-          )}
-        </GridServices>
+        {serviceCleanerAccepted.length === 0 && serviceUserAccepted.length === 0 ? (
+          <ErrorMessageAlt message={'Nenhum serviço encontrado...'} />
+        ) : (
+          <>
+            <GridServices>
+              {serviceCleanerAccepted.length > 0
+                ? serviceCleanerAccepted.map((service, index) => (
+                    <CleaningServices
+                      onIndex2={() => handleInformationsSelect2(index)}
+                      isInformations={index === informations2}
+                      index2={index}
+                      key={service._id}
+                      id={service._id}
+                      plan={service.plan}
+                      duration={service.duration}
+                      startingTime={service.startingTime}
+                      serviceDate={service.serviceDate}
+                      createdDate={service.createdDate}
+                      totalCost={service.totalCost}
+                      address={service.address}
+                      number={service.number}
+                      requester={service.requester}
+                      cleaner={service.cleaner}
+                      cleanerNumber={cleaner.number}
+                      cleanAccepted
+                    />
+                  ))
+                : serviceUserAccepted.map((service, index) => (
+                    <CleaningServices
+                      onIndex2={() => handleInformationsSelect2(index)}
+                      isInformations={index === informations2}
+                      index2={index}
+                      key={service._id}
+                      id={service._id}
+                      plan={service.plan}
+                      duration={service.duration}
+                      startingTime={service.startingTime}
+                      serviceDate={service.serviceDate}
+                      createdDate={service.createdDate}
+                      totalCost={service.totalCost}
+                      address={service.address}
+                      number={service.number}
+                      requester={service.requester}
+                      cleaner={service.cleaner}
+                      cleanerNumber={cleaner.number}
+                      cleanAccepted
+                    />
+                  ))}
+            </GridServices>
+          </>
+        )}
       </BoxServices>
     </Container>
   )
