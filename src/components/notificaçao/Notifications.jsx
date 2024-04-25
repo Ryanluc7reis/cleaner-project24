@@ -26,7 +26,7 @@ const Close = styled.img`
   opacity: 0.6;
 `
 
-export default function Notifications({ notificationType, id, index, ...props }) {
+export default function Notifications({ notificationType, id, ...props }) {
   const { mutate } = useSWRConfig()
   const handleDelete = async (e) => {
     e.preventDefault()

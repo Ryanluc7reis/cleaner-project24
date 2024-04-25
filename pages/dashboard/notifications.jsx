@@ -78,7 +78,7 @@ export default function NotificationsPage() {
           <BoxNotifications>
             <TitleText>New notifications</TitleText>
             {notificationsData.length === 0 ? (
-              <ErrorMessageAlt message={'Nenhum serviço encontrado...'} />
+              <ErrorMessageAlt message={'Nenhuma notificação encontrada...'} />
             ) : (
               <>
                 <GridNotifications>
