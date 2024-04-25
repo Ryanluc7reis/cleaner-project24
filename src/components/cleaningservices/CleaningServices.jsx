@@ -1,9 +1,7 @@
 import styled, { keyframes } from 'styled-components'
 import moment from 'moment'
-import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
-import { useSWRConfig } from 'swr'
 
 import Button from '../../components/form/Button'
 
@@ -140,7 +138,6 @@ export default function CleaningServices({
   const { handleSubmit } = useForm({
     mode: 'all'
   })
-  const { mutate } = useSWRConfig()
   const toggleInformations = () => {
     if (index !== -1 && typeof props.onIndex === 'function') {
       props.onIndex(index)
@@ -260,6 +257,7 @@ export default function CleaningServices({
         },
         config
       )
+
       if (responseCreateService.status === 201) {
         try {
           const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
@@ -270,12 +268,6 @@ export default function CleaningServices({
             data: { id: id }
           }
           const response = await axios.delete('http://localhost:3333/deleteService', config2)
-          if (response.status === 200) {
-            mutate('http://localhost:3333/getService-user')
-            mutate('http://localhost:3333/getService-cleaner')
-            mutate('http://localhost:3333/getServiceAccepted-user')
-            mutate('http://localhost:3333/getServiceAccepted-cleaner')
-          }
         } catch (err) {
           console.error(err.message)
         }

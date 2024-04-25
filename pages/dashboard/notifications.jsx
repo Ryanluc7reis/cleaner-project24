@@ -63,6 +63,9 @@ export default function NotificationsPage() {
         authorization: token
       }
     })
+    if (notificationsData.length === 0) {
+      setNotificationsData([])
+    }
     const data = notificationsRefresh.data
     setNotificationsData(data)
   }
