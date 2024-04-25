@@ -1,15 +1,16 @@
 import styled, { keyframes } from 'styled-components'
-import { useState } from 'react'
 import moment from 'moment'
+import { useForm } from 'react-hook-form'
+import axios from 'axios'
 
 import Button from '../../components/form/Button'
 
-const Container = styled.div`
+const Form = styled.form`
   width: 100%;
   height: auto;
 `
 const Service = styled.div`
-  width: 448px;
+  width: 458px;
   height: 60px;
   box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(0 188 212 / 40%);
   background-color: #00cae3;
@@ -19,11 +20,11 @@ const Service = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0px 25px;
+  padding: 0px 15px;
   cursor: pointer;
 `
 const DropInformations = styled.div`
-  width: 448px;
+  width: 458px;
   box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(0 188 212 / 40%);
   background-color: #001044eb;
   margin: 0px 10px;
@@ -76,8 +77,16 @@ const ButtonAccept = styled(Button)`
     background: darkcyan;
   }
 `
-const ButtonRefuse = styled(Button)`
+const ButtonRefuse = styled.div`
+  border-radius: 10px;
+  border: 0;
+  cursor: pointer;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+  transition: all 200ms ease-in-out;
   padding: 7px;
+  border-radius: 8px;
   width: 90px;
   font-size: 15px;
   background: #dd0202;
@@ -85,10 +94,18 @@ const ButtonRefuse = styled(Button)`
     background: darkcyan;
   }
 `
-const ButtonAlt = styled(Button)`
+const ButtonFinish = styled.div`
+  border-radius: 10px;
+  border: 0;
+  cursor: pointer;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+  transition: all 200ms ease-in-out;
   padding: 7px;
   width: 130px;
   font-size: 15px;
+  background-color: #56648f;
   :hover {
     background: darkcyan;
   }
@@ -96,10 +113,12 @@ const ButtonAlt = styled(Button)`
 const StyledFlexButtons = styled.div`
   display: ${(props) => (props.hasUser ? 'none' : 'flex')};
   gap: 5px;
-  //color: #f31818;
 `
 
 export default function CleaningServices({
+  id,
+  index,
+  index2,
   plan,
   duration,
   startingTime,
@@ -113,24 +132,198 @@ export default function CleaningServices({
   cleanerNumber,
   cleanAccepted,
   hasUser,
+  isInformations,
   ...props
 }) {
-  const [informations, setInformations] = useState(false)
-
+  const { handleSubmit } = useForm({
+    mode: 'all'
+  })
   const toggleInformations = () => {
-    setInformations(!informations)
+    if (index !== -1 && typeof props.onIndex === 'function') {
+      props.onIndex(index)
+    } else if (typeof props.onIndex2 === 'function') {
+      props.onIndex2(index2)
+    }
+  }
+  const handleDeleteAndCreateHistoric = async (e) => {
+    e.preventDefault()
+    props.onClose()
+    try {
+      const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
+      const config = {
+        headers: {
+          authorization: token
+        },
+        data: { id: id }
+      }
+      const serviceDelete = await axios.delete('http://localhost:3333/deleteService', config)
+      const verifyCleaner = await axios.get(`http://localhost:3333/user/verify-cleaner`, {
+        headers: {
+          authorization: token
+        }
+      })
+      if (serviceDelete.status && verifyCleaner.status === 200) {
+        try {
+          await axios.post(
+            'http://localhost:3333/createHistoric',
+            {
+              for: cleaner,
+              historicType: ` Limpeza (${plan}) realizada para ${requester} `
+            },
+            {
+              headers: {
+                authorization: token
+              }
+            }
+          )
+        } catch (err) {
+          console.error(err.message)
+        }
+      }
+    } catch (err) {
+      const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
+      await axios.post(
+        'http://localhost:3333/createHistoric',
+        {
+          for: requester,
+          historicType: ` Limpeza (${plan}) realizada por ${cleaner} `
+        },
+        {
+          headers: {
+            authorization: token
+          }
+        }
+      )
+      console.error(err.message)
+    }
+  }
+
+  const handleDeleteAndCreateNotification = async (e) => {
+    e.preventDefault()
+    props.onClose()
+    try {
+      const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
+      const config = {
+        headers: {
+          authorization: token
+        },
+        data: { id: id }
+      }
+      const serviceDelete = await axios.delete('http://localhost:3333/deleteService', config)
+      if (serviceDelete.status === 200) {
+        try {
+          await axios.post(
+            'http://localhost:3333/createNotification',
+            {
+              for: requester,
+              notificationType: ` O cleaner (${cleaner}) recusou sua limpeza`
+            },
+            {
+              headers: {
+                authorization: token
+              }
+            }
+          )
+        } catch (err) {
+          console.error(err.message)
+        }
+      }
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+
+  const handleForm = async () => {
+    props.onClose()
+    const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
+    const config = {
+      headers: {
+        authorization: token
+      }
+    }
+    try {
+      const responseCreateService = await axios.post(
+        `http://localhost:3333/createServiceAccepted`,
+        {
+          plan: plan,
+          duration: duration,
+          startingTime: startingTime,
+          serviceDate: serviceDate,
+          totalCost: totalCost,
+          requester: requester,
+          address: address,
+          number: number,
+          cleaner: cleaner
+        },
+        config
+      )
+
+      if (responseCreateService.status === 201) {
+        try {
+          const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
+          const config2 = {
+            headers: {
+              authorization: token
+            },
+            data: { id: id }
+          }
+          const response = await axios.delete('http://localhost:3333/deleteService', config2)
+        } catch (err) {
+          console.error(err.message)
+        }
+      }
+      if (responseCreateService.status === 201) {
+        try {
+          await axios.post(
+            'http://localhost:3333/createNotification',
+            {
+              for: requester,
+              notificationType: ` O cleaner (${cleaner}) aceitou sua limpeza`
+            },
+            {
+              headers: {
+                authorization: token
+              }
+            }
+          )
+        } catch (err) {
+          console.error(err.message)
+        }
+      }
+    } catch (err) {
+      console.error(err.message)
+    }
   }
 
   return (
-    <Container {...props}>
-      <Service onClick={toggleInformations}>
+    <Form
+      onClick={() => toggleInformations(index || index2)}
+      onSubmit={handleSubmit(handleForm)}
+      {...props}
+    >
+      <Service>
         <Text>
           Limpeza ({plan}) para {requester}
         </Text>
-        <Text>Solicitação feita em: {moment(createdDate).format('LLL')}</Text>
-        {informations ? <ArrowImage src="/arrowcima.png" /> : <ArrowImage src="/arrowbaixo.png" />}
+        {cleanAccepted ? (
+          <Text style={{ fontSize: '11px' }}>
+            {' '}
+            Serviço aceito em : {moment(createdDate).format('DD/MM/YYYY')}
+          </Text>
+        ) : (
+          <Text style={{ fontSize: '11px' }}>
+            {' '}
+            Solicitação feita em : {moment(createdDate).format('DD/MM/YYYY')}
+          </Text>
+        )}
+
+        {isInformations ? (
+          <ArrowImage src="/arrowcima.png" />
+        ) : (
+          <ArrowImage src="/arrowbaixo.png" />
+        )}
       </Service>
-      <DropInformations informations={informations}>
+      <DropInformations informations={isInformations}>
         <Text>Plan : {plan}</Text>
         <Text>Duration : {duration}</Text>
         <Text>Starting Time : {startingTime}</Text>
@@ -148,7 +341,7 @@ export default function CleaningServices({
         )}
         <Text>Total cost : {totalCost}</Text>
         {cleanAccepted ? (
-          <ButtonAlt>Finish service</ButtonAlt>
+          <ButtonFinish onClick={handleDeleteAndCreateHistoric}>Finish service</ButtonFinish>
         ) : (
           <div>
             {hasUser && (
@@ -158,12 +351,12 @@ export default function CleaningServices({
               </Text>
             )}
             <StyledFlexButtons hasUser={hasUser}>
-              <ButtonAccept>Accept</ButtonAccept>
-              <ButtonRefuse>Refuse</ButtonRefuse>
+              <ButtonAccept type="submit">Accept</ButtonAccept>
+              <ButtonRefuse onClick={handleDeleteAndCreateNotification}>Refuse</ButtonRefuse>
             </StyledFlexButtons>
           </div>
         )}
       </DropInformations>
-    </Container>
+    </Form>
   )
 }

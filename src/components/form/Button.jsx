@@ -4,7 +4,6 @@ const StyledButton = styled.button`
   background-color: #56648f;
   padding: 15px 20px;
   border-radius: 10px;
-  display: ${(props) => props.none && 'none'};
   border: 0;
   color: #fff;
   font-weight: bold;

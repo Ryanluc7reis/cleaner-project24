@@ -109,6 +109,9 @@ export default function SectionOne() {
     if (region === '') {
       setError(true)
       setColor(false)
+    } else if (region === false) {
+      setError(true)
+      setColor(false)
     } else {
       setError(false)
       router.push(`/plansScreen?region=${encodeURIComponent(region)}`)

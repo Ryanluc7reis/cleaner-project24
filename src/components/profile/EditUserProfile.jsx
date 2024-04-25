@@ -162,7 +162,6 @@ export default function EditUserProfile({
         <ContInput>
           <Label>Number</Label>
           <InputAlt
-            type="number"
             name="number"
             value={formData.number}
             onChange={(e) => handleChange('number', e.target.value)}

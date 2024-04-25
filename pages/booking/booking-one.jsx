@@ -145,6 +145,7 @@ function Booking() {
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
   const rate = 8.5
   const totalPrice = PriceH ? (parseFloat(PriceH) * parseFloat(Duration) + rate).toFixed(2) : null
+
   const handleFormSubmit = async () => {
     try {
       setLoading(true)
@@ -167,8 +168,25 @@ function Booking() {
         }
       )
       if (status === 201) {
-        router.push('/dashboard/')
-        alert('Service criado com sucesso')
+        try {
+          const notification = await axios.post(
+            'http://localhost:3333/createNotification',
+            {
+              for: cleanerNameData,
+              notificationType: 'Nova requisição de limpeza'
+            },
+            {
+              headers: {
+                authorization: token
+              }
+            }
+          )
+          if (notification.status === 201) {
+            router.push('/dashboard/')
+          }
+        } catch (err) {
+          console.error(err.message)
+        }
       }
     } catch (err) {
       console.error('Erro ao criar service:', err.message)
