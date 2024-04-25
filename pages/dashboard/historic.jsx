@@ -23,6 +23,7 @@ const BoxHistoric = styled.div`
   margin: 61px 50px 0px 50px;
   padding: 20px;
   border-radius: 15px;
+  overflow-y: scroll;
 `
 const FlexTitleText = styled.div`
   display: flex;
@@ -57,7 +58,7 @@ export default function HistoricPage() {
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
   const getHistoric = async () => {
     try {
-      const historics = await axios.get('http://localhost:3333/getNotifications', {
+      const historics = await axios.get('http://localhost:3333/getHistorics', {
         headers: {
           authorization: token
         }

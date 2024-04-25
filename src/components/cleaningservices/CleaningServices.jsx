@@ -107,6 +107,7 @@ const ButtonFinish = styled.div`
   padding: 7px;
   width: 130px;
   font-size: 15px;
+  background-color: #56648f;
   :hover {
     background: darkcyan;
   }
