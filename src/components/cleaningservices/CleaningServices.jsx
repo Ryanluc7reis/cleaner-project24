@@ -1,5 +1,6 @@
 import styled, { keyframes } from 'styled-components'
 import moment from 'moment'
+import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
 import { useSWRConfig } from 'swr'
@@ -95,7 +96,14 @@ const ButtonRefuse = styled.div`
     background: darkcyan;
   }
 `
-const ButtonAlt = styled(Button)`
+const ButtonFinish = styled.div`
+  border-radius: 10px;
+  border: 0;
+  cursor: pointer;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+  transition: all 200ms ease-in-out;
   padding: 7px;
   width: 130px;
   font-size: 15px;
@@ -139,8 +147,60 @@ export default function CleaningServices({
       props.onIndex2(index2)
     }
   }
+  const handleDeleteAndCreateHistoric = async (e) => {
+    e.preventDefault()
+    props.onClose()
+    try {
+      const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
+      const config = {
+        headers: {
+          authorization: token
+        },
+        data: { id: id }
+      }
+      const serviceDelete = await axios.delete('http://localhost:3333/deleteService', config)
+      const verifyCleaner = await axios.get(`http://localhost:3333/user/verify-cleaner`, {
+        headers: {
+          authorization: token
+        }
+      })
+      if (serviceDelete.status && verifyCleaner.status === 200) {
+        try {
+          await axios.post(
+            'http://localhost:3333/createHistoric',
+            {
+              for: cleaner,
+              historicType: ` Limpeza (${plan}) realizada para ${requester} `
+            },
+            {
+              headers: {
+                authorization: token
+              }
+            }
+          )
+        } catch (err) {
+          console.error(err.message)
+        }
+      }
+    } catch (err) {
+      const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
+      await axios.post(
+        'http://localhost:3333/createHistoric',
+        {
+          for: requester,
+          historicType: ` Limpeza (${plan}) realizada por ${cleaner} `
+        },
+        {
+          headers: {
+            authorization: token
+          }
+        }
+      )
+      console.error(err.message)
+    }
+  }
 
-  const handleDelete = async (e) => {
+  const handleDeleteAndCreateNotification = async (e) => {
     e.preventDefault()
     props.onClose()
     try {
@@ -241,6 +301,7 @@ export default function CleaningServices({
       console.error(err.message)
     }
   }
+
   return (
     <Form
       onClick={() => toggleInformations(index || index2)}
@@ -287,7 +348,7 @@ export default function CleaningServices({
         )}
         <Text>Total cost : {totalCost}</Text>
         {cleanAccepted ? (
-          <ButtonAlt>Finish service</ButtonAlt>
+          <ButtonFinish onClick={handleDeleteAndCreateHistoric}>Finish service</ButtonFinish>
         ) : (
           <div>
             {hasUser && (
@@ -298,7 +359,7 @@ export default function CleaningServices({
             )}
             <StyledFlexButtons hasUser={hasUser}>
               <ButtonAccept type="submit">Accept</ButtonAccept>
-              <ButtonRefuse onClick={handleDelete}>Refuse</ButtonRefuse>
+              <ButtonRefuse onClick={handleDeleteAndCreateNotification}>Refuse</ButtonRefuse>
             </StyledFlexButtons>
           </div>
         )}
