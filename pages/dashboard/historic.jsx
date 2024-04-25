@@ -55,6 +55,8 @@ const ErrorMessageAlt = styled(ErrorMessage)`
 `
 export default function HistoricPage() {
   const [historicData, setHistoricData] = useState([])
+  const [refreshHistoric, setRefreshHistoric] = useState(false)
+
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
   const getHistoric = async () => {
     try {
@@ -69,10 +71,27 @@ export default function HistoricPage() {
       console.error(err.message)
     }
   }
+  const cleanHistoric = async () => {
+    try {
+      const historicIds = historicData.map((historic) => historic._id)
+      await axios.delete('http://localhost:3333/cleanHistoric', {
+        headers: {
+          authorization: token
+        },
+        data: {
+          ids: historicIds
+        }
+      })
+      setHistoricData([])
+      setRefreshHistoric(!refreshHistoric)
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
 
   useEffect(() => {
     getHistoric()
-  }, [])
+  }, [refreshHistoric])
   return (
     <Container>
       <StyledFlex>
@@ -82,7 +101,7 @@ export default function HistoricPage() {
           <BoxHistoric>
             <FlexTitleText>
               <TitleText>Latest services</TitleText>
-              <ButtonAlt>Clean historic</ButtonAlt>
+              <ButtonAlt onClick={cleanHistoric}>Clean historic</ButtonAlt>
             </FlexTitleText>
             {historicData.length === 0 ? (
               <ErrorMessageAlt message={'Historic não encontrado...'} />
