@@ -1,12 +1,10 @@
 A ser feito em pages/booking/booking-one -->
 
 - Estilizar formulario com uma imagem se os inputs tiverem valor true , se nao trata error  <!-- EM ANDAMENTO>
-- Botao para pagar direto pro cleaner pessoalmente
 
 A ser feito em ReviewScreen -->
 
 - Refazer responsividade
-
 
 A ser feito em pages/plansScreen/index -->
 
@@ -14,7 +12,7 @@ A ser feito em pages/plansScreen/index -->
 
 A ser feito em pages/index -->
 
- - Fazer responsividade  de login quando for true/ adaptar o login em  dots quando a tela estiver responsiva
+ - Fazer responsividade  de formulario de login quando for true/ adaptar o login em  dots quando a tela estiver responsiva
 
 A ser feito em dashboard -->
 
@@ -22,27 +20,30 @@ A ser feito em dashboard -->
  - Refazer responsividade
 
 
-A ser feito em dashboard/index,jsx -->
+A ser feito em dashboard/notificações.jsx -->
 
-- Fazer com que serviços recusados seja apagados
-- Fazer com que serviços aceitos ir para box de serviços  aceitados
-- Fazer com que  serviços finalizados vão para o historicos
-- Se o serviço for aceito, achar o cleaner e retornar o numero dele no service
-
-
+- Fazer com que ao criar uma nova notificação ,apareça com o numero de notifição nova criada no sinin
+e ao renderizar a tela de notificação sumir esse numero
 
  A ser feito em plansScreen/index.jsx -->
 
  - Arrumar o click para selecionar o plan 
 
- A ser feito em backend -->
- 
- - Criar os dados de serviço
 
  A SER FEITO EM TODAS REQUISIÇÕES AO BACKEND -->
  
 - Colocar uma imagem de loading ate que o conteudo seja verdadeiro
-- Tratar erro caso nao retorne nenhum dado
+- Estado de carregando dados ate que eles sejam lidos
+- Quando o cleaner finalizar mais uma limpeza somar +1 'cleaning' no card dele
+
+A SER FEITO NO GERAL -->
+- Criar um pop-up para solicitaçoes com status 200 com mensagem (ex: Cadastro feito com sucesso)
+- Criar um pop-up de notificação com a mensagem ex: Nova requisição de limpeza
+- Fazer logica de pesquisa onde precisa
+- Criar logica para calendario 
+- Buscar cardscleaner de acordo com o calendario do cleaner
+- Quando o user clicar em finish Service , aparecer pra ele dar o review e dar um rating sobre o cleaner
+
 
 
 

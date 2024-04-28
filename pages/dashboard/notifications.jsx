@@ -43,6 +43,7 @@ const TitleText = styled.h1`
 
 export default function NotificationsPage() {
   const [notificationsData, setNotificationsData] = useState([])
+  const [refreshNotification, setRefreshNotification] = useState(false)
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
   const getNotifications = async () => {
     try {
@@ -51,27 +52,23 @@ export default function NotificationsPage() {
           authorization: token
         }
       })
+
       const data = notifications.data
       setNotificationsData(data)
     } catch (err) {
       console.error(err.message)
     }
   }
-  const deleteRefresh = async () => {
-    const notificationsRefresh = await axios.get('http://localhost:3333/getNotifications', {
-      headers: {
-        authorization: token
-      }
-    })
-    if (notificationsData.length === 0) {
+  const handleRefresh = () => {
+    if (notificationsData.length === 1) {
       setNotificationsData([])
+      setRefreshNotification(!refreshNotification)
     }
-    const data = notificationsRefresh.data
-    setNotificationsData(data)
+    setRefreshNotification(!refreshNotification)
   }
   useEffect(() => {
     getNotifications()
-  }, [])
+  }, [refreshNotification])
   return (
     <Container>
       <StyledFlex>
@@ -88,7 +85,7 @@ export default function NotificationsPage() {
                   {notificationsData.length > 0 &&
                     notificationsData.map((notification) => (
                       <Notifications
-                        onDelete={deleteRefresh}
+                        onDelete={handleRefresh}
                         id={notification._id}
                         key={notification._id}
                         notificationType={notification.notificationType}

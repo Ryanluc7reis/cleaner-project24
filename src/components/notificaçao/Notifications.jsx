@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
 import axios from 'axios'
-import { useSWRConfig } from 'swr'
 
 const Notificaçao = styled.div`
   width: 448px;
@@ -24,13 +23,17 @@ const Close = styled.img`
   padding: 2px;
   cursor: pointer;
   opacity: 0.6;
+  :hover {
+    background-color: rebeccapurple;
+  }
 `
 
 export default function Notifications({ notificationType, id, ...props }) {
-  const { mutate } = useSWRConfig()
+  const router = useRouter()
   const handleDelete = async (e) => {
     e.preventDefault()
     props.onDelete()
+
     try {
       const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
       const config = {
@@ -39,18 +42,12 @@ export default function Notifications({ notificationType, id, ...props }) {
         },
         data: { id: id }
       }
-      const deleteNotification = await axios.delete(
-        'http://localhost:3333/deleteNotification',
-        config
-      )
-      if (deleteNotification.status === 200) {
-        mutate('http://localhost:3333/getNotifications')
-      }
+      await axios.delete('http://localhost:3333/deleteNotification', config)
     } catch (err) {
       console.error(err.message)
     }
   }
-  const router = useRouter()
+
   return (
     <Notificaçao {...props}>
       <Text onClick={() => router.push('/dashboard/')}>{notificationType}</Text>
