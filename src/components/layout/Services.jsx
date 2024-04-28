@@ -45,6 +45,7 @@ export default function Services({ ...props }) {
   const [index, setIndex] = useState(-1)
   const [informations, setInformations] = useState(null)
   const [informations2, setInformations2] = useState(null)
+  const [refreshService, setRefreshService] = useState(false)
 
   const handleInformationsSelect = (index) => {
     setInformations(index === informations ? null : index)
@@ -65,25 +66,17 @@ export default function Services({ ...props }) {
         }
       })
       if (verifyCleaner.status === 200) {
-        const serviceCleaner = await axios.get(`http://localhost:3333/getService-cleaner`, {
-          headers: {
-            authorization: token
-          }
-        })
-        const dataServiceCleaner = serviceCleaner.data
-        setServiceCleaner(dataServiceCleaner)
-        if (serviceCleaner.status === 200) {
-          const response = await axios.post(
-            `http://localhost:3333/user/findCleanerName`,
-            {
-              cleanerName: dataServiceCleaner.cleaner
-            },
-            {
-              headers: { authorization: token }
+        try {
+          const serviceCleaner = await axios.get(`http://localhost:3333/getService-cleaner`, {
+            headers: {
+              authorization: token
             }
-          )
-          const datacleaner = response.data
-          setCleaner(datacleaner)
+          })
+
+          const dataServiceCleaner = serviceCleaner.data
+          setServiceCleaner(dataServiceCleaner)
+        } catch (err) {
+          console.error(err.message)
         }
       }
     } catch (err) {
@@ -97,6 +90,7 @@ export default function Services({ ...props }) {
           authorization: token
         }
       })
+
       const dataServiceUser = serviceUser.data
       setServiceUser(dataServiceUser)
       if (serviceUser.status === 200) {
@@ -123,8 +117,8 @@ export default function Services({ ...props }) {
           authorization: token
         }
       })
-      const dataServiceUserAccepted = serviceUserAccepted.data
 
+      const dataServiceUserAccepted = serviceUserAccepted.data
       setServiceUserAccepted(dataServiceUserAccepted)
       if (serviceUserAccepted.status === 200) {
         const response = await axios.post(
@@ -136,6 +130,7 @@ export default function Services({ ...props }) {
             headers: { authorization: token }
           }
         )
+
         const datacleaner = response.data
         setCleaner(datacleaner)
       }
@@ -153,6 +148,7 @@ export default function Services({ ...props }) {
           }
         }
       )
+
       const dataServiceCleanerAccepted = serviceCleanerAccepted.data
       setServiceCleanerAccepted(dataServiceCleanerAccepted)
       if (serviceCleanerAccepted.status === 200) {
@@ -165,6 +161,7 @@ export default function Services({ ...props }) {
             headers: { authorization: token }
           }
         )
+
         const datacleaner = response.data
         setCleaner(datacleaner)
       }
@@ -172,13 +169,25 @@ export default function Services({ ...props }) {
       console.error(err.message)
     }
   }
+  const handleRefresh = async () => {
+    if (serviceCleaner.length === 1) {
+      setServiceCleaner([])
+    }
+    if (serviceCleanerAccepted.length === 1) {
+      setServiceCleanerAccepted([])
+    }
+    if (serviceUserAccepted.length === 1) {
+      setServiceUserAccepted([])
+    }
+    setRefreshService(!refreshService)
+  }
 
   useEffect(() => {
     getServiceCleaner()
     getServiceUser()
     getServiceUserAccepted()
     getServiceCleanerAccepted()
-  }, [index, informations, informations2])
+  }, [index, informations, informations2, refreshService])
 
   return (
     <Container {...props}>
@@ -194,7 +203,7 @@ export default function Services({ ...props }) {
                     <CleaningServices
                       onIndex={() => handleInformationsSelect(index)}
                       isInformations={index === informations}
-                      onClose={() => setInformations(!informations)}
+                      onRefresh={handleRefresh}
                       index={index}
                       key={service._id}
                       id={service._id}
@@ -246,8 +255,8 @@ export default function Services({ ...props }) {
                     <CleaningServices
                       onIndex2={() => handleInformationsSelect2(index)}
                       isInformations={index === informations2}
+                      onRefresh={handleRefresh}
                       index2={index}
-                      onClose={() => setInformations2(!informations2)}
                       key={service._id}
                       id={service._id}
                       plan={service.plan}
@@ -268,8 +277,8 @@ export default function Services({ ...props }) {
                     <CleaningServices
                       onIndex2={() => handleInformationsSelect2(index)}
                       isInformations={index === informations2}
-                      onClose={() => setInformations2(!informations2)}
                       index2={index}
+                      onRefresh={handleRefresh}
                       key={service._id}
                       id={service._id}
                       plan={service.plan}

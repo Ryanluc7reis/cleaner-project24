@@ -1,5 +1,6 @@
 import styled, { keyframes } from 'styled-components'
 import moment from 'moment'
+import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
 
@@ -145,9 +146,10 @@ export default function CleaningServices({
       props.onIndex2(index2)
     }
   }
+
   const handleDeleteAndCreateHistoric = async (e) => {
     e.preventDefault()
-    props.onClose()
+    props.onRefresh()
     try {
       const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
       const config = {
@@ -200,7 +202,8 @@ export default function CleaningServices({
 
   const handleDeleteAndCreateNotification = async (e) => {
     e.preventDefault()
-    props.onClose()
+    props.onRefresh()
+
     try {
       const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
       const config = {
@@ -209,6 +212,7 @@ export default function CleaningServices({
         },
         data: { id: id }
       }
+
       const serviceDelete = await axios.delete('http://localhost:3333/deleteService', config)
       if (serviceDelete.status === 200) {
         try {
@@ -234,7 +238,6 @@ export default function CleaningServices({
   }
 
   const handleForm = async () => {
-    props.onClose()
     const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
     const config = {
       headers: {
@@ -259,6 +262,7 @@ export default function CleaningServices({
       )
 
       if (responseCreateService.status === 201) {
+        props.onRefresh()
         try {
           const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
           const config2 = {
@@ -267,25 +271,21 @@ export default function CleaningServices({
             },
             data: { id: id }
           }
-          const response = await axios.delete('http://localhost:3333/deleteService', config2)
-        } catch (err) {
-          console.error(err.message)
-        }
-      }
-      if (responseCreateService.status === 201) {
-        try {
-          await axios.post(
-            'http://localhost:3333/createNotification',
-            {
-              for: requester,
-              notificationType: ` O cleaner (${cleaner}) aceitou sua limpeza`
-            },
-            {
-              headers: {
-                authorization: token
+          const responseDelete = await axios.delete('http://localhost:3333/deleteService', config2)
+          if (responseDelete.status === 200) {
+            await axios.post(
+              'http://localhost:3333/createNotification',
+              {
+                for: requester,
+                notificationType: ` O cleaner (${cleaner}) aceitou sua limpeza`
+              },
+              {
+                headers: {
+                  authorization: token
+                }
               }
-            }
-          )
+            )
+          }
         } catch (err) {
           console.error(err.message)
         }
