@@ -32,8 +32,11 @@ const ImgAvatar = styled.img`
   background: #fff;
 `
 const ImgNotifications = styled.img`
-  width: 33px;
-  height: 33px;
+  padding: 1px;
+  cursor: pointer;
+  :hover {
+    scale: 1.1;
+  }
 `
 const StyledFlex = styled.div`
   display: flex;
@@ -84,6 +87,21 @@ const Hamburguer = styled.img`
     display: flex;
   }
 `
+const NotificationCount = styled.div`
+  width: 17px;
+  height: 14px;
+  margin-right: 3px;
+  border-radius: 25px;
+  color: white;
+  font-weight: bold;
+  background: red;
+  justify-content: center;
+  display: flex;
+  align-self: center;
+  position: absolute;
+  top: 8%;
+  right: 7%;
+`
 export default function NavRoutesDash({
   dash,
   profile,
@@ -92,11 +110,13 @@ export default function NavRoutesDash({
   historic,
   type1,
   type2,
+  whithoutNotification,
   ...props
 }) {
   const router = useRouter()
   const [userData, setUserData] = useContext(UserContext)
   const [clicked, setClicked] = useState(false)
+  const [notificationsCount, setNotificationsCount] = useState([])
   const { user, userId } = userData
   const handleClick = (click) => {
     props.onClickDash(click === setClicked(!clicked))
@@ -114,21 +134,35 @@ export default function NavRoutesDash({
       return 'Services'
     }
   }
-  useEffect(() => {
-    const verifyUser = async () => {
-      try {
-        const token = localStorage.getItem('token')
-        const response = await axios.get('http://localhost:3333/user/verify-session', {
-          headers: {
-            authorization: token
-          }
-        })
-        setUserData(response.data)
-      } catch (error) {
-        console.error('Erro ao verificar sessão:', error)
-      }
+  const verifyUser = async () => {
+    try {
+      const token = localStorage.getItem('token')
+      const response = await axios.get('http://localhost:3333/user/verify-session', {
+        headers: {
+          authorization: token
+        }
+      })
+      setUserData(response.data)
+    } catch (error) {
+      console.error('Erro ao verificar sessão:', error)
     }
+  }
+  const verifyNotificationsCount = async () => {
+    try {
+      const token = localStorage.getItem('token')
+      const response = await axios.get('http://localhost:3333/getNotificationsCount', {
+        headers: {
+          authorization: token
+        }
+      })
+      setNotificationsCount(response.data.count)
+    } catch (error) {
+      console.error('Erro ao verificar sessão:', error)
+    }
+  }
+  useEffect(() => {
     verifyUser()
+    verifyNotificationsCount()
   }, [])
   const handleLogout = async () => {
     try {
@@ -157,7 +191,7 @@ export default function NavRoutesDash({
           <StyledFlex>
             <h1 style={{ color: 'white' }}>Olá, {user}</h1>
             <ImgAvatar src="/avatar.png" />
-            <ImgNotifications src="/bell.png" />
+            <ImgNotifications src="/bell1.png" />
             <LogOut onClick={handleLogout}>Logout</LogOut>
           </StyledFlex>
         </ContainerBox>
@@ -176,7 +210,19 @@ export default function NavRoutesDash({
             </StyledFlexSearch>
             <h1 style={{ color: 'white' }}>Olá, {user}</h1>
             <ImgAvatar src="/avatar.png" />
-            <ImgNotifications src="/bell.png" />
+
+            {notificationsCount.length === 0 || whithoutNotification ? (
+              <ImgNotifications src="/bell1.png" />
+            ) : (
+              <div>
+                <ImgNotifications
+                  onClick={() => router.push('/dashboard/notifications')}
+                  src="/bell1.png"
+                />
+                <NotificationCount>{notificationsCount}</NotificationCount>
+              </div>
+            )}
+
             <LogOut onClick={handleLogout}>Logout</LogOut>
           </StyledFlex>
         </ContainerBox>

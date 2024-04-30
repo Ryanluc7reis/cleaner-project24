@@ -45,20 +45,24 @@ export default function NotificationsPage() {
   const [notificationsData, setNotificationsData] = useState([])
   const [refreshNotification, setRefreshNotification] = useState(false)
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
+  const config = {
+    headers: {
+      Authorization: token
+    }
+  }
   const getNotifications = async () => {
     try {
-      const notifications = await axios.get('http://localhost:3333/getNotifications', {
-        headers: {
-          authorization: token
-        }
-      })
-
+      const notifications = await axios.get('http://localhost:3333/getNotifications', config)
       const data = notifications.data
       setNotificationsData(data)
+      if (notifications.status === 200) {
+        await axios.get('http://localhost:3333/notificationsAsRead', config)
+      }
     } catch (err) {
       console.error(err.message)
     }
   }
+
   const handleRefresh = () => {
     if (notificationsData.length === 1) {
       setNotificationsData([])
@@ -74,7 +78,7 @@ export default function NotificationsPage() {
       <StyledFlex>
         <NavBarDashboard isNotifications />
         <FlexContainer>
-          <NavRoutesDash notifications type2 />
+          <NavRoutesDash notifications type2 whithoutNotification />
           <BoxNotifications>
             <TitleText>New notifications</TitleText>
             {notificationsData.length === 0 ? (
