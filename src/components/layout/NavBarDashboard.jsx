@@ -50,13 +50,9 @@ const Option = styled.h1`
   font-size: 16px;
 `
 const ImgOption = styled.img`
-  width: 30px;
-  height: 27px;
+  padding: 1px;
 `
-const ImgOptionAlt = styled(ImgOption)`
-  width: 26px;
-  height: 23px;
-`
+
 export default function NavBarDashboard({
   isDash,
   isProfile,
@@ -100,7 +96,7 @@ export default function NavBarDashboard({
             }}
             onClick={() => router.push('/dashboard/')}
           >
-            <ImgOptionAlt src={isDash ? '/dashwhite.png' : '/dash.png'} />
+            <ImgOption src={isDash ? '/dashwhite.png' : '/dash.png'} />
             <Option style={{ ...(isDash && { color: '#fff' }) }}>Dashboard </Option>
           </FlexOption>
           <FlexOption
@@ -113,7 +109,7 @@ export default function NavBarDashboard({
             }}
             onClick={() => router.push('/dashboard/profile')}
           >
-            <ImgOptionAlt src={isProfile ? '/userwhite.png' : '/user.png'} />
+            <ImgOption src={isProfile ? '/userwhite.png' : '/user.png'} />
             <Option style={{ ...(isProfile && { color: '#fff' }) }}>Profile </Option>
           </FlexOption>
 
@@ -140,7 +136,7 @@ export default function NavBarDashboard({
             }}
             onClick={() => router.push('/dashboard/notifications')}
           >
-            <ImgOptionAlt src={isNotifications ? '/bellwhite.png' : '/bell.png'} />
+            <ImgOption src={isNotifications ? '/bellwhite.png' : '/bell.png'} />
             <Option style={{ ...(isNotifications && { color: '#fff' }) }}>Notifications</Option>
           </FlexOption>
           <FlexOption
