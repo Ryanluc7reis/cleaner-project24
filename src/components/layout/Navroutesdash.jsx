@@ -191,7 +191,10 @@ export default function NavRoutesDash({
           <StyledFlex>
             <h1 style={{ color: 'white' }}>Olá, {user}</h1>
             <ImgAvatar src="/avatar.png" />
-            <ImgNotifications src="/bell1.png" />
+            <ImgNotifications
+              onClick={() => router.push('/dashboard/notifications')}
+              src="/bell1.png"
+            />
             <LogOut onClick={handleLogout}>Logout</LogOut>
           </StyledFlex>
         </ContainerBox>
@@ -212,7 +215,10 @@ export default function NavRoutesDash({
             <ImgAvatar src="/avatar.png" />
 
             {notificationsCount.length === 0 || whithoutNotification ? (
-              <ImgNotifications src="/bell1.png" />
+              <ImgNotifications
+                onClick={() => router.push('/dashboard/notifications')}
+                src="/bell1.png"
+              />
             ) : (
               <div>
                 <ImgNotifications
