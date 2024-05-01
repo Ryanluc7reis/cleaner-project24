@@ -1,7 +1,8 @@
 import styled from 'styled-components'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
+import { PopUpContext } from '../../context/useContextPopUp'
 
 import Input from '../form/Input'
 import Button from '../form/Button'
@@ -83,7 +84,7 @@ export default function EditPassword({
   const { handleSubmit } = useForm({
     mode: 'all'
   })
-
+  const [popUpMessage, setPopUpMessage] = useContext(PopUpContext)
   const [newPassword, setNewPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [currentPassword, setCurrentPassword] = useState({
@@ -127,7 +128,7 @@ export default function EditPassword({
 
         if (editUserResponse.status === 200) {
           onSave()
-          alert('Perfil editado com sucesso')
+          setPopUpMessage(true)
         }
       }
     } catch (err) {

@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { useState, useContext, useEffect } from 'react'
 import { UserContext } from '../../context/useContext'
 import { RegionContext } from '../../context/useContextRegion'
+import { PopUpContext } from '../../context/useContextPopUp'
 import axios from 'axios'
 
 import ImageSectionOne from './ImageSectionOne'
@@ -97,6 +98,8 @@ const ButtonAlt = styled(Button)`
 `
 export default function SectionOne() {
   const router = useRouter()
+  const [popUpMessage, setPopUpMessage] = useContext(PopUpContext)
+  const [popUpMessageCard, setPopUpMessageCard] = useContext(PopUpContext)
   const [color, setColor] = useState(null)
   const [error, setError] = useState(false)
   const [userData, setUserData] = useContext(UserContext)
@@ -165,6 +168,12 @@ export default function SectionOne() {
 
     verifyUser()
     getNotificationsPopUp()
+
+    setTimeout(() => {
+      setPopUpMessage(false)
+      setPopUpMessageCard(false)
+    }, 4000)
+
     if (user === undefined) {
       setNotificationMessage(false)
     }
@@ -178,6 +187,13 @@ export default function SectionOne() {
   return (
     <ImageSectionOne>
       <BoxShadow>
+        {popUpMessage && (
+          <PopUpMessage messageToOkrequest={popUpMessage}>Cadastro feito com sucesso</PopUpMessage>
+        )}
+
+        {popUpMessage && popUpMessageCard && (
+          <PopUpMessage messageToOkrequest={popUpMessage}>Card criado com sucesso</PopUpMessage>
+        )}
         {user ? <Navbar username={user} /> : <Navbar type1 />}
         <StyledContainer1>
           <H2>Find Top Rated Cleaners!</H2>

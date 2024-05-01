@@ -1,7 +1,8 @@
 import styled from 'styled-components'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
+import { PopUpContext } from '../../context/useContextPopUp'
 
 import Button from '../form/Button'
 import Input from '../form/Input'
@@ -79,7 +80,7 @@ export default function EditUserProfile({
   const { handleSubmit } = useForm({
     mode: 'all'
   })
-
+  const [popUpMessage, setPopUpMessage] = useContext(PopUpContext)
   const [formData, setFormData] = useState({
     id: id,
     fullName: fullName,
@@ -101,7 +102,7 @@ export default function EditUserProfile({
       const response = await axios.patch(`http://localhost:3333/user/editUser`, formData, config)
       if (response.status === 200) {
         onSave()
-        alert('Perfil editado com sucesso')
+        setPopUpMessage(true)
       }
     } catch (err) {
       console.error(err.message)

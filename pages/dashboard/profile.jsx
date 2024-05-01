@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { useRouter } from 'next/router'
 import { useContext, useState, useEffect } from 'react'
 import { UserContext } from '../../src/context/useContext'
+import { PopUpContext } from '../../src/context/useContextPopUp'
 import axios from 'axios'
 import { useSWRConfig } from 'swr'
 
@@ -10,6 +11,7 @@ import Profile from '../../src/components/profile/Profile'
 import Card from '../../src/components/cardcleaner/Card'
 import EditCard from '../../src/components/cardcleaner/EditCard'
 import About from '../../src/components/aboutcleaner/About'
+import PopUpMessage from '../../src/components/popupmessage/PopUpMessage'
 
 const Container = styled.div`
   width: 100%;
@@ -77,9 +79,14 @@ const FlexProfileAndCard = styled.div`
   align-items: center;
   flex-direction: column;
 `
+const PopUpMessageAlt = styled(PopUpMessage)`
+  position: fixed;
+  top: 0%;
+`
 
 const ProfilePage = () => {
   const router = useRouter()
+  const [popUpMessage, setPopUpMessage] = useContext(PopUpContext)
   const [userData, setUserData] = useContext(UserContext)
   const { user, userId } = userData
   const [card, setCard] = useState(null)
@@ -131,12 +138,20 @@ const ProfilePage = () => {
     getCard()
     findUser()
     findCleaner()
-  }, [])
+    setTimeout(() => {
+      setPopUpMessage(false)
+    }, 4000)
+  }, [popUpMessage])
 
   return (
     <Container>
       {userCleaner ? (
         <FlexContainer>
+          {popUpMessage && userCleaner && (
+            <PopUpMessageAlt messageToOkrequest={popUpMessage}>
+              Perfil editado com sucesso
+            </PopUpMessageAlt>
+          )}
           <StyledFlex>
             <NavBarDashboard isProfile />
             <FlexProfileAndCard>
@@ -220,6 +235,11 @@ const ProfilePage = () => {
         </FlexContainer>
       ) : (
         <FlexContainer>
+          {popUpMessage && (
+            <PopUpMessage messageToOkrequest={popUpMessage}>
+              Perfil editado com sucesso
+            </PopUpMessage>
+          )}
           <StyledFlex>
             <NavBarDashboard isProfile />
             {Object.keys(userCurrentUserData).length !== 0 && (

@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from 'react'
 import { useRouter } from 'next/router'
 import { UserContext } from '../../src/context/useContext'
 import { CardIdContext } from '../../src/context/useContextCardId'
+import { PopUpContext } from '../../src/context/useContextPopUp'
 import dynamic from 'next/dynamic'
 import axios from 'axios'
 import useSWRConfig from 'swr'
@@ -127,6 +128,7 @@ const StyledFlexButtons = styled.div`
   right: 61%;
 `
 function Booking() {
+  const [popUpMessage, setPopUpMessage] = useContext(PopUpContext)
   const [userData, setUserData] = useContext(UserContext)
   const { user, userId } = userData
   const [userCurrentUserData, setCurrentUserData] = useState({})
@@ -183,6 +185,7 @@ function Booking() {
           )
           if (notification.status === 201) {
             router.push('/dashboard/')
+            setPopUpMessage(true)
           }
         } catch (err) {
           console.error(err.message)

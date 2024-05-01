@@ -1,10 +1,12 @@
 import styled from 'styled-components'
+import { useState, useContext } from 'react'
+import { useRouter } from 'next/router'
+import axios from 'axios'
+
+import { PopUpContext } from '../src/context/useContextPopUp'
 import Button from '../src/components/form/Button'
 import Input from '../src/components/form/Input'
 import Logo from '../src/components/logo/Logo'
-import { useState } from 'react'
-import { useRouter } from 'next/router'
-import axios from 'axios'
 
 const ButtonAlt = styled(Button)`
   margin-top: 23px;
@@ -123,6 +125,7 @@ const ErrorLabel = styled.span`
 `
 const SignupAsClient = () => {
   const router = useRouter()
+  const [popUpMessage, setPopUpMessage] = useContext(PopUpContext)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState({})
   const [formData, setFormData] = useState({
@@ -163,12 +166,13 @@ const SignupAsClient = () => {
       setLoading(true)
       const { status } = await axios.post(`http://localhost:3333/user/signup`, formData)
       if (status === 201) {
+        setPopUpMessage(true)
         router.push('/')
       }
     } catch (err) {
-      if (err.response.data.duplicatedKey === 'email') {
+      if (err.response && err.response.data.duplicatedKey === 'email') {
         setError({ ...error, email: 'Já existe uma conta com esse e-mail.' })
-      } else if (err.response.data.duplicatedKey === 'user') {
+      } else if (err.response && err.response.data.duplicatedKey === 'user') {
         setError({ ...error, user: 'Já existe uma conta com esse username.' })
       } else {
         const newErrors = {}
@@ -253,7 +257,6 @@ const SignupAsClient = () => {
             label="Number"
             name="number"
             placeholder="NUMBER"
-            type="number"
             onChange={handleChange}
             value={formData.number}
             error={error.number}
