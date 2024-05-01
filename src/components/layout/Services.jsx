@@ -1,9 +1,11 @@
 import styled from 'styled-components'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
+import { PopUpContext } from '../../context/useContextPopUp'
 
 import CleaningServices from '../cleaningservices/CleaningServices'
 import ErrorMessage from '../errormessage/ErrorMessage'
+import PopUpMessage from '../popupmessage/PopUpMessage'
 
 const Container = styled.div`
   width: 100%;
@@ -36,6 +38,11 @@ const GridServices = styled.div`
 const ErrorMessageAlt = styled(ErrorMessage)`
   padding: 100px 360px;
 `
+const PopUpMessageAlt = styled(PopUpMessage)`
+  position: fixed;
+  top: 0%;
+  right: 0%;
+`
 export default function Services({ ...props }) {
   const [serviceCleaner, setServiceCleaner] = useState([])
   const [serviceUser, setServiceUser] = useState([])
@@ -46,6 +53,7 @@ export default function Services({ ...props }) {
   const [informations, setInformations] = useState(null)
   const [informations2, setInformations2] = useState(null)
   const [refreshService, setRefreshService] = useState(false)
+  const [popUpMessage, setPopUpMessage] = useContext(PopUpContext)
 
   const handleInformationsSelect = (index) => {
     setInformations(index === informations ? null : index)
@@ -187,11 +195,19 @@ export default function Services({ ...props }) {
     getServiceUser()
     getServiceUserAccepted()
     getServiceCleanerAccepted()
+    setTimeout(() => {
+      setPopUpMessage(false)
+    }, 4000)
   }, [index, informations, informations2, refreshService])
 
   return (
     <Container {...props}>
       <BoxServices>
+        {popUpMessage && (
+          <PopUpMessageAlt messageToOkrequest={popUpMessage}>
+            Requisição feita com sucesso
+          </PopUpMessageAlt>
+        )}
         <Title>Pending Services</Title>
         {serviceCleaner.length === 0 && serviceUser.length === 0 ? (
           <ErrorMessageAlt message={'Nenhum serviço encontrado...'} />

@@ -1,7 +1,8 @@
 import styled from 'styled-components'
-import { useState } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
+import { PopUpContext } from '../src/context/useContextPopUp'
 
 import Card from '../src/components/cardcleaner/Card'
 import Input from '../src/components/form/Input'
@@ -9,7 +10,12 @@ import Logo from '../src/components/logo/Logo'
 import Button from '../src/components/form/Button'
 import Selecter from '../src/components/form/Selecter'
 import Textarea from '../src/components/form/Textarea'
+import PopUpMessage from '../src/components/popupmessage/PopUpMessage'
 
+const PopUpMessageAlt = styled(PopUpMessage)`
+  position: fixed;
+  top: 0%;
+`
 const Container = styled.div`
   width: 100%;
   min-height: 107vh;
@@ -53,6 +59,7 @@ const InputAlt = styled(Input)`
     font-size: 13px;
   }
 `
+
 const ButtonAlt = styled(Button)`
   @media (max-width: 430px) {
     font-size: 15px;
@@ -77,7 +84,10 @@ const Label = styled.h1`
 
 export default function CreateCardCleaner() {
   const router = useRouter()
+  const [popUpMessage, setPopUpMessage] = useContext(PopUpContext)
+  const [popUpMessageCard, setPopUpMessageCard] = useContext(PopUpContext)
   const [loading, setLoading] = useState(null)
+  const [popUpError, setPopUpError] = useState(false)
   const [formData, setFormData] = useState({
     name: '',
     price: '',
@@ -114,18 +124,31 @@ export default function CreateCardCleaner() {
       )
       if (status === 201) {
         router.push('/')
-        alert('Card criado com sucesso')
+        setPopUpMessage(true)
+        setPopUpMessageCard(true)
       }
     } catch (err) {
-      alert('Não foi possivel criar o card')
-      console.error(err.message)
+      setPopUpMessage(true)
+      setPopUpError(true)
+
+      console.error('Erro ao criar card:', err.message)
     } finally {
       setLoading(false)
     }
   }
+  useEffect(() => {
+    setTimeout(() => {
+      setPopUpMessage(false)
+    }, 4000)
+  }, [popUpMessage])
   return (
     <Container>
       <LogoAlt />
+      {popUpMessage && popUpError && (
+        <PopUpMessageAlt messageToOkrequest={popUpMessage} error={popUpMessage}>
+          Erro ao criar card
+        </PopUpMessageAlt>
+      )}
       <Title>Crie seu cleaner card</Title>
       <Form onSubmit={onSubmit}>
         <FlexInputAndCard>
@@ -139,6 +162,7 @@ export default function CreateCardCleaner() {
               onChange={(e) => handleChange('name', e.target.value)}
               required
             />
+
             <InputAlt
               colorlabel
               label="Price"
@@ -191,25 +215,25 @@ export default function CreateCardCleaner() {
             placeholder="Olá eu sou o Gabs..."
             name="about"
             value={formData.about}
-            onChange={(e) => handleChange('about', e.target.value)} // Alteração aqui
+            onChange={(e) => handleChange('about', e.target.value)}
           />
           <Label>Type of cleaning 1</Label>
           <Selecter
             name="cleaning"
-            onChange={(e) => handleChange('cleaning', e.target.value)} // Alteração aqui
+            onChange={(e) => handleChange('cleaning', e.target.value)}
             value={formData.cleaning}
             typeCleaningCreate
           />
           <Label>Type of cleaning 2</Label>
           <Selecter
-            onChange={(e) => handleChange('cleaning2', e.target.value)} // Alteração aqui
+            onChange={(e) => handleChange('cleaning2', e.target.value)}
             name="cleaning2"
             value={formData.cleaning2}
             typeCleaningCreate
           />
           <Label>Type of cleaning 3</Label>
           <Selecter
-            onChange={(e) => handleChange('cleaning3', e.target.value)} // Alteração aqui
+            onChange={(e) => handleChange('cleaning3', e.target.value)}
             name="cleaning3"
             value={formData.cleaning3}
             typeCleaningCreate
@@ -225,7 +249,11 @@ export default function CreateCardCleaner() {
               formData.price &&
               formData.experience &&
               formData.amountCleaning &&
-              formData.region
+              formData.region &&
+              formData.about &&
+              formData.cleaning &&
+              formData.cleaning2 &&
+              formData.cleaning3
                 ? false
                 : true
             }

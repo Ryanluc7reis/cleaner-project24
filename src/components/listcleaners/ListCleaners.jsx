@@ -93,6 +93,7 @@ const GridCardCleaner = styled.div`
   display: grid;
   grid-template-columns: 350px 350px;
   gap: 15px;
+  padding-bottom: 110px;
 
   @media (max-width: 1100px) {
     display: flex;

@@ -4,6 +4,7 @@ import { LoginProvider } from '../src/context/useContextLogin'
 import { RegionProvider } from '../src/context/useContextRegion'
 import { CleanerAvailableProvider } from '../src/context/useContextCleanersAvailable'
 import { CardIdProvider } from '../src/context/useContextCardId'
+import { PopUpProvider } from '../src/context/useContextPopUp'
 
 import theme from '../theme'
 
@@ -15,7 +16,6 @@ const GlobalStyles = createGlobalStyle`
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  //overflow-x: hidden;
 }
 html{
  font-size: 62.5%;
@@ -29,22 +29,24 @@ h1,h2,h3,h4,h5 {
  `
 function MyApp({ Component, pageProps }) {
   return (
-    <CardIdProvider>
-      <CleanerAvailableProvider>
-        <RegionProvider>
-          <LoginProvider>
-            <UserProvider>
-              <ThemeProvider theme={theme}>
-                <>
-                  <Component {...pageProps} />
-                  <GlobalStyles />
-                </>
-              </ThemeProvider>
-            </UserProvider>
-          </LoginProvider>
-        </RegionProvider>
-      </CleanerAvailableProvider>
-    </CardIdProvider>
+    <PopUpProvider>
+      <CardIdProvider>
+        <CleanerAvailableProvider>
+          <RegionProvider>
+            <LoginProvider>
+              <UserProvider>
+                <ThemeProvider theme={theme}>
+                  <>
+                    <Component {...pageProps} />
+                    <GlobalStyles />
+                  </>
+                </ThemeProvider>
+              </UserProvider>
+            </LoginProvider>
+          </RegionProvider>
+        </CleanerAvailableProvider>
+      </CardIdProvider>
+    </PopUpProvider>
   )
 }
 

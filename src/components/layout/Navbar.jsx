@@ -226,7 +226,6 @@ export default function Navbar({ type1, type2, username, ...props }) {
       }
       const response = await axios.post('http://localhost:3333/user/logout', {}, config)
       if (response.status === 200) {
-        console.log('Logout realizado com sucesso')
         setUserData(false)
         setShowLogin(false)
       }
@@ -286,7 +285,7 @@ export default function Navbar({ type1, type2, username, ...props }) {
           <Logo onClick={() => router.push('/')} />
           <StyledOptionsLoginAlt>
             <h1 style={{ color: 'white' }}>Olá, {username}</h1>
-            <Mydashboard onClick={() => router.push('/dashboard')}>Dashboard</Mydashboard>
+            <Mydashboard onClick={() => router.push('/dashboard')}>MyDashboard</Mydashboard>
             <Logout onClick={handleLogout} style={{ color: 'white' }}>
               Logout
             </Logout>

@@ -19,12 +19,6 @@ A ser feito em dashboard -->
  - Caso nao tiver alguem logado redirect para pagina inicial
  - Refazer responsividade
 
-
-A ser feito em dashboard/notificações.jsx -->
-
-- Fazer com que ao criar uma nova notificação ,apareça com o numero de notifição nova criada no sinin
-e ao renderizar a tela de notificação sumir esse numero
-
  A ser feito em plansScreen/index.jsx -->
 
  - Arrumar o click para selecionar o plan 
@@ -37,12 +31,11 @@ e ao renderizar a tela de notificação sumir esse numero
 - Quando o cleaner finalizar mais uma limpeza somar +1 'cleaning' no card dele
 
 A SER FEITO NO GERAL -->
-- Criar um pop-up para solicitaçoes com status 200 com mensagem (ex: Cadastro feito com sucesso)
-- Criar um pop-up de notificação com a mensagem ex: Nova requisição de limpeza
 - Fazer logica de pesquisa onde precisa
 - Criar logica para calendario 
 - Buscar cardscleaner de acordo com o calendario do cleaner
 - Quando o user clicar em finish Service , aparecer pra ele dar o review e dar um rating sobre o cleaner
+- Fazer logica para forgotpassoword em login
 
 
 

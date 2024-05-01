@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { useState, useContext, useEffect } from 'react'
 import { UserContext } from '../../context/useContext'
 import { RegionContext } from '../../context/useContextRegion'
+import { PopUpContext } from '../../context/useContextPopUp'
 import axios from 'axios'
 
 import ImageSectionOne from './ImageSectionOne'
@@ -11,6 +12,7 @@ import Button from '../form/Button'
 import Navbar from '../layout/Navbar'
 import H2 from '../typography/H2'
 import H5 from '../typography/H5'
+import PopUpMessage from '../popupmessage/PopUpMessage'
 
 const BoxShadow = styled.div`
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
@@ -96,11 +98,43 @@ const ButtonAlt = styled(Button)`
 `
 export default function SectionOne() {
   const router = useRouter()
+  const [popUpMessage, setPopUpMessage] = useContext(PopUpContext)
+  const [popUpMessageCard, setPopUpMessageCard] = useContext(PopUpContext)
   const [color, setColor] = useState(null)
   const [error, setError] = useState(false)
   const [userData, setUserData] = useContext(UserContext)
   const [region, setRegion] = useContext(RegionContext)
   const { user, userId } = userData
+  const [notificationMessage, setNotificationMessage] = useState(false)
+  const [notificationsCount, setNotificationsCount] = useState([])
+  const [notifications, setNotifications] = useState([])
+
+  const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
+  const config = {
+    headers: {
+      Authorization: token
+    }
+  }
+  const getNotificationsPopUp = async () => {
+    try {
+      const notificationsCount = await axios.get(
+        'http://localhost:3333/getNotificationsCount',
+        config
+      )
+      if (notificationsCount.status === 200) {
+        setNotificationMessage(true)
+      }
+      const data = notificationsCount.data
+      setNotificationsCount(data)
+      if (notificationsCount.status === 200) {
+        const notificationsData = await axios.get(' http://localhost:3333/getNotifications', config)
+        const data = notificationsData.data
+        setNotifications(data)
+      }
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
   const handleInputChange = (event) => {
     setRegion(event.target.value)
   }
@@ -120,7 +154,6 @@ export default function SectionOne() {
   useEffect(() => {
     const verifyUser = async () => {
       try {
-        const token = localStorage.getItem('token')
         const response = await axios.get('http://localhost:3333/user/verify-session', {
           headers: {
             authorization: token
@@ -134,11 +167,33 @@ export default function SectionOne() {
     }
 
     verifyUser()
-  }, [setUserData])
+    getNotificationsPopUp()
+
+    setTimeout(() => {
+      setPopUpMessage(false)
+      setPopUpMessageCard(false)
+    }, 4000)
+
+    if (user === undefined) {
+      setNotificationMessage(false)
+    }
+    const timer = setTimeout(() => {
+      setNotificationMessage(false)
+    }, 5000)
+
+    return () => clearTimeout(timer)
+  }, [user])
 
   return (
     <ImageSectionOne>
       <BoxShadow>
+        {popUpMessage && (
+          <PopUpMessage messageToOkrequest={popUpMessage}>Cadastro feito com sucesso</PopUpMessage>
+        )}
+
+        {popUpMessage && popUpMessageCard && (
+          <PopUpMessage messageToOkrequest={popUpMessage}>Card criado com sucesso</PopUpMessage>
+        )}
         {user ? <Navbar username={user} /> : <Navbar type1 />}
         <StyledContainer1>
           <H2>Find Top Rated Cleaners!</H2>
@@ -155,6 +210,14 @@ export default function SectionOne() {
             </ButtonAlt>
           </StyledForm>
         </StyledContainer1>
+        {notifications.length !== 0 && user && (
+          <PopUpMessage
+            notificationMessage={notificationMessage}
+            notification={notifications[0].notificationType}
+            onClose={() => setNotificationMessage(!notificationMessage)}
+            moreNotificationsCount={notifications.length === 1 ? false : notifications.length - 1}
+          />
+        )}
       </BoxShadow>
     </ImageSectionOne>
   )
