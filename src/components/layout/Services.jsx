@@ -6,6 +6,7 @@ import { PopUpContext } from '../../context/useContextPopUp'
 import CleaningServices from '../cleaningservices/CleaningServices'
 import ErrorMessage from '../errormessage/ErrorMessage'
 import PopUpMessage from '../popupmessage/PopUpMessage'
+import ReviewCleaner from '../reviewcleaner/ReviewCleaner'
 
 const Container = styled.div`
   width: 100%;
@@ -54,6 +55,7 @@ export default function Services({ ...props }) {
   const [informations2, setInformations2] = useState(null)
   const [refreshService, setRefreshService] = useState(false)
   const [popUpMessage, setPopUpMessage] = useContext(PopUpContext)
+  const [openReview, setOpenReview] = useState(false)
 
   const handleInformationsSelect = (index) => {
     setInformations(index === informations ? null : index)
@@ -186,6 +188,7 @@ export default function Services({ ...props }) {
     }
     if (serviceUserAccepted.length === 1) {
       setServiceUserAccepted([])
+      setOpenReview(true)
     }
     setRefreshService(!refreshService)
   }
@@ -308,11 +311,19 @@ export default function Services({ ...props }) {
                       requester={service.requester}
                       cleaner={service.cleaner}
                       cleanerNumber={cleaner.number}
+                      openReview={() => setOpenReview(!openReview)}
                       cleanAccepted
                     />
                   ))}
             </GridServices>
           </>
+        )}
+        {openReview && (
+          <ReviewCleaner
+            cleanerUser={cleaner.user}
+            forCleaner={cleaner.fullName}
+            onClose={() => setOpenReview(false)}
+          />
         )}
       </BoxServices>
     </Container>

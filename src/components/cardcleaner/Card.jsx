@@ -25,6 +25,9 @@ const About = styled.h3`
 `
 const AboutSub = styled.h4`
   color: black;
+  display: flex;
+  align-items: center;
+  gap: 3px;
 `
 const FlexAbout = styled.div`
   display: flex;
@@ -65,7 +68,7 @@ const MaleIcon = styled.img`
   width: 55px;
 `
 const Star = styled.img`
-  height: 11px;
+  height: 13px;
   width: 15px;
 `
 const ButtonAltStyled = styled(Button)`
@@ -136,6 +139,7 @@ export default function CardCleaner({
   useEffect(() => {
     getCard()
   }, [id])
+
   return (
     <Card style={{ ...(none && { height: '180px' }) }} isSelected={isSelected} {...props}>
       {showReview && (
@@ -145,6 +149,7 @@ export default function CardCleaner({
           rating={rating}
           cleaningCount={amountCleaning}
           id={id}
+          forCleaner={aboutData.creator}
           aboutCleaner={aboutData.about}
           typeCleaning1={aboutData.cleaning}
           typeCleaning2={aboutData.cleaning2}

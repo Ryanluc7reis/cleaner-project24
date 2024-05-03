@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from 'react'
 import { CleanerAvailable } from '../../context/useContextCleanersAvailable'
 
 const Container = styled.div`
-  width: 450px;
+  width: 460px;
   height: 345px;
   padding: 20px 35px;
   display: flex;
@@ -120,7 +120,7 @@ export default function BoxFilter({ onCleanersCountChange, ...props }) {
     '$ 24p/h',
     '$ 25p/h'
   ]
-  const Cleans = ['-10', '+15', '+30', '+50', '+100']
+  const Cleans = ['+15', '+30', '+50', '+100']
   const handlePrice = (selectedprice) => {
     setupdatePrice(selectedprice)
 
@@ -133,13 +133,17 @@ export default function BoxFilter({ onCleanersCountChange, ...props }) {
     props.onCleanSelect(selectedclean)
   }
   const renderStars = () => {
+    const handleOpacity = (selectedStar) => {
+      setOpacity(selectedStar)
+      props.onStarSelect(selectedStar)
+    }
     const numberOfStars = 5
     return Array.from({ length: numberOfStars }, (_, index) => (
       <Star
         key={index}
         isOpacity={opacity && index < opacity}
         src="/star.png"
-        onClick={() => setOpacity(index + 1)}
+        onClick={() => handleOpacity(index + 1)}
       />
     ))
   }

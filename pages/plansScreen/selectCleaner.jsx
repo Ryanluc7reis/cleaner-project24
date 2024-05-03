@@ -31,6 +31,7 @@ const ContBody = styled.div`
 export default function SelectCleaner() {
   const [selectedPrice, setSelectedPrice] = useState(null)
   const [selectedClean, setSelectedClean] = useState(null)
+  const [selectedStar, setSelectedStar] = useState(null)
   const [cleanersCount, setCleanersCount] = useState(0)
   const [region, setRegion] = useContext(RegionContext)
 
@@ -39,8 +40,17 @@ export default function SelectCleaner() {
       <Navbar style={{ background: '#edededaf' }} type2 />
       <BarraEtapas />
       <ContBody>
-        <BoxFilter onPriceSelect={setSelectedPrice} onCleanSelect={setSelectedClean} />
-        <ListCleaners selectedPrice={selectedPrice} selectedClean={selectedClean} region={region} />
+        <BoxFilter
+          onPriceSelect={setSelectedPrice}
+          onStarSelect={setSelectedStar}
+          onCleanSelect={setSelectedClean}
+        />
+        <ListCleaners
+          selectedPrice={selectedPrice}
+          selectedClean={selectedClean}
+          selectedStar={selectedStar}
+          region={region}
+        />
       </ContBody>
     </Container>
   )

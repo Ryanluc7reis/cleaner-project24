@@ -149,6 +149,8 @@ export default function CleaningServices({
   const handleDeleteAndCreateHistoric = async (e) => {
     e.preventDefault()
     props.onRefresh()
+    props.openReview()
+
     try {
       const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
       const config = {
@@ -195,6 +197,7 @@ export default function CleaningServices({
           }
         }
       )
+
       console.error(err.message)
     }
   }

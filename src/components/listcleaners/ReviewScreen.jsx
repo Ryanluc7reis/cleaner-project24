@@ -1,7 +1,11 @@
 import styled from 'styled-components'
-import Button from '../form/Button'
 import dynamic from 'next/dynamic'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+import moment from 'moment'
+
+import Button from '../form/Button'
+import ErrorMessage from '../errormessage/ErrorMessage'
 
 const Container = styled.div`
   width: 100vw;
@@ -18,13 +22,14 @@ const Container = styled.div`
 `
 const ContainerContent = styled.div`
   display: flex;
-  width: 50vw;
+  width: 50%;
   min-height: 65vh;
   height: auto;
 `
 
 const DivCleanerInfos = styled.div`
   display: flex;
+  width: 68%;
   flex-direction: column;
   background: #ffffff;
 `
@@ -32,7 +37,8 @@ const DivCleanerInfos = styled.div`
 const DivReviews = styled.div`
   background: #f3f3f3;
   padding: 7px;
-  min-width: 350px;
+  width: 100%;
+
   @media (max-width: 561px) {
     min-width: 50vh;
   }
@@ -101,7 +107,8 @@ const AboutMeDesc = styled.h3`
 `
 const BoxReviews = styled.div`
   margin: 10px;
-  max-height: ${(props) => props.maxHeight || '70vh'};
+  height: 400px;
+  width: 98%;
   overflow-y: scroll;
 `
 const ReviewsTitle = styled.h2`
@@ -147,7 +154,7 @@ const Close = styled.img`
   width: 20px;
   height: 20px;
   position: absolute;
-  right: 23%;
+  right: 25%;
   transform: translate(40%, -50%);
   background-color: #fd3232;
   border-radius: 10px;
@@ -199,28 +206,10 @@ const FlexClientReviewName = styled.div`
 const ContReviewsClient = styled.div`
   padding: 0 8px 0 0;
 `
-const reviews = [
-  {
-    name: 'Ryan Lucas',
-    desc: 'Katiane did and excellent job. I highly recommend her',
-    rating: 4.6
-  },
-  {
-    name: 'Gabriel Machado',
-    desc: 'Katiane did and excellent job. I highly recommend her',
-    rating: 4.6
-  },
-  {
-    name: 'Joao Pedro',
-    desc: 'Katiane did and excellent job. I highly recommend her',
-    rating: 4.6
-  },
-  {
-    name: 'Ronaldin',
-    desc: 'Katiane did and excellent job. I highly recommend her',
-    rating: 4.6
-  }
-]
+const ErrorMessageAlt = styled(ErrorMessage)`
+  padding: 60px 45px;
+`
+
 function ReviewScreen({
   name,
   price,
@@ -231,21 +220,41 @@ function ReviewScreen({
   typeCleaning2,
   typeCleaning3,
   aboutCleaner,
+  forCleaner,
   id,
   ...props
 }) {
   const [closeReview, setCloseReview] = useState(false)
+  const [reviews, setReviews] = useState([])
   const handleCloseReview = () => {
     props.onClose()
   }
   const handleSelectCleaner = () => {
     props.onSelectCleaner()
   }
+  const getReviews = async () => {
+    try {
+      const reviewsData = await axios.post('http://localhost:3333/getReviews', {
+        forCleaner: forCleaner
+      })
+      const data = reviewsData.data
+      setReviews(data)
+    } catch (error) {
+      console.error('Erro ao obter os dados do review:', error)
+    }
+  }
+  useEffect(() => {
+    getReviews()
+  }, [id])
 
   return (
     <Container {...props} style={{ ...(closeReview && { display: 'none' }) }}>
       <ContainerContent>
-        <Close onClick={handleCloseReview} src="/iconcloseW.png" />
+        <Close
+          style={{ ...(reviews.length === 0 && { right: '25%' }) }}
+          onClick={handleCloseReview}
+          src="/iconcloseW.png"
+        />
         <DivCleanerInfos>
           <ContInfos>
             <CleanerImg image="/maleicon.png" /* {props.onCleanerinfos.img} */></CleanerImg>
@@ -293,22 +302,31 @@ function ReviewScreen({
             <AboutMeSub>Dedicated to my work</AboutMeSub>
             <AboutMeDesc>{aboutCleaner || '-'}</AboutMeDesc>
           </BoxAboutMe>
-          <BoxReviews maxHeight={`${reviews.length * 80}px`}>
+          <BoxReviews>
             <ReviewsTitle>Reviews</ReviewsTitle>
-            {reviews.map((review, index) => (
-              <ContReviewsClient key={index}>
-                <FlexClientReviewName>
-                  <ClientReviewName>{review.name}</ClientReviewName>
-                  <Rating src="/star.png" />
-                </FlexClientReviewName>
-                <ClientReviewDesc>{review.desc}</ClientReviewDesc>
-                <DivStarDate>
-                  <ClientReviewDate>26/07/2002</ClientReviewDate>
-                  <ClientReviewStars src="/maleicon.png" />
-                </DivStarDate>
-                <hr />
-              </ContReviewsClient>
-            ))}
+            {reviews.length === 0 ? (
+              <ErrorMessageAlt message={'Nenhum review encontrado...'} />
+            ) : (
+              <>
+                {reviews.length > 0 &&
+                  reviews.map((review) => (
+                    <ContReviewsClient key={review._id}>
+                      <FlexClientReviewName>
+                        <ClientReviewName>{review.nameRequester}</ClientReviewName>
+                        <Rating src="/star.png" />
+                      </FlexClientReviewName>
+                      <ClientReviewDesc>{review.text}</ClientReviewDesc>
+                      <DivStarDate>
+                        <ClientReviewDate>
+                          {moment(review.createdDate).format('DD/MM/YYYY')}
+                        </ClientReviewDate>
+                        <ClientReviewStars src="/maleicon.png" />
+                      </DivStarDate>
+                      <hr />
+                    </ContReviewsClient>
+                  ))}
+              </>
+            )}
           </BoxReviews>
         </DivReviews>
       </ContainerContent>
