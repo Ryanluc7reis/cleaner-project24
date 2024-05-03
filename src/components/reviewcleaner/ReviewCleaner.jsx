@@ -36,12 +36,21 @@ const ButtonAlt = styled(Button)`
   padding: 9px;
   width: 120px;
 `
+const StyledFlexRating = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+`
+
 export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, ...props }) {
   const [starSelected, setStarSelected] = useState(null)
   const [loading, setLoading] = useState(false)
   const [cardCleaner, setCardCleaner] = useState({})
   const [ratings, setRatings] = useState([])
   const [text, setText] = useState('')
+  const [thanksForRating, setThanksForRating] = useState(false)
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
 
   const ModaRatings = ratings.map((rating) => rating.stars)
@@ -152,7 +161,7 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, ...pro
         const data = getRatings.data
         setRatings(data)
         if (getRatings.status === 200) {
-          await axios.patch(
+          const editRating = await axios.patch(
             `http://localhost:3333/cleaner/editRatingCard`,
             { id: cardCleaner._id, rating: modaToNumber, creator: cardCleaner.creator },
             {
@@ -167,6 +176,7 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, ...pro
       console.error(err.message)
     } finally {
       setLoading(false)
+      setThanksForRating(true)
     }
   }
   useEffect(() => {
@@ -176,16 +186,28 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, ...pro
   return (
     <Container>
       <BoxReview>
-        <h2>Rate the service</h2>
-        <div style={{ display: 'flex', gap: '4px' }}>{renderStars()}</div>
-        <h2>What did you think of the cleaner {forCleaner} ?</h2>
-        <Input onChange={handleChange} value={text} placeholder="Enter here..." />
-        <div style={{ display: 'flex', gap: '3px' }}>
-          <ButtonAlt loading={loading} onClick={handleRateNow}>
-            Rate now
-          </ButtonAlt>
-          <ButtonAlt onClick={handleClose}>Not now</ButtonAlt>
-        </div>
+        {thanksForRating ? (
+          <StyledFlexRating>
+            <div style={{ display: 'flex', gap: '3px', alignItems: 'center' }}>
+              <h2>Thank you for the rating</h2>
+              <img style={{ padding: '2px' }} src="smilewhite.png" />
+            </div>
+            <ButtonAlt onClick={handleClose}>Close</ButtonAlt>
+          </StyledFlexRating>
+        ) : (
+          <StyledFlexRating>
+            <h2>Rate the service</h2>
+            <div style={{ display: 'flex', gap: '4px' }}>{renderStars()}</div>
+            <h2>What did you think of {forCleaner}`s service ?</h2>
+            <Input onChange={handleChange} value={text} placeholder="Enter here..." />
+            <div style={{ display: 'flex', gap: '3px' }}>
+              <ButtonAlt loading={loading} onClick={handleRateNow}>
+                Rate now
+              </ButtonAlt>
+              <ButtonAlt onClick={handleClose}>Not now</ButtonAlt>
+            </div>
+          </StyledFlexRating>
+        )}
       </BoxReview>
     </Container>
   )

@@ -188,14 +188,9 @@ export default function Services({ ...props }) {
     }
     if (serviceUserAccepted.length === 1) {
       setServiceUserAccepted([])
-    }
-    setRefreshService(!refreshService)
-  }
-  const handleOpenReview = async () => {
-    setOpenReview(!openReview)
-    if (serviceUserAccepted.length === 1) {
       setOpenReview(true)
     }
+    setRefreshService(!refreshService)
   }
 
   useEffect(() => {
@@ -203,7 +198,6 @@ export default function Services({ ...props }) {
     getServiceUser()
     getServiceUserAccepted()
     getServiceCleanerAccepted()
-    //setOpenReview(true)
     setTimeout(() => {
       setPopUpMessage(false)
     }, 4000)
@@ -317,19 +311,19 @@ export default function Services({ ...props }) {
                       requester={service.requester}
                       cleaner={service.cleaner}
                       cleanerNumber={cleaner.number}
-                      openReview={handleOpenReview}
+                      openReview={() => setOpenReview(!openReview)}
                       cleanAccepted
                     />
                   ))}
             </GridServices>
-            {openReview && (
-              <ReviewCleaner
-                cleanerUser={cleaner.user}
-                forCleaner={cleaner.fullName}
-                onClose={() => setOpenReview(false)}
-              />
-            )}
           </>
+        )}
+        {openReview && (
+          <ReviewCleaner
+            cleanerUser={cleaner.user}
+            forCleaner={cleaner.fullName}
+            onClose={() => setOpenReview(false)}
+          />
         )}
       </BoxServices>
     </Container>
