@@ -111,7 +111,13 @@ const fetcher = async (url) => {
   return response.data
 }
 
-export default function ListCleaners({ selectedPrice, selectedClean, region, ...props }) {
+export default function ListCleaners({
+  selectedPrice,
+  selectedClean,
+  selectedStar,
+  region,
+  ...props
+}) {
   const [showOption, setshowOption] = useState(false)
   const [updateShortby, setupdateShortby] = useState(null)
   const [selectedCleaner, setSelectedCleaner] = useState(null)
@@ -147,6 +153,9 @@ export default function ListCleaners({ selectedPrice, selectedClean, region, ...
 
       return cardPriceNumeric.includes(selectedPriceNumeric)
     })
+  }
+  if (selectedStar) {
+    filterData = filterData.filter((card) => card.rating >= parseInt(selectedStar))
   }
   if (selectedClean) {
     filterData = filterData.filter((card) => card.amountCleaning >= parseInt(selectedClean))
