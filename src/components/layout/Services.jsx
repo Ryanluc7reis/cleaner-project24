@@ -56,6 +56,10 @@ export default function Services({ ...props }) {
   const [refreshService, setRefreshService] = useState(false)
   const [popUpMessage, setPopUpMessage] = useContext(PopUpContext)
   const [openReview, setOpenReview] = useState(false)
+  const [openReview2, setOpenReview2] = useState(false)
+  const [notificationData, setNotificationData] = useState({})
+  const [userCleaner, setUserCleaner] = useState({})
+  const [nameCleaner, setNameCleaner] = useState(null)
 
   const handleInformationsSelect = (index) => {
     setInformations(index === informations ? null : index)
@@ -179,6 +183,46 @@ export default function Services({ ...props }) {
       console.error(err.message)
     }
   }
+
+  const getOneNotification = async () => {
+    try {
+      const notification = await axios.get('http://localhost:3333/getOneNotificationRating', {
+        headers: {
+          authorization: token
+        }
+      })
+      const data = notification.data
+      setNotificationData(data)
+      setNameCleaner(data.cleaner)
+      if (notification.status === 200) {
+        setTimeout(() => {
+          setOpenReview2(true)
+        }, 2000)
+      }
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+  const getUserName = async () => {
+    try {
+      const user = await axios.post(
+        'http://localhost:3333/user/findCleanerName',
+        {
+          cleanerName: nameCleaner
+        },
+        {
+          headers: {
+            authorization: token
+          }
+        }
+      )
+      const data = user.data
+      setUserCleaner(data)
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+
   const handleRefresh = async () => {
     if (serviceCleaner.length === 1) {
       setServiceCleaner([])
@@ -198,10 +242,12 @@ export default function Services({ ...props }) {
     getServiceUser()
     getServiceUserAccepted()
     getServiceCleanerAccepted()
+    getOneNotification()
+    getUserName()
     setTimeout(() => {
       setPopUpMessage(false)
     }, 4000)
-  }, [index, informations, informations2, refreshService])
+  }, [index, informations, informations2, refreshService, openReview, openReview2])
 
   return (
     <Container {...props}>
@@ -289,6 +335,7 @@ export default function Services({ ...props }) {
                       requester={service.requester}
                       cleaner={service.cleaner}
                       cleanerNumber={cleaner.number}
+                      openReview={() => setOpenReview(false)}
                       cleanAccepted
                     />
                   ))
@@ -323,6 +370,15 @@ export default function Services({ ...props }) {
             cleanerUser={cleaner.user}
             forCleaner={cleaner.fullName}
             onClose={() => setOpenReview(false)}
+            review1
+          />
+        )}
+        {openReview2 && (
+          <ReviewCleaner
+            cleanerUser={userCleaner.user}
+            forCleaner={notificationData.cleaner}
+            onClose={() => setOpenReview2(false)}
+            review2
           />
         )}
       </BoxServices>

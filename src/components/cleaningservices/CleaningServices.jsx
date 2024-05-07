@@ -167,7 +167,7 @@ export default function CleaningServices({
       })
       if (serviceDelete.status && verifyCleaner.status === 200) {
         try {
-          await axios.post(
+          const createHistoric = await axios.post(
             'http://localhost:3333/createHistoric',
             {
               for: cleaner,
@@ -179,6 +179,19 @@ export default function CleaningServices({
               }
             }
           )
+          if (createHistoric.status === 201) {
+            await axios.post(
+              'http://localhost:3333/createNotificationToRating',
+              {
+                for: requester
+              },
+              {
+                headers: {
+                  authorization: token
+                }
+              }
+            )
+          }
         } catch (err) {
           console.error(err.message)
         }
