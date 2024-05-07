@@ -274,7 +274,8 @@ export default function CleaningServices({
           requester: requester,
           address: address,
           number: number,
-          cleaner: cleaner
+          cleaner: cleaner,
+          cleaningType: cleaning
         },
         config
       )
