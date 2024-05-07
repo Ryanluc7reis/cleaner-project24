@@ -133,11 +133,13 @@ export default function CleaningServices({
   cleanAccepted,
   hasUser,
   isInformations,
+  cleaning,
   ...props
 }) {
   const { handleSubmit } = useForm({
     mode: 'all'
   })
+
   const toggleInformations = () => {
     if (index !== -1 && typeof props.onIndex === 'function') {
       props.onIndex(index)
@@ -150,6 +152,7 @@ export default function CleaningServices({
     e.preventDefault()
     props.onRefresh()
     props.openReview()
+    props.onFinish()
 
     try {
       const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
@@ -339,7 +342,13 @@ export default function CleaningServices({
         )}
       </Service>
       <DropInformations informations={isInformations}>
-        <Text>Plan : {plan}</Text>
+        {plan === 'Optional' ? (
+          <Text>
+            Plan : {plan} ({cleaning})
+          </Text>
+        ) : (
+          <Text>Plan : {plan}</Text>
+        )}
         <Text>Duration : {duration}</Text>
         <Text>Starting Time : {startingTime}</Text>
         <Text>Service to date : {serviceDate}</Text>
