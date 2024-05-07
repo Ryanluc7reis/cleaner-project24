@@ -361,6 +361,7 @@ export default function Services({ ...props }) {
                       openReview={() => setOpenReview(false)}
                       onFinish={handleFinishService}
                       cleaning={service.cleaningType}
+                      cleanerUser={cleaner.user}
                       cleanAccepted
                     />
                   ))
@@ -386,6 +387,7 @@ export default function Services({ ...props }) {
                       cleaning={service.cleaningType}
                       openReview={() => setOpenReview(!openReview)}
                       onFinish={handleFinishService}
+                      cleanerUser={cleaner.user}
                       cleanAccepted
                     />
                   ))}
