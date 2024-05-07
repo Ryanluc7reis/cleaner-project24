@@ -34,7 +34,7 @@ export default function DashboardPage() {
       <StyledFlex>
         <NavBarDashboardAlt show={showDash} isDash />
         <StyledFlexServices>
-          <NavRoutesDash onClickDash={handleDash} dash type2 />
+          <NavRoutesDash onClickDash={handleDash} dash type1 />
           <Services />
         </StyledFlexServices>
       </StyledFlex>

@@ -78,7 +78,7 @@ export default function NotificationsPage() {
       <StyledFlex>
         <NavBarDashboard isNotifications />
         <FlexContainer>
-          <NavRoutesDash notifications type2 whithoutNotification />
+          <NavRoutesDash notifications type1 whithoutNotification />
           <BoxNotifications>
             <TitleText>New notifications</TitleText>
             {notificationsData.length === 0 ? (
