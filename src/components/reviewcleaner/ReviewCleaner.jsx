@@ -44,17 +44,16 @@ const StyledFlexRating = styled.div`
   justify-content: center;
 `
 
-export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, ...props }) {
+export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, review2, review1 }) {
   const [starSelected, setStarSelected] = useState(null)
   const [loading, setLoading] = useState(false)
   const [cardCleaner, setCardCleaner] = useState({})
   const [ratings, setRatings] = useState([])
   const [text, setText] = useState('')
   const [thanksForRating, setThanksForRating] = useState(false)
+
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
-
   const ModaRatings = ratings.map((rating) => rating.stars)
-
   const calcularModa = (array) => {
     let contagem = {}
 
@@ -85,9 +84,11 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, ...pro
 
   const moda = calcularModa(ModaRatings)
   const modaToNumber = parseInt(moda)
-
-  const handleClose = () => {
+  const handleClose = async () => {
     onClose()
+    await axios.get(`http://localhost:3333/notificationsAsRead`, {
+      headers: { authorization: token }
+    })
   }
   const handleChange = (event) => {
     setText(event.target.value)
@@ -109,6 +110,22 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, ...pro
     }
     return stars
   }
+  const getRatings = async () => {
+    const getRatings = await axios.post(
+      `http://localhost:3333/getRatings`,
+      {
+        forCleaner: forCleaner
+      },
+      {
+        headers: {
+          authorization: token
+        }
+      }
+    )
+
+    const data = getRatings.data
+    setRatings(data)
+  }
   const getCardCleaner = async () => {
     const card = await axios.get(`http://localhost:3333/cleaner/getOneCard`, {
       params: { cleaner: cleanerUser }
@@ -116,12 +133,12 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, ...pro
     const data = card.data
     setCardCleaner(data)
   }
+
   const handleRateNow = async () => {
     try {
       setLoading(true)
       await axios.post(
         `http://localhost:3333/createReview`,
-
         {
           forCleaner: cleanerUser,
           text: text
@@ -134,7 +151,6 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, ...pro
       )
       const createRating = await axios.post(
         `http://localhost:3333/createRating`,
-
         {
           forCleaner: forCleaner,
           stars: starSelected
@@ -145,31 +161,20 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, ...pro
           }
         }
       )
-      if (createRating.status === 201) {
-        const getRatings = await axios.post(
-          `http://localhost:3333/getRatings`,
-
-          {
-            forCleaner: forCleaner
-          },
+      if (ratings && createRating.status === 201) {
+        const editRating = await axios.patch(
+          `http://localhost:3333/cleaner/editRatingCard`,
+          { id: cardCleaner._id, rating: modaToNumber, creator: cardCleaner.creator },
           {
             headers: {
               authorization: token
             }
           }
         )
-        const data = getRatings.data
-        setRatings(data)
-        if (getRatings.status === 200) {
-          const editRating = await axios.patch(
-            `http://localhost:3333/cleaner/editRatingCard`,
-            { id: cardCleaner._id, rating: modaToNumber, creator: cardCleaner.creator },
-            {
-              headers: {
-                authorization: token
-              }
-            }
-          )
+        if (editRating.status === 200) {
+          await axios.get(`http://localhost:3333/notificationsAsRead`, {
+            headers: { authorization: token }
+          })
         }
       }
     } catch (err) {
@@ -179,35 +184,61 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, ...pro
       setThanksForRating(true)
     }
   }
+
   useEffect(() => {
     getCardCleaner()
+    getRatings()
   }, [starSelected])
 
   return (
     <Container>
       <BoxReview>
-        {thanksForRating ? (
-          <StyledFlexRating>
-            <div style={{ display: 'flex', gap: '3px', alignItems: 'center' }}>
-              <h2>Thank you for the rating</h2>
-              <img style={{ padding: '2px' }} src="smilewhite.png" />
-            </div>
-            <ButtonAlt onClick={handleClose}>Close</ButtonAlt>
-          </StyledFlexRating>
-        ) : (
-          <StyledFlexRating>
-            <h2>Rate the service</h2>
-            <div style={{ display: 'flex', gap: '4px' }}>{renderStars()}</div>
-            <h2>What did you think of {forCleaner}`s service ?</h2>
-            <Input onChange={handleChange} value={text} placeholder="Enter here..." />
-            <div style={{ display: 'flex', gap: '3px' }}>
-              <ButtonAlt loading={loading} onClick={handleRateNow}>
-                Rate now
-              </ButtonAlt>
-              <ButtonAlt onClick={handleClose}>Not now</ButtonAlt>
-            </div>
-          </StyledFlexRating>
-        )}
+        {review1 &&
+          (thanksForRating ? (
+            <StyledFlexRating>
+              <div style={{ display: 'flex', gap: '3px', alignItems: 'center' }}>
+                <h2>Thank you for the rating</h2>
+                <img style={{ padding: '2px' }} src="smilewhite.png" />
+              </div>
+              <ButtonAlt onClick={handleClose}>Close</ButtonAlt>
+            </StyledFlexRating>
+          ) : (
+            <StyledFlexRating>
+              <h2>Rate the service</h2>
+              <div style={{ display: 'flex', gap: '4px' }}>{renderStars()}</div>
+              <h2>What did you think of {forCleaner}`s service ?</h2>
+              <Input onChange={handleChange} value={text} placeholder="Enter here..." />
+              <div style={{ display: 'flex', gap: '3px' }}>
+                <ButtonAlt loading={loading} onClick={handleRateNow}>
+                  Rate now
+                </ButtonAlt>
+                <ButtonAlt onClick={handleClose}>Not now</ButtonAlt>
+              </div>
+            </StyledFlexRating>
+          ))}
+        {review2 &&
+          (thanksForRating ? (
+            <StyledFlexRating>
+              <div style={{ display: 'flex', gap: '3px', alignItems: 'center' }}>
+                <h2>Thank you for the rating</h2>
+                <img style={{ padding: '2px' }} src="smilewhite.png" />
+              </div>
+              <ButtonAlt onClick={handleClose}>Close</ButtonAlt>
+            </StyledFlexRating>
+          ) : (
+            <StyledFlexRating>
+              <h2>Rate the service</h2>
+              <div style={{ display: 'flex', gap: '4px' }}>{renderStars()}</div>
+              <h2>What did you think of {forCleaner}`s service ?</h2>
+              <Input onChange={handleChange} value={text} placeholder="Enter here..." />
+              <div style={{ display: 'flex', gap: '3px' }}>
+                <ButtonAlt loading={loading} onClick={handleRateNow}>
+                  Rate now
+                </ButtonAlt>
+                <ButtonAlt onClick={handleClose}>Not now</ButtonAlt>
+              </div>
+            </StyledFlexRating>
+          ))}
       </BoxReview>
     </Container>
   )
