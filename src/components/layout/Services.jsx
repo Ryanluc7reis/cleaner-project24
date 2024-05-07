@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
 import { PopUpContext } from '../../context/useContextPopUp'
+import 'boxicons'
 
 import CleaningServices from '../cleaningservices/CleaningServices'
 import ErrorMessage from '../errormessage/ErrorMessage'
@@ -38,6 +39,9 @@ const GridServices = styled.div`
 `
 const ErrorMessageAlt = styled(ErrorMessage)`
   padding: 100px 360px;
+`
+const StyledLoader = styled.div`
+  padding: 100px 450px;
 `
 const PopUpMessageAlt = styled(PopUpMessage)`
   position: fixed;
@@ -269,55 +273,61 @@ export default function Services({ ...props }) {
           </PopUpMessageAlt>
         )}
         <Title>Pending Services</Title>
-        {serviceCleaner.length === 0 && serviceUser.length === 0 ? (
-          <ErrorMessageAlt message={'Nenhum serviço encontrado...'} />
+        {!serviceUser || !serviceCleaner ? (
+          <StyledLoader>
+            <box-icon name="loader" animation="spin" color="#304ae0"></box-icon>
+          </StyledLoader>
         ) : (
           <>
-            <GridServices>
-              {serviceCleaner.length > 0
-                ? serviceCleaner.map((service, index) => (
-                    <CleaningServices
-                      onIndex={() => handleInformationsSelect(index)}
-                      isInformations={index === informations}
-                      onRefresh={handleRefresh}
-                      index={index}
-                      key={service._id}
-                      id={service._id}
-                      plan={service.plan}
-                      duration={service.duration}
-                      startingTime={service.startingTime}
-                      serviceDate={service.serviceDate}
-                      createdDate={service.createdDate}
-                      totalCost={service.totalCost}
-                      address={service.address}
-                      number={service.number}
-                      requester={service.requester}
-                      cleaner={service.cleaner}
-                      cleaning={service.cleaningType}
-                    />
-                  ))
-                : serviceUser.map((service, index) => (
-                    <CleaningServices
-                      onIndex={() => handleInformationsSelect(index)}
-                      isInformations={index === informations}
-                      index={index}
-                      key={service._id}
-                      id={service._id}
-                      plan={service.plan}
-                      duration={service.duration}
-                      startingTime={service.startingTime}
-                      serviceDate={service.serviceDate}
-                      createdDate={service.createdDate}
-                      totalCost={service.totalCost}
-                      address={service.address}
-                      number={service.number}
-                      requester={service.requester}
-                      cleaner={service.cleaner}
-                      cleaning={service.cleaningType}
-                      hasUser
-                    />
-                  ))}
-            </GridServices>
+            {serviceCleaner.length === 0 && serviceUser.length === 0 ? (
+              <ErrorMessageAlt message={'Nenhum serviço encontrado...'} />
+            ) : (
+              <GridServices>
+                {serviceCleaner.length > 0
+                  ? serviceCleaner.map((service, index) => (
+                      <CleaningServices
+                        onIndex={() => handleInformationsSelect(index)}
+                        isInformations={index === informations}
+                        onRefresh={handleRefresh}
+                        index={index}
+                        key={service._id}
+                        id={service._id}
+                        plan={service.plan}
+                        duration={service.duration}
+                        startingTime={service.startingTime}
+                        serviceDate={service.serviceDate}
+                        createdDate={service.createdDate}
+                        totalCost={service.totalCost}
+                        address={service.address}
+                        number={service.number}
+                        requester={service.requester}
+                        cleaner={service.cleaner}
+                        cleaning={service.cleaningType}
+                      />
+                    ))
+                  : serviceUser.map((service, index) => (
+                      <CleaningServices
+                        onIndex={() => handleInformationsSelect(index)}
+                        isInformations={index === informations}
+                        index={index}
+                        key={service._id}
+                        id={service._id}
+                        plan={service.plan}
+                        duration={service.duration}
+                        startingTime={service.startingTime}
+                        serviceDate={service.serviceDate}
+                        createdDate={service.createdDate}
+                        totalCost={service.totalCost}
+                        address={service.address}
+                        number={service.number}
+                        requester={service.requester}
+                        cleaner={service.cleaner}
+                        cleaning={service.cleaningType}
+                        hasUser
+                      />
+                    ))}
+              </GridServices>
+            )}
           </>
         )}
       </BoxServices>

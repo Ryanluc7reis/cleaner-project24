@@ -4,6 +4,7 @@ import axios from 'axios'
 import useSWR from 'swr'
 import { CleanerAvailable } from '../../context/useContextCleanersAvailable'
 import { CardIdContext } from '../../context/useContextCardId'
+import 'boxicons'
 
 import Card from '../cardcleaner/Card'
 import SelectedCleaner from './SelectedCleaner'
@@ -105,7 +106,11 @@ const GridCardCleaner = styled.div`
     justify-content: center;
   }
 `
-
+const StyledLoader = styled.div`
+  position: absolute;
+  left: 60%;
+  top: 55%;
+`
 const fetcher = async (url) => {
   const response = await axios.get(url)
   return response.data
@@ -190,7 +195,12 @@ export default function ListCleaners({
   }, [sortData.length, sortData[selectedCleaner]])
 
   if (error) return <div>Erro ao carregar os dados</div>
-  if (!data) return <div>Carregando...</div>
+  if (!data)
+    return (
+      <StyledLoader>
+        <box-icon name="loader" animation="spin" color="#304ae0"></box-icon>
+      </StyledLoader>
+    )
 
   if (filterData.length === 0) {
     return <div>Nenhum resultado encontrado.</div>
