@@ -55,6 +55,7 @@ export default function Services({ ...props }) {
   const [informations2, setInformations2] = useState(null)
   const [refreshService, setRefreshService] = useState(false)
   const [popUpMessage, setPopUpMessage] = useContext(PopUpContext)
+  const [popUpMessage2, setPopUpMessage2] = useState(false)
   const [openReview, setOpenReview] = useState(false)
   const [openReview2, setOpenReview2] = useState(false)
   const [notificationData, setNotificationData] = useState({})
@@ -236,7 +237,12 @@ export default function Services({ ...props }) {
     }
     setRefreshService(!refreshService)
   }
-
+  const handleFinishService = () => {
+    setPopUpMessage2(true)
+    setTimeout(() => {
+      setPopUpMessage2(false)
+    }, 2000)
+  }
   useEffect(() => {
     getServiceCleaner()
     getServiceUser()
@@ -255,6 +261,11 @@ export default function Services({ ...props }) {
         {popUpMessage && (
           <PopUpMessageAlt messageToOkrequest={popUpMessage}>
             Requisição feita com sucesso
+          </PopUpMessageAlt>
+        )}
+        {popUpMessage2 && (
+          <PopUpMessageAlt messageToOkrequest={popUpMessage2}>
+            Serviço finalizado com sucesso
           </PopUpMessageAlt>
         )}
         <Title>Pending Services</Title>
@@ -282,6 +293,7 @@ export default function Services({ ...props }) {
                       number={service.number}
                       requester={service.requester}
                       cleaner={service.cleaner}
+                      cleaning={service.cleaningType}
                     />
                   ))
                 : serviceUser.map((service, index) => (
@@ -301,6 +313,7 @@ export default function Services({ ...props }) {
                       number={service.number}
                       requester={service.requester}
                       cleaner={service.cleaner}
+                      cleaning={service.cleaningType}
                       hasUser
                     />
                   ))}
@@ -336,6 +349,7 @@ export default function Services({ ...props }) {
                       cleaner={service.cleaner}
                       cleanerNumber={cleaner.number}
                       openReview={() => setOpenReview(false)}
+                      onFinish={handleFinishService}
                       cleanAccepted
                     />
                   ))
@@ -359,6 +373,7 @@ export default function Services({ ...props }) {
                       cleaner={service.cleaner}
                       cleanerNumber={cleaner.number}
                       openReview={() => setOpenReview(!openReview)}
+                      onFinish={handleFinishService}
                       cleanAccepted
                     />
                   ))}
