@@ -1,6 +1,9 @@
 import styled from 'styled-components'
+import { useState, useEffect } from 'react'
+import moment from 'moment'
+
 import NavRoutesDash from '../layout/Navroutesdash'
-import BasicDateCalendar from '../calendario/Calendario'
+import CalendarioReact from '../calendario/CalendarioReact'
 import Button from '../form/Button'
 
 const Container = styled.div`
@@ -11,35 +14,14 @@ const Container = styled.div`
 const BoxSchedule = styled.div`
   background: #fff;
   min-width: 90%;
-  height: 80%;
-  margin: 61px 50px 0px 50px;
-  padding: 20px;
+  height: 520px;
+  margin: 10px 50px 25px 50px;
+  padding: 20px 15px;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
 `
 
-const DateCalenderAlt = styled(BasicDateCalendar)`
-  > div {
-    > .css-cyfsxc-MuiPickersCalendarHeader-labelContainer {
-      color: #212020d2;
-      font-size: 17px;
-      font-weight: 700;
-    }
-  }
-  span {
-    font-size: 14px;
-    font-weight: 700;
-    color: #212020d2;
-  }
-  button {
-    font-size: 12px;
-  }
-  border: 2px solid #56648f;
-  border-radius: 25px;
-  margin-top: 50px;
-  background-color: #eff5ffb8;
-`
 const FlexTitleText = styled.div`
   display: flex;
   justify-content: space-between;
@@ -50,61 +32,129 @@ const TitleText = styled.h1`
   font-weight: 500;
   color: #a4a4a4f5;
 `
-const TitleTextSub = styled.h2`
+const TextSub = styled.h2`
   font-weight: 500;
   display: flex;
   gap: 4px;
   align-items: center;
-  color: #979797f5;
+  color: #3f3fe4;
+  font-size: 18px;
 `
-const TitleTextSubAlt = styled(TitleText)`
+const TextSubBlocked = styled(TextSub)`
+  color: red;
+`
+const Text = styled.h1`
   font-weight: 500;
   color: #4f4f4ff5;
-  font-size: 18px;
+  font-size: 21px;
 `
 const ButtonAlt = styled(Button)`
   color: #fff;
   padding: 7px;
   width: 130px;
   font-size: 14px;
-  background-color: red;
+  background-color: ${(props) => (props.isBlocked ? '#01b601' : '#ff0000')};
 `
 const StyledFlex = styled.div`
   display: flex;
   align-items: center;
-  gap: 20px;
-  padding: 15px 35px;
+  justify-content: space-between;
+  padding: 35px 45px;
 `
 const FlexTextDate = styled.div`
   display: flex;
-  gap: 35px;
+  gap: 15px;
+  margin-bottom: 35px;
+`
+const ResetSchedule = styled.h1`
+  cursor: pointer;
+  font-size: 19px;
+  font-weight: 500;
+  margin-top: 25px;
+  padding: 10px;
+  background: #3f3fe4;
+  border-radius: 10px;
+  color: white;
+  :hover {
+    background-color: #1f1f4b;
+  }
+`
+const FlexCalendarAndResetSchedule = styled.div`
+  display: flex;
+  align-items: center;
   flex-direction: column;
 `
-
 export default function Schedule() {
+  const [isBlocked, setIsBlocked] = useState(false)
+  const [selectedMaxDate, setSelectedMaxDate] = useState(null)
+  const [editSchedule, setEditSchedule] = useState(false)
+  const [availableDates, setAvailableDates] = useState([])
+
+  const handleDateChange = (date) => {
+    let formattedDate = moment(date).format('ddd DD MMM YYYY')
+    setSelectedMaxDate(formattedDate)
+  }
+  const minDate = moment().startOf('day')
+
+  const maxDate = moment(selectedMaxDate, 'ddd DD MMM YYYY').endOf('day')
+  let calendarDates = []
+  const tileDisabled = ({ date }) => {
+    setEditSchedule(false)
+    if (selectedMaxDate === null) {
+      moment().startOf('day')
+    } else {
+      !moment(date).isBetween(minDate, maxDate, null, '[]')
+    }
+    const formattedDate = moment(date).format('ddd DD MMM YYYY')
+    calendarDates.push(formattedDate)
+  }
+
+  useEffect(() => {
+    if (editSchedule) {
+      setSelectedMaxDate(null)
+    }
+  }, [editSchedule])
+
   return (
     <Container>
       <NavRoutesDash schedule type1 />
       <BoxSchedule>
         <FlexTitleText>
           <TitleText>Set your available schedule</TitleText>
-          <ButtonAlt>Block schedule</ButtonAlt>
+
+          <ButtonAlt isBlocked={isBlocked} onClick={() => setIsBlocked(!isBlocked)}>
+            {isBlocked ? 'Unlock schedule' : 'Block schedule'}
+          </ButtonAlt>
         </FlexTitleText>
         <StyledFlex>
-          <DateCalenderAlt />
+          <FlexCalendarAndResetSchedule>
+            <CalendarioReact
+              minDate={minDate.toDate()}
+              maxDate={maxDate ? maxDate.toDate() : undefined}
+              tileDisabled={tileDisabled}
+              onChange={handleDateChange}
+              isBlocked={isBlocked}
+            />
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <ResetSchedule onClick={() => setEditSchedule(!editSchedule)}>
+                Reset schedule
+              </ResetSchedule>
+              <ResetSchedule>Save</ResetSchedule>
+            </div>
+          </FlexCalendarAndResetSchedule>
           <FlexTextDate>
-            <TitleTextSub>
-              <TitleTextSubAlt>Schedule avaible:</TitleTextSubAlt>
-              27 January Wed - 27 Fevereiro Wed
-            </TitleTextSub>
-            <TitleTextSub>
-              <TitleTextSubAlt>Schedule avaible:</TitleTextSubAlt>
-              27 January Wed - 27 Fevereiro Wed
-            </TitleTextSub>
-            <TitleTextSub>
-              <TitleTextSubAlt>Schedule avaible:</TitleTextSubAlt>
-              27 January Wed - 27 Fevereiro Wed
-            </TitleTextSub>
+            <Text>Schedule available:</Text>
+            <TextSub>
+              {isBlocked ? (
+                <TextSubBlocked>Schedule Blocked</TextSubBlocked>
+              ) : (
+                <>
+                  {selectedMaxDate
+                    ? `${moment(minDate._d).format('ddd DD MMM YYYY')} -  ${selectedMaxDate}`
+                    : 'Select dates'}
+                </>
+              )}
+            </TextSub>
           </FlexTextDate>
         </StyledFlex>
       </BoxSchedule>
