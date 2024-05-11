@@ -275,7 +275,7 @@ export default function Services({ ...props }) {
         <Title>Pending Services</Title>
         {!serviceUser || !serviceCleaner ? (
           <StyledLoader>
-            <box-icon name="loader" animation="spin" color="#304ae0"></box-icon>
+            <box-icon name="loader" animation="spin" color="#304ae0" />
           </StyledLoader>
         ) : (
           <>
