@@ -40,6 +40,12 @@ const TitleText = styled.h1`
   color: #a4a4a4f5;
   padding: 9px 0px;
 `
+const StyledLoader = styled.div`
+  padding: 160px 450px;
+  display: flex;
+  color: white;
+  align-items: center;
+`
 
 export default function NotificationsPage() {
   const [notificationsData, setNotificationsData] = useState([])
@@ -78,24 +84,33 @@ export default function NotificationsPage() {
       <StyledFlex>
         <NavBarDashboard isNotifications />
         <FlexContainer>
-          <NavRoutesDash notifications type2 whithoutNotification />
+          <NavRoutesDash notifications type1 whithoutNotification />
           <BoxNotifications>
             <TitleText>New notifications</TitleText>
-            {notificationsData.length === 0 ? (
-              <ErrorMessageAlt message={'Nenhuma notificação encontrada...'} />
+            {!notificationsData ? (
+              <StyledLoader>
+                <img width="30px" height="28px" src="/loadingGif.png" />
+                <h2>Carregando</h2>
+              </StyledLoader>
             ) : (
               <>
-                <GridNotifications>
-                  {notificationsData.length > 0 &&
-                    notificationsData.map((notification) => (
-                      <Notifications
-                        onDelete={handleRefresh}
-                        id={notification._id}
-                        key={notification._id}
-                        notificationType={notification.notificationType}
-                      />
-                    ))}
-                </GridNotifications>
+                {notificationsData.length === 0 ? (
+                  <ErrorMessageAlt message={'Nenhuma notificação encontrada...'} />
+                ) : (
+                  <>
+                    <GridNotifications>
+                      {notificationsData.length > 0 &&
+                        notificationsData.map((notification) => (
+                          <Notifications
+                            onDelete={handleRefresh}
+                            id={notification._id}
+                            key={notification._id}
+                            notificationType={notification.notificationType}
+                          />
+                        ))}
+                    </GridNotifications>
+                  </>
+                )}
               </>
             )}
           </BoxNotifications>

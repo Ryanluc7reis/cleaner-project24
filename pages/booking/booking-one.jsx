@@ -116,7 +116,7 @@ const PayToCleaner = styled(Button)`
   padding: 10px;
   width: 230px;
   position: absolute;
-  bottom: 14%;
+  bottom: 8%;
   right: 43%;
 `
 const StyledFlexButtons = styled.div`
@@ -124,7 +124,7 @@ const StyledFlexButtons = styled.div`
   gap: 17px;
   align-items: center;
   position: absolute;
-  bottom: 14%;
+  bottom: 8%;
   right: 61%;
 `
 function Booking() {
@@ -137,6 +137,7 @@ function Booking() {
   const [cleanerSelectedData, setCleanerSelectedData] = useState({})
   const [cleanerNameData, setCleanerNameData] = useState({})
   const [loading, setLoading] = useState(false)
+  const [cleaning, setCleaning] = useState('')
   const { mutate } = useSWRConfig()
   const router = useRouter()
   const Plan = typeof window !== 'undefined' ? localStorage.getItem('Plan') : null
@@ -146,53 +147,56 @@ function Booking() {
   const PriceH = typeof window !== 'undefined' ? localStorage.getItem('PriceH') : null
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
   const rate = 8.5
-  const totalPrice = PriceH ? (parseFloat(PriceH) * parseFloat(Duration) + rate).toFixed(2) : null
 
+  const totalPrice = PriceH ? (parseFloat(PriceH) * parseFloat(Duration) + rate).toFixed(2) : null
   const handleFormSubmit = async () => {
     try {
       setLoading(true)
-      const { status } = await axios.post(
-        `http://localhost:3333/createService`,
-        {
-          plan: Plan,
-          duration: Duration,
-          startingTime: Time,
-          totalCost: totalPrice,
-          serviceDate: Date,
-          address: userCurrentUserData.address,
-          number: userCurrentUserData.number,
-          cleaner: cleanerNameData
-        },
-        {
-          headers: {
-            authorization: token
-          }
+
+      const serviceData = {
+        plan: Plan,
+        duration: Duration,
+        startingTime: Time,
+        totalCost: totalPrice,
+        serviceDate: Date,
+        address: userCurrentUserData.address,
+        number: userCurrentUserData.number,
+        cleaner: cleanerNameData
+      }
+
+      if (Plan === 'Optional') {
+        serviceData.cleaningType = cleaning
+      } else {
+        serviceData.cleaningType = 'none'
+      }
+
+      const serviceResponse = await axios.post(`http://localhost:3333/createService`, serviceData, {
+        headers: {
+          authorization: token
         }
-      )
-      if (status === 201) {
-        try {
-          const notification = await axios.post(
-            'http://localhost:3333/createNotification',
-            {
-              for: cleanerNameData,
-              notificationType: 'Nova requisição de limpeza'
-            },
-            {
-              headers: {
-                authorization: token
-              }
+      })
+
+      if (serviceResponse.status === 201) {
+        const notificationResponse = await axios.post(
+          'http://localhost:3333/createNotification',
+          {
+            for: cleanerNameData,
+            notificationType: 'Nova requisição de limpeza'
+          },
+          {
+            headers: {
+              authorization: token
             }
-          )
-          if (notification.status === 201) {
-            router.push('/dashboard/')
-            setPopUpMessage(true)
           }
-        } catch (err) {
-          console.error(err.message)
+        )
+
+        if (notificationResponse.status === 201) {
+          router.push('/dashboard/')
+          setPopUpMessage(true)
         }
       }
     } catch (err) {
-      console.error('Erro ao criar service:', err.message)
+      console.error('Erro ao criar serviço ou notificação:', err.message)
     } finally {
       setLoading(false)
     }
@@ -218,6 +222,7 @@ function Booking() {
       })
       const data = response.data
       setCleanerSelectedData(data)
+
       if (response.status === 200) {
         const cleaner = await axios.post(
           `http://localhost:3333/user/findCleanerName`,
@@ -240,6 +245,11 @@ function Booking() {
     findUser()
     getCard()
   }, [user, showEditAddress, setCleanerSelectedData])
+
+  const handleCleaning = (event) => {
+    setCleaning(event.target.value)
+  }
+
   const handleClickOutsideEditAddress = () => {
     if (showEditAddress) {
       setShowEditAddress(false)
@@ -263,7 +273,7 @@ function Booking() {
             {Plan === 'Optional' && (
               <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
                 <h1>Escolha qual limpeza você deseja :</h1>
-                <Selecter typeCleaningCreate />
+                <Selecter onChange={handleCleaning} value={cleaning} typeCleaningCreate />
               </div>
             )}
             <h1>Seu serviço será no endereço ({userCurrentUserData.address}) ?</h1>

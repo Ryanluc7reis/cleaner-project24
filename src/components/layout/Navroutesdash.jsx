@@ -56,21 +56,17 @@ const InputAlt = styled(Input)`
   background: transparent;
   padding: 6px;
   border: none;
-  width: 200px;
+  width: 190px;
+  color: white;
   ::placeholder {
     color: white;
   }
 `
 const Barra = styled.hr`
-  width: 100%;
+  width: 115%;
 `
 const Lupa = styled.img`
-  padding: 5px;
-  border: 1px solid silver;
-  border-radius: 30px;
-  box-shadow: 1px 1px 0px 0px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-  background: #fff;
+  padding: 7px;
 `
 const FlexInput = styled.div`
   display: flex;

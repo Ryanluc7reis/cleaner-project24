@@ -1,8 +1,9 @@
 import styled from 'styled-components'
-import { Link } from 'react-scroll'
-import { useEffect, useState } from 'react'
+import { scroller } from 'react-scroll'
+import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
+import moment from 'moment'
 
 import Cards from '../../src/components/cardsplan/Cards'
 import Navbar from '../../src/components/layout/Navbar'
@@ -389,6 +390,7 @@ const ListStartHours = [
 ]
 
 function HomePlansScreen({ ...props }) {
+  const hoursRef = useRef(null)
   const [planChosen, setPlanChosen] = useState(false)
   const [dateChosen, setDateChosen] = useState(false)
   const [hourChosen, setHourChosen] = useState(false)
@@ -461,9 +463,18 @@ function HomePlansScreen({ ...props }) {
   }
   const handleDateChange = (date) => {
     let getdate = `${date.$d.toDateString()} `
-    setSelectedDate(getdate)
+    let formattedDate = moment(getdate).format('ddd DD MMM YYYY')
+    setSelectedDate(formattedDate)
     setDateChosen(true)
     updateProgress()
+    if (hoursRef.current) {
+      scroller.scrollTo('hours', {
+        duration: 800,
+        delay: 0,
+        smooth: 'easeInOutQuart',
+        offset: -100
+      })
+    }
   }
 
   const router = useRouter()
@@ -526,11 +537,9 @@ function HomePlansScreen({ ...props }) {
       </ContainerPlans>
       <ContainerCalender>
         <TilteText id="calendar">When should your first booking be?</TilteText>
-        <Link to="hours" spy={true} smooth={true} offset={-100} duration={500}>
-          <DateCalendarAlt onChange={handleDateChange} />
-        </Link>
+        <DateCalendarAlt onChange={handleDateChange} />
       </ContainerCalender>
-      <ContainerTimes>
+      <ContainerTimes ref={hoursRef}>
         <TilteText id="hours">How long do you need your cleaner for?</TilteText>
         <FlexSeta>
           <Seta

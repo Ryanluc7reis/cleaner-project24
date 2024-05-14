@@ -97,7 +97,7 @@ export default function HistoricPage() {
       <StyledFlex>
         <NavBarDashboard isHistoric />
         <FlexContainer>
-          <NavRoutesDash historic type2 />
+          <NavRoutesDash historic type1 />
           <BoxHistoric>
             <FlexTitleText>
               <TitleText>Latest services</TitleText>

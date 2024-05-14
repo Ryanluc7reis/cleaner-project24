@@ -83,6 +83,12 @@ const PopUpMessageAlt = styled(PopUpMessage)`
   position: fixed;
   top: 0%;
 `
+const StyledLoader = styled.div`
+  display: flex;
+  align-items: center;
+  color: white;
+  padding: 140px 0px;
+`
 
 const ProfilePage = () => {
   const router = useRouter()
@@ -155,80 +161,98 @@ const ProfilePage = () => {
           <StyledFlex>
             <NavBarDashboard isProfile />
             <FlexProfileAndCard>
-              {Object.keys(userCurrentUserData).length !== 0 && (
-                <Profile
-                  id={userCurrentUserData._id}
-                  fullName={userCurrentUserData.fullName}
-                  user={userCurrentUserData.user}
-                  email={userCurrentUserData.email}
-                  password={userCurrentUserData.password}
-                  address={userCurrentUserData.address}
-                  number={userCurrentUserData.number}
-                />
-              )}
-              {userData && card ? (
-                <div>
-                  <BoxCardCleaner>
-                    <Label>Card cleaner</Label>
-                    <FlexBoxCardCleaner>
-                      <CardAlt
-                        id={card._id}
-                        name={card.name}
-                        price={card.price}
-                        rating={card.rating}
-                        experience={card.experience}
-                        amountCleaning={card.amountCleaning}
-                        region={card.region}
-                        none
-                      />
-                      <EditCard
-                        id={card._id}
-                        name={card.name}
-                        price={card.price}
-                        rating={card.rating}
-                        experience={card.experience}
-                        amountCleaning={card.amountCleaning}
-                        region={card.region}
-                        about={card.about}
-                        cleaning={card.cleaning}
-                        cleaning2={card.cleaning2}
-                        cleaning3={card.cleaning3}
-                        onSave={handleSaveEditCard}
-                      />
-                    </FlexBoxCardCleaner>
-                  </BoxCardCleaner>
-                  <BoxAboutCleaner>
-                    <Label>About Cleaner</Label>
-                    {card && (
-                      <About
-                        id={card._id}
-                        name={card.name}
-                        price={card.price}
-                        rating={card.rating}
-                        experience={card.experience}
-                        amountCleaning={card.amountCleaning}
-                        region={card.region}
-                        about={card.about}
-                        cleaning={card.cleaning}
-                        cleaning2={card.cleaning2}
-                        cleaning3={card.cleaning3}
-                      />
-                    )}
-                  </BoxAboutCleaner>
-                </div>
+              {Object.keys(userCurrentUserData).length === 0 ? (
+                <StyledLoader>
+                  <img width="30px" height="28px" src="/loadingGif.png" />
+                  <h2>Carregando</h2>
+                </StyledLoader>
               ) : (
-                <BoxCardCleaner>
-                  <Label>Card cleaner</Label>
-                  <FlexBoxCardCleaner>
-                    <CardAlt1 none />
-                    <div style={{ display: 'flex' }}>
-                      <CreateCard onClick={() => router.push('/createCard')}>
-                        Crie seu card
-                      </CreateCard>
-                      <img src="/arrowClick.png" width="25px" height="25px"></img>
+                <>
+                  {Object.keys(userCurrentUserData).length !== 0 && (
+                    <Profile
+                      id={userCurrentUserData._id}
+                      fullName={userCurrentUserData.fullName}
+                      user={userCurrentUserData.user}
+                      email={userCurrentUserData.email}
+                      password={userCurrentUserData.password}
+                      address={userCurrentUserData.address}
+                      number={userCurrentUserData.number}
+                    />
+                  )}
+                </>
+              )}
+              {!userData && !card ? (
+                <StyledLoader>
+                  <img width="30px" height="28px" src="/loadingGif.png" />
+                  <h2>Carregando</h2>
+                </StyledLoader>
+              ) : (
+                <>
+                  {userData && card ? (
+                    <div>
+                      <BoxCardCleaner>
+                        <Label>Card cleaner</Label>
+                        <FlexBoxCardCleaner>
+                          <CardAlt
+                            id={card._id}
+                            name={card.name}
+                            price={card.price}
+                            rating={card.rating}
+                            experience={card.experience}
+                            amountCleaning={card.amountCleaning}
+                            region={card.region}
+                            none
+                          />
+                          <EditCard
+                            id={card._id}
+                            name={card.name}
+                            price={card.price}
+                            rating={card.rating}
+                            experience={card.experience}
+                            amountCleaning={card.amountCleaning}
+                            region={card.region}
+                            about={card.about}
+                            cleaning={card.cleaning}
+                            cleaning2={card.cleaning2}
+                            cleaning3={card.cleaning3}
+                            onSave={handleSaveEditCard}
+                          />
+                        </FlexBoxCardCleaner>
+                      </BoxCardCleaner>
+                      <BoxAboutCleaner>
+                        <Label>About Cleaner</Label>
+                        {card && (
+                          <About
+                            id={card._id}
+                            name={card.name}
+                            price={card.price}
+                            rating={card.rating}
+                            experience={card.experience}
+                            amountCleaning={card.amountCleaning}
+                            region={card.region}
+                            about={card.about}
+                            cleaning={card.cleaning}
+                            cleaning2={card.cleaning2}
+                            cleaning3={card.cleaning3}
+                          />
+                        )}
+                      </BoxAboutCleaner>
                     </div>
-                  </FlexBoxCardCleaner>
-                </BoxCardCleaner>
+                  ) : (
+                    <BoxCardCleaner>
+                      <Label>Card cleaner</Label>
+                      <FlexBoxCardCleaner>
+                        <CardAlt1 none />
+                        <div style={{ display: 'flex' }}>
+                          <CreateCard onClick={() => router.push('/createCard')}>
+                            Crie seu card
+                          </CreateCard>
+                          <img src="/arrowClick.png" width="25px" height="25px"></img>
+                        </div>
+                      </FlexBoxCardCleaner>
+                    </BoxCardCleaner>
+                  )}
+                </>
               )}
             </FlexProfileAndCard>
           </StyledFlex>
@@ -242,16 +266,25 @@ const ProfilePage = () => {
           )}
           <StyledFlex>
             <NavBarDashboard isProfile />
-            {Object.keys(userCurrentUserData).length !== 0 && (
-              <Profile
-                id={userCurrentUserData._id}
-                fullName={userCurrentUserData.fullName}
-                user={userCurrentUserData.user}
-                email={userCurrentUserData.email}
-                password={userCurrentUserData.password}
-                address={userCurrentUserData.address}
-                number={userCurrentUserData.number}
-              />
+            {Object.keys(userCurrentUserData).length === 0 ? (
+              <StyledLoader>
+                <img width="30px" height="28px" src="/loadingGif.png" />
+                <h2>Carregando</h2>
+              </StyledLoader>
+            ) : (
+              <>
+                {Object.keys(userCurrentUserData).length !== 0 && (
+                  <Profile
+                    id={userCurrentUserData._id}
+                    fullName={userCurrentUserData.fullName}
+                    user={userCurrentUserData.user}
+                    email={userCurrentUserData.email}
+                    password={userCurrentUserData.password}
+                    address={userCurrentUserData.address}
+                    number={userCurrentUserData.number}
+                  />
+                )}
+              </>
             )}
           </StyledFlex>
         </FlexContainer>

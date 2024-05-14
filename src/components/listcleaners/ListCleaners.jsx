@@ -2,11 +2,14 @@ import styled from 'styled-components'
 import { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
 import useSWR from 'swr'
+import { useRouter } from 'next/router'
 import { CleanerAvailable } from '../../context/useContextCleanersAvailable'
 import { CardIdContext } from '../../context/useContextCardId'
+import { DateContext } from '../../context/useContextDate'
 
 import Card from '../cardcleaner/Card'
 import SelectedCleaner from './SelectedCleaner'
+import ErrorMessage from '../errormessage/ErrorMessage'
 
 const ContListCleaners = styled.div`
   display: flex;
@@ -105,9 +108,15 @@ const GridCardCleaner = styled.div`
     justify-content: center;
   }
 `
-
-const fetcher = async (url) => {
-  const response = await axios.get(url)
+const StyledLoader = styled.div`
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 60%;
+  top: 55%;
+`
+const fetcher = async ({ url, data }) => {
+  const response = await axios.post(url, data)
   return response.data
 }
 
@@ -121,8 +130,12 @@ export default function ListCleaners({
   const [showOption, setshowOption] = useState(false)
   const [updateShortby, setupdateShortby] = useState(null)
   const [selectedCleaner, setSelectedCleaner] = useState(null)
+  const [currentDate, setCurrentDate] = useState('')
   const [cleaners, setCleaner] = useContext(CleanerAvailable)
   const [cardId, setCardId] = useContext(CardIdContext)
+  const [date, setDate] = useContext(DateContext)
+  const router = useRouter()
+  const { selectedDate } = router.query
 
   const listOption = [
     'Relevance',
@@ -139,8 +152,21 @@ export default function ListCleaners({
     setSelectedCleaner(index === selectedCleaner ? null : index)
   }
 
-  const { data, error } = useSWR(`http://localhost:3333/cleaner/getCards`, fetcher)
+  useEffect(() => {
+    if (date !== '') {
+      setCurrentDate(date)
+    } else {
+      setCurrentDate(selectedDate)
+    }
+  }, [date, currentDate])
 
+  const { data, error } = useSWR(
+    () => ({
+      url: 'http://localhost:3333/cleaner/getCards',
+      data: { date: currentDate }
+    }),
+    fetcher
+  )
   const lowerRegion = region.toLowerCase()
   let filterData = data
     ? data.filter((card) => card.region.toLowerCase().includes(lowerRegion))
@@ -189,11 +215,26 @@ export default function ListCleaners({
     }
   }, [sortData.length, sortData[selectedCleaner]])
 
-  if (error) return <div>Erro ao carregar os dados</div>
-  if (!data) return <div>Carregando...</div>
+  if (error)
+    return (
+      <StyledLoader>
+        <ErrorMessage message="Erro ao buscar dados" />
+      </StyledLoader>
+    )
+  if (!data)
+    return (
+      <StyledLoader>
+        <img width="30px" height="28px" src="/loadingGif.png" />
+        <h2>Carregando</h2>
+      </StyledLoader>
+    )
 
   if (filterData.length === 0) {
-    return <div>Nenhum resultado encontrado.</div>
+    return (
+      <StyledLoader>
+        <ErrorMessage message="Nenhum resultado encontrado" />
+      </StyledLoader>
+    )
   }
 
   return (

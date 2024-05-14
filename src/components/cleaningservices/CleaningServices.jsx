@@ -2,6 +2,7 @@ import styled, { keyframes } from 'styled-components'
 import moment from 'moment'
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
+import { useEffect, useState } from 'react'
 
 import Button from '../../components/form/Button'
 
@@ -133,11 +134,28 @@ export default function CleaningServices({
   cleanAccepted,
   hasUser,
   isInformations,
+  cleaning,
+  cleanerUser,
   ...props
 }) {
   const { handleSubmit } = useForm({
     mode: 'all'
   })
+
+  const [cardData, setCardData] = useState({})
+
+  const getCard = async () => {
+    try {
+      const response = await axios.get('http://localhost:3333/cleaner/getOneCard', {
+        params: { cleaner: cleanerUser }
+      })
+      const data = response.data
+      setCardData(data)
+    } catch (error) {
+      console.error('Erro ao obter os dados do cartão:', error)
+    }
+  }
+
   const toggleInformations = () => {
     if (index !== -1 && typeof props.onIndex === 'function') {
       props.onIndex(index)
@@ -150,6 +168,7 @@ export default function CleaningServices({
     e.preventDefault()
     props.onRefresh()
     props.openReview()
+    props.onFinish()
 
     try {
       const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
@@ -180,7 +199,7 @@ export default function CleaningServices({
             }
           )
           if (createHistoric.status === 201) {
-            await axios.post(
+            const createNotificationRating = await axios.post(
               'http://localhost:3333/createNotificationToRating',
               {
                 for: requester
@@ -191,6 +210,22 @@ export default function CleaningServices({
                 }
               }
             )
+            if (createNotificationRating.status === 201) {
+              const amount = cardData.amountCleaning + 1
+              await axios.patch(
+                'http://localhost:3333/cleaner/editamountCleaningCard',
+                {
+                  id: cardData._id,
+                  creator: cardData.creator,
+                  amountCleaning: amount
+                },
+                {
+                  headers: {
+                    authorization: token
+                  }
+                }
+              )
+            }
           }
         } catch (err) {
           console.error(err.message)
@@ -198,7 +233,7 @@ export default function CleaningServices({
       }
     } catch (err) {
       const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
-      await axios.post(
+      const createHistoric = await axios.post(
         'http://localhost:3333/createHistoric',
         {
           for: requester,
@@ -210,6 +245,22 @@ export default function CleaningServices({
           }
         }
       )
+      if (createHistoric.status === 201) {
+        const amount = cardData.amountCleaning + 1
+        await axios.patch(
+          'http://localhost:3333/cleaner/editamountCleaningCard',
+          {
+            id: cardData._id,
+            creator: cardData.creator,
+            amountCleaning: amount
+          },
+          {
+            headers: {
+              authorization: token
+            }
+          }
+        )
+      }
 
       console.error(err.message)
     }
@@ -271,7 +322,8 @@ export default function CleaningServices({
           requester: requester,
           address: address,
           number: number,
-          cleaner: cleaner
+          cleaner: cleaner,
+          cleaningType: cleaning
         },
         config
       )
@@ -309,7 +361,9 @@ export default function CleaningServices({
       console.error(err.message)
     }
   }
-
+  useEffect(() => {
+    getCard()
+  }, [cleanerUser, isInformations])
   return (
     <Form
       onClick={() => toggleInformations(index || index2)}
@@ -339,7 +393,13 @@ export default function CleaningServices({
         )}
       </Service>
       <DropInformations informations={isInformations}>
-        <Text>Plan : {plan}</Text>
+        {plan === 'Optional' ? (
+          <Text>
+            Plan : {plan} ({cleaning})
+          </Text>
+        ) : (
+          <Text>Plan : {plan}</Text>
+        )}
         <Text>Duration : {duration}</Text>
         <Text>Starting Time : {startingTime}</Text>
         <Text>Service to date : {serviceDate}</Text>

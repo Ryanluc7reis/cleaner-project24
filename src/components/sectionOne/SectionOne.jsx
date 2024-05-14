@@ -191,8 +191,8 @@ export default function SectionOne() {
           <PopUpMessage messageToOkrequest={popUpMessage}>Cadastro feito com sucesso</PopUpMessage>
         )}
 
-        {popUpMessage && popUpMessageCard && (
-          <PopUpMessage messageToOkrequest={popUpMessage}>Card criado com sucesso</PopUpMessage>
+        {popUpMessageCard && (
+          <PopUpMessage messageToOkrequest={popUpMessageCard}>Card criado com sucesso</PopUpMessage>
         )}
         {user ? <Navbar username={user} /> : <Navbar type1 />}
         <StyledContainer1>

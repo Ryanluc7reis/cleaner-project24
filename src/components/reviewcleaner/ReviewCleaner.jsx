@@ -111,27 +111,35 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, review
     return stars
   }
   const getRatings = async () => {
-    const getRatings = await axios.post(
-      `http://localhost:3333/getRatings`,
-      {
-        forCleaner: forCleaner
-      },
-      {
-        headers: {
-          authorization: token
+    try {
+      const getRatings = await axios.post(
+        `http://localhost:3333/getRatings`,
+        {
+          forCleaner: forCleaner
+        },
+        {
+          headers: {
+            authorization: token
+          }
         }
-      }
-    )
+      )
 
-    const data = getRatings.data
-    setRatings(data)
+      const data = getRatings.data
+      setRatings(data)
+    } catch (err) {
+      console.error(err.message)
+    }
   }
   const getCardCleaner = async () => {
-    const card = await axios.get(`http://localhost:3333/cleaner/getOneCard`, {
-      params: { cleaner: cleanerUser }
-    })
-    const data = card.data
-    setCardCleaner(data)
+    try {
+      const card = await axios.get(`http://localhost:3333/cleaner/getOneCard`, {
+        params: { cleaner: cleanerUser }
+      })
+      const data = card.data
+      setCardCleaner(data)
+    } catch (err) {
+      console.error(err.message)
+    }
   }
 
   const handleRateNow = async () => {
