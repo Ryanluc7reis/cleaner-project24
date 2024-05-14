@@ -3,6 +3,7 @@ import { scroller } from 'react-scroll'
 import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
+import moment from 'moment'
 
 import Cards from '../../src/components/cardsplan/Cards'
 import Navbar from '../../src/components/layout/Navbar'
@@ -462,7 +463,8 @@ function HomePlansScreen({ ...props }) {
   }
   const handleDateChange = (date) => {
     let getdate = `${date.$d.toDateString()} `
-    setSelectedDate(getdate)
+    let formattedDate = moment(getdate).format('ddd DD MMM YYYY')
+    setSelectedDate(formattedDate)
     setDateChosen(true)
     updateProgress()
     if (hoursRef.current) {

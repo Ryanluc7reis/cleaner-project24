@@ -1,7 +1,9 @@
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
-import React from 'react'
+import { useState, useContext } from 'react'
+import moment from 'moment'
+import { DateContext } from '../../context/useContextDate'
+
 import BasicDateCalendar from '../calendario/Calendario'
 
 const Container = styled.div`
@@ -304,6 +306,7 @@ export default function BarraEtapas() {
   const [isFlexEtapasClicked2, setIsFlexEtapasClicked2] = useState(false)
   const [isFlexEtapasClicked3, setIsFlexEtapasClicked3] = useState(false)
   const [isFlexEtapasClicked4, setIsFlexEtapasClicked4] = useState(false)
+  const [date, setDate] = useContext(DateContext)
   const router = useRouter()
   const { cardValues, region, selectedDate, selectedHour, selectedDuration } = router.query
   const handleFlexEtapasClick = () => {
@@ -347,8 +350,10 @@ export default function BarraEtapas() {
   }
   const updateDate = (date) => {
     let getdate = `${date.$d.toDateString()} `
-    setUpdateDate(getdate)
-    localStorage.setItem('Date', `${date.$d.toDateString()} `), setBoxDate(!BoxDate)
+    let formattedDate = moment(getdate).format('ddd DD MMM YYYY')
+    setUpdateDate(formattedDate)
+    setDate(formattedDate)
+    localStorage.setItem('Date', formattedDate), setBoxDate(!BoxDate)
   }
 
   return (
