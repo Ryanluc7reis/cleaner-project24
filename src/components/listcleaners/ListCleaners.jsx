@@ -4,10 +4,12 @@ import axios from 'axios'
 import useSWR from 'swr'
 import { CleanerAvailable } from '../../context/useContextCleanersAvailable'
 import { CardIdContext } from '../../context/useContextCardId'
-import 'boxicons'
+import { Loader2 } from 'boxicons'
+import { DateContext } from '../../context/useContextDate'
 
 import Card from '../cardcleaner/Card'
 import SelectedCleaner from './SelectedCleaner'
+import { useRouter } from 'next/router'
 
 const ContListCleaners = styled.div`
   display: flex;
@@ -111,8 +113,8 @@ const StyledLoader = styled.div`
   left: 60%;
   top: 55%;
 `
-const fetcher = async (url) => {
-  const response = await axios.get(url)
+const fetcher = async ({ url, data }) => {
+  const response = await axios.post(url, data)
   return response.data
 }
 
@@ -126,8 +128,12 @@ export default function ListCleaners({
   const [showOption, setshowOption] = useState(false)
   const [updateShortby, setupdateShortby] = useState(null)
   const [selectedCleaner, setSelectedCleaner] = useState(null)
+  const [currentDate, setCurrentDate] = useState('')
   const [cleaners, setCleaner] = useContext(CleanerAvailable)
   const [cardId, setCardId] = useContext(CardIdContext)
+  const [date, setDate] = useContext(DateContext)
+  const router = useRouter()
+  const { selectedDate } = router.query
 
   const listOption = [
     'Relevance',
@@ -144,8 +150,21 @@ export default function ListCleaners({
     setSelectedCleaner(index === selectedCleaner ? null : index)
   }
 
-  const { data, error } = useSWR(`http://localhost:3333/cleaner/getCards`, fetcher)
+  useEffect(() => {
+    if (date !== '') {
+      setCurrentDate(date)
+    } else {
+      setCurrentDate(selectedDate)
+    }
+  }, [date, currentDate])
 
+  const { data, error } = useSWR(
+    () => ({
+      url: 'http://localhost:3333/cleaner/getCards',
+      data: { date: currentDate }
+    }),
+    fetcher
+  )
   const lowerRegion = region.toLowerCase()
   let filterData = data
     ? data.filter((card) => card.region.toLowerCase().includes(lowerRegion))
@@ -195,12 +214,7 @@ export default function ListCleaners({
   }, [sortData.length, sortData[selectedCleaner]])
 
   if (error) return <div>Erro ao carregar os dados</div>
-  if (!data)
-    return (
-      <StyledLoader>
-        <box-icon name="loader" animation="spin" color="#304ae0"></box-icon>
-      </StyledLoader>
-    )
+  if (!data) return <div> Carregando</div>
 
   if (filterData.length === 0) {
     return <div>Nenhum resultado encontrado.</div>
