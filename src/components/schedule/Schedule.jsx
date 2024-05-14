@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { useState, useEffect } from 'react'
 import moment from 'moment'
+import axios from 'axios'
 
 import NavRoutesDash from '../layout/Navroutesdash'
 import CalendarioReact from '../calendario/CalendarioReact'
@@ -12,7 +13,7 @@ const Container = styled.div`
   background-color: #001044;
 `
 const BoxSchedule = styled.div`
-  background: #fff;
+  background: #fdfdfd;
   min-width: 90%;
   height: 520px;
   margin: 10px 50px 25px 50px;
@@ -70,7 +71,6 @@ const ResetSchedule = styled.h1`
   cursor: pointer;
   font-size: 19px;
   font-weight: 500;
-  margin-top: 25px;
   padding: 10px;
   background: #3f3fe4;
   border-radius: 10px;
@@ -84,36 +84,128 @@ const FlexCalendarAndResetSchedule = styled.div`
   align-items: center;
   flex-direction: column;
 `
+const ColorBall = styled.div`
+  width: 10px;
+  height: 10px;
+  background: #ffff5f;
+  border-radius: 15px;
+`
+const StyledFlexColorBalls = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+`
+const ColorBallAlt = styled(ColorBall)`
+  background: #2233cadc;
+`
+const TextColorBall = styled.h2`
+  color: #4f4f4ff5;
+`
+const StyledContainerBalls = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 7px 0px;
+`
 export default function Schedule() {
   const [isBlocked, setIsBlocked] = useState(false)
   const [selectedMaxDate, setSelectedMaxDate] = useState(null)
   const [editSchedule, setEditSchedule] = useState(false)
-  const [availableDates, setAvailableDates] = useState([])
-
+  const [card, setCard] = useState(null)
+  const [lastDate, setLastDate] = useState(null)
+  const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
+  const config = {
+    headers: {
+      Authorization: token
+    }
+  }
   const handleDateChange = (date) => {
     let formattedDate = moment(date).format('ddd DD MMM YYYY')
+    setEditSchedule(false)
     setSelectedMaxDate(formattedDate)
   }
   const minDate = moment().startOf('day')
-
   const maxDate = moment(selectedMaxDate, 'ddd DD MMM YYYY').endOf('day')
   let calendarDates = []
+
   const tileDisabled = ({ date }) => {
-    setEditSchedule(false)
     if (selectedMaxDate === null) {
-      moment().startOf('day')
+      return false
     } else {
-      !moment(date).isBetween(minDate, maxDate, null, '[]')
+      const isDisabled = !moment(date).isBetween(minDate, maxDate, null, '[]')
+      if (!isDisabled) {
+        const formattedDate = moment(date).format('ddd DD MMM YYYY')
+        calendarDates.push(formattedDate)
+      }
+      return isDisabled
     }
-    const formattedDate = moment(date).format('ddd DD MMM YYYY')
-    calendarDates.push(formattedDate)
+  }
+
+  const editCleanerScheduleButton = async () => {
+    setIsBlocked(!isBlocked)
+    const newBlocked = !isBlocked
+    try {
+      await axios.patch(
+        'http://localhost:3333/cleaner/editScheduleBlockedCleaner',
+        {
+          scheduleBlocked: String(newBlocked)
+        },
+        config
+      )
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+
+  const editCleanerSchedule = async () => {
+    try {
+      const editSchedule = await axios.patch(
+        'http://localhost:3333/cleaner/editScheduleCleaner',
+        {
+          scheduleBlocked: String(isBlocked),
+          availableDate: String(calendarDates)
+        },
+        config
+      )
+      if (editSchedule.status === 200) {
+        try {
+          const card = await axios.get('http://localhost:3333/cleaner/findCard', config)
+          const data = card.data
+          setCard(data)
+        } catch (err) {
+          console.error(err.message)
+        }
+      }
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+  const getCard = async () => {
+    try {
+      const cardCurrent = await axios.get('http://localhost:3333/cleaner/findCard', config)
+      const data = cardCurrent.data
+
+      setCard(data)
+    } catch (err) {
+      console.error(err.message)
+    }
   }
 
   useEffect(() => {
     if (editSchedule) {
       setSelectedMaxDate(null)
+      setLastDate(null)
     }
   }, [editSchedule])
+  useEffect(() => {
+    getCard()
+  }, [])
+  useEffect(() => {
+    if (card !== null) {
+      const datesArray = card.availableDate[0].split(',')
+      setLastDate(moment(datesArray[datesArray.length - 1]))
+    }
+  }, [card])
 
   return (
     <Container>
@@ -122,24 +214,37 @@ export default function Schedule() {
         <FlexTitleText>
           <TitleText>Set your available schedule</TitleText>
 
-          <ButtonAlt isBlocked={isBlocked} onClick={() => setIsBlocked(!isBlocked)}>
+          <ButtonAlt isBlocked={isBlocked} onClick={editCleanerScheduleButton}>
             {isBlocked ? 'Unlock schedule' : 'Block schedule'}
           </ButtonAlt>
         </FlexTitleText>
         <StyledFlex>
           <FlexCalendarAndResetSchedule>
             <CalendarioReact
+              maxDateCss={lastDate !== null ? lastDate.toDate() : undefined}
               minDate={minDate.toDate()}
-              maxDate={maxDate ? maxDate.toDate() : undefined}
+              maxDate={lastDate !== null ? lastDate.toDate() : undefined}
               tileDisabled={tileDisabled}
               onChange={handleDateChange}
               isBlocked={isBlocked}
             />
+            <StyledContainerBalls>
+              <StyledFlexColorBalls>
+                <ColorBall />
+                <TextColorBall>Current-day</TextColorBall>
+              </StyledFlexColorBalls>
+
+              <StyledFlexColorBalls>
+                <ColorBallAlt />
+                <TextColorBall>Last-day available</TextColorBall>
+              </StyledFlexColorBalls>
+            </StyledContainerBalls>
+
             <div style={{ display: 'flex', gap: '10px' }}>
               <ResetSchedule onClick={() => setEditSchedule(!editSchedule)}>
                 Reset schedule
               </ResetSchedule>
-              <ResetSchedule>Save</ResetSchedule>
+              <ResetSchedule onClick={editCleanerSchedule}>Save</ResetSchedule>
             </div>
           </FlexCalendarAndResetSchedule>
           <FlexTextDate>
@@ -149,8 +254,13 @@ export default function Schedule() {
                 <TextSubBlocked>Schedule Blocked</TextSubBlocked>
               ) : (
                 <>
-                  {selectedMaxDate
-                    ? `${moment(minDate._d).format('ddd DD MMM YYYY')} -  ${selectedMaxDate}`
+                  {card !== null
+                    ? (() => {
+                        const datesArray = card.availableDate[0].split(',')
+                        const firstDate = datesArray[0]
+                        const lastDate = datesArray[datesArray.length - 1]
+                        return `${firstDate} - ${lastDate}`
+                      })()
                     : 'Select dates'}
                 </>
               )}

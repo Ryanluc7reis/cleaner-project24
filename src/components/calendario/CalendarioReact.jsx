@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css'
-import moment from 'moment'
 
 const StyledCalendar = styled(Calendar)`
   border-radius: 15px;
@@ -17,14 +16,26 @@ const StyledCalendar = styled(Calendar)`
   button {
     border-radius: 20px;
   }
+  .max-date-cell {
+    background-color: #2233cadc;
+  }
 `
 
-const CalendarReact = ({ isBlocked, ...props }) => {
-  const minDate = moment().startOf('day')
-
+const CalendarReact = ({ isBlocked, maxDateCss, ...props }) => {
+  const tileClassName = ({ date, view }) => {
+    if (maxDateCss && view === 'month' && date.getTime() === maxDateCss.getTime()) {
+      return 'max-date-cell'
+    }
+    return ''
+  }
   return (
     <div style={{ pointerEvents: isBlocked ? 'none' : 'auto' }}>
-      <StyledCalendar minDate={minDate.toDate()} isBlocked={isBlocked} locale="en-US" {...props} />
+      <StyledCalendar
+        tileClassName={tileClassName}
+        isBlocked={isBlocked}
+        locale="en-US"
+        {...props}
+      />
     </div>
   )
 }
