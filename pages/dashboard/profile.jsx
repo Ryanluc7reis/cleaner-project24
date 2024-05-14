@@ -87,7 +87,7 @@ const StyledLoader = styled.div`
   display: flex;
   align-items: center;
   color: white;
-  padding: 140px 0px;
+  padding: 140px 400px;
 `
 
 const ProfilePage = () => {

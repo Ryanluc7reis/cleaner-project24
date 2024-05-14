@@ -3,7 +3,7 @@ import Button from '../form/Button'
 import Input from '../form/Input'
 
 const Container = styled.div`
-  background: #5f5f5fe4;
+  background-color: #0d1d35ad;
   width: 100%;
   height: 100vh;
   display: flex;

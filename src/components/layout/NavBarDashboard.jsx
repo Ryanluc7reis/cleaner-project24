@@ -9,9 +9,8 @@ import Logo from '../logo/Logo'
 const Container = styled.div`
   padding: 10px 19px;
 `
-const BoxShadow1 = styled.div`
-  background: linear-gradient(rgba(217, 217, 217, 0.698), rgba(220, 220, 220, 0.818));
-  z-index: 10;
+const BoxShadow = styled.div`
+  background-color: #0d1d35ad;
   min-height: 100%;
   @media (max-width: 1306px) {
     width: 100%;
@@ -37,15 +36,15 @@ const FlexOption = styled.div`
   margin: 15px;
   :hover {
     cursor: pointer;
-    background-color: #d4d4d4a9;
+    background-color: #e9e9e9e3;
     transition: 0.3s;
   }
 `
 const FlexOptionAlt = styled(FlexOption)`
-  display: ${(props) => (props.none ? 'none' : 'flex')};
+  display: ${(props) => (props.noneCleaner ? 'none' : 'flex')};
 `
 const Option = styled.h1`
-  color: #6f6f6fdc;
+  color: #9e9e9e;
   font-weight: 500;
   font-size: 16px;
 `
@@ -82,8 +81,7 @@ export default function NavBarDashboard({
   }, [])
   return (
     <ImageNavdash {...props}>
-      {children}
-      <BoxShadow1>
+      <BoxShadow>
         <Container>
           <StyledLogo />
           <Barra />
@@ -120,7 +118,7 @@ export default function NavBarDashboard({
                 boxShadow: '0 4px 20px 0 rgb(0 0 0 / 18%), 0 7px 10px -5px rgb(0 178 212 / 50%)'
               })
             }}
-            none={userCleaner ? false : true}
+            noneCleaner={userCleaner ? false : true}
             onClick={() => router.push('/dashboard/schedule')}
           >
             <ImgOption src={isSchedule ? '/agendawhite.png' : '/agenda.png'} />
@@ -152,7 +150,7 @@ export default function NavBarDashboard({
             <Option style={{ ...(isHistoric && { color: '#fff' }) }}>Historic</Option>
           </FlexOption>
         </Container>
-      </BoxShadow1>
+      </BoxShadow>
     </ImageNavdash>
   )
 }

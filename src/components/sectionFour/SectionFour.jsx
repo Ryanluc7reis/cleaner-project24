@@ -9,7 +9,8 @@ import { ErrorMessage } from '../sectionOne/SectionOne'
 const StyledContainer = styled.div`
   min-width: 100%;
   height: 150%;
-  background: #000858c3;
+  //background: #000858c3;
+  background-color: #161161e6;
   @media (max-width: 1256px) {
     width: 120%;
   }
@@ -36,7 +37,7 @@ const StyledContainer = styled.div`
   }
 `
 const StyledTitle = styled.h1`
-  color: #ffffffe1;
+  color: #e8e9ffdf;
   display: flex;
   justify-content: center;
   padding-top: 40px;
@@ -69,8 +70,6 @@ const StyledFlexInputs = styled.div`
   gap: 30px;
 `
 const ErrorMessageAlt = styled(ErrorMessage)`
-  //transform: translate(220%, -120%);
-  //left: -9%;
   @media (max-width: 1440px) {
     transform: translate(283%, -120%);
     left: 0;
