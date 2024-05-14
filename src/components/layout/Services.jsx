@@ -2,7 +2,6 @@ import styled from 'styled-components'
 import { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
 import { PopUpContext } from '../../context/useContextPopUp'
-import 'boxicons'
 
 import CleaningServices from '../cleaningservices/CleaningServices'
 import ErrorMessage from '../errormessage/ErrorMessage'
@@ -42,6 +41,8 @@ const ErrorMessageAlt = styled(ErrorMessage)`
 `
 const StyledLoader = styled.div`
   padding: 100px 450px;
+  display: flex;
+  align-items: center;
 `
 const PopUpMessageAlt = styled(PopUpMessage)`
   position: fixed;
@@ -275,7 +276,8 @@ export default function Services({ ...props }) {
         <Title>Pending Services</Title>
         {!serviceUser || !serviceCleaner ? (
           <StyledLoader>
-            <box-icon name="loader" animation="spin" color="#304ae0" />
+            <img width="30px" height="28px" src="/loadingGif.png" />
+            <h2>Carregando</h2>
           </StyledLoader>
         ) : (
           <>
@@ -333,67 +335,77 @@ export default function Services({ ...props }) {
       </BoxServices>
       <BoxServices>
         <Title>Accepted Services</Title>
-        {serviceCleanerAccepted.length === 0 && serviceUserAccepted.length === 0 ? (
-          <ErrorMessageAlt message={'Nenhum serviço encontrado...'} />
+        {!serviceUserAccepted || !serviceCleanerAccepted ? (
+          <StyledLoader>
+            <img width="30px" height="28px" src="/loadingGif.png" />
+            <h2>Carregando</h2>
+          </StyledLoader>
         ) : (
           <>
-            <GridServices>
-              {serviceCleanerAccepted.length > 0
-                ? serviceCleanerAccepted.map((service, index) => (
-                    <CleaningServices
-                      onIndex2={() => handleInformationsSelect2(index)}
-                      isInformations={index === informations2}
-                      onRefresh={handleRefresh}
-                      index2={index}
-                      key={service._id}
-                      id={service._id}
-                      plan={service.plan}
-                      duration={service.duration}
-                      startingTime={service.startingTime}
-                      serviceDate={service.serviceDate}
-                      createdDate={service.createdDate}
-                      totalCost={service.totalCost}
-                      address={service.address}
-                      number={service.number}
-                      requester={service.requester}
-                      cleaner={service.cleaner}
-                      cleanerNumber={cleaner.number}
-                      openReview={() => setOpenReview(false)}
-                      onFinish={handleFinishService}
-                      cleaning={service.cleaningType}
-                      cleanerUser={cleaner.user}
-                      cleanAccepted
-                    />
-                  ))
-                : serviceUserAccepted.map((service, index) => (
-                    <CleaningServices
-                      onIndex2={() => handleInformationsSelect2(index)}
-                      isInformations={index === informations2}
-                      index2={index}
-                      onRefresh={handleRefresh}
-                      key={service._id}
-                      id={service._id}
-                      plan={service.plan}
-                      duration={service.duration}
-                      startingTime={service.startingTime}
-                      serviceDate={service.serviceDate}
-                      createdDate={service.createdDate}
-                      totalCost={service.totalCost}
-                      address={service.address}
-                      number={service.number}
-                      requester={service.requester}
-                      cleaner={service.cleaner}
-                      cleanerNumber={cleaner.number}
-                      cleaning={service.cleaningType}
-                      openReview={() => setOpenReview(!openReview)}
-                      onFinish={handleFinishService}
-                      cleanerUser={cleaner.user}
-                      cleanAccepted
-                    />
-                  ))}
-            </GridServices>
+            {serviceCleanerAccepted.length === 0 && serviceUserAccepted.length === 0 ? (
+              <ErrorMessageAlt message={'Nenhum serviço encontrado...'} />
+            ) : (
+              <>
+                <GridServices>
+                  {serviceCleanerAccepted.length > 0
+                    ? serviceCleanerAccepted.map((service, index) => (
+                        <CleaningServices
+                          onIndex2={() => handleInformationsSelect2(index)}
+                          isInformations={index === informations2}
+                          onRefresh={handleRefresh}
+                          index2={index}
+                          key={service._id}
+                          id={service._id}
+                          plan={service.plan}
+                          duration={service.duration}
+                          startingTime={service.startingTime}
+                          serviceDate={service.serviceDate}
+                          createdDate={service.createdDate}
+                          totalCost={service.totalCost}
+                          address={service.address}
+                          number={service.number}
+                          requester={service.requester}
+                          cleaner={service.cleaner}
+                          cleanerNumber={cleaner.number}
+                          openReview={() => setOpenReview(false)}
+                          onFinish={handleFinishService}
+                          cleaning={service.cleaningType}
+                          cleanerUser={cleaner.user}
+                          cleanAccepted
+                        />
+                      ))
+                    : serviceUserAccepted.map((service, index) => (
+                        <CleaningServices
+                          onIndex2={() => handleInformationsSelect2(index)}
+                          isInformations={index === informations2}
+                          index2={index}
+                          onRefresh={handleRefresh}
+                          key={service._id}
+                          id={service._id}
+                          plan={service.plan}
+                          duration={service.duration}
+                          startingTime={service.startingTime}
+                          serviceDate={service.serviceDate}
+                          createdDate={service.createdDate}
+                          totalCost={service.totalCost}
+                          address={service.address}
+                          number={service.number}
+                          requester={service.requester}
+                          cleaner={service.cleaner}
+                          cleanerNumber={cleaner.number}
+                          cleaning={service.cleaningType}
+                          openReview={() => setOpenReview(!openReview)}
+                          onFinish={handleFinishService}
+                          cleanerUser={cleaner.user}
+                          cleanAccepted
+                        />
+                      ))}
+                </GridServices>
+              </>
+            )}
           </>
         )}
+
         {openReview && (
           <ReviewCleaner
             cleanerUser={cleaner.user}

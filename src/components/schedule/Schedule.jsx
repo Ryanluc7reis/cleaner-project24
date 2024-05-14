@@ -213,7 +213,6 @@ export default function Schedule() {
       <BoxSchedule>
         <FlexTitleText>
           <TitleText>Set your available schedule</TitleText>
-
           <ButtonAlt isBlocked={isBlocked} onClick={editCleanerScheduleButton}>
             {isBlocked ? 'Unlock schedule' : 'Block schedule'}
           </ButtonAlt>

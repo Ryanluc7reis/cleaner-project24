@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import 'boxicons'
 
 import NavBarDashboard from '../../src/components/layout/NavBarDashboard'
 import Notifications from '../../src/components/notificaçao/Notifications'
@@ -43,6 +42,9 @@ const TitleText = styled.h1`
 `
 const StyledLoader = styled.div`
   padding: 160px 450px;
+  display: flex;
+  color: white;
+  align-items: center;
 `
 
 export default function NotificationsPage() {
@@ -87,7 +89,8 @@ export default function NotificationsPage() {
             <TitleText>New notifications</TitleText>
             {!notificationsData ? (
               <StyledLoader>
-                <box-icon name="loader" animation="spin" color="#304ae0"></box-icon>
+                <img width="30px" height="28px" src="/loadingGif.png" />
+                <h2>Carregando</h2>
               </StyledLoader>
             ) : (
               <>

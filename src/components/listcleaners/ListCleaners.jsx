@@ -2,14 +2,14 @@ import styled from 'styled-components'
 import { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
 import useSWR from 'swr'
+import { useRouter } from 'next/router'
 import { CleanerAvailable } from '../../context/useContextCleanersAvailable'
 import { CardIdContext } from '../../context/useContextCardId'
-import { Loader2 } from 'boxicons'
 import { DateContext } from '../../context/useContextDate'
 
 import Card from '../cardcleaner/Card'
 import SelectedCleaner from './SelectedCleaner'
-import { useRouter } from 'next/router'
+import ErrorMessage from '../errormessage/ErrorMessage'
 
 const ContListCleaners = styled.div`
   display: flex;
@@ -109,6 +109,8 @@ const GridCardCleaner = styled.div`
   }
 `
 const StyledLoader = styled.div`
+  display: flex;
+  align-items: center;
   position: absolute;
   left: 60%;
   top: 55%;
@@ -213,11 +215,26 @@ export default function ListCleaners({
     }
   }, [sortData.length, sortData[selectedCleaner]])
 
-  if (error) return <div>Erro ao carregar os dados</div>
-  if (!data) return <div> Carregando</div>
+  if (error)
+    return (
+      <StyledLoader>
+        <ErrorMessage message="Erro ao buscar dados" />
+      </StyledLoader>
+    )
+  if (!data)
+    return (
+      <StyledLoader>
+        <img width="30px" height="28px" src="/loadingGif.png" />
+        <h2>Carregando</h2>
+      </StyledLoader>
+    )
 
   if (filterData.length === 0) {
-    return <div>Nenhum resultado encontrado.</div>
+    return (
+      <StyledLoader>
+        <ErrorMessage message="Nenhum resultado encontrado" />
+      </StyledLoader>
+    )
   }
 
   return (
