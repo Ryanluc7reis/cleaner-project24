@@ -60,7 +60,7 @@ const StyledFlex = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 35px 45px;
+  padding: 15px 45px;
 `
 const FlexTextDate = styled.div`
   display: flex;
@@ -103,9 +103,8 @@ const TextColorBall = styled.h2`
 `
 const StyledContainerBalls = styled.div`
   display: flex;
-  flex-direction: column;
   gap: 10px;
-  margin: 7px 0px;
+  margin: 15px 0px;
 `
 export default function Schedule() {
   const [isBlocked, setIsBlocked] = useState(false)
@@ -206,7 +205,7 @@ export default function Schedule() {
       setLastDate(moment(datesArray[datesArray.length - 1]))
     }
   }, [card])
-
+  console.log(card)
   return (
     <Container>
       <NavRoutesDash schedule type1 />
@@ -239,7 +238,7 @@ export default function Schedule() {
               </StyledFlexColorBalls>
             </StyledContainerBalls>
 
-            <div style={{ display: 'flex', gap: '10px' }}>
+            <div style={{ display: 'flex', gap: '10px', marginTop: '7px' }}>
               <ResetSchedule onClick={() => setEditSchedule(!editSchedule)}>
                 Reset schedule
               </ResetSchedule>
@@ -253,7 +252,7 @@ export default function Schedule() {
                 <TextSubBlocked>Schedule Blocked</TextSubBlocked>
               ) : (
                 <>
-                  {card !== null
+                  {card !== null && card.availableDate[0] !== '-'
                     ? (() => {
                         const datesArray = card.availableDate[0].split(',')
                         const firstDate = datesArray[0]
