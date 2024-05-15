@@ -1,7 +1,8 @@
 import styled from 'styled-components'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
+import { PopUpContext } from '../../context/useContextPopUp'
 
 import Input from '../form/Input'
 import Button from '../form/Button'
@@ -44,6 +45,7 @@ export default function EditAddress({
     mode: 'all'
   })
   const [loading, setLoading] = useState(false)
+  const [popUpMessage, setPopUpMessage] = useContext(PopUpContext)
   const [formData, setFormData] = useState({
     id: id,
     fullName: fullName,
@@ -53,19 +55,20 @@ export default function EditAddress({
     address: address,
     number: number
   })
+  const AUTH_NAME = process.env.SESSION_TOKEN_NAME
 
   const handleFormSaveEdit = async () => {
     const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
     const config = {
       headers: {
-        authorization: token
+        [AUTH_NAME]: token
       }
     }
     try {
       const response = await axios.patch(`http://localhost:3333/user/editUser`, formData, config)
       if (response.status === 200) {
         onSave()
-        alert('Address editado com sucesso')
+        setPopUpMessage(true)
       }
     } catch (err) {
       console.error(err.message)
@@ -87,7 +90,11 @@ export default function EditAddress({
       props.onClose()
     }
   }
-
+  useEffect(() => {
+    setTimeout(() => {
+      setPopUpMessage(false)
+    }, 4000)
+  }, [popUpMessage])
   return (
     <Container onClick={handleClick}>
       <Form onSubmit={handleSubmit(handleFormSaveEdit)} onClick={(e) => e.stopPropagation()}>

@@ -9,8 +9,7 @@ import Input from '../src/components/form/Input'
 import Logo from '../src/components/logo/Logo'
 
 const ButtonAlt = styled(Button)`
-  margin-top: 23px;
-  margin-bottom: 15px;
+  margin-top: 15px;
   box-shadow: 2px 2px 2px #5176da, -2px -2px 2px #5176da;
   @media (max-width: 1025px) {
     padding: 12px 17px;
@@ -71,7 +70,7 @@ const Formulario = styled.form`
   background-color: #cccdee;
   padding: 3px;
   border-radius: 8px;
-  height: 545px;
+  height: 549px;
   width: 327px;
   margin-top: 30px;
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
@@ -173,6 +172,8 @@ const SignupAsCleaner = () => {
         setError({ ...error, email: 'Já existe uma conta com esse e-mail.' })
       } else if (err.response && err.response.data.duplicatedKey === 'user') {
         setError({ ...error, user: 'Já existe uma conta com esse username.' })
+      } else if (err.response && err.response.data === 'Erro interno do servidor') {
+        setError({ ...error, number: 'O número precisa ser algo como 55 (11) 9865-5432' })
       } else {
         const newErrors = {}
         const requiredFields = ['fullName', 'user', 'email', 'password', 'address', 'number']

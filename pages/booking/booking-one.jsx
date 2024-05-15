@@ -15,6 +15,7 @@ import Steps from '../../src/components/steps/Steps'
 import SignupByBooking from '../../src/components/signupbybooking/SignupByBooking'
 import EditAddress from '../../src/components/profile/EditAddress'
 import Selecter from '../../src/components/form/Selecter'
+import PopUpMessage from '../../src/components/popupmessage/PopUpMessage'
 
 const Container = styled.div`
   width: 100%;
@@ -147,8 +148,9 @@ function Booking() {
   const PriceH = typeof window !== 'undefined' ? localStorage.getItem('PriceH') : null
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
   const rate = 8.5
-
+  const AUTH_NAME = process.env.SESSION_TOKEN_NAME
   const totalPrice = PriceH ? (parseFloat(PriceH) * parseFloat(Duration) + rate).toFixed(2) : null
+
   const handleFormSubmit = async () => {
     try {
       setLoading(true)
@@ -172,7 +174,7 @@ function Booking() {
 
       const serviceResponse = await axios.post(`http://localhost:3333/createService`, serviceData, {
         headers: {
-          authorization: token
+          [AUTH_NAME]: token
         }
       })
 
@@ -185,7 +187,7 @@ function Booking() {
           },
           {
             headers: {
-              authorization: token
+              [AUTH_NAME]: token
             }
           }
         )
@@ -205,7 +207,7 @@ function Booking() {
   const findUser = async () => {
     try {
       const response = await axios.get(`http://localhost:3333/user/findUser`, {
-        headers: { authorization: token }
+        headers: { [AUTH_NAME]: token }
       })
 
       const data = response.data
@@ -230,7 +232,7 @@ function Booking() {
             cleanerName: data.creator
           },
           {
-            headers: { authorization: token }
+            headers: { [AUTH_NAME]: token }
           }
         )
         const datacleaner = cleaner.data
@@ -261,9 +263,16 @@ function Booking() {
   const { handleSubmit } = useForm({
     mode: 'all'
   })
-
+  useEffect(() => {
+    setTimeout(() => {
+      setPopUpMessage(false)
+    }, 4000)
+  }, [popUpMessage])
   return (
     <Container onClick={handleClickOutsideEditAddress}>
+      {popUpMessage && (
+        <PopUpMessage messageToOkrequest={popUpMessage}>Endereço editado com sucesso</PopUpMessage>
+      )}
       <NavBarAlt type2 />
       <Steps type1 />
       <PaymentAndRegister style={userData ? { gap: '25px' } : { gap: '18px' }}>

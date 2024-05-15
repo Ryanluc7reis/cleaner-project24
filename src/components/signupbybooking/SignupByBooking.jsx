@@ -1,10 +1,12 @@
 import styled from 'styled-components'
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import axios from 'axios'
 import { LoginContext } from '../../context/useContextLogin'
+import { PopUpContext } from '../../context/useContextPopUp'
 
 import Input from '../form/Input'
 import Button from '../form/Button'
+import PopUpMessage from '../popupmessage/PopUpMessage'
 
 const Conatiner = styled.div`
   min-height: 100vh;
@@ -197,11 +199,13 @@ const FlexButton = styled.div`
   bottom: -18%;
   left: 16%;
 `
+
 export default function SignupByBooking({ ...props }) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState({})
   const [boxSelected, setBoxSelected] = useState(Boolean)
   const [login, setLogin] = useContext(LoginContext)
+  const [popUpMessage, setPopUpMessage] = useContext(PopUpContext)
   const [formData, setFormData] = useState({
     fullName: '',
     user: '',
@@ -239,7 +243,7 @@ export default function SignupByBooking({ ...props }) {
       setLoading(true)
       const { status } = await axios.post(`http://localhost:3333/user/signup`, formData)
       if (status === 201) {
-        alert('Cadastro feito com sucesso')
+        setPopUpMessage(true)
       }
       setLogin(true)
       setFormData(false)
@@ -248,6 +252,8 @@ export default function SignupByBooking({ ...props }) {
         setError({ ...error, email: 'Já existe uma conta com esse e-mail.' })
       } else if (err.response.data.duplicatedKey === 'user') {
         setError({ ...error, user: 'Já existe uma conta com esse username.' })
+      } else if (err.response && err.response.data === 'Erro interno do servidor') {
+        setError({ ...error, number: 'O número precisa ser algo como 55 (11) 9865-5432' })
       } else {
         const newErrors = {}
         const requiredFields = ['fullName', 'user', 'email', 'password', 'address', 'number']
@@ -263,9 +269,16 @@ export default function SignupByBooking({ ...props }) {
       setLoading(false)
     }
   }
-
+  useEffect(() => {
+    setTimeout(() => {
+      setPopUpMessage(false)
+    }, 4000)
+  }, [popUpMessage])
   return (
     <Conatiner>
+      {popUpMessage && (
+        <PopUpMessage messageToOkrequest={popUpMessage}>Cadastro feito com sucesso</PopUpMessage>
+      )}
       <Title>Ready to book? Set your account details</Title>
       <Form onSubmit={handleForm}>
         <BoxInput>

@@ -82,7 +82,7 @@ export default function LoginForm({ ...props }) {
   })
   const [error, setError] = useState({})
   const [userData, setUserData] = useContext(UserContext)
-
+  const AUTH_NAME = process.env.SESSION_TOKEN_NAME
   const onSubmit = async (e) => {
     e.preventDefault()
     try {
@@ -104,7 +104,7 @@ export default function LoginForm({ ...props }) {
         const token = localStorage.getItem('token')
         const response = await axios.get('http://localhost:3333/user/verify-session', {
           headers: {
-            authorization: token
+            [AUTH_NAME]: token
           }
         })
         setUserData(response.data)

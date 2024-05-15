@@ -143,7 +143,7 @@ export default function CleaningServices({
   })
 
   const [cardData, setCardData] = useState({})
-
+  const AUTH_NAME = process.env.SESSION_TOKEN_NAME
   const getCard = async () => {
     try {
       const response = await axios.get('http://localhost:3333/cleaner/getOneCard', {
@@ -174,14 +174,14 @@ export default function CleaningServices({
       const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
       const config = {
         headers: {
-          authorization: token
+          [AUTH_NAME]: token
         },
         data: { id: id }
       }
       const serviceDelete = await axios.delete('http://localhost:3333/deleteService', config)
       const verifyCleaner = await axios.get(`http://localhost:3333/user/verify-cleaner`, {
         headers: {
-          authorization: token
+          [AUTH_NAME]: token
         }
       })
       if (serviceDelete.status && verifyCleaner.status === 200) {
@@ -194,7 +194,7 @@ export default function CleaningServices({
             },
             {
               headers: {
-                authorization: token
+                [AUTH_NAME]: token
               }
             }
           )
@@ -206,7 +206,7 @@ export default function CleaningServices({
               },
               {
                 headers: {
-                  authorization: token
+                  [AUTH_NAME]: token
                 }
               }
             )
@@ -221,7 +221,7 @@ export default function CleaningServices({
                 },
                 {
                   headers: {
-                    authorization: token
+                    [AUTH_NAME]: token
                   }
                 }
               )
@@ -241,7 +241,7 @@ export default function CleaningServices({
         },
         {
           headers: {
-            authorization: token
+            [AUTH_NAME]: token
           }
         }
       )
@@ -256,7 +256,7 @@ export default function CleaningServices({
           },
           {
             headers: {
-              authorization: token
+              [AUTH_NAME]: token
             }
           }
         )
@@ -274,7 +274,7 @@ export default function CleaningServices({
       const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
       const config = {
         headers: {
-          authorization: token
+          [AUTH_NAME]: token
         },
         data: { id: id }
       }
@@ -290,7 +290,7 @@ export default function CleaningServices({
             },
             {
               headers: {
-                authorization: token
+                [AUTH_NAME]: token
               }
             }
           )
@@ -307,7 +307,7 @@ export default function CleaningServices({
     const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
     const config = {
       headers: {
-        authorization: token
+        [AUTH_NAME]: token
       }
     }
     try {
@@ -334,7 +334,7 @@ export default function CleaningServices({
           const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
           const config2 = {
             headers: {
-              authorization: token
+              [AUTH_NAME]: token
             },
             data: { id: id }
           }
@@ -348,7 +348,7 @@ export default function CleaningServices({
               },
               {
                 headers: {
-                  authorization: token
+                  [AUTH_NAME]: token
                 }
               }
             )

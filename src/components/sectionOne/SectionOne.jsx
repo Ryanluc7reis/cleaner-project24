@@ -110,9 +110,10 @@ export default function SectionOne() {
   const [notifications, setNotifications] = useState([])
 
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
+  const AUTH_NAME = process.env.SESSION_TOKEN_NAME
   const config = {
     headers: {
-      Authorization: token
+      [AUTH_NAME]: token
     }
   }
   const getNotificationsPopUp = async () => {
@@ -156,7 +157,7 @@ export default function SectionOne() {
       try {
         const response = await axios.get('http://localhost:3333/user/verify-session', {
           headers: {
-            authorization: token
+            [AUTH_NAME]: token
           }
         })
         setUserData(response.data)

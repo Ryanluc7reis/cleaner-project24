@@ -30,6 +30,7 @@ const Close = styled.img`
 
 export default function Notifications({ notificationType, id, ...props }) {
   const router = useRouter()
+  const AUTH_NAME = process.env.SESSION_TOKEN_NAME
   const handleDelete = async (e) => {
     e.preventDefault()
     props.onDelete()
@@ -38,7 +39,7 @@ export default function Notifications({ notificationType, id, ...props }) {
       const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
       const config = {
         headers: {
-          authorization: token
+          [AUTH_NAME]: token
         },
         data: { id: id }
       }

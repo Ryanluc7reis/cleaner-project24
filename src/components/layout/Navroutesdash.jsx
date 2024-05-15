@@ -114,6 +114,7 @@ export default function NavRoutesDash({
   const [clicked, setClicked] = useState(false)
   const [notificationsCount, setNotificationsCount] = useState([])
   const { user, userId } = userData
+  const AUTH_NAME = process.env.SESSION_TOKEN_NAME
   const handleClick = (click) => {
     props.onClickDash(click === setClicked(!clicked))
   }
@@ -135,7 +136,7 @@ export default function NavRoutesDash({
       const token = localStorage.getItem('token')
       const response = await axios.get('http://localhost:3333/user/verify-session', {
         headers: {
-          authorization: token
+          [AUTH_NAME]: token
         }
       })
       setUserData(response.data)
@@ -148,7 +149,7 @@ export default function NavRoutesDash({
       const token = localStorage.getItem('token')
       const response = await axios.get('http://localhost:3333/getNotificationsCount', {
         headers: {
-          authorization: token
+          [AUTH_NAME]: token
         }
       })
       setNotificationsCount(response.data.count)
@@ -165,7 +166,7 @@ export default function NavRoutesDash({
       const token = localStorage.getItem('token')
       const config = {
         headers: {
-          authorization: token
+          [AUTH_NAME]: token
         }
       }
       const response = await axios.post('http://localhost:3333/user/logout', {}, config)

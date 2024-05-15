@@ -92,7 +92,7 @@ export default function EditPassword({
   })
   const [checkError, setCheckError] = useState(false)
   const [checkErrorForm, setCheckErrorForm] = useState(false)
-
+  const AUTH_NAME = process.env.SESSION_TOKEN_NAME
   const handleForm = async () => {
     const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
 
@@ -102,7 +102,7 @@ export default function EditPassword({
         { password: currentPassword.password },
         {
           headers: {
-            authorization: token
+            [AUTH_NAME]: token
           }
         }
       )
@@ -121,7 +121,7 @@ export default function EditPassword({
           },
           {
             headers: {
-              authorization: token
+              [AUTH_NAME]: token
             }
           }
         )

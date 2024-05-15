@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useSWRConfig } from 'swr'
 
 import NavRoutesDash from '../layout/Navroutesdash'

@@ -87,7 +87,7 @@ const StyledLoader = styled.div`
   display: flex;
   align-items: center;
   color: white;
-  padding: 140px 0px;
+  padding: 140px 400px;
 `
 
 const ProfilePage = () => {
@@ -101,11 +101,11 @@ const ProfilePage = () => {
 
   const { mutate } = useSWRConfig()
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
-
+  const AUTH_NAME = process.env.SESSION_TOKEN_NAME
   const findUser = async () => {
     try {
       const response = await axios.get(`http://localhost:3333/user/findUser`, {
-        headers: { authorization: token }
+        headers: { [AUTH_NAME]: token }
       })
       const data = response.data
       setCurrentUserData(data)
@@ -116,7 +116,7 @@ const ProfilePage = () => {
   const getCard = async () => {
     try {
       const response = await axios.get('http://localhost:3333/cleaner/findCard', {
-        headers: { authorization: token }
+        headers: { [AUTH_NAME]: token }
       })
       const data = response.data
       setCard(data)
@@ -128,7 +128,7 @@ const ProfilePage = () => {
   const findCleaner = async () => {
     try {
       const response = await axios.get('http://localhost:3333/user/verify-cleaner', {
-        headers: { authorization: token }
+        headers: { [AUTH_NAME]: token }
       })
       const cleaner = response.data
       setUserCleaner(cleaner)

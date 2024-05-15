@@ -26,11 +26,11 @@ export default function AboutCleaner({
   const { mutate } = useSWRConfig()
 
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
-
+  const AUTH_NAME = process.env.SESSION_TOKEN_NAME
   const getCard = async () => {
     try {
       const response = await axios.get('http://localhost:3333/cleaner/findCard', {
-        headers: { authorization: token }
+        headers: { [AUTH_NAME]: token }
       })
       const data = response.data
       setCard(data)

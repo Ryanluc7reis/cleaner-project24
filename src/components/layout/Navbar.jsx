@@ -191,6 +191,7 @@ export default function Navbar({ type1, type2, username, ...props }) {
   const [login, setLogin] = useContext(LoginContext)
   const [userData, setUserData] = useContext(UserContext)
   const { user, userId } = userData
+  const AUTH_NAME = process.env.SESSION_TOKEN_NAME
   useEffect(() => {
     const handleClickOutSide = (event) => {
       if (!event.target.closest('#showD')) {
@@ -207,7 +208,7 @@ export default function Navbar({ type1, type2, username, ...props }) {
       const token = localStorage.getItem('token')
       const response = await axios.get('http://localhost:3333/user/verify-session', {
         headers: {
-          authorization: token
+          [AUTH_NAME]: token
         }
       })
       setUserData(response.data)
@@ -221,7 +222,7 @@ export default function Navbar({ type1, type2, username, ...props }) {
       const token = localStorage.getItem('token')
       const config = {
         headers: {
-          authorization: token
+          [AUTH_NAME]: token
         }
       }
       const response = await axios.post('http://localhost:3333/user/logout', {}, config)

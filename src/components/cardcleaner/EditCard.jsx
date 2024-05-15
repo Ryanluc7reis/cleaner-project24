@@ -70,12 +70,13 @@ export default function EditCard({
   })
 
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
+  const AUTH_NAME = process.env.SESSION_TOKEN_NAME
   const handleFormSaveEdit = async () => {
     setLoading(true)
 
     const config = {
       headers: {
-        authorization: token
+        [AUTH_NAME]: token
       }
     }
     try {
