@@ -77,19 +77,20 @@ export default function Services({ ...props }) {
   }
 
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
+  const AUTH_NAME = process.env.SESSION_TOKEN_NAME
 
   const getServiceCleaner = async () => {
     try {
       const verifyCleaner = await axios.get(`http://localhost:3333/user/verify-cleaner`, {
         headers: {
-          authorization: token
+          [AUTH_NAME]: token
         }
       })
       if (verifyCleaner.status === 200) {
         try {
           const serviceCleaner = await axios.get(`http://localhost:3333/getService-cleaner`, {
             headers: {
-              authorization: token
+              [AUTH_NAME]: token
             }
           })
 
@@ -107,7 +108,7 @@ export default function Services({ ...props }) {
     try {
       const serviceUser = await axios.get(`http://localhost:3333/getService-user`, {
         headers: {
-          authorization: token
+          [AUTH_NAME]: token
         }
       })
 
@@ -120,7 +121,7 @@ export default function Services({ ...props }) {
             cleanerName: dataServiceUser.cleaner
           },
           {
-            headers: { authorization: token }
+            headers: { [AUTH_NAME]: token }
           }
         )
         const datacleaner = response.data
@@ -134,7 +135,7 @@ export default function Services({ ...props }) {
     try {
       const serviceUserAccepted = await axios.get(`http://localhost:3333/getServiceAccepted-user`, {
         headers: {
-          authorization: token
+          [AUTH_NAME]: token
         }
       })
 
@@ -147,7 +148,7 @@ export default function Services({ ...props }) {
             cleanerName: dataServiceUserAccepted[index].cleaner
           },
           {
-            headers: { authorization: token }
+            headers: { [AUTH_NAME]: token }
           }
         )
 
@@ -164,7 +165,7 @@ export default function Services({ ...props }) {
         `http://localhost:3333/getServiceAccepted-cleaner`,
         {
           headers: {
-            authorization: token
+            [AUTH_NAME]: token
           }
         }
       )
@@ -178,7 +179,7 @@ export default function Services({ ...props }) {
             cleanerName: dataServiceCleanerAccepted[index].cleaner
           },
           {
-            headers: { authorization: token }
+            headers: { [AUTH_NAME]: token }
           }
         )
 
@@ -194,7 +195,7 @@ export default function Services({ ...props }) {
     try {
       const notification = await axios.get('http://localhost:3333/getOneNotificationRating', {
         headers: {
-          authorization: token
+          [AUTH_NAME]: token
         }
       })
       const data = notification.data
@@ -218,7 +219,7 @@ export default function Services({ ...props }) {
         },
         {
           headers: {
-            authorization: token
+            [AUTH_NAME]: token
           }
         }
       )

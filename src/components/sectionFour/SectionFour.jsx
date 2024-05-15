@@ -9,7 +9,6 @@ import { ErrorMessage } from '../sectionOne/SectionOne'
 const StyledContainer = styled.div`
   min-width: 100%;
   height: 150%;
-  //background: #000858c3;
   background-color: #161161e6;
   @media (max-width: 1256px) {
     width: 120%;

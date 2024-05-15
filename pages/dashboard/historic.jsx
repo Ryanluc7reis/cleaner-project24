@@ -58,11 +58,12 @@ export default function HistoricPage() {
   const [refreshHistoric, setRefreshHistoric] = useState(false)
 
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
+  const AUTH_NAME = process.env.SESSION_TOKEN_NAME
   const getHistoric = async () => {
     try {
       const historics = await axios.get('http://localhost:3333/getHistorics', {
         headers: {
-          authorization: token
+          [AUTH_NAME]: token
         }
       })
       const data = historics.data
@@ -76,7 +77,7 @@ export default function HistoricPage() {
       const historicIds = historicData.map((historic) => historic._id)
       await axios.delete('http://localhost:3333/cleanHistoric', {
         headers: {
-          authorization: token
+          [AUTH_NAME]: token
         },
         data: {
           ids: historicIds

@@ -51,9 +51,10 @@ export default function NotificationsPage() {
   const [notificationsData, setNotificationsData] = useState([])
   const [refreshNotification, setRefreshNotification] = useState(false)
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
+  const AUTH_NAME = process.env.SESSION_TOKEN_NAME
   const config = {
     headers: {
-      Authorization: token
+      [AUTH_NAME]: token
     }
   }
   const getNotifications = async () => {

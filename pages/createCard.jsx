@@ -99,7 +99,7 @@ export default function CreateCardCleaner() {
     cleaning2: '',
     cleaning3: ''
   })
-
+  const AUTH_NAME = process.env.SESSION_TOKEN_NAME
   const handleChange = (name, value) => {
     setFormData((prevData) => ({
       ...prevData,
@@ -114,7 +114,7 @@ export default function CreateCardCleaner() {
       const token = localStorage.getItem('token')
       const config = {
         headers: {
-          authorization: token
+          [AUTH_NAME]: token
         }
       }
       const { status } = await axios.post(

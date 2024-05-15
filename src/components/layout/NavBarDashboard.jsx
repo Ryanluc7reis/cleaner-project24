@@ -64,10 +64,11 @@ export default function NavBarDashboard({
   const router = useRouter()
   const [userCleaner, setUserCleaner] = useState(null)
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
+  const AUTH_NAME = process.env.SESSION_TOKEN_NAME
   const findCleaner = async () => {
     try {
       const response = await axios.get('http://localhost:3333/user/verify-cleaner', {
-        headers: { authorization: token }
+        headers: { [AUTH_NAME]: token }
       })
       const cleaner = response.data
       setUserCleaner(cleaner)

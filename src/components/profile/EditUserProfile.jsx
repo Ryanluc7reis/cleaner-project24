@@ -90,12 +90,12 @@ export default function EditUserProfile({
     address: address,
     number: number
   })
-
+  const AUTH_NAME = process.env.SESSION_TOKEN_NAME
   const handleFormSaveEdit = async () => {
     const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
     const config = {
       headers: {
-        authorization: token
+        [AUTH_NAME]: token
       }
     }
     try {

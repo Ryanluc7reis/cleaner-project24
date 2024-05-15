@@ -113,9 +113,10 @@ export default function Schedule() {
   const [card, setCard] = useState(null)
   const [lastDate, setLastDate] = useState(null)
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
+  const AUTH_NAME = process.env.SESSION_TOKEN_NAME
   const config = {
     headers: {
-      Authorization: token
+      [AUTH_NAME]: token
     }
   }
   const handleDateChange = (date) => {

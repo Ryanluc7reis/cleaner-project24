@@ -53,6 +53,7 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, review
   const [thanksForRating, setThanksForRating] = useState(false)
 
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
+  const AUTH_NAME = process.env.SESSION_TOKEN_NAME
   const ModaRatings = ratings.map((rating) => rating.stars)
   const calcularModa = (array) => {
     let contagem = {}
@@ -87,7 +88,7 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, review
   const handleClose = async () => {
     onClose()
     await axios.get(`http://localhost:3333/notificationsAsRead`, {
-      headers: { authorization: token }
+      headers: { [AUTH_NAME]: token }
     })
   }
   const handleChange = (event) => {
@@ -119,7 +120,7 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, review
         },
         {
           headers: {
-            authorization: token
+            [AUTH_NAME]: token
           }
         }
       )
@@ -153,7 +154,7 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, review
         },
         {
           headers: {
-            authorization: token
+            [AUTH_NAME]: token
           }
         }
       )
@@ -165,7 +166,7 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, review
         },
         {
           headers: {
-            authorization: token
+            [AUTH_NAME]: token
           }
         }
       )
@@ -175,13 +176,13 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, review
           { id: cardCleaner._id, rating: modaToNumber, creator: cardCleaner.creator },
           {
             headers: {
-              authorization: token
+              [AUTH_NAME]: token
             }
           }
         )
         if (editRating.status === 200) {
           await axios.get(`http://localhost:3333/notificationsAsRead`, {
-            headers: { authorization: token }
+            headers: { [AUTH_NAME]: token }
           })
         }
       }
