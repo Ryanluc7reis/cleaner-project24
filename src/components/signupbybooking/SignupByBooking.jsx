@@ -248,6 +248,8 @@ export default function SignupByBooking({ ...props }) {
         setError({ ...error, email: 'Já existe uma conta com esse e-mail.' })
       } else if (err.response.data.duplicatedKey === 'user') {
         setError({ ...error, user: 'Já existe uma conta com esse username.' })
+      } else if (err.response && err.response.data === 'Erro interno do servidor') {
+        setError({ ...error, number: 'O número precisa ser algo como 55 (11) 9865-5432' })
       } else {
         const newErrors = {}
         const requiredFields = ['fullName', 'user', 'email', 'password', 'address', 'number']
