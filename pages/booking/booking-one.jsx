@@ -15,6 +15,7 @@ import Steps from '../../src/components/steps/Steps'
 import SignupByBooking from '../../src/components/signupbybooking/SignupByBooking'
 import EditAddress from '../../src/components/profile/EditAddress'
 import Selecter from '../../src/components/form/Selecter'
+import PopUpMessage from '../../src/components/popupmessage/PopUpMessage'
 
 const Container = styled.div`
   width: 100%;
@@ -261,9 +262,16 @@ function Booking() {
   const { handleSubmit } = useForm({
     mode: 'all'
   })
-
+  useEffect(() => {
+    setTimeout(() => {
+      setPopUpMessage(false)
+    }, 4000)
+  }, [popUpMessage])
   return (
     <Container onClick={handleClickOutsideEditAddress}>
+      {popUpMessage && (
+        <PopUpMessage messageToOkrequest={popUpMessage}>Endereço editado com sucesso</PopUpMessage>
+      )}
       <NavBarAlt type2 />
       <Steps type1 />
       <PaymentAndRegister style={userData ? { gap: '25px' } : { gap: '18px' }}>
