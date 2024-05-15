@@ -1,9 +1,5 @@
 import styled, { keyframes } from 'styled-components'
 
-const Container = styled.div`
-  width: 100%;
-  height: 100%;
-`
 const BoxMessage = styled.div`
   width: 400px;
   height: 60px;
@@ -86,7 +82,7 @@ export default function PopUpMessage({
     props.onClose()
   }
   return (
-    <Container {...props}>
+    <>
       {notification && (
         <BoxMessage notification={notificationMessage}>
           <h4>{notification}</h4>
@@ -100,6 +96,6 @@ export default function PopUpMessage({
           {error ? <Check src="/erro.png" /> : <Check src="/check.png" />}
         </BoxMessageToRequest>
       )}
-    </Container>
+    </>
   )
 }

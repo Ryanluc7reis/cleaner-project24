@@ -1,10 +1,12 @@
 import styled from 'styled-components'
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import axios from 'axios'
 import { LoginContext } from '../../context/useContextLogin'
+import { PopUpContext } from '../../context/useContextPopUp'
 
 import Input from '../form/Input'
 import Button from '../form/Button'
+import PopUpMessage from '../popupmessage/PopUpMessage'
 
 const Conatiner = styled.div`
   min-height: 100vh;
@@ -197,11 +199,13 @@ const FlexButton = styled.div`
   bottom: -18%;
   left: 16%;
 `
+
 export default function SignupByBooking({ ...props }) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState({})
   const [boxSelected, setBoxSelected] = useState(Boolean)
   const [login, setLogin] = useContext(LoginContext)
+  const [popUpMessage, setPopUpMessage] = useContext(PopUpContext)
   const [formData, setFormData] = useState({
     fullName: '',
     user: '',
@@ -239,7 +243,7 @@ export default function SignupByBooking({ ...props }) {
       setLoading(true)
       const { status } = await axios.post(`http://localhost:3333/user/signup`, formData)
       if (status === 201) {
-        alert('Cadastro feito com sucesso')
+        setPopUpMessage(true)
       }
       setLogin(true)
       setFormData(false)
@@ -265,9 +269,16 @@ export default function SignupByBooking({ ...props }) {
       setLoading(false)
     }
   }
-
+  useEffect(() => {
+    setTimeout(() => {
+      setPopUpMessage(false)
+    }, 4000)
+  }, [popUpMessage])
   return (
     <Conatiner>
+      {popUpMessage && (
+        <PopUpMessage messageToOkrequest={popUpMessage}>Cadastro feito com sucesso</PopUpMessage>
+      )}
       <Title>Ready to book? Set your account details</Title>
       <Form onSubmit={handleForm}>
         <BoxInput>
