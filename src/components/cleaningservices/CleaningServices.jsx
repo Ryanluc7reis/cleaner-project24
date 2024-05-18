@@ -23,6 +23,18 @@ const Service = styled.div`
   justify-content: space-between;
   padding: 0px 15px;
   cursor: pointer;
+  @media (max-width: 532px) {
+    width: 372px;
+    margin: 0 3px;
+  }
+  @media (max-width: 375px) {
+    width: 330px;
+    margin: 0px;
+    padding: 0 5px;
+  }
+  @media (max-width: 320px) {
+    width: 279px;
+  }
 `
 const DropInformations = styled.div`
   width: 458px;
@@ -39,6 +51,18 @@ const DropInformations = styled.div`
   animation: ${(props) => (props.informations ? slideDown : slideUp)} 0.3s forwards;
   transform-origin: top;
   visibility: ${(props) => (props.informations ? 'visible' : 'hidden')};
+  @media (max-width: 532px) {
+    width: 372px;
+    margin: 0 3px;
+  }
+  @media (max-width: 375px) {
+    width: 330px;
+    margin: 0px;
+    padding: 5px 5px;
+  }
+  @media (max-width: 320px) {
+    width: 279px;
+  }
 `
 
 const slideDown = keyframes`

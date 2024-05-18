@@ -19,6 +19,9 @@ const StyledCalendar = styled(Calendar)`
   .max-date-cell {
     background-color: #2233cadc;
   }
+  @media (max-width: 320px) {
+    width: 270px;
+  }
 `
 
 const CalendarReact = ({ isBlocked, maxDateCss, ...props }) => {

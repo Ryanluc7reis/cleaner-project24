@@ -3,7 +3,7 @@ import { useState, useContext } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 
-import { PopUpContext } from '../src/context/useContextPopUp'
+import { PopUpSignupContext } from '../src/context/useContextPopUpSignup'
 import Button from '../src/components/form/Button'
 import Input from '../src/components/form/Input'
 import Logo from '../src/components/logo/Logo'
@@ -29,8 +29,8 @@ const Container = styled.div`
   height: 120vh;
   background-color: #223677;
   @media (max-width: 768px) {
+    height: 100%;
     display: flex;
-    justify-content: center;
     flex-direction: column;
     align-items: center;
     gap: 20px;
@@ -77,12 +77,12 @@ const Formulario = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  @media (max-width: 1025px) {
-    height: 493px;
+  @media (max-width: 1024px) {
+    height: 540px;
     width: 300px;
   }
-  @media (max-width: 900px) {
-    height: 450px;
+  @media (max-width: 768px) {
+    height: 500px;
     width: 300px;
   }
 `
@@ -124,7 +124,7 @@ const ErrorLabel = styled.span`
 `
 const SignupAsClient = () => {
   const router = useRouter()
-  const [popUpMessage, setPopUpMessage] = useContext(PopUpContext)
+  const [popUpMessageSignup, setPopUpMessageSignup] = useContext(PopUpSignupContext)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState({})
   const [formData, setFormData] = useState({
@@ -165,7 +165,7 @@ const SignupAsClient = () => {
       setLoading(true)
       const { status } = await axios.post(`http://localhost:3333/user/signup`, formData)
       if (status === 201) {
-        setPopUpMessage(true)
+        setPopUpMessageSignup(true)
         router.push('/')
       }
     } catch (err) {

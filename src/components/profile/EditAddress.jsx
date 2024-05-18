@@ -29,6 +29,19 @@ const Form = styled.form`
   justify-content: center;
   flex-direction: column;
   gap: 13px;
+  @media (max-width: 376px) {
+    width: 320px;
+  }
+`
+const ButtonAlt = styled(Button)`
+  @media (max-width: 430px) {
+    font-size: 14px;
+  }
+`
+const InputAlt = styled(Input)`
+  @media (max-width: 430px) {
+    font-size: 14px;
+  }
 `
 export default function EditAddress({
   id,
@@ -98,16 +111,16 @@ export default function EditAddress({
   return (
     <Container onClick={handleClick}>
       <Form onSubmit={handleSubmit(handleFormSaveEdit)} onClick={(e) => e.stopPropagation()}>
-        <Input
+        <InputAlt
           colorlabel
           label="Enter your new address:"
           name="address"
           value={formData.address}
           onChange={(e) => handleChange('address', e.target.value)}
         />
-        <Button loading={loading} type="submit">
+        <ButtonAlt loading={loading} type="submit">
           Save Change
-        </Button>
+        </ButtonAlt>
       </Form>
     </Container>
   )

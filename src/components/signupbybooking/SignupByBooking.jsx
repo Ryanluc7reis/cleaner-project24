@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { useState, useContext, useEffect } from 'react'
 import axios from 'axios'
 import { LoginContext } from '../../context/useContextLogin'
-import { PopUpContext } from '../../context/useContextPopUp'
+import { PopUpSignupContext } from '../../context/useContextPopUpSignup'
 
 import Input from '../form/Input'
 import Button from '../form/Button'
@@ -150,7 +150,6 @@ const Text = styled.h2`
   font-weight: 500;
   align-items: center;
   cursor: default;
-
   gap: 7px;
   margin: 15px;
 `
@@ -178,6 +177,9 @@ const ButtonAlt = styled(Button)`
 
   margin-top: 14px;
   margin-left: 10px;
+  @media (max-width: 1320px) {
+    width: 500px;
+  }
 
   @media (max-width: 612px) {
     width: 80vw;
@@ -196,8 +198,36 @@ const FlexButton = styled.div`
   flex-direction: column;
   position: absolute;
   padding-bottom: 75px;
-  bottom: -18%;
+  bottom: -19%;
   left: 16%;
+  @media (max-width: 1024px) {
+    bottom: -40%;
+    left: 5%;
+  }
+  @media (max-width: 768px) {
+    left: 9%;
+  }
+  @media (max-width: 425px) {
+    bottom: -87%;
+  }
+  @media (max-width: 320px) {
+    bottom: -94%;
+  }
+`
+const PopUpMessageAlt = styled(PopUpMessage)`
+  @media (max-width: 768px) {
+    right: 30%;
+  }
+  @media (max-width: 425px) {
+    left: 15%;
+    z-index: 103;
+  }
+  @media (max-width: 375px) {
+    left: 10%;
+  }
+  @media (max-width: 320px) {
+    left: 3%;
+  }
 `
 
 export default function SignupByBooking({ ...props }) {
@@ -205,7 +235,7 @@ export default function SignupByBooking({ ...props }) {
   const [error, setError] = useState({})
   const [boxSelected, setBoxSelected] = useState(Boolean)
   const [login, setLogin] = useContext(LoginContext)
-  const [popUpMessage, setPopUpMessage] = useContext(PopUpContext)
+  const [popUpMessageSignup, setPopUpMessageSignup] = useContext(PopUpSignupContext)
   const [formData, setFormData] = useState({
     fullName: '',
     user: '',
@@ -243,7 +273,7 @@ export default function SignupByBooking({ ...props }) {
       setLoading(true)
       const { status } = await axios.post(`http://localhost:3333/user/signup`, formData)
       if (status === 201) {
-        setPopUpMessage(true)
+        setPopUpMessageSignup(true)
       }
       setLogin(true)
       setFormData(false)
@@ -271,13 +301,15 @@ export default function SignupByBooking({ ...props }) {
   }
   useEffect(() => {
     setTimeout(() => {
-      setPopUpMessage(false)
+      setPopUpMessageSignup(false)
     }, 4000)
-  }, [popUpMessage])
+  }, [popUpMessageSignup])
   return (
     <Conatiner>
-      {popUpMessage && (
-        <PopUpMessage messageToOkrequest={popUpMessage}>Cadastro feito com sucesso</PopUpMessage>
+      {popUpMessageSignup && (
+        <PopUpMessageAlt messageToOkrequest={popUpMessageSignup}>
+          Cadastro feito com sucesso
+        </PopUpMessageAlt>
       )}
       <Title>Ready to book? Set your account details</Title>
       <Form onSubmit={handleForm}>

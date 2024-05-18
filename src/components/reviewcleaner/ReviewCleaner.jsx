@@ -27,6 +27,11 @@ const BoxReview = styled.div`
   align-items: center;
   justify-content: center;
   background-color: #3030f0;
+  @media (max-width: 378px) {
+    width: 300px;
+    text-align: center;
+    height: 223px;
+  }
 `
 const Star = styled.img`
   padding: 1px;
@@ -35,6 +40,14 @@ const Star = styled.img`
 const ButtonAlt = styled(Button)`
   padding: 9px;
   width: 120px;
+  @media (max-width: 430px) {
+    font-size: 13px;
+  }
+`
+const InputAlt = styled(Input)`
+  @media (max-width: 430px) {
+    font-size: 13px;
+  }
 `
 const StyledFlexRating = styled.div`
   display: flex;
@@ -216,7 +229,7 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, review
               <h2>Rate the service</h2>
               <div style={{ display: 'flex', gap: '4px' }}>{renderStars()}</div>
               <h2>What did you think of {forCleaner}`s service ?</h2>
-              <Input onChange={handleChange} value={text} placeholder="Enter here..." />
+              <InputAlt onChange={handleChange} value={text} placeholder="Enter here..." />
               <div style={{ display: 'flex', gap: '3px' }}>
                 <ButtonAlt loading={loading} onClick={handleRateNow}>
                   Rate now
@@ -239,7 +252,7 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, review
               <h2>Rate the service</h2>
               <div style={{ display: 'flex', gap: '4px' }}>{renderStars()}</div>
               <h2>What did you think of {forCleaner}`s service ?</h2>
-              <Input onChange={handleChange} value={text} placeholder="Enter here..." />
+              <InputAlt onChange={handleChange} value={text} placeholder="Enter here..." />
               <div style={{ display: 'flex', gap: '3px' }}>
                 <ButtonAlt loading={loading} onClick={handleRateNow}>
                   Rate now

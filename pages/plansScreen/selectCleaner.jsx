@@ -19,12 +19,20 @@ const ContBody = styled.div`
   height: auto;
   display: flex;
   background: #edededaf;
+
   @media (max-width: 712px) {
     flex-direction: column;
     align-items: center;
   }
   @media (max-width: 712px) {
-    min-width: 115%;
+    width: 115%;
+  }
+`
+const NavBarAlt = styled(Navbar)`
+  background: #edededaf;
+  height: 115px;
+  @media (max-width: 712px) {
+    width: 115%;
   }
 `
 
@@ -37,7 +45,7 @@ export default function SelectCleaner() {
 
   return (
     <Container>
-      <Navbar style={{ background: '#edededaf' }} type2 />
+      <NavBarAlt type2 />
       <BarraEtapas />
       <ContBody>
         <BoxFilter

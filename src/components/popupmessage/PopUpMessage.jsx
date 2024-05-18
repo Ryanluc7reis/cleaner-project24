@@ -19,6 +19,26 @@ const BoxMessage = styled.div`
   animation: ${(props) => props.notification && slideLeft} 0.3s forwards;
   transform-origin: right;
   visibility: ${(props) => (props.notification ? 'visible' : 'hidden')};
+  @media (max-width: 1024px) {
+    bottom: 0;
+    right: -20%;
+  }
+  @media (max-width: 768px) {
+    bottom: 0;
+    right: -30%;
+  }
+  @media (max-width: 425px) {
+    bottom: 0;
+    right: -85%;
+  }
+  @media (max-width: 375px) {
+    bottom: 0;
+    right: -100%;
+  }
+  @media (max-width: 320px) {
+    bottom: 0;
+    right: -120%;
+  }
 `
 const BoxMessageToRequest = styled.div`
   width: 300px;
@@ -84,14 +104,14 @@ export default function PopUpMessage({
   return (
     <>
       {notification && (
-        <BoxMessage notification={notificationMessage}>
+        <BoxMessage {...props} notification={notificationMessage}>
           <h4>{notification}</h4>
           {moreNotificationsCount === false ? '' : <h4>{'+' + moreNotificationsCount}</h4>}
           <Close onClick={handleClose} src="/Xwhite.svg" />
         </BoxMessage>
       )}
       {messageToOkrequest && (
-        <BoxMessageToRequest notificationRequest={messageToOkrequest}>
+        <BoxMessageToRequest {...props} notificationRequest={messageToOkrequest}>
           {children}
           {error ? <Check src="/erro.png" /> : <Check src="/check.png" />}
         </BoxMessageToRequest>

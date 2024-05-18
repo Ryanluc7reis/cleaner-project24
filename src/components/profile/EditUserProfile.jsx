@@ -8,10 +8,14 @@ import Button from '../form/Button'
 import Input from '../form/Input'
 
 const Container = styled.div`
-  width: 100%;
-  height: 360px;
+  width: 68%;
   background-color: #fff;
   border-radius: 15px;
+  min-height: 360px;
+
+  @media (max-width: 756px) {
+    width: 93%;
+  }
 `
 
 const Form = styled.form`
@@ -21,6 +25,10 @@ const Form = styled.form`
   grid-template-columns: 290px 250px;
   justify-content: space-around;
   margin-top: 20px;
+
+  @media (max-width: 949px) {
+    grid-template-columns: 250px;
+  }
 `
 
 const InputAlt = styled(Input)`
@@ -28,16 +36,25 @@ const InputAlt = styled(Input)`
   padding: 7px;
   background: transparent;
   border: ${(props) => (props.error ? '2px solid red' : 'none')};
+  @media (max-width: 430px) {
+    font-size: 13px;
+  }
 `
 
 const EditPasswordButton = styled(Button)`
   height: 45px;
   width: 180px;
+  @media (max-width: 430px) {
+    font-size: 13px;
+  }
 `
 
 const SaveChangesButton = styled(Button)`
   height: 45px;
   width: 180px;
+  @media (max-width: 430px) {
+    font-size: 13px;
+  }
 `
 
 const Title = styled.h2`
@@ -64,6 +81,11 @@ const FlexButtons = styled.div`
   display: grid;
   margin-top: 10px;
   grid-template-columns: 400px 200px;
+  @media (max-width: 949px) {
+    grid-template-columns: 300px;
+    margin: 10px 28px;
+    gap: 3px;
+  }
 `
 
 export default function EditUserProfile({

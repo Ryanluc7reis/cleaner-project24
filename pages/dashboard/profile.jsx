@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import { useRouter } from 'next/router'
 import { useContext, useState, useEffect } from 'react'
 import { UserContext } from '../../src/context/useContext'
@@ -12,30 +12,35 @@ import Card from '../../src/components/cardcleaner/Card'
 import EditCard from '../../src/components/cardcleaner/EditCard'
 import About from '../../src/components/aboutcleaner/About'
 import PopUpMessage from '../../src/components/popupmessage/PopUpMessage'
+import NavRoutesDash from '../../src/components/layout/Navroutesdash'
 
 const Container = styled.div`
   width: 100%;
   min-height: 100vh;
   height: auto;
   background: #001044;
-`
-const FlexContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  @media (max-width: 340px) {
+    width: 107%;
+  }
 `
-const StyledFlex = styled.div`
-  display: flex;
-`
+
 const BoxCardCleaner = styled.div`
-  min-width: 90%;
+  min-width: 80%;
   min-height: 360px;
-  background-color: #fff;
+  background-color: #ffffff;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
+  @media (max-width: 400px) {
+    min-width: 75%;
+  }
+  @media (max-width: 373px) {
+    min-width: 65%;
+  }
 `
 const BoxAboutCleaner = styled.div`
-  min-width: 97%;
+  min-width: 80%;
   margin-top: 30px;
   height: 450px;
   background-color: #fff;
@@ -43,6 +48,13 @@ const BoxAboutCleaner = styled.div`
   display: flex;
   flex-direction: column;
   padding: 10px;
+  @media (max-width: 400px) {
+    min-width: 75%;
+    padding: 7px;
+  }
+  @media (max-width: 373px) {
+    min-width: 60%;
+  }
 `
 const FlexBoxCardCleaner = styled.div`
   display: flex;
@@ -50,11 +62,18 @@ const FlexBoxCardCleaner = styled.div`
   justify-content: space-around;
   gap: 20px;
   padding: 25px;
+  @media (max-width: 685px) {
+    flex-direction: column;
+    gap: 0px;
+  }
 `
 const CardAlt = styled(Card)`
   border: 2px solid ${(props) => props.theme.colors.primaryColor};
   margin-bottom: 90px;
   background-color: #d9d9f8e6;
+  @media (max-width: 400px) {
+    width: 270px;
+  }
 `
 const CardAlt1 = styled(Card)`
   border: 2px solid ${(props) => props.theme.colors.primaryColor};
@@ -76,8 +95,9 @@ const Label = styled.h2`
 `
 const FlexProfileAndCard = styled.div`
   display: flex;
-  align-items: center;
   flex-direction: column;
+  width: 100%;
+  gap: 8px;
 `
 const PopUpMessageAlt = styled(PopUpMessage)`
   position: fixed;
@@ -89,7 +109,39 @@ const StyledLoader = styled.div`
   color: white;
   padding: 140px 400px;
 `
+const NavBarDashboardAlt = styled(NavBarDashboard)`
+  @media (max-width: 1306px) {
+    display: ${(props) => (props.show ? 'flex' : 'none')};
+    width: 287px;
+    min-height: 100%;
+    position: fixed;
+    animation: ${(props) => (props.show ? slideRight : slideLeft)} 0.3s forwards;
+    transform-origin: left;
+    visibility: ${(props) => (props.show ? 'visible' : 'hidden')};
+  }
+`
 
+const slideRight = keyframes`
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+`
+
+const slideLeft = keyframes`
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+`
 const ProfilePage = () => {
   const router = useRouter()
   const [popUpMessage, setPopUpMessage] = useContext(PopUpContext)
@@ -98,6 +150,11 @@ const ProfilePage = () => {
   const [card, setCard] = useState(null)
   const [userCleaner, setUserCleaner] = useState(null)
   const [userCurrentUserData, setCurrentUserData] = useState({})
+  const [showDash, setShowDash] = useState(false)
+
+  const handleDash = () => {
+    setShowDash(!showDash)
+  }
 
   const { mutate } = useSWRConfig()
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
@@ -152,15 +209,23 @@ const ProfilePage = () => {
   return (
     <Container>
       {userCleaner ? (
-        <FlexContainer>
+        <>
           {popUpMessage && userCleaner && (
             <PopUpMessageAlt messageToOkrequest={popUpMessage}>
               Perfil editado com sucesso
             </PopUpMessageAlt>
           )}
-          <StyledFlex>
-            <NavBarDashboard isProfile />
-            <FlexProfileAndCard>
+
+          <NavBarDashboardAlt
+            onDash={handleDash}
+            showDashBoard={showDash}
+            show={showDash}
+            isProfile
+          />
+
+          <FlexProfileAndCard>
+            <NavRoutesDash onClickDash={handleDash} profile type1 />
+            <div style={{ padding: ' 0px 15px' }}>
               {Object.keys(userCurrentUserData).length === 0 ? (
                 <StyledLoader>
                   <img width="30px" height="28px" src="/loadingGif.png" />
@@ -189,7 +254,7 @@ const ProfilePage = () => {
               ) : (
                 <>
                   {userData && card ? (
-                    <div>
+                    <>
                       <BoxCardCleaner>
                         <Label>Card cleaner</Label>
                         <FlexBoxCardCleaner>
@@ -237,7 +302,7 @@ const ProfilePage = () => {
                           />
                         )}
                       </BoxAboutCleaner>
-                    </div>
+                    </>
                   ) : (
                     <BoxCardCleaner>
                       <Label>Card cleaner</Label>
@@ -254,40 +319,49 @@ const ProfilePage = () => {
                   )}
                 </>
               )}
-            </FlexProfileAndCard>
-          </StyledFlex>
-        </FlexContainer>
+            </div>
+          </FlexProfileAndCard>
+        </>
       ) : (
-        <FlexContainer>
+        <>
           {popUpMessage && (
             <PopUpMessage messageToOkrequest={popUpMessage}>
               Perfil editado com sucesso
             </PopUpMessage>
           )}
-          <StyledFlex>
-            <NavBarDashboard isProfile />
-            {Object.keys(userCurrentUserData).length === 0 ? (
-              <StyledLoader>
-                <img width="30px" height="28px" src="/loadingGif.png" />
-                <h2>Carregando</h2>
-              </StyledLoader>
-            ) : (
-              <>
-                {Object.keys(userCurrentUserData).length !== 0 && (
-                  <Profile
-                    id={userCurrentUserData._id}
-                    fullName={userCurrentUserData.fullName}
-                    user={userCurrentUserData.user}
-                    email={userCurrentUserData.email}
-                    password={userCurrentUserData.password}
-                    address={userCurrentUserData.address}
-                    number={userCurrentUserData.number}
-                  />
-                )}
-              </>
-            )}
-          </StyledFlex>
-        </FlexContainer>
+
+          <NavBarDashboardAlt
+            onDash={handleDash}
+            showDashBoard={showDash}
+            show={showDash}
+            isProfile
+          />
+          <FlexProfileAndCard>
+            <NavRoutesDash onClickDash={handleDash} profile type1 />
+            <div style={{ padding: ' 0px 15px' }}>
+              {Object.keys(userCurrentUserData).length === 0 ? (
+                <StyledLoader>
+                  <img width="30px" height="28px" src="/loadingGif.png" />
+                  <h2>Carregando</h2>
+                </StyledLoader>
+              ) : (
+                <>
+                  {Object.keys(userCurrentUserData).length !== 0 && (
+                    <Profile
+                      id={userCurrentUserData._id}
+                      fullName={userCurrentUserData.fullName}
+                      user={userCurrentUserData.user}
+                      email={userCurrentUserData.email}
+                      password={userCurrentUserData.password}
+                      address={userCurrentUserData.address}
+                      number={userCurrentUserData.number}
+                    />
+                  )}
+                </>
+              )}
+            </div>
+          </FlexProfileAndCard>
+        </>
       )}
     </Container>
   )

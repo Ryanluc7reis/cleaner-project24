@@ -35,19 +35,50 @@ const GridServices = styled.div`
   display: grid;
   grid-template-columns: 460px 400px;
   gap: 10px;
+  @media (max-width: 1034px) {
+    grid-template-columns: 460px;
+  }
 `
 const ErrorMessageAlt = styled(ErrorMessage)`
   padding: 100px 360px;
+  @media (max-width: 768px) {
+    padding: 100px 270px;
+  }
+  @media (max-width: 425px) {
+    padding: 100px 120px;
+  }
+  @media (max-width: 375px) {
+    padding: 100px;
+  }
+  @media (max-width: 320px) {
+    padding: 75px;
+  }
 `
 const StyledLoader = styled.div`
   padding: 100px 450px;
   display: flex;
   align-items: center;
 `
+
 const PopUpMessageAlt = styled(PopUpMessage)`
   position: fixed;
-  top: 0%;
-  right: 0%;
+  top: 2%;
+  right: 30%;
+  @media (max-width: 1024px) {
+    right: 35%;
+  }
+  @media (max-width: 768px) {
+    right: 30%;
+  }
+  @media (max-width: 425px) {
+    right: 15%;
+  }
+  @media (max-width: 375px) {
+    right: 10%;
+  }
+  @media (max-width: 320px) {
+    right: 3%;
+  }
 `
 export default function Services({ ...props }) {
   const [serviceCleaner, setServiceCleaner] = useState([])
@@ -210,6 +241,7 @@ export default function Services({ ...props }) {
       console.error(err.message)
     }
   }
+
   const getUserName = async () => {
     try {
       const user = await axios.post(

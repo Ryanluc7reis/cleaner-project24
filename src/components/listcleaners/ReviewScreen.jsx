@@ -16,15 +16,35 @@ const Container = styled.div`
   justify-content: center;
   background-color: #0000004d;
   position: fixed;
-  z-index: 100;
+  z-index: 103;
   left: 0%;
   top: 0%;
+  @media (max-width: 712px) {
+    width: 100%;
+    height: 100%;
+  }
+  @media (max-width: 519px) {
+    position: relative;
+    background: transparent;
+  }
 `
 const ContainerContent = styled.div`
   display: flex;
   width: 50%;
   min-height: 65vh;
   height: auto;
+  @media (max-width: 1024px) {
+    width: 55%;
+  }
+  @media (max-width: 768px) {
+    width: 70%;
+  }
+  @media (max-width: 730px) {
+    width: 77%;
+  }
+  @media (max-width: 519px) {
+    flex-direction: column;
+  }
 `
 
 const DivCleanerInfos = styled.div`
@@ -32,15 +52,24 @@ const DivCleanerInfos = styled.div`
   width: 68%;
   flex-direction: column;
   background: #ffffff;
+  @media (max-width: 1024px) {
+    height: 460px;
+  }
+  @media (max-width: 519px) {
+    width: 100%;
+    background: #9391f8e1;
+  }
 `
 
 const DivReviews = styled.div`
   background: #f3f3f3;
   padding: 7px;
   width: 100%;
-
-  @media (max-width: 561px) {
-    min-width: 50vh;
+  @media (max-width: 1024px) {
+    height: 460px;
+  }
+  @media (max-width: 519px) {
+    background: #9391f8e1;
   }
 `
 const CleanerImg = styled.div`
@@ -89,6 +118,9 @@ const BoxAboutMe = styled.div`
   word-wrap: break-word;
   word-break: break-all;
   background-color: #fbfbfb;
+  @media (max-width: 519px) {
+    background: #f6f6ffdf;
+  }
 `
 const AboutMeTitle = styled.h2`
   color: #252525;
@@ -110,6 +142,10 @@ const BoxReviews = styled.div`
   height: 400px;
   width: 98%;
   overflow-y: scroll;
+  @media (max-width: 519px) {
+    height: 70%;
+    z-index: 104;
+  }
 `
 const ReviewsTitle = styled.h2`
   font-weight: 500;
@@ -154,11 +190,17 @@ const Close = styled.img`
   width: 20px;
   height: 20px;
   position: absolute;
-  right: 25%;
   transform: translate(40%, -50%);
   background-color: #fd3232;
   border-radius: 10px;
   cursor: pointer;
+  right: 25%;
+  @media (max-width: 1024px) {
+    left: 76%;
+  }
+  @media (max-width: 768px) {
+    left: 83%;
+  }
 `
 const StarRating = styled.img`
   width: 17px;
