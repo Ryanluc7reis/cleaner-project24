@@ -62,6 +62,7 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, review
   const [loading, setLoading] = useState(false)
   const [cardCleaner, setCardCleaner] = useState({})
   const [ratings, setRatings] = useState([])
+  const [currentRating, setCurrentRating] = useState(null)
   const [text, setText] = useState('')
   const [thanksForRating, setThanksForRating] = useState(false)
 
@@ -95,9 +96,8 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, review
       return moda
     }
   }
-
   const moda = calcularModa(ModaRatings)
-  const modaToNumber = parseInt(moda)
+
   const handleClose = async () => {
     onClose()
     await axios.get(`http://localhost:3333/notificationsAsRead`, {
@@ -183,10 +183,10 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, review
           }
         }
       )
-      if (ratings && createRating.status === 201) {
+      if (ratings && createRating.status === 201 && currentRating) {
         const editRating = await axios.patch(
           `http://localhost:3333/cleaner/editRatingCard`,
-          { id: cardCleaner._id, rating: modaToNumber, creator: cardCleaner.creator },
+          { id: cardCleaner._id, rating: currentRating, creator: cardCleaner.creator },
           {
             headers: {
               [AUTH_NAME]: token
@@ -208,6 +208,11 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, review
   }
 
   useEffect(() => {
+    if (moda === -Infinity) {
+      setCurrentRating(starSelected)
+    } else {
+      setCurrentRating(moda)
+    }
     getCardCleaner()
     getRatings()
   }, [starSelected])
