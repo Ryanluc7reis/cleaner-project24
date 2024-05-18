@@ -1,8 +1,12 @@
 import styled, { keyframes } from 'styled-components'
+import { useState, useEffect, useContext } from 'react'
+import { UserContext } from '../../src/context/useContext'
+import { useRouter } from 'next/router'
+import axios from 'axios'
+
 import NavBarDashboard from '../../src/components/layout/NavBarDashboard'
 import Services from '../../src/components/layout/Services'
 import NavRoutesDash from '../../src/components/layout/Navroutesdash'
-import { useState } from 'react'
 
 const Container = styled.div`
   width: 100%;
@@ -49,12 +53,34 @@ const slideLeft = keyframes`
     opacity: 0;
   }
 `
+
 export default function DashboardPage() {
+  const router = useRouter()
+  const [userData, setUserData] = useContext(UserContext)
+  const { user, userId } = userData
+  const AUTH_NAME = process.env.SESSION_TOKEN_NAME
   const [showDash, setShowDash] = useState(false)
 
   const handleDash = () => {
     setShowDash(!showDash)
   }
+  const verifyUser = async () => {
+    try {
+      const token = localStorage.getItem('token')
+      const response = await axios.get('http://localhost:3333/user/verify-session', {
+        headers: {
+          [AUTH_NAME]: token
+        }
+      })
+      setUserData(response.data)
+    } catch (error) {
+      router.push('/')
+      console.error('Erro ao verificar sessão:', error)
+    }
+  }
+  useEffect(() => {
+    verifyUser()
+  }, [showDash, user])
   return (
     <Container>
       <NavBarDashboardAlt onDash={handleDash} showDashBoard={showDash} show={showDash} isDash />

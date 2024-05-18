@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { useState, useEffect } from 'react'
 import moment from 'moment'
 import axios from 'axios'
+import { useRouter } from 'next/router'
 
 import NavRoutesDash from '../layout/Navroutesdash'
 import CalendarioReact from '../calendario/CalendarioReact'
@@ -135,6 +136,7 @@ const StyledContainerBalls = styled.div`
   margin: 15px 0px;
 `
 export default function Schedule({ ...props }) {
+  const router = useRouter()
   const [isBlocked, setIsBlocked] = useState(false)
   const [selectedMaxDate, setSelectedMaxDate] = useState(null)
   const [editSchedule, setEditSchedule] = useState(false)
@@ -221,21 +223,36 @@ export default function Schedule({ ...props }) {
       console.error(err.message)
     }
   }
+  const verifyUser = async () => {
+    try {
+      await axios.get('http://localhost:3333/user/verify-session', {
+        headers: {
+          [AUTH_NAME]: token
+        }
+      })
+    } catch (error) {
+      router.push('/')
+      console.error('Erro ao verificar sessão:', error)
+    }
+  }
 
   useEffect(() => {
     if (editSchedule) {
       setSelectedMaxDate(null)
       setLastDate(null)
     }
+    verifyUser()
   }, [editSchedule])
   useEffect(() => {
     getCard()
+    verifyUser()
   }, [])
   useEffect(() => {
     if (card !== null) {
       const datesArray = card.availableDate[0].split(',')
       setLastDate(moment(datesArray[datesArray.length - 1]))
     }
+    verifyUser()
   }, [card])
 
   return (

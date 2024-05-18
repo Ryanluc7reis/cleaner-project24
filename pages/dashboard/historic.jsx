@@ -1,6 +1,7 @@
 import styled, { keyframes } from 'styled-components'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import { useRouter } from 'next/router'
 
 import NavBarDashboard from '../../src/components/layout/NavBarDashboard'
 import Historics from '../../src/components/historic/Historic'
@@ -116,6 +117,7 @@ const slideLeft = keyframes`
 `
 
 export default function HistoricPage() {
+  const router = useRouter()
   const [historicData, setHistoricData] = useState([])
   const [refreshHistoric, setRefreshHistoric] = useState(false)
   const [showDash, setShowDash] = useState(false)
@@ -156,10 +158,22 @@ export default function HistoricPage() {
       console.error(err.message)
     }
   }
-
+  const verifyUser = async () => {
+    try {
+      await axios.get('http://localhost:3333/user/verify-session', {
+        headers: {
+          [AUTH_NAME]: token
+        }
+      })
+    } catch (error) {
+      router.push('/')
+      console.error('Erro ao verificar sessão:', error)
+    }
+  }
   useEffect(() => {
     getHistoric()
-  }, [refreshHistoric])
+    verifyUser()
+  }, [refreshHistoric, showDash])
   return (
     <Container>
       <NavBarDashboardAlt onDash={handleDash} showDashBoard={showDash} show={showDash} isHistoric />

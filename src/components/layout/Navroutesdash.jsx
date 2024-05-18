@@ -133,7 +133,6 @@ export default function NavRoutesDash({
 }) {
   const router = useRouter()
   const [userData, setUserData] = useContext(UserContext)
-  const [clicked, setClicked] = useState(false)
   const [notificationsCount, setNotificationsCount] = useState([])
   const { user, userId } = userData
   const AUTH_NAME = process.env.SESSION_TOKEN_NAME
@@ -163,6 +162,7 @@ export default function NavRoutesDash({
       })
       setUserData(response.data)
     } catch (error) {
+      router.push('/')
       console.error('Erro ao verificar sessão:', error)
     }
   }
@@ -182,7 +182,7 @@ export default function NavRoutesDash({
   useEffect(() => {
     verifyUser()
     verifyNotificationsCount()
-  }, [user])
+  }, [user, notificationsCount])
   const handleLogout = async () => {
     try {
       const token = localStorage.getItem('token')

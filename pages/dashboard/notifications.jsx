@@ -1,6 +1,7 @@
 import styled, { keyframes } from 'styled-components'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import { useRouter } from 'next/router'
 
 import NavBarDashboard from '../../src/components/layout/NavBarDashboard'
 import Notifications from '../../src/components/notificaçao/Notifications'
@@ -106,6 +107,7 @@ const slideLeft = keyframes`
 `
 
 export default function NotificationsPage() {
+  const router = useRouter()
   const [notificationsData, setNotificationsData] = useState([])
   const [refreshNotification, setRefreshNotification] = useState(false)
   const [showDash, setShowDash] = useState(false)
@@ -141,9 +143,23 @@ export default function NotificationsPage() {
     }
     setRefreshNotification(!refreshNotification)
   }
+  const verifyUser = async () => {
+    try {
+      await axios.get('http://localhost:3333/user/verify-session', {
+        headers: {
+          [AUTH_NAME]: token
+        }
+      })
+    } catch (error) {
+      router.push('/')
+      console.error('Erro ao verificar sessão:', error)
+    }
+  }
+
   useEffect(() => {
     getNotifications()
-  }, [refreshNotification])
+    verifyUser()
+  }, [refreshNotification, showDash])
   return (
     <Container>
       <NavBarDashboardAlt

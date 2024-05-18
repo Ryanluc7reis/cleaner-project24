@@ -60,6 +60,7 @@ const StyledContainerLeftArrow = styled.div`
 const LeftArrow = styled.img`
   padding: 1px;
   margin-left: 25px;
+  cursor: pointer;
 `
 
 export default function NavBarDashboard({

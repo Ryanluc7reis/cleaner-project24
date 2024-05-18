@@ -193,6 +193,18 @@ const ProfilePage = () => {
       console.error('Erro ao obter os dados do cartão:', error)
     }
   }
+  const verifyUser = async () => {
+    try {
+      await axios.get('http://localhost:3333/user/verify-session', {
+        headers: {
+          [AUTH_NAME]: token
+        }
+      })
+    } catch (error) {
+      router.push('/')
+      console.error('Erro ao verificar sessão:', error)
+    }
+  }
 
   const handleSaveEditCard = () => {
     mutate(`http://localhost:3333/cleaner/editAbout`)
@@ -201,11 +213,11 @@ const ProfilePage = () => {
     getCard()
     findUser()
     findCleaner()
+    verifyUser()
     setTimeout(() => {
       setPopUpMessage(false)
     }, 4000)
-  }, [popUpMessage])
-
+  }, [popUpMessage, showDash])
   return (
     <Container>
       {userCleaner ? (

@@ -7,6 +7,7 @@ const StyledImage = styled.div`
   background-position-x: 63%;
   min-width: 22%;
   min-height: 100vh;
+  z-index: 104;
 `
 export default function ImageNavdash({ image, children, ...props }) {
   return <StyledImage {...props}>{children}</StyledImage>
