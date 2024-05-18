@@ -27,7 +27,7 @@ const Container = styled.div`
   width: 100%;
   min-height: 100vh;
   height: 120vh;
-  background-color: #223677;
+  background-color: #223677ef;
   @media (max-width: 768px) {
     height: 100%;
     display: flex;
@@ -38,7 +38,7 @@ const Container = styled.div`
 `
 
 const Titulo = styled.p`
-  color: black;
+  color: white;
   font-weight: 600;
   font-size: 22px;
   text-align: center;
@@ -67,7 +67,7 @@ const FlexBoxFormulario = styled.div`
 `
 
 const Formulario = styled.form`
-  background-color: #cccdee;
+  background: #3e3188;
   padding: 3px;
   border-radius: 8px;
   height: 549px;
@@ -205,6 +205,7 @@ const SignupAsClient = () => {
         <Formulario onSubmit={handleForm}>
           <Titulo>Register as client</Titulo>
           <InputAlt
+            colorlabel
             label="Full Name"
             name="fullName"
             placeholder="FULLNAME"
@@ -215,6 +216,7 @@ const SignupAsClient = () => {
           />
           {error.fullName && <ErrorLabel>{error.fullName}</ErrorLabel>}
           <InputAlt
+            colorlabel
             label="Username"
             name="user"
             placeholder="USERNAME"
@@ -225,6 +227,7 @@ const SignupAsClient = () => {
           />
           {error.user && <ErrorLabel>{error.user}</ErrorLabel>}
           <InputAlt
+            colorlabel
             label="E-mail"
             name="email"
             placeholder="EMAIL ADDRESS"
@@ -235,6 +238,7 @@ const SignupAsClient = () => {
           />
           {error.email && <ErrorLabel>{error.email}</ErrorLabel>}
           <InputAlt
+            colorlabel
             label="Password"
             name="password"
             placeholder="PASSWORD"
@@ -245,6 +249,7 @@ const SignupAsClient = () => {
           />
           {error.password && <ErrorLabel>{error.password}</ErrorLabel>}
           <InputAlt
+            colorlabel
             label="Address"
             name="address"
             placeholder="ADDRESS"
@@ -255,6 +260,7 @@ const SignupAsClient = () => {
           />
           {error.address && <ErrorLabel>{error.address}</ErrorLabel>}
           <InputAlt
+            colorlabel
             label="Number"
             name="number"
             placeholder="NUMBER"
