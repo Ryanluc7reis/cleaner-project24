@@ -128,6 +128,9 @@ const PayToCleaner = styled(Button)`
   position: absolute;
   bottom: 12%;
   right: 42%;
+  @media (max-width: 543px) {
+    font-size: 14px;
+  }
   @media (min-width: 2560px) {
     bottom: 50%;
     right: 46%;
@@ -147,9 +150,7 @@ const PayToCleaner = styled(Button)`
     bottom: 12%;
     right: 17%;
   }
-  @media (max-width: 543px) {
-    font-size: 14px;
-  }
+
   @media (max-width: 425px) {
     bottom: -12%;
     right: 22%;
@@ -160,6 +161,41 @@ const PayToCleaner = styled(Button)`
   }
   @media (max-width: 320px) {
     bottom: -11%;
+    right: 13%;
+  }
+`
+const PayToCleanerAlt = styled(PayToCleaner)`
+  bottom: 17%;
+  @media (min-width: 2560px) {
+    bottom: -10%;
+    right: 46%;
+  }
+  @media (min-width: 1440px) {
+    bottom: 14%;
+  }
+  @media (max-width: 1365px) {
+    bottom: 8%;
+  }
+
+  @media (max-width: 1024px) {
+    bottom: 3%;
+    right: 39%;
+  }
+  @media (max-width: 768px) {
+    bottom: 21%;
+    right: 17%;
+  }
+
+  @media (max-width: 425px) {
+    bottom: -1%;
+    right: 22%;
+  }
+  @media (max-width: 375px) {
+    bottom: 2%;
+    right: 17%;
+  }
+  @media (max-width: 320px) {
+    bottom: 2%;
     right: 13%;
   }
 `
@@ -456,9 +492,17 @@ function Booking() {
             </TextAlt>
           </BoxSummary>
           {userData && (
-            <PayToCleaner type="submit" loading={loading}>
-              Yes! Pay directly to cleaner
-            </PayToCleaner>
+            <>
+              {Plan === 'Optional' ? (
+                <PayToCleaner type="submit" loading={loading}>
+                  Yes! Pay directly to cleaner
+                </PayToCleaner>
+              ) : (
+                <PayToCleanerAlt type="submit" loading={loading}>
+                  Yes! Pay directly to cleaner
+                </PayToCleanerAlt>
+              )}
+            </>
           )}
         </Form>
       </PaymentAndRegister>

@@ -200,6 +200,10 @@ const FlexButton = styled.div`
   padding-bottom: 75px;
   bottom: -19%;
   left: 16%;
+  @media (max-width: 1440px) {
+    bottom: -22%;
+    left: 18%;
+  }
   @media (max-width: 1024px) {
     bottom: -40%;
     left: 5%;
