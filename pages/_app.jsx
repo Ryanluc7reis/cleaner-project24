@@ -6,6 +6,7 @@ import { CleanerAvailableProvider } from '../src/context/useContextCleanersAvail
 import { CardIdProvider } from '../src/context/useContextCardId'
 import { PopUpProvider } from '../src/context/useContextPopUp'
 import { DateProvider } from '../src/context/useContextDate'
+import { PopUpSignupProvider } from '../src/context/useContextPopUpSignup'
 
 import theme from '../theme'
 
@@ -30,26 +31,28 @@ h1,h2,h3,h4,h5 {
  `
 function MyApp({ Component, pageProps }) {
   return (
-    <DateProvider>
-      <PopUpProvider>
-        <CardIdProvider>
-          <CleanerAvailableProvider>
-            <RegionProvider>
-              <LoginProvider>
-                <UserProvider>
-                  <ThemeProvider theme={theme}>
-                    <>
-                      <Component {...pageProps} />
-                      <GlobalStyles />
-                    </>
-                  </ThemeProvider>
-                </UserProvider>
-              </LoginProvider>
-            </RegionProvider>
-          </CleanerAvailableProvider>
-        </CardIdProvider>
-      </PopUpProvider>
-    </DateProvider>
+    <PopUpSignupProvider>
+      <DateProvider>
+        <PopUpProvider>
+          <CardIdProvider>
+            <CleanerAvailableProvider>
+              <RegionProvider>
+                <LoginProvider>
+                  <UserProvider>
+                    <ThemeProvider theme={theme}>
+                      <>
+                        <Component {...pageProps} />
+                        <GlobalStyles />
+                      </>
+                    </ThemeProvider>
+                  </UserProvider>
+                </LoginProvider>
+              </RegionProvider>
+            </CleanerAvailableProvider>
+          </CardIdProvider>
+        </PopUpProvider>
+      </DateProvider>
+    </PopUpSignupProvider>
   )
 }
 
