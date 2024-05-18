@@ -67,7 +67,9 @@ export default function SchedulePage() {
     }
   }
   useEffect(() => {
-    verifyUser()
+    if (showDash) {
+      verifyUser()
+    }
   }, [showDash])
   return (
     <Container>
