@@ -59,7 +59,7 @@ const StyledForm = styled.form`
   align-items: center;
 `
 
-export const ErrorMessage = styled.span`
+const ErrorMessage = styled.span`
   position: absolute;
   color: #000;
   background-color: #ffffffb7;

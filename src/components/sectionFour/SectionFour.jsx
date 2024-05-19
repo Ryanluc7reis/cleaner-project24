@@ -80,7 +80,7 @@ const ErrorMessage = styled.span`
   font-weight: bolder;
   font-size: 14px;
   left: 34%;
-  transform: translate(3%, -120%);
+  transform: translate(4%, -130%);
 
   &::before {
     content: '';
@@ -97,6 +97,7 @@ const ErrorMessage = styled.span`
   @media (min-width: 2560px) {
     transform: translate(110%, -120%);
   }
+
   @media (max-width: 1440px) {
     transform: translate(283%, -120%);
     left: 0;
