@@ -4,7 +4,6 @@ import Selecter from '../form/Selecter'
 import ImageWithServices from './ImageWithServices'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-import { ErrorMessage } from '../sectionOne/SectionOne'
 
 const StyledContainer = styled.div`
   min-width: 100%;
@@ -68,7 +67,36 @@ const StyledFlexInputs = styled.div`
   justify-content: center;
   gap: 30px;
 `
-const ErrorMessageAlt = styled(ErrorMessage)`
+const ErrorMessage = styled.span`
+  position: absolute;
+  color: #000;
+  background-color: #ffffffb7;
+  border: 1.2px solid #ff0000;
+  width: 180px;
+  height: 74px;
+  text-align: center;
+  border-radius: 10px;
+  padding: 18px 36px;
+  font-weight: bolder;
+  font-size: 14px;
+  left: 34%;
+  transform: translate(3%, -120%);
+
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: -22%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid #ffffffdd;
+  }
+  @media (min-width: 2560px) {
+    transform: translate(110%, -120%);
+  }
   @media (max-width: 1440px) {
     transform: translate(283%, -120%);
     left: 0;
@@ -116,7 +144,7 @@ export default function SectionFour() {
         need. After your booking is confirmed, just let them know what your priorities are and
         they’ll make your home shine.
       </StyledSubTitle>
-      {error && <ErrorMessageAlt>That region is invalid.</ErrorMessageAlt>}
+      {error && <ErrorMessage>That region is invalid.</ErrorMessage>}
       <StyledFlexInputs>
         <Selecter region value={valor} onChange={handleInputChange} />
         <Button onClick={handleSubmit}>Let´s go</Button>
