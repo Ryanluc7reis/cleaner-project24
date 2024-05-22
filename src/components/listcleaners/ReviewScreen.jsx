@@ -1,60 +1,75 @@
-import styled, { keyframes } from 'styled-components'
-import Button from '../form/Button'
+import styled from 'styled-components'
 import dynamic from 'next/dynamic'
-import { useState } from 'react'
-import { cleanersData } from './ListCleaners'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+import moment from 'moment'
 
-const DescAnimation = keyframes`
-  from {
-    color: #77d2df;
-  }
-  to {
-    color: #1EFF0044;
-  }
-`
+import Button from '../form/Button'
+import ErrorMessage from '../errormessage/ErrorMessage'
 
 const Container = styled.div`
+  width: 100vw;
+  min-height: 100vh;
+  height: auto;
   display: flex;
-  position: absolute;
-  top: 15%;
-  left: 25%;
-  width: 50vw;
+  align-items: center;
+  justify-content: center;
+  background-color: #0000004d;
+  position: fixed;
+  z-index: 103;
+  left: 0%;
+  top: 0%;
+  @media (max-width: 712px) {
+    width: 100%;
+    height: 100%;
+  }
+  @media (max-width: 519px) {
+    position: relative;
+    background: transparent;
+  }
+`
+const ContainerContent = styled.div`
+  display: flex;
+  width: 50%;
   min-height: 65vh;
   height: auto;
-  z-index: 100;
-  @media (max-width: 840px){
-    left: 15%;
+  @media (max-width: 1024px) {
+    width: 55%;
   }
-  @media (max-width: 712px){
-    bottom: 0;
-    top: 100%;
-    height: 90vh
+  @media (max-width: 768px) {
+    width: 70%;
   }
-  @media (max-width: 712px){
-    left: 7%;
-  } 
-  @media (max-width: 561px){
-    width: 50vh;
-    left: 17%;
+  @media (max-width: 730px) {
+    width: 77%;
+  }
+  @media (max-width: 519px) {
     flex-direction: column;
-  }
-  @media (max-width: 375px){
-    left: 14%;
   }
 `
 
 const DivCleanerInfos = styled.div`
   display: flex;
+  width: 68%;
   flex-direction: column;
   background: #ffffff;
+  @media (max-width: 1024px) {
+    height: 460px;
+  }
+  @media (max-width: 519px) {
+    width: 100%;
+    background: #9391f8e1;
+  }
 `
 
 const DivReviews = styled.div`
   background: #f3f3f3;
   padding: 7px;
-  min-width: 350px;
-  @media (max-width: 561px){
-    min-width: 50vh;
+  width: 100%;
+  @media (max-width: 1024px) {
+    height: 460px;
+  }
+  @media (max-width: 519px) {
+    background: #9391f8e1;
   }
 `
 const CleanerImg = styled.div`
@@ -96,7 +111,6 @@ const TypeCleanings = styled.div`
 const Desc = styled.h2`
   margin: 10px 5px;
   color: rgb(68, 68, 68);
-  //animation: ${DescAnimation} 4s ease-in-out infinite alternate;
 `
 const BoxAboutMe = styled.div`
   padding: 10px;
@@ -104,6 +118,9 @@ const BoxAboutMe = styled.div`
   word-wrap: break-word;
   word-break: break-all;
   background-color: #fbfbfb;
+  @media (max-width: 519px) {
+    background: #f6f6ffdf;
+  }
 `
 const AboutMeTitle = styled.h2`
   color: #252525;
@@ -122,8 +139,13 @@ const AboutMeDesc = styled.h3`
 `
 const BoxReviews = styled.div`
   margin: 10px;
-  max-height: ${(props) => props.maxHeight || '70vh'};
+  height: 400px;
+  width: 98%;
   overflow-y: scroll;
+  @media (max-width: 519px) {
+    height: 70%;
+    z-index: 104;
+  }
 `
 const ReviewsTitle = styled.h2`
   font-weight: 500;
@@ -163,19 +185,22 @@ const DivStarDate = styled.div`
 const ThumbsUp = styled.img`
   width: 30px;
   content: ${(props) => (props.tmbs ? 'none' : "url('../thumbsupguy.svg')")};
-  :hover {
-    width: 40px;
-  }
 `
 const Close = styled.img`
   width: 20px;
   height: 20px;
   position: absolute;
-  right: 0%;
-  transform: translate(100%, -90%);
+  transform: translate(40%, -50%);
   background-color: #fd3232;
   border-radius: 10px;
   cursor: pointer;
+  right: 25%;
+  @media (max-width: 1024px) {
+    left: 76%;
+  }
+  @media (max-width: 768px) {
+    left: 83%;
+  }
 `
 const StarRating = styled.img`
   width: 17px;
@@ -223,111 +248,130 @@ const FlexClientReviewName = styled.div`
 const ContReviewsClient = styled.div`
   padding: 0 8px 0 0;
 `
-const reviews = [
-  {
-    name: 'Ryan Lucas',
-    desc: 'Katiane did and excellent job. I highly recommend her',
-    rating: 4.6
-  },
-  {
-    name: 'Gabriel Machado',
-    desc: 'Katiane did and excellent job. I highly recommend her',
-    rating: 4.6
-  },
-  {
-    name: 'Joao Pedro',
-    desc: 'Katiane did and excellent job. I highly recommend her',
-    rating: 4.6
-  },
-  {
-    name: 'Ronaldin',
-    desc: 'Katiane did and excellent job. I highly recommend her',
-    rating: 4.6
-  }
-]
-function ReviewScreen({ name, cleaner, ...props }) {
-  const [styleQuit, setStyleQuit] = useState(false)
+const ErrorMessageAlt = styled(ErrorMessage)`
+  padding: 60px 45px;
+`
 
-  const handleClick = () => {
-    setStyleQuit(!styleQuit)
+function ReviewScreen({
+  name,
+  price,
+  rating,
+  cleaningCount,
+  cleaner,
+  typeCleaning1,
+  typeCleaning2,
+  typeCleaning3,
+  aboutCleaner,
+  forCleaner,
+  id,
+  ...props
+}) {
+  const [closeReview, setCloseReview] = useState(false)
+  const [reviews, setReviews] = useState([])
+  const handleCloseReview = () => {
     props.onClose()
   }
-  const handleClickButton = () => {
-    props.onButtonClick()
-    props.onClose()
-    setStyleQuit(!styleQuit)
+  const handleSelectCleaner = () => {
+    props.onSelectCleaner()
   }
+  const getReviews = async () => {
+    try {
+      const reviewsData = await axios.post('https://cleaner-project-be.vercel.app/getReviews', {
+        forCleaner: forCleaner
+      })
+      const data = reviewsData.data
+      setReviews(data)
+    } catch (error) {
+      console.error('Erro ao obter os dados do review:', error)
+    }
+  }
+  useEffect(() => {
+    getReviews()
+  }, [id])
+
   return (
-    <Container {...props} style={{ ...(styleQuit === true && { display: 'none' }) }}>
-      <Close onClick={handleClick} src="/iconcloseW.png" />
-      <DivCleanerInfos>
-        <ContInfos>
-          <CleanerImg image="/maleicon.png" /* {props.onCleanerinfos.img} */></CleanerImg>
-          <CleanerName>{props.onCleanerinfos.name}</CleanerName>
-          <CleanerPrice>{props.onCleanerinfos.price}</CleanerPrice>
-          <div style={{ display: 'flex', gap: '4px' }}>
-            <RatingAndExpirence>
-              <StarRating src="/star.png" />
-              {props.onCleanerinfos.rating}
-            </RatingAndExpirence>
-            <RatingAndExpirence>{props.onCleanerinfos.cleaningCount}</RatingAndExpirence>
-          </div>
-        </ContInfos>
-        <hr />
-        <DivDocInfos>
-          <CheckInfo src="../checkIconB.png" />
-          <Desc>Id checks out</Desc>
-        </DivDocInfos>
-        <DivDocInfos>
-          <CheckInfo src="../checkIconB.png" />
-          <Desc>Id checks out</Desc>
-        </DivDocInfos>
-        <hr />
-        <TypeCleanings>
-          <ThumbsUp />
-          <Desc>Wet manual cleaning</Desc>
-        </TypeCleanings>
-        <TypeCleanings>
-          <ThumbsUp />
-          <Desc>Dry Cleaning</Desc>
-        </TypeCleanings>
-        <TypeCleanings>
-          <ThumbsUp />
-          <Desc>Dry Cleaning</Desc>
-        </TypeCleanings>
-        <hr></hr>
-        <ButtonAlt
-          valor={cleaner ? 'Remove this cleaner' : 'Selected this cleaner'}
-          onClick={handleClickButton}
+    <Container {...props} style={{ ...(closeReview && { display: 'none' }) }}>
+      <ContainerContent>
+        <Close
+          style={{ ...(reviews.length === 0 && { right: '25%' }) }}
+          onClick={handleCloseReview}
+          src="/iconcloseW.png"
         />
-      </DivCleanerInfos>
-      <DivReviews>
-        <BoxAboutMe>
-          <AboutMeTitle>About Me: </AboutMeTitle>
-          <AboutMeSub>Dedicated to my work</AboutMeSub>
-          <AboutMeDesc>
-            Dedicated to my work. Customer satisfaction is my priority Dedicated to my work.
-            Customer satisfaction is my priority. Good relationship with customer.
-          </AboutMeDesc>
-        </BoxAboutMe>
-        <BoxReviews maxHeight={`${reviews.length * 80}px`}>
-          <ReviewsTitle>Reviews</ReviewsTitle>
-          {reviews.map((review, index) => (
-            <ContReviewsClient key={index}>
-              <FlexClientReviewName>
-                <ClientReviewName>{review.name}</ClientReviewName>
-                <Rating src="/star.png" />
-              </FlexClientReviewName>
-              <ClientReviewDesc>{review.desc}</ClientReviewDesc>
-              <DivStarDate>
-                <ClientReviewDate>26/07/2002</ClientReviewDate>
-                <ClientReviewStars src="/maleicon.png" />
-              </DivStarDate>
-              <hr />
-            </ContReviewsClient>
-          ))}
-        </BoxReviews>
-      </DivReviews>
+        <DivCleanerInfos>
+          <ContInfos>
+            <CleanerImg image="/maleicon.png" /* {props.onCleanerinfos.img} */></CleanerImg>
+            <CleanerName>{name || '-'}</CleanerName>
+            <CleanerPrice>{price || '-'}</CleanerPrice>
+            <div style={{ display: 'flex', gap: '4px' }}>
+              <RatingAndExpirence>
+                <StarRating src="/star.png" />
+                {rating || '-'}
+              </RatingAndExpirence>
+              <RatingAndExpirence>{cleaningCount || '-'}</RatingAndExpirence>
+            </div>
+          </ContInfos>
+          <hr />
+          <DivDocInfos>
+            <CheckInfo src="../checkIconB.png" />
+            <Desc>Id checks out</Desc>
+          </DivDocInfos>
+          <DivDocInfos>
+            <CheckInfo src="../checkIconB.png" />
+            <Desc>Id checks out</Desc>
+          </DivDocInfos>
+          <hr />
+          <TypeCleanings>
+            <ThumbsUp />
+            <Desc>{typeCleaning1 || '-'}</Desc>
+          </TypeCleanings>
+          <TypeCleanings>
+            <ThumbsUp />
+            <Desc>{typeCleaning2 || '-'}</Desc>
+          </TypeCleanings>
+          <TypeCleanings>
+            <ThumbsUp />
+            <Desc>{typeCleaning3 || '-'}</Desc>
+          </TypeCleanings>
+          <hr></hr>
+          <ButtonAlt
+            valor={cleaner ? 'Selected this cleaner' : 'Remove this cleaner'}
+            onClick={handleSelectCleaner}
+          />
+        </DivCleanerInfos>
+        <DivReviews>
+          <BoxAboutMe>
+            <AboutMeTitle>About Me: </AboutMeTitle>
+            <AboutMeSub>Dedicated to my work</AboutMeSub>
+            <AboutMeDesc>{aboutCleaner || '-'}</AboutMeDesc>
+          </BoxAboutMe>
+          <BoxReviews>
+            <ReviewsTitle>Reviews</ReviewsTitle>
+            {reviews.length === 0 ? (
+              <ErrorMessageAlt message={'Nenhum review encontrado...'} />
+            ) : (
+              <>
+                {reviews.length > 0 &&
+                  reviews.map((review) => (
+                    <ContReviewsClient key={review._id}>
+                      <FlexClientReviewName>
+                        <ClientReviewName>{review.nameRequester}</ClientReviewName>
+                        <Rating src="/star.png" />
+                      </FlexClientReviewName>
+                      <ClientReviewDesc>{review.text}</ClientReviewDesc>
+                      <DivStarDate>
+                        <ClientReviewDate>
+                          {moment(review.createdDate).format('DD/MM/YYYY')}
+                        </ClientReviewDate>
+                        <ClientReviewStars src="/maleicon.png" />
+                      </DivStarDate>
+                      <hr />
+                    </ContReviewsClient>
+                  ))}
+              </>
+            )}
+          </BoxReviews>
+        </DivReviews>
+      </ContainerContent>
     </Container>
   )
 }

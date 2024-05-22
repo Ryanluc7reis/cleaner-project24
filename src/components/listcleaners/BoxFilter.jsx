@@ -1,8 +1,9 @@
 import styled from 'styled-components'
-import { useState } from 'react'
+import { useState, useEffect, useContext } from 'react'
+import { CleanerAvailable } from '../../context/useContextCleanersAvailable'
 
 const Container = styled.div`
-  width: 450px;
+  width: 460px;
   height: 345px;
   padding: 20px 35px;
   display: flex;
@@ -14,11 +15,11 @@ const Container = styled.div`
   top: 0;
   margin-top: 1px;
   margin-left: 40px;
-   @media (max-width: 712px){
-    position:static;
+  @media (max-width: 712px) {
+    position: static;
     width: 400px;
   }
-  @media (max-width: 500px){
+  @media (max-width: 500px) {
     width: auto;
     margin: 0;
   }
@@ -47,7 +48,7 @@ const Star = styled.img`
   height: 15px;
   width: 17px;
   cursor: pointer;
- opacity: ${(props) => props.isOpacity ? 1 : 0.3};
+  opacity: ${(props) => (props.isOpacity ? 1 : 0.3)};
 `
 const Flexfilters = styled.div`
   display: flex;
@@ -79,11 +80,11 @@ const SetaDownPrice = styled.img`
 const BoxPricesAndCleans = styled.div`
   width: 90px;
   height: 90px;
-  display: ${(props) => props.selectPrice ? 'flex' : 'none'};
+  display: ${(props) => (props.selectPrice ? 'flex' : 'none')};
   flex-direction: column;
   gap: 7px;
   position: absolute;
-  transform: translate(9%,70%);
+  transform: translate(9%, 70%);
   background-color: #d4d4d4f0;
   overflow-y: scroll;
 `
@@ -92,7 +93,7 @@ const ButtonScroll = styled.h4`
   text-align: center;
   width: 100%;
   cursor: pointer;
-  :hover{
+  :hover {
     background-color: #021f934e;
   }
 `
@@ -101,80 +102,92 @@ const FlexHeader = styled.div`
   align-items: center;
   gap: 10px;
 `
-export default function BoxFilter(props){
+export default function BoxFilter({ onCleanersCountChange, ...props }) {
   const [selectPrice, setselectPrice] = useState(null)
-  const [updatePrice , setupdatePrice ] = useState(null)
+  const [updatePrice, setupdatePrice] = useState(null)
   const [selectMinimumCleans, setMinimumCleans] = useState(null)
-  const [updateCleans , setupdateCleans ] = useState(null)
+  const [updateCleans, setupdateCleans] = useState(null)
   const [opacity, setOpacity] = useState(null)
+  const [cleaners, setCleaner] = useContext(CleanerAvailable)
   const Prices = [
-  '$ 18p/h', '$ 19p/h','$ 20p/h',
-  '$ 21p/h','$ 22p/h','$ 23p/h',
-  '$ 24p/h','$ 25p/h'
-]
-  const Cleans = ['-10','+15','+30','+50','+100']
+    'All',
+    '$ 18p/h',
+    '$ 19p/h',
+    '$ 20p/h',
+    '$ 21p/h',
+    '$ 22p/h',
+    '$ 23p/h',
+    '$ 24p/h',
+    '$ 25p/h'
+  ]
+  const Cleans = ['+15', '+30', '+50', '+100']
   const handlePrice = (selectedprice) => {
     setupdatePrice(selectedprice)
 
+    props.onPriceSelect(selectedprice)
   }
+
   const handleClean = (selectedclean) => {
     setupdateCleans(selectedclean)
+
+    props.onCleanSelect(selectedclean)
   }
   const renderStars = () => {
-    const numberOfStars = 5;
+    const handleOpacity = (selectedStar) => {
+      setOpacity(selectedStar)
+      props.onStarSelect(selectedStar)
+    }
+    const numberOfStars = 5
     return Array.from({ length: numberOfStars }, (_, index) => (
       <Star
         key={index}
         isOpacity={opacity && index < opacity}
         src="/star.png"
-        onClick={() => setOpacity(index + 1)}
+        onClick={() => handleOpacity(index + 1)}
       />
-    ));
-  };
-  return(
+    ))
+  }
+
+  return (
     <Container>
-        <FlexHeader>
-          <HeaderAlt>Filter: 1</HeaderAlt>
-          <HeaderAlt1>cleaners available</HeaderAlt1>
-        </FlexHeader>
-        <Flexfilters>
-          <HeadarSub>Price</HeadarSub>
-          <SelectPriceAndCleans onClick={() => setselectPrice(!selectPrice) }>
-            {updatePrice || '-'}
-            <BoxPricesAndCleans selectPrice={selectPrice}>
-              {Prices.map((price,index)=> (
-                <ButtonScroll 
-                onClick={() => handlePrice(price)} 
-                key={index}
-                >{price}</ButtonScroll>
-              ))}
-            </BoxPricesAndCleans>
-            <SetaDownPrice src="/setadown1.svg" height="25px" width="20px" />
-          </SelectPriceAndCleans>
-        </Flexfilters>
-        <BarraFilter />
-        <Flexfilters>
-          <HeadarSub>Minimum rating</HeadarSub>
-          <div style={{ display: 'flex', gap: '5px' }}>
-          {renderStars()}
-          </div>
-        </Flexfilters>
-        <BarraFilter />
-        <Flexfilters>
-          <HeadarSub>Minimum cleans</HeadarSub>
-              <SelectPriceAndCleans  onClick={() => setMinimumCleans(!selectMinimumCleans)}>
-                {updateCleans || '-'}
-                <BoxPricesAndCleans selectPrice={selectMinimumCleans}>
-                  {Cleans.map((clean,index)=> (
-                    <ButtonScroll 
-                    onClick={() => handleClean(clean)} 
-                    key={index}
-                    >{clean}</ButtonScroll>
-                  ))}
-                </BoxPricesAndCleans>
-                <SetaDownClean src="/setadown1.svg" height="25px" width="20px" />
-          </SelectPriceAndCleans>
-        </Flexfilters>
-  </Container>
+      <FlexHeader>
+        <HeaderAlt>Filter: {cleaners}</HeaderAlt>
+        <HeaderAlt1>cleaners available</HeaderAlt1>
+      </FlexHeader>
+      <Flexfilters>
+        <HeadarSub>Price</HeadarSub>
+        <SelectPriceAndCleans onClick={() => setselectPrice(!selectPrice)}>
+          {updatePrice || '-'}
+          <BoxPricesAndCleans selectPrice={selectPrice}>
+            {Prices.map((price, index) => (
+              <ButtonScroll onClick={() => handlePrice(price)} key={index}>
+                {price}
+              </ButtonScroll>
+            ))}
+          </BoxPricesAndCleans>
+          <SetaDownPrice src="/setadown1.svg" height="25px" width="20px" />
+        </SelectPriceAndCleans>
+      </Flexfilters>
+      <BarraFilter />
+      <Flexfilters>
+        <HeadarSub>Minimum rating</HeadarSub>
+        <div style={{ display: 'flex', gap: '5px' }}>{renderStars()}</div>
+      </Flexfilters>
+      <BarraFilter />
+      <Flexfilters>
+        <HeadarSub>Minimum cleans</HeadarSub>
+        <SelectPriceAndCleans onClick={() => setMinimumCleans(!selectMinimumCleans)}>
+          {updateCleans || '-'}
+          <BoxPricesAndCleans selectPrice={selectMinimumCleans}>
+            {Cleans.map((clean, index) => (
+              <ButtonScroll onClick={() => handleClean(clean)} key={index}>
+                {clean}
+              </ButtonScroll>
+            ))}
+          </BoxPricesAndCleans>
+          <SetaDownClean src="/setadown1.svg" height="25px" width="20px" />
+        </SelectPriceAndCleans>
+      </Flexfilters>
+    </Container>
   )
 }
