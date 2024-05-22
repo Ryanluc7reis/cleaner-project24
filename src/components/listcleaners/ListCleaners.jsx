@@ -172,7 +172,7 @@ export default function ListCleaners({
     }),
     fetcher
   )
-  const lowerRegion = region.toLowerCase()
+  const lowerRegion = region && region.toLowerCase()
   let filterData = data
     ? data.filter((card) => card.region.toLowerCase().includes(lowerRegion))
     : []
