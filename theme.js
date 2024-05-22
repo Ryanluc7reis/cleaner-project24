@@ -8,7 +8,9 @@ const theme = {
     azulclaro: '#677DB7',
     inputBackground: '#F5F5F5',
     inputBorder: '#E6E6E6',
-    greenMoney: '#1EFF00E6'
+    greenMoney: '#1EFF00E6',
+    error: 'red',
+    disabled: 'grey'
   },
   font: {
     family: {

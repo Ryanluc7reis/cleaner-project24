@@ -1,33 +1,21 @@
-import styled, { keyframes } from 'styled-components'
-import Logo from '../../src/components/logo/Logo'
-import { useEffect, useState } from 'react'
+import styled from 'styled-components'
+import { scroller } from 'react-scroll'
+import { useEffect, useState, useRef } from 'react'
+import { useRouter } from 'next/router'
+import dynamic from 'next/dynamic'
+import moment from 'moment'
+
 import Cards from '../../src/components/cardsplan/Cards'
 import Navbar from '../../src/components/layout/Navbar'
 import BasicDateCalendar from '../../src/components/calendario/Calendario'
-import { useRouter } from 'next/router'
 import Button from '../../src/components/form/Button'
-import React from 'react'
-import { Link } from 'react-scroll'
-import dynamic from 'next/dynamic'
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-   
-  }
-  to {
-    opacity: 6;
-    
-  }
-`
+
 const DateCalendarAlt = styled(BasicDateCalendar)`
   background: #ebf0f3;
   border-radius: 9px;
   font-size: 32rem;
-  box-shadow:
-    rgba(0, 0, 0, 0.19) 0px 2px 1px,
-    rgba(68, 62, 62, 0.09) 0px 4px 2px,
-    rgba(0, 0, 0, 0.09) 0px 8px 4px,
-    rgba(0, 0, 0, 0.09) 0px 16px 8px,
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 2px 1px, rgba(68, 62, 62, 0.09) 0px 4px 2px,
+    rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
     rgba(0, 0, 0, 0.09) 0px 32px 16px;
   > div {
     font-size: 42rem;
@@ -66,31 +54,7 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
 `
-const LogoAlt = styled(Logo)`
-  margin-left: 40px;
-  color: #242c99b7;
-  @media (max-width: 670px) {
-    margin: 0;
-    padding-top: 10px;
-  }
-`
-const StyledLogin = styled.h5`
-  cursor: pointer;
-  font-size: 22px;
-  color: #242c99b7;
-  margin-right: 15px;
-  margin-top: 18px;
-  font-weight: 600;
-  transition: all 200ms ease-in-out;
-  :hover {
-    color: #677cb76d;
-  }
-`
 
-const FlexLogin = styled.div`
-  display: flex;
-  gap: 13px;
-`
 const Barra = styled.div`
   width: 2px;
   height: 45px;
@@ -127,9 +91,7 @@ export const StyledFlexNavBar = styled.div`
     width: 115%;
   }
 `
-const CardsLogo = styled.img`
-  margin-top: 8px;
-`
+
 export const FlexDivEtapas = styled.div`
   display: flex;
   flex-direction: column;
@@ -264,11 +226,8 @@ const SelectHour = styled.div`
   align-items: center;
   background-color: rgb(255, 255, 255);
   border-radius: 10px;
-  box-shadow:
-    rgba(0, 0, 0, 0.19) 0px 2px 1px,
-    rgba(68, 62, 62, 0.09) 0px 4px 2px,
-    rgba(0, 0, 0, 0.09) 0px 8px 4px,
-    rgba(33, 32, 32, 0.08) 0px 16px 8px,
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 2px 1px, rgba(68, 62, 62, 0.09) 0px 4px 2px,
+    rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(33, 32, 32, 0.08) 0px 16px 8px,
     rgba(8, 8, 8, 0.08) 0px 20px 16px;
 
   @media (max-width: 646px) {
@@ -287,13 +246,9 @@ const SelectHour = styled.div`
   }
 `
 const ButtonAlt = styled(Button)`
-  background-color: ${(props) => (props.isDisabled ? 'grey' : props.theme.colors.ultravio)};
   width: 400px;
   border-radius: 25px;
-  cursor: ${(props) => (props.isDisabled ? 'default' : 'pointer')};
-  :hover {
-    background-color: ${(props) => (props.isDisabled ? 'grey' : props.theme.colors.ultravio)};
-  }
+
   @media (max-width: 426px) {
     width: 370px;
     font-size: 18px;
@@ -348,9 +303,7 @@ const InputHour = styled.div`
   background-color: ${(props) => props.theme.colors.inputBackground};
   align-items: center;
   border-radius: 10px;
-  box-shadow:
-    2px 2px 2px #5176da,
-    -2px 2px 2px #5176da;
+  box-shadow: 2px 2px 2px #5176da, -2px 2px 2px #5176da;
   border-color: #5176da;
   :hover {
     cursor: pointer;
@@ -368,7 +321,6 @@ const BoxHours = styled.div`
   position: absolute;
   align-items: center;
   left: 44%;
-  animation: ${fadeIn} 0.1s ease-in-out;
   gap: 2px;
   p {
     display: flex;
@@ -437,12 +389,13 @@ const ListStartHours = [
   '07:00 PM'
 ]
 
-function HomePlansScreen() {
+function HomePlansScreen({ ...props }) {
+  const hoursRef = useRef(null)
   const [planChosen, setPlanChosen] = useState(false)
   const [dateChosen, setDateChosen] = useState(false)
   const [hourChosen, setHourChosen] = useState(false)
   const [startHourChosen, setStartHourChosen] = useState(false)
-  const [inputUpdateHour, setinputUpdateHour] = useState('')
+  const [selectedDuration, setSelectedDuration] = useState(null)
   const [showBoxHour, setshowBoxHour] = useState(false)
   const [listHour2, setListHour2] = useState(null)
   const [isRightArrowDisabled, setRightArrowDisabled] = useState(false)
@@ -451,6 +404,7 @@ function HomePlansScreen() {
   const [selectedDate, setSelectedDate] = useState(null)
   const [activeCard, setActiveCard] = useState(null)
   const [progress, setProgress] = useState(0)
+
   const [cardValues, setCardValues] = useState({
     0: 'Optional',
     1: 'Basic',
@@ -459,26 +413,25 @@ function HomePlansScreen() {
   })
 
   const handleSubmit = () => {
-    if (cardValues && region && selectedDate && selectedHour && inputUpdateHour.length > 0) {
+    if (cardValues && region && selectedDate && selectedHour && selectedDuration.length > 0) {
       const queryParams = new URLSearchParams({
         cardValues: cardValues[activeCard],
         region: region,
         selectedDate: selectedDate,
         selectedHour: selectedHour,
-        inputUpdateHour: inputUpdateHour
+        selectedDuration: selectedDuration
       })
       localStorage.setItem('Plan', cardValues[activeCard])
-      localStorage.setItem('Duration', inputUpdateHour)
+      localStorage.setItem('Time', selectedHour)
       localStorage.setItem('Date', selectedDate)
-      localStorage.setItem('Hour', selectedHour) //Lembrar de excluir os cookies depois
+      localStorage.setItem('Duration', selectedDuration)
       router.push(`/plansScreen/selectCleaner?${queryParams.toString()}`)
     }
   }
   const totalSteps = 5
 
-  const updateInputHour = (clickedWord) => {
-    setinputUpdateHour(clickedWord)
-    setshowBoxHour(!showBoxHour)
+  const updateDuration = (clickedWord) => {
+    setSelectedDuration(clickedWord)
     setStartHourChosen(true)
     updateProgress()
   }
@@ -492,6 +445,7 @@ function HomePlansScreen() {
   }
   const handleClickHour = (hour) => {
     setSelectedHour((prevHour) => (prevHour === hour ? null : hour))
+    setshowBoxHour(!showBoxHour)
     setHourChosen(true)
     updateProgress()
   }
@@ -509,9 +463,18 @@ function HomePlansScreen() {
   }
   const handleDateChange = (date) => {
     let getdate = `${date.$d.toDateString()} `
-    setSelectedDate(getdate)
+    let formattedDate = moment(getdate).format('ddd DD MMM YYYY')
+    setSelectedDate(formattedDate)
     setDateChosen(true)
     updateProgress()
+    if (hoursRef.current) {
+      scroller.scrollTo('hours', {
+        duration: 800,
+        delay: 0,
+        smooth: 'easeInOutQuart',
+        offset: -100
+      })
+    }
   }
 
   const router = useRouter()
@@ -523,13 +486,13 @@ function HomePlansScreen() {
     const calculatedProgress = (stepsCompleted / totalSteps) * 100
     setProgress(calculatedProgress)
   }
-
   useEffect(() => {
     updateProgress()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [planChosen, dateChosen, hourChosen, startHourChosen, region])
 
   return (
-    <Container>
+    <Container {...props}>
       <StyledFlexNavBar>
         <Navbar type2 />
       </StyledFlexNavBar>
@@ -551,12 +514,12 @@ function HomePlansScreen() {
           </FlexEtapas>
           <Barra />
           <FlexEtapas>
-            <Etapas>{selectedHour || '-'}</Etapas>
+            <Etapas>{selectedDuration || '-'}</Etapas>
             <SubEtapas>DURATION</SubEtapas>
           </FlexEtapas>
           <Barra />
           <FlexEtapas>
-            <Etapas>{inputUpdateHour || '-'}</Etapas>
+            <Etapas>{selectedHour || '-'}</Etapas>
             <SubEtapas>STARTING TIME</SubEtapas>
           </FlexEtapas>
         </DivEtapas>
@@ -574,11 +537,9 @@ function HomePlansScreen() {
       </ContainerPlans>
       <ContainerCalender>
         <TilteText id="calendar">When should your first booking be?</TilteText>
-        <Link to="hours" spy={true} smooth={true} offset={-100} duration={500}>
-          <DateCalendarAlt onChange={handleDateChange} />
-        </Link>
+        <DateCalendarAlt onChange={handleDateChange} />
       </ContainerCalender>
-      <ContainerTimes>
+      <ContainerTimes ref={hoursRef}>
         <TilteText id="hours">How long do you need your cleaner for?</TilteText>
         <FlexSeta>
           <Seta
@@ -591,30 +552,44 @@ function HomePlansScreen() {
           <SelectHour>
             {isRightArrowDisabled
               ? listHours2.map((item, index) => (
-                  <React.Fragment key={index}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-around'
+                    }}
+                    key={index}
+                  >
                     {' '}
                     <ContHour
-                      isSelected={selectedHour === `${item} hours`}
-                      onClick={() => handleClickHour(`${item} hours`)}
+                      isSelected={selectedDuration === `${item} hours`}
+                      onClick={() => updateDuration(`${item} hours`)}
                     >
                       <OptionHour>{item}</OptionHour>
                       <Hours>hours</Hours>
                     </ContHour>
                     {index < 4 ? <BarraAlt /> : null}
-                  </React.Fragment>
+                  </div>
                 ))
               : listHours.map((item, index) => (
-                  <React.Fragment key={index}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-around'
+                    }}
+                    key={index}
+                  >
                     {' '}
                     <ContHour
-                      isSelected={selectedHour === `${item} hours`}
-                      onClick={() => handleClickHour(`${item} hours`)}
+                      isSelected={selectedDuration === `${item} hours`}
+                      onClick={() => updateDuration(`${item} hours`)}
                     >
                       <OptionHour>{item}</OptionHour>
                       <Hours>hours</Hours>
                     </ContHour>
                     {index < 4 ? <BarraAlt /> : null}
-                  </React.Fragment>
+                  </div>
                 ))}
           </SelectHour>
           <Seta
@@ -627,10 +602,10 @@ function HomePlansScreen() {
         </FlexSeta>
         <TilteText>Starts at</TilteText>
         <SubTitle>Click and choose your startint time</SubTitle>
-        <InputHour onClick={() => setshowBoxHour(!showBoxHour)}>{inputUpdateHour || '-'}</InputHour>
+        <InputHour onClick={() => setshowBoxHour(!showBoxHour)}>{selectedHour || '-'}</InputHour>
         <BoxHours showBoxHour={showBoxHour}>
           {ListStartHours.map((item, indice) => (
-            <TypesHours key={indice} onClick={() => updateInputHour(`${item} `)}>
+            <TypesHours key={indice} onClick={() => handleClickHour(`${item} `)}>
               {item}
             </TypesHours>
           ))}
@@ -639,8 +614,8 @@ function HomePlansScreen() {
       <ContainerButton>
         <ButtonAlt
           onClick={handleSubmit}
-          isDisabled={
-            cardValues && region && selectedDate && selectedHour && inputUpdateHour ? false : true
+          disabled={
+            cardValues && region && selectedDate && selectedHour && selectedDuration ? false : true
           }
           valor="NEXT"
         />
