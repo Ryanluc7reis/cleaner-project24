@@ -1,13 +1,19 @@
 import styled from 'styled-components'
+import { useRouter } from 'next/router'
+import { useState, useContext, useEffect } from 'react'
+import { UserContext } from '../../context/useContext'
+import { RegionContext } from '../../context/useContextRegion'
+import { PopUpContext } from '../../context/useContextPopUp'
+import { PopUpSignupContext } from '../../context/useContextPopUpSignup'
+import axios from 'axios'
+
 import ImageSectionOne from './ImageSectionOne'
 import Selecter from '../form/Selecter'
 import Button from '../form/Button'
 import Navbar from '../layout/Navbar'
-
 import H2 from '../typography/H2'
 import H5 from '../typography/H5'
-import { useRouter } from 'next/router'
-import { useState } from 'react'
+import PopUpMessage from '../popupmessage/PopUpMessage'
 
 const BoxShadow = styled.div`
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
@@ -53,7 +59,7 @@ const StyledForm = styled.form`
   align-items: center;
 `
 
-export const ErrorMessage = styled.span`
+const ErrorMessage = styled.span`
   position: absolute;
   color: #000;
   background-color: #ffffffb7;
@@ -87,29 +93,136 @@ export const ErrorMessage = styled.span`
     transform: translate(-70%, 70%);
   }
 `
-
+const ButtonAlt = styled(Button)`
+  background-color: ${(props) => (props.colorButton ? '#24d601' : null)};
+  animation: 0.1s;
+`
+const PopUpMessageAlt = styled(PopUpMessage)`
+  @media (max-width: 1024px) {
+    right: 26%;
+  }
+  @media (max-width: 768px) {
+    right: 13%;
+  }
+  @media (max-width: 425px) {
+    right: -35%;
+  }
+  @media (max-width: 375px) {
+    right: -45%;
+  }
+  @media (max-width: 320px) {
+    right: -75%;
+  }
+`
 export default function SectionOne() {
   const router = useRouter()
-  const [valor, setValor] = useState('')
+  const [popUpMessageSignup, setPopUpMessageSignup] = useContext(PopUpSignupContext)
+  const [popUpMessageCard, setPopUpMessageCard] = useContext(PopUpContext)
+  const [color, setColor] = useState(null)
   const [error, setError] = useState(false)
+  const [userData, setUserData] = useContext(UserContext)
+  const [region, setRegion] = useContext(RegionContext)
+  const { user, userId } = userData
+  const [notificationMessage, setNotificationMessage] = useState(false)
+  const [notificationsCount, setNotificationsCount] = useState([])
+  const [notifications, setNotifications] = useState([])
 
-  const handleInputChange = (event) => {
-    setValor(event.target.value)
-  }
-
-  const handleSubmit = () => {
-    
-    if (valor.length < 3 || valor.length < 4) {
-      setError(true);
-    } else {
-      setError(false);
-      router.push(`/plansScreen?region=${encodeURIComponent(valor)}`);
+  const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
+  const AUTH_NAME = process.env.SESSION_TOKEN_NAME
+  const config = {
+    headers: {
+      [AUTH_NAME]: token
     }
   }
+  const getNotificationsPopUp = async () => {
+    try {
+      const notificationsCount = await axios.get(
+        'https://cleaner-project-be.vercel.app/getNotificationsCount',
+        config
+      )
+      if (notificationsCount.status === 200) {
+        setNotificationMessage(true)
+      }
+      const data = notificationsCount.data
+      setNotificationsCount(data)
+      if (notificationsCount.status === 200) {
+        const notificationsData = await axios.get(
+          ' https://cleaner-project-be.vercel.app/getNotifications',
+          config
+        )
+        const data = notificationsData.data
+        setNotifications(data)
+      }
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+  const handleInputChange = (event) => {
+    setRegion(event.target.value)
+  }
+  const handleSubmit = () => {
+    setColor(true)
+    if (region === '') {
+      setError(true)
+      setColor(false)
+    } else if (region === false) {
+      setError(true)
+      setColor(false)
+    } else {
+      setError(false)
+      router.push(`/plansScreen?region=${encodeURIComponent(region)}`)
+    }
+  }
+  useEffect(() => {
+    const verifyUser = async () => {
+      try {
+        const response = await axios.get(
+          'https://cleaner-project-be.vercel.app/user/verify-session',
+          {
+            headers: {
+              [AUTH_NAME]: token
+            }
+          }
+        )
+        setUserData(response.data)
+      } catch (error) {
+        console.error('Erro ao verificar sessão:', error)
+        setUserData(false)
+      }
+    }
+
+    verifyUser()
+    getNotificationsPopUp()
+
+    setTimeout(() => {
+      setPopUpMessageSignup(false)
+      setPopUpMessageCard(false)
+    }, 4000)
+
+    if (user === undefined) {
+      setNotificationMessage(false)
+    }
+    const timer = setTimeout(() => {
+      setNotificationMessage(false)
+    }, 5000)
+
+    return () => clearTimeout(timer)
+  }, [user])
 
   return (
-    <ImageSectionOne >
+    <ImageSectionOne>
       <BoxShadow>
+        {popUpMessageSignup && (
+          <PopUpMessageAlt messageToOkrequest={popUpMessageSignup}>
+            Cadastro feito com sucesso
+          </PopUpMessageAlt>
+        )}
+
+        {popUpMessageCard && (
+          <PopUpMessageAlt messageToOkrequest={popUpMessageCard}>
+            Card criado com sucesso
+          </PopUpMessageAlt>
+        )}
         <Navbar type1 />
         <StyledContainer1>
           <H2>Find Top Rated Cleaners!</H2>
@@ -119,13 +232,21 @@ export default function SectionOne() {
             <H5>• Liability Insured Up to £4M</H5>
           </StyledH5>
           {error && <ErrorMessage>That region is invalid.</ErrorMessage>}
-          <StyledForm onSubmit={(e) => e.preventDefault()} >
-              <Selecter region value={valor} onChange={handleInputChange} />
-              <Button  type="button" onClick={handleSubmit}>
-                Let´s go
-              </Button>
+          <StyledForm onSubmit={(e) => e.preventDefault()}>
+            <Selecter region value={region} onChange={handleInputChange} />
+            <ButtonAlt colorButton={color ? true : false} onClick={handleSubmit} type="button">
+              Let´s go
+            </ButtonAlt>
           </StyledForm>
         </StyledContainer1>
+        {notifications.length !== 0 && user && (
+          <PopUpMessage
+            notificationMessage={notificationMessage}
+            notification={notifications[0].notificationType}
+            onClose={() => setNotificationMessage(!notificationMessage)}
+            moreNotificationsCount={notifications.length === 1 ? false : notifications.length - 1}
+          />
+        )}
       </BoxShadow>
     </ImageSectionOne>
   )

@@ -1,23 +1,7 @@
 import styled from 'styled-components'
-import NavRoutesDash from '../layout/Navroutesdash'
+import { useRouter } from 'next/router'
+import axios from 'axios'
 
-const Container = styled.div`
-  width: 100%;
-  height: auto;
-  background-color: #efefef;
-` 
-const BoxNotifications = styled.div`
-  background: #fff;
-  min-width: 90%;
-  height: 80%;
-  margin: 61px 50px 0px 50px ;
-  padding: 20px;
-  border-radius: 15px;
-`
-const ConatinerNotificaçao = styled.div`
-  display: grid;
-  grid-template-columns: 480px 420px;
-`
 const Notificaçao = styled.div`
   width: 448px;
   height: 60px;
@@ -30,45 +14,57 @@ const Notificaçao = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0px 25px;
-  `
+  @media (max-width: 532px) {
+    width: 372px;
+  }
+
+  @media (max-width: 375px) {
+    width: 330px;
+    margin: 0px;
+    padding: 5px 5px;
+  }
+  @media (max-width: 320px) {
+    width: 279px;
+  }
+`
+const Text = styled.h3`
+  cursor: pointer;
+  padding: 20px 0px;
+`
 const Close = styled.img`
-  width: 20px;
-  height: 20px;
+  padding: 2px;
   cursor: pointer;
   opacity: 0.6;
-`
-const TitleText = styled.h1`
-  font-weight: 500;
-  color: #a4a4a4f5;
-  padding: 9px 0px;
+  :hover {
+    background-color: rebeccapurple;
+  }
 `
 
-export default function Notifications() {
-  return(
-    <Container>
-      <NavRoutesDash notifications type2 />
-      <BoxNotifications>
-        <TitleText>New notifications</TitleText>
-        <ConatinerNotificaçao>
-          <Notificaçao>
-            <h3 >Nova requisição para limpeza</h3>
-            <Close src='/Xwhite.svg' />
-          </Notificaçao>
-          <Notificaçao>
-            <h3 >Nova requisição para limpeza</h3>
-            <Close src='/Xwhite.svg' />
-          </Notificaçao>
-          <Notificaçao>
-            <h3 >Nova requisição para limpeza</h3>
-            <Close src='/Xwhite.svg' />
-          </Notificaçao>
-          <Notificaçao>
-            <h3 >Nova requisição para limpeza</h3>
-            <Close src='/Xwhite.svg' />
-          </Notificaçao>
-        </ConatinerNotificaçao>        
-      </BoxNotifications>
-    </Container>
-   
+export default function Notifications({ notificationType, id, ...props }) {
+  const router = useRouter()
+  const AUTH_NAME = process.env.SESSION_TOKEN_NAME
+  const handleDelete = async (e) => {
+    e.preventDefault()
+    props.onDelete()
+
+    try {
+      const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
+      const config = {
+        headers: {
+          [AUTH_NAME]: token
+        },
+        data: { id: id }
+      }
+      await axios.delete('https://cleaner-project-be.vercel.app/deleteNotification', config)
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+
+  return (
+    <Notificaçao {...props}>
+      <Text onClick={() => router.push('/dashboard/')}>{notificationType}</Text>
+      <Close onClick={handleDelete} src="/Xwhite.svg" />
+    </Notificaçao>
   )
 }

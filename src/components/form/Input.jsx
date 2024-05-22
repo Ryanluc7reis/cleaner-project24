@@ -1,9 +1,8 @@
-import { useState } from 'react'
 import styled from 'styled-components'
 
 const InputContainer = styled.div`
-  width: auto;
-  height: auto;
+  display: flex;
+  flex-direction: column;
 `
 const StyledLabel = styled.p`
   font-weight: bold;
@@ -28,17 +27,13 @@ const StyledInput = styled.input`
     width: 255px;
   }
 `
-const Input = ({ label, password, ...props }) => {
-  const [valor, setValor] = useState(null)
-  const handleInputChange = (event) => {
-    setValor(event.target.value)
-  }
+
+const Input = ({ label, colorlabel, password, ...props }) => {
   return (
     <InputContainer>
-      <StyledLabel> {label}</StyledLabel>
+      <StyledLabel style={{ ...(colorlabel && { color: 'white' }) }}> {label}</StyledLabel>
       <StyledInput
         type={password ? 'password' : 'text'}
-        onChange={handleInputChange}
         autoComplete={password ? 'auto-complete' : null}
         {...props}
       />
