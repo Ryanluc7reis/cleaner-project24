@@ -86,9 +86,18 @@ const Form = styled.form`
     justify-content: center;
     align-items: center;
   }
+  @media (max-width: 425px) {
+    padding-top: 85px;
+  }
+  @media (max-width: 320px) {
+    padding-top: 90px;
+  }
 `
 const ButtonAlt = styled(Button)`
   padding: 10px;
+  @media (max-width: 543px) {
+    font-size: 14px;
+  }
 `
 
 const Text = styled.h2`
@@ -114,19 +123,121 @@ const ConfirmationToPay = styled.div`
   padding: 25px;
 `
 const PayToCleaner = styled(Button)`
-  padding: 10px;
+  padding: 9px;
   width: 230px;
   position: absolute;
-  bottom: 8%;
-  right: 43%;
+  bottom: 12%;
+  right: 42%;
+  @media (max-width: 543px) {
+    font-size: 14px;
+  }
+  @media (min-width: 2560px) {
+    bottom: 50%;
+    right: 46%;
+  }
+  @media (min-width: 1440px) {
+    bottom: 9%;
+  }
+  @media (max-width: 1365px) {
+    bottom: 8%;
+  }
+
+  @media (max-width: 1024px) {
+    bottom: -1%;
+    right: 39%;
+  }
+  @media (max-width: 768px) {
+    bottom: 12%;
+    right: 17%;
+  }
+
+  @media (max-width: 425px) {
+    bottom: -12%;
+    right: 22%;
+  }
+  @media (max-width: 375px) {
+    bottom: -13%;
+    right: 19%;
+  }
+  @media (max-width: 320px) {
+    bottom: -11%;
+    right: 13%;
+  }
+`
+const PayToCleanerAlt = styled(PayToCleaner)`
+  bottom: 17%;
+  @media (min-width: 2560px) {
+    bottom: -10%;
+    right: 46%;
+  }
+  @media (min-width: 1440px) {
+    bottom: 14%;
+  }
+  @media (max-width: 1365px) {
+    bottom: 8%;
+  }
+
+  @media (max-width: 1024px) {
+    bottom: 3%;
+    right: 39%;
+  }
+  @media (max-width: 768px) {
+    bottom: 21%;
+    right: 17%;
+  }
+
+  @media (max-width: 425px) {
+    bottom: -1%;
+    right: 22%;
+  }
+  @media (max-width: 375px) {
+    bottom: 2%;
+    right: 17%;
+  }
+  @media (max-width: 320px) {
+    bottom: 2%;
+    right: 13%;
+  }
 `
 const StyledFlexButtons = styled.div`
   display: flex;
-  gap: 17px;
+  gap: 18px;
   align-items: center;
-  position: absolute;
-  bottom: 8%;
-  right: 61%;
+  padding-right: 227px;
+  padding-bottom: 2px;
+  @media (max-width: 543px) {
+    flex-direction: column;
+    padding-right: 0px;
+    padding-bottom: 0px;
+  }
+`
+const StyledFlexChooseCleaning = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  @media (max-width: 543px) {
+    flex-direction: column;
+  }
+`
+const StyledTextAddress = styled.h1`
+  @media (max-width: 543px) {
+    font-size: 15px;
+  }
+`
+const PopUpMessageAlt = styled(PopUpMessage)`
+  @media (max-width: 768px) {
+    right: 30%;
+  }
+  @media (max-width: 425px) {
+    left: 15%;
+    z-index: 103;
+  }
+  @media (max-width: 375px) {
+    left: 10%;
+  }
+  @media (max-width: 320px) {
+    left: 3%;
+  }
 `
 function Booking() {
   const [popUpMessage, setPopUpMessage] = useContext(PopUpContext)
@@ -138,6 +249,7 @@ function Booking() {
   const [cleanerSelectedData, setCleanerSelectedData] = useState({})
   const [cleanerNameData, setCleanerNameData] = useState({})
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
   const [cleaning, setCleaning] = useState('')
   const { mutate } = useSWRConfig()
   const router = useRouter()
@@ -165,26 +277,20 @@ function Booking() {
         number: userCurrentUserData.number,
         cleaner: cleanerNameData
       }
-
+      if (Plan === 'Optional' && cleaning === '') {
+        setError(true)
+      }
       if (Plan === 'Optional') {
         serviceData.cleaningType = cleaning
       } else {
         serviceData.cleaningType = 'none'
       }
-
-      const serviceResponse = await axios.post(`http://localhost:3333/createService`, serviceData, {
-        headers: {
-          [AUTH_NAME]: token
-        }
-      })
-
-      if (serviceResponse.status === 201) {
-        const notificationResponse = await axios.post(
-          'http://localhost:3333/createNotification',
-          {
-            for: cleanerNameData,
-            notificationType: 'Nova requisição de limpeza'
-          },
+      if (error) {
+        null
+      } else {
+        const serviceResponse = await axios.post(
+          `https://cleaner-project-be.vercel.app/createService`,
+          serviceData,
           {
             headers: {
               [AUTH_NAME]: token
@@ -192,9 +298,24 @@ function Booking() {
           }
         )
 
-        if (notificationResponse.status === 201) {
-          router.push('/dashboard/')
-          setPopUpMessage(true)
+        if (serviceResponse.status === 201) {
+          const notificationResponse = await axios.post(
+            'https://cleaner-project-be.vercel.app/createNotification',
+            {
+              for: cleanerNameData,
+              notificationType: 'Nova requisição de limpeza'
+            },
+            {
+              headers: {
+                [AUTH_NAME]: token
+              }
+            }
+          )
+
+          if (notificationResponse.status === 201) {
+            router.push('/dashboard/')
+            setPopUpMessage(true)
+          }
         }
       }
     } catch (err) {
@@ -206,7 +327,7 @@ function Booking() {
 
   const findUser = async () => {
     try {
-      const response = await axios.get(`http://localhost:3333/user/findUser`, {
+      const response = await axios.get(`https://cleaner-project-be.vercel.app/user/findUser`, {
         headers: { [AUTH_NAME]: token }
       })
 
@@ -219,7 +340,7 @@ function Booking() {
 
   const getCard = async () => {
     try {
-      const response = await axios.get('http://localhost:3333/cleaner/getOneCard', {
+      const response = await axios.get('https://cleaner-project-be.vercel.app/cleaner/getOneCard', {
         params: { cardId }
       })
       const data = response.data
@@ -227,7 +348,7 @@ function Booking() {
 
       if (response.status === 200) {
         const cleaner = await axios.post(
-          `http://localhost:3333/user/findCleanerName`,
+          `https://cleaner-project-be.vercel.app/user/findCleanerName`,
           {
             cleanerName: data.creator
           },
@@ -244,9 +365,12 @@ function Booking() {
   }
 
   useEffect(() => {
+    if (Plan === 'Optional' && cleaning !== '') {
+      setError(false)
+    }
     findUser()
     getCard()
-  }, [user, showEditAddress, setCleanerSelectedData])
+  }, [user, showEditAddress, setCleanerSelectedData, cleaning])
 
   const handleCleaning = (event) => {
     setCleaning(event.target.value)
@@ -258,11 +382,12 @@ function Booking() {
     }
   }
   const handleSaveEdit = () => {
-    mutate(`http://localhost:3333/cleaner/editAbout`)
+    mutate(`https://cleaner-project-be.vercel.app/cleaner/editAbout`)
   }
   const { handleSubmit } = useForm({
     mode: 'all'
   })
+
   useEffect(() => {
     setTimeout(() => {
       setPopUpMessage(false)
@@ -271,7 +396,9 @@ function Booking() {
   return (
     <Container onClick={handleClickOutsideEditAddress}>
       {popUpMessage && (
-        <PopUpMessage messageToOkrequest={popUpMessage}>Endereço editado com sucesso</PopUpMessage>
+        <PopUpMessageAlt messageToOkrequest={popUpMessage}>
+          Endereço editado com sucesso
+        </PopUpMessageAlt>
       )}
       <NavBarAlt type2 />
       <Steps type1 />
@@ -280,17 +407,29 @@ function Booking() {
           <ConfirmationToPay>
             <h1>Olá, {user}</h1>
             {Plan === 'Optional' && (
-              <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                <h1>Escolha qual limpeza você deseja :</h1>
-                <Selecter onChange={handleCleaning} value={cleaning} typeCleaningCreate />
-              </div>
+              <StyledFlexChooseCleaning>
+                <StyledTextAddress>Escolha qual limpeza você deseja :</StyledTextAddress>
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                  {error && <h2 style={{ color: 'red' }}>Selecione uma limpeza</h2>}
+                  <Selecter onChange={handleCleaning} value={cleaning} typeCleaningCreate />
+                </div>
+              </StyledFlexChooseCleaning>
             )}
-            <h1>Seu serviço será no endereço ({userCurrentUserData.address}) ?</h1>
+            <StyledTextAddress>
+              Seu serviço será no endereço ({userCurrentUserData.address}) ?
+            </StyledTextAddress>
 
             <ButtonAlt onClick={() => setShowEditAddress(!showEditAddress)}>
               {' '}
               No, i want to change my address
             </ButtonAlt>
+            <StyledFlexButtons>
+              <ButtonAlt onClick={() => router.push('/booking/booking-two')}>
+                {' '}
+                Yes! Pay with card now
+              </ButtonAlt>
+              <h1>Or</h1>
+            </StyledFlexButtons>
             {showEditAddress && (
               <EditAddress
                 onButtonClose={() => setShowEditAddress(!showEditAddress)}
@@ -305,13 +444,6 @@ function Booking() {
                 onSave={handleSaveEdit}
               />
             )}
-            <StyledFlexButtons>
-              <ButtonAlt onClick={() => router.push('/booking/booking-two')}>
-                {' '}
-                Yes! Pay with card now
-              </ButtonAlt>
-              <h1>Or</h1>
-            </StyledFlexButtons>
           </ConfirmationToPay>
         ) : (
           <SignupByBooking />
@@ -360,9 +492,17 @@ function Booking() {
             </TextAlt>
           </BoxSummary>
           {userData && (
-            <PayToCleaner type="submit" loading={loading}>
-              Yes! Pay directly to cleaner
-            </PayToCleaner>
+            <>
+              {Plan === 'Optional' ? (
+                <PayToCleaner type="submit" loading={loading}>
+                  Yes! Pay directly to cleaner
+                </PayToCleaner>
+              ) : (
+                <PayToCleanerAlt type="submit" loading={loading}>
+                  Yes! Pay directly to cleaner
+                </PayToCleanerAlt>
+              )}
+            </>
           )}
         </Form>
       </PaymentAndRegister>

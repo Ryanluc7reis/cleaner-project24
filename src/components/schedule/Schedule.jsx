@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { useState, useEffect } from 'react'
 import moment from 'moment'
 import axios from 'axios'
+import { useRouter } from 'next/router'
 
 import NavRoutesDash from '../layout/Navroutesdash'
 import CalendarioReact from '../calendario/CalendarioReact'
@@ -10,17 +11,35 @@ import Button from '../form/Button'
 const Container = styled.div`
   width: 100%;
   min-height: 100vh;
+  padding-bottom: 20px;
   background-color: #001044;
+  @media (max-width: 949px) {
+    height: 100%;
+    padding-bottom: 0px;
+  }
 `
 const BoxSchedule = styled.div`
   background: #fdfdfd;
-  min-width: 90%;
-  height: 520px;
-  margin: 10px 50px 25px 50px;
+  width: 90%;
+  height: 88%;
+  margin: 0px 35px;
   padding: 20px 15px;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
+  @media (max-width: 900px) {
+    margin: 0px 15px;
+  }
+  @media (max-width: 768px) {
+    margin: 0px 35px;
+  }
+  @media (max-width: 425px) {
+    width: 90%;
+    margin: 0px 21px;
+  }
+  @media (max-width: 444px) {
+    padding: 15px 10px;
+  }
 `
 
 const FlexTitleText = styled.div`
@@ -61,11 +80,21 @@ const StyledFlex = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 15px 45px;
+  @media (max-width: 1338px) {
+    gap: 9px;
+    padding: 20px;
+  }
+  @media (max-width: 949px) {
+    flex-direction: column;
+  }
 `
 const FlexTextDate = styled.div`
   display: flex;
   gap: 15px;
   margin-bottom: 35px;
+  @media (max-width: 949px) {
+    margin-bottom: 0px;
+  }
 `
 const ResetSchedule = styled.h1`
   cursor: pointer;
@@ -106,12 +135,16 @@ const StyledContainerBalls = styled.div`
   gap: 10px;
   margin: 15px 0px;
 `
-export default function Schedule() {
+export default function Schedule({ ...props }) {
+  const router = useRouter()
   const [isBlocked, setIsBlocked] = useState(false)
   const [selectedMaxDate, setSelectedMaxDate] = useState(null)
   const [editSchedule, setEditSchedule] = useState(false)
   const [card, setCard] = useState(null)
   const [lastDate, setLastDate] = useState(null)
+  const handleDash = () => {
+    props.isDash()
+  }
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
   const AUTH_NAME = process.env.SESSION_TOKEN_NAME
   const config = {
@@ -146,7 +179,7 @@ export default function Schedule() {
     const newBlocked = !isBlocked
     try {
       await axios.patch(
-        'http://localhost:3333/cleaner/editScheduleBlockedCleaner',
+        'https://cleaner-project-be.vercel.app/cleaner/editScheduleBlockedCleaner',
         {
           scheduleBlocked: String(newBlocked)
         },
@@ -160,7 +193,7 @@ export default function Schedule() {
   const editCleanerSchedule = async () => {
     try {
       const editSchedule = await axios.patch(
-        'http://localhost:3333/cleaner/editScheduleCleaner',
+        'https://cleaner-project-be.vercel.app/cleaner/editScheduleCleaner',
         {
           scheduleBlocked: String(isBlocked),
           availableDate: String(calendarDates)
@@ -169,7 +202,10 @@ export default function Schedule() {
       )
       if (editSchedule.status === 200) {
         try {
-          const card = await axios.get('http://localhost:3333/cleaner/findCard', config)
+          const card = await axios.get(
+            'https://cleaner-project-be.vercel.app/cleaner/findCard',
+            config
+          )
           const data = card.data
           setCard(data)
         } catch (err) {
@@ -182,12 +218,27 @@ export default function Schedule() {
   }
   const getCard = async () => {
     try {
-      const cardCurrent = await axios.get('http://localhost:3333/cleaner/findCard', config)
+      const cardCurrent = await axios.get(
+        'https://cleaner-project-be.vercel.app/cleaner/findCard',
+        config
+      )
       const data = cardCurrent.data
 
       setCard(data)
     } catch (err) {
       console.error(err.message)
+    }
+  }
+  const verifyUser = async () => {
+    try {
+      await axios.get('https://cleaner-project-be.vercel.app/user/verify-session', {
+        headers: {
+          [AUTH_NAME]: token
+        }
+      })
+    } catch (error) {
+      router.push('/')
+      console.error('Erro ao verificar sessão:', error)
     }
   }
 
@@ -196,20 +247,23 @@ export default function Schedule() {
       setSelectedMaxDate(null)
       setLastDate(null)
     }
+    verifyUser()
   }, [editSchedule])
   useEffect(() => {
     getCard()
+    verifyUser()
   }, [])
   useEffect(() => {
     if (card !== null) {
       const datesArray = card.availableDate[0].split(',')
       setLastDate(moment(datesArray[datesArray.length - 1]))
     }
+    verifyUser()
   }, [card])
-  console.log(card)
+
   return (
     <Container>
-      <NavRoutesDash schedule type1 />
+      <NavRoutesDash onClickDash={handleDash} schedule type1 />
       <BoxSchedule>
         <FlexTitleText>
           <TitleText>Set your available schedule</TitleText>

@@ -4,6 +4,7 @@ import { useState, useContext, useEffect } from 'react'
 import { UserContext } from '../../context/useContext'
 import { RegionContext } from '../../context/useContextRegion'
 import { PopUpContext } from '../../context/useContextPopUp'
+import { PopUpSignupContext } from '../../context/useContextPopUpSignup'
 import axios from 'axios'
 
 import ImageSectionOne from './ImageSectionOne'
@@ -58,7 +59,7 @@ const StyledForm = styled.form`
   align-items: center;
 `
 
-export const ErrorMessage = styled.span`
+const ErrorMessage = styled.span`
   position: absolute;
   color: #000;
   background-color: #ffffffb7;
@@ -96,9 +97,26 @@ const ButtonAlt = styled(Button)`
   background-color: ${(props) => (props.colorButton ? '#24d601' : null)};
   animation: 0.1s;
 `
+const PopUpMessageAlt = styled(PopUpMessage)`
+  @media (max-width: 1024px) {
+    right: 26%;
+  }
+  @media (max-width: 768px) {
+    right: 13%;
+  }
+  @media (max-width: 425px) {
+    right: -35%;
+  }
+  @media (max-width: 375px) {
+    right: -45%;
+  }
+  @media (max-width: 320px) {
+    right: -75%;
+  }
+`
 export default function SectionOne() {
   const router = useRouter()
-  const [popUpMessage, setPopUpMessage] = useContext(PopUpContext)
+  const [popUpMessageSignup, setPopUpMessageSignup] = useContext(PopUpSignupContext)
   const [popUpMessageCard, setPopUpMessageCard] = useContext(PopUpContext)
   const [color, setColor] = useState(null)
   const [error, setError] = useState(false)
@@ -119,7 +137,7 @@ export default function SectionOne() {
   const getNotificationsPopUp = async () => {
     try {
       const notificationsCount = await axios.get(
-        'http://localhost:3333/getNotificationsCount',
+        'https://cleaner-project-be.vercel.app/getNotificationsCount',
         config
       )
       if (notificationsCount.status === 200) {
@@ -128,7 +146,10 @@ export default function SectionOne() {
       const data = notificationsCount.data
       setNotificationsCount(data)
       if (notificationsCount.status === 200) {
-        const notificationsData = await axios.get(' http://localhost:3333/getNotifications', config)
+        const notificationsData = await axios.get(
+          ' https://cleaner-project-be.vercel.app/getNotifications',
+          config
+        )
         const data = notificationsData.data
         setNotifications(data)
       }
@@ -155,11 +176,14 @@ export default function SectionOne() {
   useEffect(() => {
     const verifyUser = async () => {
       try {
-        const response = await axios.get('http://localhost:3333/user/verify-session', {
-          headers: {
-            [AUTH_NAME]: token
+        const response = await axios.get(
+          'https://cleaner-project-be.vercel.app/user/verify-session',
+          {
+            headers: {
+              [AUTH_NAME]: token
+            }
           }
-        })
+        )
         setUserData(response.data)
       } catch (error) {
         console.error('Erro ao verificar sessão:', error)
@@ -171,7 +195,7 @@ export default function SectionOne() {
     getNotificationsPopUp()
 
     setTimeout(() => {
-      setPopUpMessage(false)
+      setPopUpMessageSignup(false)
       setPopUpMessageCard(false)
     }, 4000)
 
@@ -188,14 +212,18 @@ export default function SectionOne() {
   return (
     <ImageSectionOne>
       <BoxShadow>
-        {popUpMessage && (
-          <PopUpMessage messageToOkrequest={popUpMessage}>Cadastro feito com sucesso</PopUpMessage>
+        {popUpMessageSignup && (
+          <PopUpMessageAlt messageToOkrequest={popUpMessageSignup}>
+            Cadastro feito com sucesso
+          </PopUpMessageAlt>
         )}
 
         {popUpMessageCard && (
-          <PopUpMessage messageToOkrequest={popUpMessageCard}>Card criado com sucesso</PopUpMessage>
+          <PopUpMessageAlt messageToOkrequest={popUpMessageCard}>
+            Card criado com sucesso
+          </PopUpMessageAlt>
         )}
-        {user ? <Navbar username={user} /> : <Navbar type1 />}
+        <Navbar type1 />
         <StyledContainer1>
           <H2>Find Top Rated Cleaners!</H2>
           <StyledH5 id="input1">

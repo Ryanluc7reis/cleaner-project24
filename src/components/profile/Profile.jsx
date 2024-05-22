@@ -2,21 +2,20 @@ import styled from 'styled-components'
 import { useState } from 'react'
 import { useSWRConfig } from 'swr'
 
-import NavRoutesDash from '../layout/Navroutesdash'
 import EditUserProfile from './EditUserProfile'
 import EditPassword from './EditPassword'
 
-const Container = styled.div`
-  width: 100%;
-  height: auto;
-`
-
 const BoxProfileImage = styled.div`
-  width: 442px;
-  height: 360px;
-
+  width: 310px;
+  min-height: 360px;
   border-radius: 15px;
   background: white;
+  @media (max-width: 1024px) {
+    width: 320px;
+  }
+  @media (max-width: 400px) {
+    width: 270px;
+  }
 `
 
 const BoxAvatar = styled.div`
@@ -25,8 +24,11 @@ const BoxAvatar = styled.div`
   border-radius: 7px;
   display: flex;
   padding: 40px 55px;
-
   flex-direction: column;
+
+  @media (max-width: 400px) {
+    padding: 40px 33px;
+  }
 `
 const Avatar = styled.img`
   width: 200px;
@@ -64,9 +66,13 @@ const Edit = styled.h2`
 `
 const FlexContainer = styled.div`
   display: flex;
-
   gap: 20px;
-  padding: 25px;
+  padding-bottom: 15px;
+
+  @media (max-width: 1052px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `
 
 export default function Profile({
@@ -84,48 +90,45 @@ export default function Profile({
   const { mutate } = useSWRConfig()
 
   const handleSaveEdit = () => {
-    mutate(`http://localhost:3333/cleaner/editAbout`)
+    mutate(`https://cleaner-project-be.vercel.app/cleaner/editAbout`)
   }
   return (
-    <Container {...props}>
-      <NavRoutesDash profile type1 />
-      <FlexContainer>
-        <BoxProfileImage>
-          <Label>Avatar</Label>
-          <BoxAvatar>
-            <Avatar src="/avatar.png" />
-            <EditAvatar>
-              <Edit>Edit</Edit>
-              <Remove>Remove</Remove>
-            </EditAvatar>
-          </BoxAvatar>
-        </BoxProfileImage>
-        {editPassword ? (
-          <EditPassword
-            id={id}
-            fullName={fullName}
-            user={user}
-            email={email}
-            password={password}
-            address={address}
-            number={number}
-            onButton={() => setEditPassword(!editPassword)}
-            onSave={handleSaveEdit}
-          />
-        ) : (
-          <EditUserProfile
-            id={id}
-            fullName={fullName}
-            user={user}
-            email={email}
-            password={password}
-            address={address}
-            number={number}
-            onHandleButton={() => setEditPassword(!editPassword)}
-            onSave={handleSaveEdit}
-          />
-        )}
-      </FlexContainer>
-    </Container>
+    <FlexContainer {...props}>
+      <BoxProfileImage>
+        <Label>Avatar</Label>
+        <BoxAvatar>
+          <Avatar src="/avatar.png" />
+          <EditAvatar>
+            <Edit>Edit</Edit>
+            <Remove>Remove</Remove>
+          </EditAvatar>
+        </BoxAvatar>
+      </BoxProfileImage>
+      {editPassword ? (
+        <EditPassword
+          id={id}
+          fullName={fullName}
+          user={user}
+          email={email}
+          password={password}
+          address={address}
+          number={number}
+          onButton={() => setEditPassword(!editPassword)}
+          onSave={handleSaveEdit}
+        />
+      ) : (
+        <EditUserProfile
+          id={id}
+          fullName={fullName}
+          user={user}
+          email={email}
+          password={password}
+          address={address}
+          number={number}
+          onHandleButton={() => setEditPassword(!editPassword)}
+          onSave={handleSaveEdit}
+        />
+      )}
+    </FlexContainer>
   )
 }

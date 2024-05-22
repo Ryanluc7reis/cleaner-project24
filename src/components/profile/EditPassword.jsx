@@ -8,10 +8,13 @@ import Input from '../form/Input'
 import Button from '../form/Button'
 
 const Container = styled.div`
-  width: 100%;
-  height: 360px;
+  width: 68%;
+  min-height: 360px;
   background-color: #fff;
   border-radius: 15px;
+  @media (max-width: 756px) {
+    width: 93%;
+  }
 `
 
 const Form = styled.form`
@@ -19,6 +22,13 @@ const Form = styled.form`
   justify-content: space-around;
   grid-template-columns: 540px;
   margin-top: 20px;
+
+  @media (max-width: 949px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 `
 
 const InputAlt = styled(Input)`
@@ -26,11 +36,17 @@ const InputAlt = styled(Input)`
   padding: 7px;
   background: transparent;
   border: ${(props) => (props.error ? '2px solid red' : 'none')};
+  @media (max-width: 358px) {
+    width: 200px;
+  }
 `
 
 const ButtonAlt = styled(Button)`
   height: 45px;
   width: 180px;
+  @media (max-width: 430px) {
+    font-size: 13px;
+  }
 `
 const Title = styled.h2`
   color: #a7a7a7;
@@ -49,6 +65,9 @@ const ContInput = styled.div`
 const Barra = styled.div`
   height: 1px;
   width: 60%;
+  @media (max-width: 685px) {
+    width: 80%;
+  }
   background-color: #2a2af3d3;
 `
 
@@ -58,6 +77,13 @@ const FlexButtons = styled.div`
   height: 100%;
   justify-content: space-between;
   margin-top: 35px;
+
+  @media (max-width: 685px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    margin: 10px;
+  }
 `
 
 const FlexInput = styled.div`
@@ -98,7 +124,7 @@ export default function EditPassword({
 
     try {
       const verifyPasswordResponse = await axios.post(
-        `http://localhost:3333/user/verify-password`,
+        `https://cleaner-project-be.vercel.app/user/verify-password`,
         { password: currentPassword.password },
         {
           headers: {
@@ -109,7 +135,7 @@ export default function EditPassword({
 
       if (verifyPasswordResponse.status === 200) {
         const editUserResponse = await axios.patch(
-          `http://localhost:3333/user/editUser`,
+          `https://cleaner-project-be.vercel.app/user/editUser`,
           {
             id: id,
             fullName: fullName,

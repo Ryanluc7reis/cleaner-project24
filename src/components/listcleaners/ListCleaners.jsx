@@ -114,6 +114,11 @@ const StyledLoader = styled.div`
   position: absolute;
   left: 60%;
   top: 55%;
+  @media (max-width: 712px) {
+    left: 28%;
+    top: none;
+    bottom: -50%;
+  }
 `
 const fetcher = async ({ url, data }) => {
   const response = await axios.post(url, data)
@@ -162,7 +167,7 @@ export default function ListCleaners({
 
   const { data, error } = useSWR(
     () => ({
-      url: 'http://localhost:3333/cleaner/getCards',
+      url: 'https://cleaner-project-be.vercel.app/cleaner/getCards',
       data: { date: currentDate }
     }),
     fetcher

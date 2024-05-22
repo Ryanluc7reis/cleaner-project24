@@ -118,7 +118,7 @@ export default function CreateCardCleaner() {
         }
       }
       const { status } = await axios.post(
-        `http://localhost:3333/cleaner/createCard`,
+        `https://cleaner-project-be.vercel.app/cleaner/createCard`,
         formData,
         config
       )

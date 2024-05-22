@@ -95,6 +95,9 @@ const ButtonAlt = styled(Button)`
   @media (max-width: 768px) {
     margin-top: 64px;
   }
+  @media (max-width: 430px) {
+    font-size: 17px;
+  }
 `
 const ButtonAlt1 = styled(ButtonAlt)`
   margin-top: 67px;

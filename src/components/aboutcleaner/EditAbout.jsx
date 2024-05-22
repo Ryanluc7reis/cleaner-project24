@@ -13,6 +13,11 @@ const Form = styled.form`
   align-items: center;
   gap: 45px;
   justify-content: space-around;
+  @media (max-width: 756px) {
+    flex-direction: column;
+
+    gap: 20px;
+  }
 `
 const Label = styled.h3`
   color: #8080809d;
@@ -28,6 +33,17 @@ const ButtonAlt = styled(Button)`
   margin-top: 20px;
   padding: 13px;
   width: 170px;
+  @media (max-width: 756px) {
+    margin: 0 28px;
+  }
+  @media (max-width: 430px) {
+    font-size: 13px;
+  }
+`
+const TextareaAlt = styled(Textarea)`
+  @media (max-width: 756px) {
+    width: 200px;
+  }
 `
 export default function EditAbout({
   id,
@@ -71,7 +87,11 @@ export default function EditAbout({
       }
     }
     try {
-      const response = await axios.patch(`http://localhost:3333/cleaner/editCard`, formData, config)
+      const response = await axios.patch(
+        `https://cleaner-project-be.vercel.app/cleaner/editCard`,
+        formData,
+        config
+      )
       if (response.status === 200) {
         onSave()
         setPopUpMessage(true)
@@ -94,7 +114,7 @@ export default function EditAbout({
     <Form onSubmit={handleSubmit(handleFormSaveEdit)}>
       <FlexInputs>
         <Label>Talk about cleaner</Label>
-        <Textarea
+        <TextareaAlt
           name="about"
           value={formData.about}
           onChange={(e) => handleChange('about', e.target.value)}

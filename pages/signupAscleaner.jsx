@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { useState, useContext } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
-import { PopUpContext } from '../src/context/useContextPopUp'
+import { PopUpSignupContext } from '../src/context/useContextPopUpSignup'
 
 import Button from '../src/components/form/Button'
 import Input from '../src/components/form/Input'
@@ -27,10 +27,10 @@ const Container = styled.div`
   width: 100%;
   min-height: 100vh;
   height: 120vh;
-  background-color: #223677;
+  background-color: #223677ef;
   @media (max-width: 768px) {
+    height: 100%;
     display: flex;
-    justify-content: center;
     flex-direction: column;
     align-items: center;
     gap: 20px;
@@ -38,7 +38,7 @@ const Container = styled.div`
 `
 
 const Titulo = styled.p`
-  color: black;
+  color: white;
   font-weight: 600;
   font-size: 22px;
   text-align: center;
@@ -67,7 +67,7 @@ const FlexBoxFormulario = styled.div`
 `
 
 const Formulario = styled.form`
-  background-color: #cccdee;
+  background: #3e3188;
   padding: 3px;
   border-radius: 8px;
   height: 549px;
@@ -77,12 +77,12 @@ const Formulario = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  @media (max-width: 1025px) {
-    height: 493px;
+  @media (max-width: 1024px) {
+    height: 540px;
     width: 300px;
   }
-  @media (max-width: 900px) {
-    height: 450px;
+  @media (max-width: 768px) {
+    height: 500px;
     width: 300px;
   }
 `
@@ -124,7 +124,7 @@ const ErrorLabel = styled.span`
 `
 const SignupAsCleaner = () => {
   const router = useRouter()
-  const [popUpMessage, setPopUpMessage] = useContext(PopUpContext)
+  const [popUpMessageSignup, setPopUpMessageSignup] = useContext(PopUpSignupContext)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState({})
   const [formData, setFormData] = useState({
@@ -162,9 +162,12 @@ const SignupAsCleaner = () => {
     e.preventDefault()
     try {
       setLoading(true)
-      const { status } = await axios.post(`http://localhost:3333/user/signupAscleaner`, formData)
+      const { status } = await axios.post(
+        `https://cleaner-project-be.vercel.app/user/signupAscleaner`,
+        formData
+      )
       if (status === 201) {
-        setPopUpMessage(true)
+        setPopUpMessageSignup(true)
         router.push('/')
       }
     } catch (err) {
@@ -204,6 +207,7 @@ const SignupAsCleaner = () => {
         <Formulario onSubmit={handleForm}>
           <Titulo>Register as cleaner</Titulo>
           <InputAlt
+            colorlabel
             label="Full Name"
             name="fullName"
             placeholder="FULLNAME"
@@ -215,6 +219,7 @@ const SignupAsCleaner = () => {
           />
           {error.fullName && <ErrorLabel>{error.fullName}</ErrorLabel>}
           <InputAlt
+            colorlabel
             label="Username"
             name="user"
             placeholder="USERNAME"
@@ -226,6 +231,7 @@ const SignupAsCleaner = () => {
           />
           {error.user && <ErrorLabel>{error.user}</ErrorLabel>}
           <InputAlt
+            colorlabel
             label="E-mail"
             name="email"
             placeholder="EMAIL ADDRESS"
@@ -237,6 +243,7 @@ const SignupAsCleaner = () => {
           />
           {error.email && <ErrorLabel>{error.email}</ErrorLabel>}
           <InputAlt
+            colorlabel
             label="Password"
             name="password"
             placeholder="PASSWORD"
@@ -248,6 +255,7 @@ const SignupAsCleaner = () => {
           />
           {error.password && <ErrorLabel>{error.password}</ErrorLabel>}
           <InputAlt
+            colorlabel
             label="Address"
             name="address"
             placeholder="ADDRESS"
@@ -259,6 +267,7 @@ const SignupAsCleaner = () => {
           />
           {error.address && <ErrorLabel>{error.address}</ErrorLabel>}
           <InputAlt
+            colorlabel
             label="Number"
             name="number"
             placeholder="NUMBER"

@@ -12,12 +12,18 @@ const Form = styled.form`
   grid-template-columns: 250px;
   flex-direction: column;
   gap: 8px;
+  @media (max-width: 362px) {
+    grid-template-columns: 200px;
+  }
 `
 const InputAlt = styled(Input)`
   width: 270px;
   padding: 7px;
   background: transparent;
   border: none;
+  @media (max-width: 430px) {
+    font-size: 13px;
+  }
 `
 const Barra = styled.div`
   height: 1px;
@@ -29,6 +35,13 @@ const ButtonAlt = styled(Button)`
   width: 170px;
   margin-top: 15px;
   margin-left: 25px;
+  @media (max-width: 430px) {
+    font-size: 13px;
+  }
+  @media (max-width: 430px) {
+    font-size: 13px;
+    margin: 15px 0px;
+  }
 `
 const FlexCont = styled.div`
   display: flex;
@@ -80,7 +93,11 @@ export default function EditCard({
       }
     }
     try {
-      const response = await axios.patch(`http://localhost:3333/cleaner/editCard`, formData, config)
+      const response = await axios.patch(
+        `https://cleaner-project-be.vercel.app/cleaner/editCard`,
+        formData,
+        config
+      )
       if (response.status === 200) {
         onSave()
         setPopUpMessage(true)

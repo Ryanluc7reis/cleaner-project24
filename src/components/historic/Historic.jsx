@@ -13,6 +13,20 @@ const Historic = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0px 25px;
+  @media (max-width: 532px) {
+    width: 372px;
+  }
+  @media (max-width: 425px) {
+    width: 365px;
+    margin: 0px;
+    padding: 5px 5px;
+  }
+  @media (max-width: 375px) {
+    width: 320px;
+  }
+  @media (max-width: 320px) {
+    width: 269px;
+  }
 `
 
 const Date = styled.div`

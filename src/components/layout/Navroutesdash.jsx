@@ -9,14 +9,19 @@ import Input from '../form/Input'
 const Container = styled.div`
   width: 100%;
   height: auto;
+  background-color: #001044;
 `
 const ContainerBox = styled.div`
   padding: 25px;
   display: flex;
-  background-color: #001044;
   align-items: center;
   justify-content: space-between;
-  @media (max-width: 1306px) {
+  @media (max-width: 638px) {
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  @media (max-width: 330px) {
+    padding: 15px 0px;
   }
 `
 const TypeRouteTitle = styled.h1`
@@ -97,6 +102,23 @@ const NotificationCount = styled.div`
   position: absolute;
   top: 8%;
   right: 7%;
+  @media (max-width: 1024px) {
+    right: 9%;
+  }
+  @media (max-width: 768px) {
+    right: 12%;
+  }
+  @media (max-width: 425px) {
+    right: 31%;
+    top: 21%;
+  }
+  @media (max-width: 375px) {
+    right: 30%;
+  }
+  @media (max-width: 320px) {
+    right: 27%;
+    top: 19%;
+  }
 `
 export default function NavRoutesDash({
   dash,
@@ -111,12 +133,11 @@ export default function NavRoutesDash({
 }) {
   const router = useRouter()
   const [userData, setUserData] = useContext(UserContext)
-  const [clicked, setClicked] = useState(false)
   const [notificationsCount, setNotificationsCount] = useState([])
   const { user, userId } = userData
   const AUTH_NAME = process.env.SESSION_TOKEN_NAME
-  const handleClick = (click) => {
-    props.onClickDash(click === setClicked(!clicked))
+  const handleClick = () => {
+    props.onClickDash()
   }
   const getTypeRouteValue = () => {
     if (profile) {
@@ -134,24 +155,31 @@ export default function NavRoutesDash({
   const verifyUser = async () => {
     try {
       const token = localStorage.getItem('token')
-      const response = await axios.get('http://localhost:3333/user/verify-session', {
-        headers: {
-          [AUTH_NAME]: token
+      const response = await axios.get(
+        'https://cleaner-project-be.vercel.app/user/verify-session',
+        {
+          headers: {
+            [AUTH_NAME]: token
+          }
         }
-      })
+      )
       setUserData(response.data)
     } catch (error) {
+      router.push('/')
       console.error('Erro ao verificar sessão:', error)
     }
   }
   const verifyNotificationsCount = async () => {
     try {
       const token = localStorage.getItem('token')
-      const response = await axios.get('http://localhost:3333/getNotificationsCount', {
-        headers: {
-          [AUTH_NAME]: token
+      const response = await axios.get(
+        'https://cleaner-project-be.vercel.app/getNotificationsCount',
+        {
+          headers: {
+            [AUTH_NAME]: token
+          }
         }
-      })
+      )
       setNotificationsCount(response.data.count)
     } catch (error) {
       console.error('Erro ao verificar sessão:', error)
@@ -160,7 +188,7 @@ export default function NavRoutesDash({
   useEffect(() => {
     verifyUser()
     verifyNotificationsCount()
-  }, [])
+  }, [user, notificationsCount])
   const handleLogout = async () => {
     try {
       const token = localStorage.getItem('token')
@@ -169,7 +197,11 @@ export default function NavRoutesDash({
           [AUTH_NAME]: token
         }
       }
-      const response = await axios.post('http://localhost:3333/user/logout', {}, config)
+      const response = await axios.post(
+        'https://cleaner-project-be.vercel.app/user/logout',
+        {},
+        config
+      )
       if (response.status === 200) {
         router.push('/')
         setUserData(false)
@@ -183,31 +215,9 @@ export default function NavRoutesDash({
     <Container {...props}>
       {type1 && (
         <ContainerBox>
-          <Hamburguer onClick={handleClick} src={clicked ? '/x.png' : '/hamburgericon.png'} />
+          <Hamburguer onClick={handleClick} src="/hamburgericon.png" />
           <TypeRouteTitle>{getTypeRouteValue()}</TypeRouteTitle>
           <StyledFlex>
-            <h1 style={{ color: 'white' }}>Olá, {user}</h1>
-            <ImgAvatar src="/avatar.png" />
-            <ImgNotifications
-              onClick={() => router.push('/dashboard/notifications')}
-              src="/bell1.png"
-            />
-            <LogOut onClick={handleLogout}>Logout</LogOut>
-          </StyledFlex>
-        </ContainerBox>
-      )}
-      {type2 && (
-        <ContainerBox>
-          <Hamburguer onClick={handleClick} src={clicked ? '/x.png' : '/hamburgericon.png'} />
-          <TypeRouteTitle>{getTypeRouteValue()}</TypeRouteTitle>
-          <StyledFlex>
-            <StyledFlexSearch>
-              <FlexInput>
-                <InputAlt placeholder="Search..." />
-                <Barra />
-              </FlexInput>
-              <Lupa src="/lupa.png" />
-            </StyledFlexSearch>
             <h1 style={{ color: 'white' }}>Olá, {user}</h1>
             <ImgAvatar src="/avatar.png" />
 
@@ -225,7 +235,6 @@ export default function NavRoutesDash({
                 <NotificationCount>{notificationsCount}</NotificationCount>
               </div>
             )}
-
             <LogOut onClick={handleLogout}>Logout</LogOut>
           </StyledFlex>
         </ContainerBox>

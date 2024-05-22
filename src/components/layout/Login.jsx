@@ -9,10 +9,10 @@ import { UserContext } from '../../context/useContext'
 
 const Container = styled.div`
   width: 100%;
-  min-height: 100vh;
+  min-height: 100%;
   background: #000000c1;
   position: fixed;
-  z-index: 102;
+  z-index: 104;
   top: 0;
   right: 0;
   display: flex;
@@ -27,14 +27,19 @@ const Form = styled.form`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: #d4d3d3;
+  background: #3e3188;
   border-radius: 8px;
-  @media (max-width: 768px) {
-    margin-top: 0;
-  }
+
   @media (max-width: 450px) {
-    width: 290px;
-    height: 380px;
+    width: 310px;
+    height: 390px;
+  }
+  @media (max-width: 375px) {
+    width: 325px;
+    height: 400px;
+  }
+  @media (max-width: 350px) {
+    width: 280px;
   }
 `
 
@@ -42,6 +47,7 @@ const SignYourAcc = styled.p`
   font-size: 18px;
   font-weight: 600;
   padding-bottom: 25px;
+  color: white;
 `
 const ButtonAlt = styled(Button)`
   margin-top: 35px;
@@ -54,6 +60,9 @@ const ButtonAlt = styled(Button)`
 const EsqueceuAsenha = styled.p`
   font-size: 15px;
   margin-top: 10px;
+  color: white;
+  cursor: pointer;
+  text-decoration: underline;
   :hover {
     color: #0069fc;
   }
@@ -62,18 +71,19 @@ const EsqueceuAsenha = styled.p`
 const InputAlt = styled(Input)`
   box-shadow: 2px 2px 2px #5176da, -2px -2px 2px #5176da;
   border-color: #5176da;
+  font-size: 12px;
   border: ${(props) =>
     props.error && props.error.length > 0 && `2px solid ${props.theme.colors.error}`};
   @media (max-width: 430px) {
     font-size: 16px;
   }
-  font-size: 12px;
 `
 const ErrorLabel = styled.span`
   color: ${(props) => props.theme.colors.error};
   font-weight: bold;
   font-size: 13px;
 `
+
 export default function LoginForm({ ...props }) {
   const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState({
@@ -87,7 +97,10 @@ export default function LoginForm({ ...props }) {
     e.preventDefault()
     try {
       setLoading(true)
-      const response = await axios.post(`http://localhost:3333/user/login`, formData)
+      const response = await axios.post(
+        `https://cleaner-project-be.vercel.app/user/login`,
+        formData
+      )
       const { token } = response.data
       localStorage.setItem('token', token)
     } catch (err) {
@@ -102,11 +115,14 @@ export default function LoginForm({ ...props }) {
       setLoading(false)
       try {
         const token = localStorage.getItem('token')
-        const response = await axios.get('http://localhost:3333/user/verify-session', {
-          headers: {
-            [AUTH_NAME]: token
+        const response = await axios.get(
+          'https://cleaner-project-be.vercel.app/user/verify-session',
+          {
+            headers: {
+              [AUTH_NAME]: token
+            }
           }
-        })
+        )
         setUserData(response.data)
       } catch (error) {
         console.error('Erro ao verificar sessão:', error)
@@ -140,6 +156,7 @@ export default function LoginForm({ ...props }) {
       <Form onSubmit={onSubmit} onClick={(e) => e.stopPropagation()}>
         <SignYourAcc>Sign in to your account</SignYourAcc>
         <InputAlt
+          colorlabel
           label="E-mail or username"
           placeholder="E-mail  or username"
           name="userOrEmail"
@@ -150,6 +167,7 @@ export default function LoginForm({ ...props }) {
         />
         {error.userOrEmail && <ErrorLabel>{error.userOrEmail}</ErrorLabel>}
         <InputAlt
+          colorlabel
           label="Password"
           placeholder="Password"
           password
@@ -163,9 +181,7 @@ export default function LoginForm({ ...props }) {
         <ButtonAlt loading={loading} type="submit">
           Lets´go
         </ButtonAlt>
-        <EsqueceuAsenha>
-          <Link href="/">Forgot you password ?</Link>{' '}
-        </EsqueceuAsenha>
+        <EsqueceuAsenha>Forgot you password ?</EsqueceuAsenha>
       </Form>
     </Container>
   )

@@ -127,7 +127,7 @@ export default function CardCleaner({
 
   const getCard = async () => {
     try {
-      const response = await axios.get('http://localhost:3333/cleaner/getOneCard', {
+      const response = await axios.get('https://cleaner-project-be.vercel.app/cleaner/getOneCard', {
         params: { id }
       })
       const data = response.data

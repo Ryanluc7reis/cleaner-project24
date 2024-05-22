@@ -14,6 +14,18 @@ const Notificaçao = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0px 25px;
+  @media (max-width: 532px) {
+    width: 372px;
+  }
+
+  @media (max-width: 375px) {
+    width: 330px;
+    margin: 0px;
+    padding: 5px 5px;
+  }
+  @media (max-width: 320px) {
+    width: 279px;
+  }
 `
 const Text = styled.h3`
   cursor: pointer;
@@ -43,7 +55,7 @@ export default function Notifications({ notificationType, id, ...props }) {
         },
         data: { id: id }
       }
-      await axios.delete('http://localhost:3333/deleteNotification', config)
+      await axios.delete('https://cleaner-project-be.vercel.app/deleteNotification', config)
     } catch (err) {
       console.error(err.message)
     }

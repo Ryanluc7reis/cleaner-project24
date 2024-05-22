@@ -17,7 +17,7 @@ const BoxShadow = styled.div`
   }
 `
 const StyledLogo = styled(Logo)`
-  margin: 10px 40px;
+  margin: 10px 43px;
   font-size: 32px;
   font-weight: 500;
 `
@@ -51,6 +51,17 @@ const Option = styled.h1`
 const ImgOption = styled.img`
   padding: 1px;
 `
+const StyledContainerLeftArrow = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  width: 100%;
+`
+const LeftArrow = styled.img`
+  padding: 1px;
+  margin-left: 25px;
+  cursor: pointer;
+`
 
 export default function NavBarDashboard({
   isDash,
@@ -58,6 +69,7 @@ export default function NavBarDashboard({
   isSchedule,
   isNotifications,
   isHistoric,
+  showDashBoard,
   children,
   ...props
 }) {
@@ -67,16 +79,21 @@ export default function NavBarDashboard({
   const AUTH_NAME = process.env.SESSION_TOKEN_NAME
   const findCleaner = async () => {
     try {
-      const response = await axios.get('http://localhost:3333/user/verify-cleaner', {
-        headers: { [AUTH_NAME]: token }
-      })
+      const response = await axios.get(
+        'https://cleaner-project-be.vercel.app/user/verify-cleaner',
+        {
+          headers: { [AUTH_NAME]: token }
+        }
+      )
       const cleaner = response.data
       setUserCleaner(cleaner)
     } catch (error) {
       console.error('Erro ao obter os dados do cartão:', error)
     }
   }
-
+  const handleShowDashboard = () => {
+    props.onDash()
+  }
   useEffect(() => {
     findCleaner()
   }, [])
@@ -84,6 +101,11 @@ export default function NavBarDashboard({
     <ImageNavdash {...props}>
       <BoxShadow>
         <Container>
+          {showDashBoard && (
+            <StyledContainerLeftArrow>
+              <LeftArrow onClick={handleShowDashboard} src="/left-arrow.png" />
+            </StyledContainerLeftArrow>
+          )}
           <StyledLogo />
           <Barra />
           <FlexOption

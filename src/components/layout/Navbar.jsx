@@ -11,18 +11,18 @@ import { LoginContext } from '../../context/useContextLogin'
 const fadeIn = keyframes`
   from {
     opacity: 0;
-   
+
   }
   to {
     opacity: 6;
-    
+
   }
 `
 const Container = styled.div`
   width: 100%;
   height: auto;
 `
-const StyledRegisterCleaner = styled.a`
+const StyledRegisterCleaner = styled.p`
   cursor: pointer;
   font-size: 24px;
   background: #56648f;
@@ -34,6 +34,11 @@ const StyledRegisterCleaner = styled.a`
   transition: all 200ms ease-in-out;
   :hover {
     background-color: #677db7;
+  }
+`
+const StyledRegisterCleanerAlt = styled(StyledRegisterCleaner)`
+  @media (max-width: 769px) {
+    display: none;
   }
 `
 const StyledLogin = styled.a`
@@ -50,7 +55,7 @@ const StyledLogin = styled.a`
 `
 const StyledNavbar = styled.div`
   margin: 0 auto;
-  height: 100px;
+  height: 113px;
   width: 100%;
   align-items: center;
   display: flex;
@@ -79,8 +84,13 @@ const StyledOptionsLogin = styled.div`
     display: none;
   }
 `
-const StyledOptionsLoginAlt = styled(StyledOptionsLogin)`
+const StyledOptionsLoginAlt = styled.div`
+  display: flex;
+  gap: 13px;
   align-items: center;
+  @media (max-width: 635px) {
+    font-size: 14px;
+  }
 `
 
 const NavOptions = styled.div`
@@ -91,29 +101,26 @@ const NavOptions = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  z-index: 100;
+  z-index: 101;
   width: 300px;
   height: 170px;
   gap: 19px;
-  position: absolute;
-  bottom: 50%;
-  transform: translate(-60%);
+  position: fixed;
+  top: 10%;
+  right: 8%;
+
   animation: ${fadeIn} 0.4s ease-in-out;
   @media (min-width: 769px) {
     display: none;
   }
-  @media (max-width: 769px) {
-    transform: translate(210%, -80%);
+
+  @media (max-width: 425px) {
+    top: 7%;
+    right: 10%;
   }
-  @media (max-width: 578px) {
-    transform: translate(115%, -30%);
-  }
-  @media (max-width: 478px) {
-    transform: translate(138%, -30%);
-  }
-  @media (max-width: 358px) {
-    transform: translate(120%, -30%);
-  }
+`
+const NavOptionsAlt = styled(NavOptions)`
+  height: 100px;
 `
 const DotsX = styled.img`
   display: none;
@@ -129,7 +136,7 @@ const Dots = styled.img`
     display: flex;
   }
 `
-const Options = styled.a`
+const Options = styled.p`
   font-size: 24px;
   font-weight: 700;
   color: white;
@@ -170,19 +177,25 @@ const BarraAlt = styled(Barra)`
   margin-top: 7px;
   background-color: #20202096;
 `
-const Logout = styled.a`
+const LogoutAndMyDaschboard = styled.a`
   color: white;
   cursor: pointer;
   font-size: 13px;
+  @media (max-width: 635px) {
+    font-size: 17px;
+    font-weight: 600;
+  }
 `
-const LogoutAlt = styled(Logout)`
+const LogoutAlt = styled(LogoutAndMyDaschboard)`
   margin-top: 23px;
   color: #242c99b7;
   font-size: 16px;
   font-weight: 600;
 `
-
-const Mydashboard = styled(Logout)``
+const StyledFlex = styled.div`
+  display: flex;
+  align-items: center;
+`
 
 export default function Navbar({ type1, type2, username, ...props }) {
   const router = useRouter()
@@ -201,16 +214,22 @@ export default function Navbar({ type1, type2, username, ...props }) {
 
     document.addEventListener('click', handleClickOutSide, true)
     verifyUser()
-  }, [setShowLogin, setUserData])
+  }, [showLogin, user])
 
   const verifyUser = async () => {
     try {
       const token = localStorage.getItem('token')
-      const response = await axios.get('http://localhost:3333/user/verify-session', {
-        headers: {
-          [AUTH_NAME]: token
+      const response = await axios.get(
+        'https://cleaner-project-be.vercel.app/user/verify-session',
+        {
+          headers: {
+            [AUTH_NAME]: token
+          }
         }
-      })
+      )
+      if (response.status === 200) {
+        setShowLogin(false)
+      }
       setUserData(response.data)
     } catch (error) {
       console.error('Erro ao verificar sessão:', error)
@@ -225,7 +244,11 @@ export default function Navbar({ type1, type2, username, ...props }) {
           [AUTH_NAME]: token
         }
       }
-      const response = await axios.post('http://localhost:3333/user/logout', {}, config)
+      const response = await axios.post(
+        'https://cleaner-project-be.vercel.app/user/logout',
+        {},
+        config
+      )
       if (response.status === 200) {
         setUserData(false)
         setShowLogin(false)
@@ -249,18 +272,54 @@ export default function Navbar({ type1, type2, username, ...props }) {
   const handleLogin = () => {
     setShowLogin(!showLogin)
   }
+
   return (
     <Container onClik={handleClickOutsideEditAddress} {...props}>
       {type1 && (
-        <div>
+        <>
           {showLogin && <Login onClose={handleLogin} />}
           <StyledNavBarAlt>
             <Logo onClick={() => router.push('/')} />
-            <NavOptions show={showD}>
-              <Options href="/login">LOGIN</Options>
-              <Barra />
-              <Options href="/signupAscleaner">REGISTER AS CLEANER</Options>
-            </NavOptions>
+            {user ? (
+              <StyledFlex>
+                <StyledOptionsLoginAlt>
+                  <h1 style={{ color: 'white' }}>Olá, {user}</h1>
+                  <LogoutAndMyDaschboard onClick={() => router.push('/dashboard')}>
+                    MyDashboard
+                  </LogoutAndMyDaschboard>
+                  <LogoutAndMyDaschboard onClick={handleLogout} style={{ color: 'white' }}>
+                    Logout
+                  </LogoutAndMyDaschboard>
+                  <StyledRegisterCleanerAlt onClick={(e) => router.push('/signupAscleaner')}>
+                    Register as cleaner
+                  </StyledRegisterCleanerAlt>
+                </StyledOptionsLoginAlt>
+              </StyledFlex>
+            ) : (
+              <StyledOptionsLogin>
+                <StyledLogin onClick={() => setShowLogin(!showLogin)}>LOGIN</StyledLogin>
+                <StyledRegisterCleaner onClick={(e) => router.push('/signupAscleaner')}>
+                  Register as cleaner
+                </StyledRegisterCleaner>
+              </StyledOptionsLogin>
+            )}
+
+            {user ? (
+              <NavOptionsAlt show={showD}>
+                <Options onClick={() => router.push('/signupAscleaner')}>
+                  REGISTER AS CLEANER
+                </Options>
+              </NavOptionsAlt>
+            ) : (
+              <NavOptions show={showD}>
+                <Options onClick={() => setShowLogin(!showLogin)}>LOGIN</Options>
+                <Barra />
+                <Options onClick={() => router.push('/signupAscleaner')}>
+                  REGISTER AS CLEANER
+                </Options>
+              </NavOptions>
+            )}
+
             {showD ? (
               <DotsX src="/Xwhite.svg" height="45px" width="80px" />
             ) : (
@@ -272,33 +331,12 @@ export default function Navbar({ type1, type2, username, ...props }) {
                 width="75px"
               />
             )}
-            <StyledOptionsLogin>
-              <StyledLogin onClick={() => setShowLogin(!showLogin)}>LOGIN</StyledLogin>
-              <StyledRegisterCleaner onClick={(e) => router.push('/signupAscleaner')}>
-                Register as cleaner
-              </StyledRegisterCleaner>
-            </StyledOptionsLogin>
           </StyledNavBarAlt>
-        </div>
-      )}
-      {username && (
-        <StyledNavBarAlt>
-          <Logo onClick={() => router.push('/')} />
-          <StyledOptionsLoginAlt>
-            <h1 style={{ color: 'white' }}>Olá, {username}</h1>
-            <Mydashboard onClick={() => router.push('/dashboard')}>MyDashboard</Mydashboard>
-            <Logout onClick={handleLogout} style={{ color: 'white' }}>
-              Logout
-            </Logout>
-            <StyledRegisterCleaner onClick={() => router.push('/signupAscleaner')}>
-              Register as cleaner
-            </StyledRegisterCleaner>
-          </StyledOptionsLoginAlt>
-        </StyledNavBarAlt>
+        </>
       )}
 
       {type2 && (
-        <div>
+        <>
           {user ? (
             <div>
               <StyledNavbar>
@@ -312,7 +350,7 @@ export default function Navbar({ type1, type2, username, ...props }) {
               </StyledNavbar>
             </div>
           ) : (
-            <div>
+            <>
               {(showLogin && <Login onClose={handleLogin} />) ||
                 (login && <Login onClose={handleClickOutsideLogin} />)}
 
@@ -324,9 +362,9 @@ export default function Navbar({ type1, type2, username, ...props }) {
                   <OptionsAlt onClick={handleLogin}>LOG-IN</OptionsAlt>
                 </FlexLogin>
               </StyledNavbar>
-            </div>
+            </>
           )}
-        </div>
+        </>
       )}
     </Container>
   )

@@ -27,6 +27,11 @@ const BoxReview = styled.div`
   align-items: center;
   justify-content: center;
   background-color: #3030f0;
+  @media (max-width: 378px) {
+    width: 300px;
+    text-align: center;
+    height: 223px;
+  }
 `
 const Star = styled.img`
   padding: 1px;
@@ -35,6 +40,14 @@ const Star = styled.img`
 const ButtonAlt = styled(Button)`
   padding: 9px;
   width: 120px;
+  @media (max-width: 430px) {
+    font-size: 13px;
+  }
+`
+const InputAlt = styled(Input)`
+  @media (max-width: 430px) {
+    font-size: 13px;
+  }
 `
 const StyledFlexRating = styled.div`
   display: flex;
@@ -49,6 +62,7 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, review
   const [loading, setLoading] = useState(false)
   const [cardCleaner, setCardCleaner] = useState({})
   const [ratings, setRatings] = useState([])
+  const [currentRating, setCurrentRating] = useState(null)
   const [text, setText] = useState('')
   const [thanksForRating, setThanksForRating] = useState(false)
 
@@ -82,12 +96,11 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, review
       return moda
     }
   }
-
   const moda = calcularModa(ModaRatings)
-  const modaToNumber = parseInt(moda)
+
   const handleClose = async () => {
     onClose()
-    await axios.get(`http://localhost:3333/notificationsAsRead`, {
+    await axios.get(`https://cleaner-project-be.vercel.app/notificationsAsRead`, {
       headers: { [AUTH_NAME]: token }
     })
   }
@@ -114,7 +127,7 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, review
   const getRatings = async () => {
     try {
       const getRatings = await axios.post(
-        `http://localhost:3333/getRatings`,
+        `https://cleaner-project-be.vercel.app/getRatings`,
         {
           forCleaner: forCleaner
         },
@@ -133,7 +146,7 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, review
   }
   const getCardCleaner = async () => {
     try {
-      const card = await axios.get(`http://localhost:3333/cleaner/getOneCard`, {
+      const card = await axios.get(`https://cleaner-project-be.vercel.app/cleaner/getOneCard`, {
         params: { cleaner: cleanerUser }
       })
       const data = card.data
@@ -147,7 +160,7 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, review
     try {
       setLoading(true)
       await axios.post(
-        `http://localhost:3333/createReview`,
+        `https://cleaner-project-be.vercel.app/createReview`,
         {
           forCleaner: cleanerUser,
           text: text
@@ -159,7 +172,7 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, review
         }
       )
       const createRating = await axios.post(
-        `http://localhost:3333/createRating`,
+        `https://cleaner-project-be.vercel.app/createRating`,
         {
           forCleaner: forCleaner,
           stars: starSelected
@@ -170,10 +183,10 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, review
           }
         }
       )
-      if (ratings && createRating.status === 201) {
+      if (ratings && createRating.status === 201 && currentRating) {
         const editRating = await axios.patch(
-          `http://localhost:3333/cleaner/editRatingCard`,
-          { id: cardCleaner._id, rating: modaToNumber, creator: cardCleaner.creator },
+          `https://cleaner-project-be.vercel.app/cleaner/editRatingCard`,
+          { id: cardCleaner._id, rating: currentRating, creator: cardCleaner.creator },
           {
             headers: {
               [AUTH_NAME]: token
@@ -181,7 +194,7 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, review
           }
         )
         if (editRating.status === 200) {
-          await axios.get(`http://localhost:3333/notificationsAsRead`, {
+          await axios.get(`https://cleaner-project-be.vercel.app/notificationsAsRead`, {
             headers: { [AUTH_NAME]: token }
           })
         }
@@ -195,6 +208,11 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, review
   }
 
   useEffect(() => {
+    if (moda === -Infinity) {
+      setCurrentRating(starSelected)
+    } else {
+      setCurrentRating(moda)
+    }
     getCardCleaner()
     getRatings()
   }, [starSelected])
@@ -216,7 +234,7 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, review
               <h2>Rate the service</h2>
               <div style={{ display: 'flex', gap: '4px' }}>{renderStars()}</div>
               <h2>What did you think of {forCleaner}`s service ?</h2>
-              <Input onChange={handleChange} value={text} placeholder="Enter here..." />
+              <InputAlt onChange={handleChange} value={text} placeholder="Enter here..." />
               <div style={{ display: 'flex', gap: '3px' }}>
                 <ButtonAlt loading={loading} onClick={handleRateNow}>
                   Rate now
@@ -239,7 +257,7 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, review
               <h2>Rate the service</h2>
               <div style={{ display: 'flex', gap: '4px' }}>{renderStars()}</div>
               <h2>What did you think of {forCleaner}`s service ?</h2>
-              <Input onChange={handleChange} value={text} placeholder="Enter here..." />
+              <InputAlt onChange={handleChange} value={text} placeholder="Enter here..." />
               <div style={{ display: 'flex', gap: '3px' }}>
                 <ButtonAlt loading={loading} onClick={handleRateNow}>
                   Rate now
