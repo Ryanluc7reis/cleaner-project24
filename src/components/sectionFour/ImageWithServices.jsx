@@ -22,7 +22,7 @@ const StyledLimpezaImage = styled.img`
   height: 70px;
 `
 const StyledBoxServices = styled.div`
-  background-color: #cccc;
+  background-color: #0d1d35ad;
   width: 415px;
   height: 485px;
   margin: 30px 20px;
@@ -53,7 +53,7 @@ const StyledBoxServices = styled.div`
 `
 const StyledService = styled.div`
   border: 2px solid;
-  border-color: black;
+  border-color: #5222ffda;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -65,7 +65,9 @@ const StyledService = styled.div`
 `
 const StyledNameClean = styled.p`
   font-size: 11px;
+  font-weight: 700;
   margin-bottom: 15px;
+  color: #f7f6f6;
 
   @media (max-width: 1265px) {
     font-size: 13px;
@@ -95,7 +97,7 @@ const StyledBiggerService = styled.div`
   width: 409px;
   height: 150px;
   border: 2px solid;
-  border-color: #000000;
+  border-color: #5222ffda;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -118,7 +120,7 @@ const StyledSaibaMais = styled.span`
   font-weight: 600;
   text-decoration: underline;
   margin-top: 10px;
-  color: #242c99d5;
+  color: #8a92ffe6;
   :hover {
     cursor: pointer;
     transition: all 0.2s ease-in-out;
