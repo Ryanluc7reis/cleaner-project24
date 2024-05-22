@@ -197,7 +197,7 @@ const StyledFlex = styled.div`
   align-items: center;
 `
 
-export default function Navbar({ type1, type2, username, ...props }) {
+export default function Navbar({ type1, type2, ...props }) {
   const router = useRouter()
   const [showD, setShowD] = useState(false)
   const [showLogin, setShowLogin] = useState(false)
