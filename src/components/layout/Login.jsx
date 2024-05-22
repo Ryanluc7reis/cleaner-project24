@@ -112,7 +112,7 @@ export default function LoginForm({ ...props }) {
             'https://cleaner-project-be.vercel.app/user/verify-session',
             {
               headers: {
-                [AUTH_NAME]: tokenCurrent
+                [process.env.SESSION_TOKEN_NAME]: tokenCurrent
               }
             }
           )
