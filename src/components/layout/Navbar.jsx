@@ -206,16 +206,6 @@ export default function Navbar({ type1, type2, ...props }) {
   const { user, userId } = userData
   const AUTH_NAME = process.env.SESSION_TOKEN_NAME
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
-  useEffect(() => {
-    const handleClickOutSide = (event) => {
-      if (!event.target.closest('#showD')) {
-        setShowD(false)
-      }
-    }
-
-    document.addEventListener('click', handleClickOutSide, true)
-    verifyUser()
-  }, [showLogin, user])
 
   const verifyUser = async () => {
     try {
@@ -271,7 +261,16 @@ export default function Navbar({ type1, type2, ...props }) {
   const handleLogin = () => {
     setShowLogin(!showLogin)
   }
+  useEffect(() => {
+    const handleClickOutSide = (event) => {
+      if (!event.target.closest('#showD')) {
+        setShowD(false)
+      }
+    }
 
+    document.addEventListener('click', handleClickOutSide, true)
+    verifyUser()
+  }, [showLogin, user])
   return (
     <Container onClik={handleClickOutsideEditAddress} {...props}>
       {type1 && (

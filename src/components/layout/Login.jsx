@@ -106,11 +106,13 @@ export default function LoginForm({ ...props }) {
       localStorage.setItem('token', token)
       if (response.status === 200) {
         try {
+          const tokenCurrent = localStorage.getItem('token')
+          console.log(tokenCurrent)
           const response = await axios.get(
             'https://cleaner-project-be.vercel.app/user/verify-session',
             {
               headers: {
-                [AUTH_NAME]: token
+                [AUTH_NAME]: tokenCurrent
               }
             }
           )
