@@ -93,6 +93,7 @@ export default function LoginForm({ ...props }) {
   const [error, setError] = useState({})
   const [userData, setUserData] = useContext(UserContext)
   const AUTH_NAME = process.env.SESSION_TOKEN_NAME
+
   const onSubmit = async (e) => {
     e.preventDefault()
     try {
@@ -103,6 +104,21 @@ export default function LoginForm({ ...props }) {
       )
       const { token } = response.data
       localStorage.setItem('token', token)
+      if (response.status === 200) {
+        try {
+          const response = await axios.get(
+            'https://cleaner-project-be.vercel.app/user/verify-session',
+            {
+              headers: {
+                [AUTH_NAME]: token
+              }
+            }
+          )
+          setUserData(response.data)
+        } catch (error) {
+          console.error('Erro ao verificar sessão:', error)
+        }
+      }
     } catch (err) {
       if (err.response && err.response.data === 'password incorrect') {
         setError({ ...error, password: 'A senha está incorreta' })
@@ -113,20 +129,6 @@ export default function LoginForm({ ...props }) {
       }
     } finally {
       setLoading(false)
-      try {
-        const token = localStorage.getItem('token')
-        const response = await axios.get(
-          'https://cleaner-project-be.vercel.app/user/verify-session',
-          {
-            headers: {
-              [AUTH_NAME]: token
-            }
-          }
-        )
-        setUserData(response.data)
-      } catch (error) {
-        console.error('Erro ao verificar sessão:', error)
-      }
     }
   }
 

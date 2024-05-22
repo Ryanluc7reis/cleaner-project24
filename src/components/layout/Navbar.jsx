@@ -205,6 +205,7 @@ export default function Navbar({ type1, type2, ...props }) {
   const [userData, setUserData] = useContext(UserContext)
   const { user, userId } = userData
   const AUTH_NAME = process.env.SESSION_TOKEN_NAME
+  const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
   useEffect(() => {
     const handleClickOutSide = (event) => {
       if (!event.target.closest('#showD')) {
@@ -218,7 +219,6 @@ export default function Navbar({ type1, type2, ...props }) {
 
   const verifyUser = async () => {
     try {
-      const token = localStorage.getItem('token')
       const response = await axios.get(
         'https://cleaner-project-be.vercel.app/user/verify-session',
         {
@@ -238,7 +238,6 @@ export default function Navbar({ type1, type2, ...props }) {
   }
   const handleLogout = async () => {
     try {
-      const token = localStorage.getItem('token')
       const config = {
         headers: {
           [AUTH_NAME]: token
