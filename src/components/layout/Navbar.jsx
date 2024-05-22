@@ -219,11 +219,14 @@ export default function Navbar({ type1, type2, username, ...props }) {
   const verifyUser = async () => {
     try {
       const token = localStorage.getItem('token')
-      const response = await axios.get('http://localhost:3333/user/verify-session', {
-        headers: {
-          [AUTH_NAME]: token
+      const response = await axios.get(
+        'https://cleaner-project-be.vercel.app/user/verify-session',
+        {
+          headers: {
+            [AUTH_NAME]: token
+          }
         }
-      })
+      )
       if (response.status === 200) {
         setShowLogin(false)
       }
@@ -241,7 +244,11 @@ export default function Navbar({ type1, type2, username, ...props }) {
           [AUTH_NAME]: token
         }
       }
-      const response = await axios.post('http://localhost:3333/user/logout', {}, config)
+      const response = await axios.post(
+        'https://cleaner-project-be.vercel.app/user/logout',
+        {},
+        config
+      )
       if (response.status === 200) {
         setUserData(false)
         setShowLogin(false)

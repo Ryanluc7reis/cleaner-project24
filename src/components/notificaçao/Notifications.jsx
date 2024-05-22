@@ -55,7 +55,7 @@ export default function Notifications({ notificationType, id, ...props }) {
         },
         data: { id: id }
       }
-      await axios.delete('http://localhost:3333/deleteNotification', config)
+      await axios.delete('https://cleaner-project-be.vercel.app/deleteNotification', config)
     } catch (err) {
       console.error(err.message)
     }

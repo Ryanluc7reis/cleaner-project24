@@ -124,7 +124,7 @@ export default function EditPassword({
 
     try {
       const verifyPasswordResponse = await axios.post(
-        `http://localhost:3333/user/verify-password`,
+        `https://cleaner-project-be.vercel.app/user/verify-password`,
         { password: currentPassword.password },
         {
           headers: {
@@ -135,7 +135,7 @@ export default function EditPassword({
 
       if (verifyPasswordResponse.status === 200) {
         const editUserResponse = await axios.patch(
-          `http://localhost:3333/user/editUser`,
+          `https://cleaner-project-be.vercel.app/user/editUser`,
           {
             id: id,
             fullName: fullName,

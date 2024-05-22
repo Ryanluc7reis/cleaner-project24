@@ -276,7 +276,7 @@ function ReviewScreen({
   }
   const getReviews = async () => {
     try {
-      const reviewsData = await axios.post('http://localhost:3333/getReviews', {
+      const reviewsData = await axios.post('https://cleaner-project-be.vercel.app/getReviews', {
         forCleaner: forCleaner
       })
       const data = reviewsData.data

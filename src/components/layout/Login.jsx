@@ -97,7 +97,10 @@ export default function LoginForm({ ...props }) {
     e.preventDefault()
     try {
       setLoading(true)
-      const response = await axios.post(`http://localhost:3333/user/login`, formData)
+      const response = await axios.post(
+        `https://cleaner-project-be.vercel.app/user/login`,
+        formData
+      )
       const { token } = response.data
       localStorage.setItem('token', token)
     } catch (err) {
@@ -112,11 +115,14 @@ export default function LoginForm({ ...props }) {
       setLoading(false)
       try {
         const token = localStorage.getItem('token')
-        const response = await axios.get('http://localhost:3333/user/verify-session', {
-          headers: {
-            [AUTH_NAME]: token
+        const response = await axios.get(
+          'https://cleaner-project-be.vercel.app/user/verify-session',
+          {
+            headers: {
+              [AUTH_NAME]: token
+            }
           }
-        })
+        )
         setUserData(response.data)
       } catch (error) {
         console.error('Erro ao verificar sessão:', error)

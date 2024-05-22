@@ -79,9 +79,12 @@ export default function NavBarDashboard({
   const AUTH_NAME = process.env.SESSION_TOKEN_NAME
   const findCleaner = async () => {
     try {
-      const response = await axios.get('http://localhost:3333/user/verify-cleaner', {
-        headers: { [AUTH_NAME]: token }
-      })
+      const response = await axios.get(
+        'https://cleaner-project-be.vercel.app/user/verify-cleaner',
+        {
+          headers: { [AUTH_NAME]: token }
+        }
+      )
       const cleaner = response.data
       setUserCleaner(cleaner)
     } catch (error) {

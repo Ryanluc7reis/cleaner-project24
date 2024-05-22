@@ -87,7 +87,11 @@ export default function EditAbout({
       }
     }
     try {
-      const response = await axios.patch(`http://localhost:3333/cleaner/editCard`, formData, config)
+      const response = await axios.patch(
+        `https://cleaner-project-be.vercel.app/cleaner/editCard`,
+        formData,
+        config
+      )
       if (response.status === 200) {
         onSave()
         setPopUpMessage(true)

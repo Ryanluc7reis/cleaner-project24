@@ -130,7 +130,7 @@ export default function HistoricPage() {
   const AUTH_NAME = process.env.SESSION_TOKEN_NAME
   const getHistoric = async () => {
     try {
-      const historics = await axios.get('http://localhost:3333/getHistorics', {
+      const historics = await axios.get('https://cleaner-project-be.vercel.app/getHistorics', {
         headers: {
           [AUTH_NAME]: token
         }
@@ -144,7 +144,7 @@ export default function HistoricPage() {
   const cleanHistoric = async () => {
     try {
       const historicIds = historicData.map((historic) => historic._id)
-      await axios.delete('http://localhost:3333/cleanHistoric', {
+      await axios.delete('https://cleaner-project-be.vercel.app/cleanHistoric', {
         headers: {
           [AUTH_NAME]: token
         },
@@ -160,7 +160,7 @@ export default function HistoricPage() {
   }
   const verifyUser = async () => {
     try {
-      await axios.get('http://localhost:3333/user/verify-session', {
+      await axios.get('https://cleaner-project-be.vercel.app/user/verify-session', {
         headers: {
           [AUTH_NAME]: token
         }

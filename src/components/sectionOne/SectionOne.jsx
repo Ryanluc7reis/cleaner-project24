@@ -137,7 +137,7 @@ export default function SectionOne() {
   const getNotificationsPopUp = async () => {
     try {
       const notificationsCount = await axios.get(
-        'http://localhost:3333/getNotificationsCount',
+        'https://cleaner-project-be.vercel.app/getNotificationsCount',
         config
       )
       if (notificationsCount.status === 200) {
@@ -146,7 +146,10 @@ export default function SectionOne() {
       const data = notificationsCount.data
       setNotificationsCount(data)
       if (notificationsCount.status === 200) {
-        const notificationsData = await axios.get(' http://localhost:3333/getNotifications', config)
+        const notificationsData = await axios.get(
+          ' https://cleaner-project-be.vercel.app/getNotifications',
+          config
+        )
         const data = notificationsData.data
         setNotifications(data)
       }
@@ -173,11 +176,14 @@ export default function SectionOne() {
   useEffect(() => {
     const verifyUser = async () => {
       try {
-        const response = await axios.get('http://localhost:3333/user/verify-session', {
-          headers: {
-            [AUTH_NAME]: token
+        const response = await axios.get(
+          'https://cleaner-project-be.vercel.app/user/verify-session',
+          {
+            headers: {
+              [AUTH_NAME]: token
+            }
           }
-        })
+        )
         setUserData(response.data)
       } catch (error) {
         console.error('Erro ao verificar sessão:', error)

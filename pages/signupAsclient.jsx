@@ -163,7 +163,10 @@ const SignupAsClient = () => {
     e.preventDefault()
     try {
       setLoading(true)
-      const { status } = await axios.post(`http://localhost:3333/user/signup`, formData)
+      const { status } = await axios.post(
+        `https://cleaner-project-be.vercel.app/user/signup`,
+        formData
+      )
       if (status === 201) {
         setPopUpMessageSignup(true)
         router.push('/')

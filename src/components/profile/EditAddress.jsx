@@ -78,7 +78,11 @@ export default function EditAddress({
       }
     }
     try {
-      const response = await axios.patch(`http://localhost:3333/user/editUser`, formData, config)
+      const response = await axios.patch(
+        `https://cleaner-project-be.vercel.app/user/editUser`,
+        formData,
+        config
+      )
       if (response.status === 200) {
         onSave()
         setPopUpMessage(true)

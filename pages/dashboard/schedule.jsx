@@ -56,7 +56,7 @@ export default function SchedulePage() {
   }
   const verifyUser = async () => {
     try {
-      await axios.get('http://localhost:3333/user/verify-session', {
+      await axios.get('https://cleaner-project-be.vercel.app/user/verify-session', {
         headers: {
           [AUTH_NAME]: token
         }

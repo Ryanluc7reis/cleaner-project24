@@ -90,7 +90,7 @@ export default function Profile({
   const { mutate } = useSWRConfig()
 
   const handleSaveEdit = () => {
-    mutate(`http://localhost:3333/cleaner/editAbout`)
+    mutate(`https://cleaner-project-be.vercel.app/cleaner/editAbout`)
   }
   return (
     <FlexContainer {...props}>

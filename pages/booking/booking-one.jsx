@@ -289,7 +289,7 @@ function Booking() {
         null
       } else {
         const serviceResponse = await axios.post(
-          `http://localhost:3333/createService`,
+          `https://cleaner-project-be.vercel.app/createService`,
           serviceData,
           {
             headers: {
@@ -300,7 +300,7 @@ function Booking() {
 
         if (serviceResponse.status === 201) {
           const notificationResponse = await axios.post(
-            'http://localhost:3333/createNotification',
+            'https://cleaner-project-be.vercel.app/createNotification',
             {
               for: cleanerNameData,
               notificationType: 'Nova requisição de limpeza'
@@ -327,7 +327,7 @@ function Booking() {
 
   const findUser = async () => {
     try {
-      const response = await axios.get(`http://localhost:3333/user/findUser`, {
+      const response = await axios.get(`https://cleaner-project-be.vercel.app/user/findUser`, {
         headers: { [AUTH_NAME]: token }
       })
 
@@ -340,7 +340,7 @@ function Booking() {
 
   const getCard = async () => {
     try {
-      const response = await axios.get('http://localhost:3333/cleaner/getOneCard', {
+      const response = await axios.get('https://cleaner-project-be.vercel.app/cleaner/getOneCard', {
         params: { cardId }
       })
       const data = response.data
@@ -348,7 +348,7 @@ function Booking() {
 
       if (response.status === 200) {
         const cleaner = await axios.post(
-          `http://localhost:3333/user/findCleanerName`,
+          `https://cleaner-project-be.vercel.app/user/findCleanerName`,
           {
             cleanerName: data.creator
           },
@@ -382,7 +382,7 @@ function Booking() {
     }
   }
   const handleSaveEdit = () => {
-    mutate(`http://localhost:3333/cleaner/editAbout`)
+    mutate(`https://cleaner-project-be.vercel.app/cleaner/editAbout`)
   }
   const { handleSubmit } = useForm({
     mode: 'all'

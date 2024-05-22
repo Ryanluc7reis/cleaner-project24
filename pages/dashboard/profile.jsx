@@ -161,7 +161,7 @@ const ProfilePage = () => {
   const AUTH_NAME = process.env.SESSION_TOKEN_NAME
   const findUser = async () => {
     try {
-      const response = await axios.get(`http://localhost:3333/user/findUser`, {
+      const response = await axios.get(`https://cleaner-project-be.vercel.app/user/findUser`, {
         headers: { [AUTH_NAME]: token }
       })
       const data = response.data
@@ -172,7 +172,7 @@ const ProfilePage = () => {
   }
   const getCard = async () => {
     try {
-      const response = await axios.get('http://localhost:3333/cleaner/findCard', {
+      const response = await axios.get('https://cleaner-project-be.vercel.app/cleaner/findCard', {
         headers: { [AUTH_NAME]: token }
       })
       const data = response.data
@@ -184,9 +184,12 @@ const ProfilePage = () => {
 
   const findCleaner = async () => {
     try {
-      const response = await axios.get('http://localhost:3333/user/verify-cleaner', {
-        headers: { [AUTH_NAME]: token }
-      })
+      const response = await axios.get(
+        'https://cleaner-project-be.vercel.app/user/verify-cleaner',
+        {
+          headers: { [AUTH_NAME]: token }
+        }
+      )
       const cleaner = response.data
       setUserCleaner(cleaner)
     } catch (error) {
@@ -195,7 +198,7 @@ const ProfilePage = () => {
   }
   const verifyUser = async () => {
     try {
-      await axios.get('http://localhost:3333/user/verify-session', {
+      await axios.get('https://cleaner-project-be.vercel.app/user/verify-session', {
         headers: {
           [AUTH_NAME]: token
         }
@@ -207,7 +210,7 @@ const ProfilePage = () => {
   }
 
   const handleSaveEditCard = () => {
-    mutate(`http://localhost:3333/cleaner/editAbout`)
+    mutate(`https://cleaner-project-be.vercel.app/cleaner/editAbout`)
   }
   useEffect(() => {
     getCard()

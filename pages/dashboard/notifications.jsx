@@ -125,11 +125,14 @@ export default function NotificationsPage() {
   }
   const getNotifications = async () => {
     try {
-      const notifications = await axios.get('http://localhost:3333/getNotifications', config)
+      const notifications = await axios.get(
+        'https://cleaner-project-be.vercel.app/getNotifications',
+        config
+      )
       const data = notifications.data
       setNotificationsData(data)
       if (notifications.status === 200) {
-        await axios.get('http://localhost:3333/notificationsAsRead', config)
+        await axios.get('https://cleaner-project-be.vercel.app/notificationsAsRead', config)
       }
     } catch (err) {
       console.error(err.message)
@@ -145,7 +148,7 @@ export default function NotificationsPage() {
   }
   const verifyUser = async () => {
     try {
-      await axios.get('http://localhost:3333/user/verify-session', {
+      await axios.get('https://cleaner-project-be.vercel.app/user/verify-session', {
         headers: {
           [AUTH_NAME]: token
         }

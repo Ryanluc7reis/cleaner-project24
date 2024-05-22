@@ -112,18 +112,24 @@ export default function Services({ ...props }) {
 
   const getServiceCleaner = async () => {
     try {
-      const verifyCleaner = await axios.get(`http://localhost:3333/user/verify-cleaner`, {
-        headers: {
-          [AUTH_NAME]: token
+      const verifyCleaner = await axios.get(
+        `https://cleaner-project-be.vercel.app/user/verify-cleaner`,
+        {
+          headers: {
+            [AUTH_NAME]: token
+          }
         }
-      })
+      )
       if (verifyCleaner.status === 200) {
         try {
-          const serviceCleaner = await axios.get(`http://localhost:3333/getService-cleaner`, {
-            headers: {
-              [AUTH_NAME]: token
+          const serviceCleaner = await axios.get(
+            `https://cleaner-project-be.vercel.app/getService-cleaner`,
+            {
+              headers: {
+                [AUTH_NAME]: token
+              }
             }
-          })
+          )
 
           const dataServiceCleaner = serviceCleaner.data
           setServiceCleaner(dataServiceCleaner)
@@ -137,7 +143,7 @@ export default function Services({ ...props }) {
   }
   const getServiceUser = async () => {
     try {
-      const serviceUser = await axios.get(`http://localhost:3333/getService-user`, {
+      const serviceUser = await axios.get(`https://cleaner-project-be.vercel.app/getService-user`, {
         headers: {
           [AUTH_NAME]: token
         }
@@ -147,7 +153,7 @@ export default function Services({ ...props }) {
       setServiceUser(dataServiceUser)
       if (serviceUser.status === 200) {
         const response = await axios.post(
-          `http://localhost:3333/user/findCleanerName`,
+          `https://cleaner-project-be.vercel.app/user/findCleanerName`,
           {
             cleanerName: dataServiceUser.cleaner
           },
@@ -164,17 +170,20 @@ export default function Services({ ...props }) {
   }
   const getServiceUserAccepted = async () => {
     try {
-      const serviceUserAccepted = await axios.get(`http://localhost:3333/getServiceAccepted-user`, {
-        headers: {
-          [AUTH_NAME]: token
+      const serviceUserAccepted = await axios.get(
+        `https://cleaner-project-be.vercel.app/getServiceAccepted-user`,
+        {
+          headers: {
+            [AUTH_NAME]: token
+          }
         }
-      })
+      )
 
       const dataServiceUserAccepted = serviceUserAccepted.data
       setServiceUserAccepted(dataServiceUserAccepted)
       if (serviceUserAccepted.status === 200) {
         const response = await axios.post(
-          `http://localhost:3333/user/findCleanerName`,
+          `https://cleaner-project-be.vercel.app/user/findCleanerName`,
           {
             cleanerName: dataServiceUserAccepted[index].cleaner
           },
@@ -193,7 +202,7 @@ export default function Services({ ...props }) {
   const getServiceCleanerAccepted = async () => {
     try {
       const serviceCleanerAccepted = await axios.get(
-        `http://localhost:3333/getServiceAccepted-cleaner`,
+        `https://cleaner-project-be.vercel.app/getServiceAccepted-cleaner`,
         {
           headers: {
             [AUTH_NAME]: token
@@ -205,7 +214,7 @@ export default function Services({ ...props }) {
       setServiceCleanerAccepted(dataServiceCleanerAccepted)
       if (serviceCleanerAccepted.status === 200) {
         const response = await axios.post(
-          `http://localhost:3333/user/findCleanerName`,
+          `https://cleaner-project-be.vercel.app/user/findCleanerName`,
           {
             cleanerName: dataServiceCleanerAccepted[index].cleaner
           },
@@ -224,11 +233,14 @@ export default function Services({ ...props }) {
 
   const getOneNotification = async () => {
     try {
-      const notification = await axios.get('http://localhost:3333/getOneNotificationRating', {
-        headers: {
-          [AUTH_NAME]: token
+      const notification = await axios.get(
+        'https://cleaner-project-be.vercel.app/getOneNotificationRating',
+        {
+          headers: {
+            [AUTH_NAME]: token
+          }
         }
-      })
+      )
       const data = notification.data
       setNotificationData(data)
       setNameCleaner(data.cleaner)
@@ -245,7 +257,7 @@ export default function Services({ ...props }) {
   const getUserName = async () => {
     try {
       const user = await axios.post(
-        'http://localhost:3333/user/findCleanerName',
+        'https://cleaner-project-be.vercel.app/user/findCleanerName',
         {
           cleanerName: nameCleaner
         },

@@ -29,7 +29,7 @@ export default function AboutCleaner({
   const AUTH_NAME = process.env.SESSION_TOKEN_NAME
   const getCard = async () => {
     try {
-      const response = await axios.get('http://localhost:3333/cleaner/findCard', {
+      const response = await axios.get('https://cleaner-project-be.vercel.app/cleaner/findCard', {
         headers: { [AUTH_NAME]: token }
       })
       const data = response.data
@@ -40,7 +40,7 @@ export default function AboutCleaner({
   }
 
   const handleSaveEdit = () => {
-    mutate(`http://localhost:3333/cleaner/editAbout`)
+    mutate(`https://cleaner-project-be.vercel.app/cleaner/editAbout`)
   }
 
   useEffect(() => {

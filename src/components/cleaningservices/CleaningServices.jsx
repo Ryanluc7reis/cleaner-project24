@@ -170,7 +170,7 @@ export default function CleaningServices({
   const AUTH_NAME = process.env.SESSION_TOKEN_NAME
   const getCard = async () => {
     try {
-      const response = await axios.get('http://localhost:3333/cleaner/getOneCard', {
+      const response = await axios.get('https://cleaner-project-be.vercel.app/cleaner/getOneCard', {
         params: { cleaner: cleanerUser }
       })
       const data = response.data
@@ -202,16 +202,22 @@ export default function CleaningServices({
         },
         data: { id: id }
       }
-      const serviceDelete = await axios.delete('http://localhost:3333/deleteService', config)
-      const verifyCleaner = await axios.get(`http://localhost:3333/user/verify-cleaner`, {
-        headers: {
-          [AUTH_NAME]: token
+      const serviceDelete = await axios.delete(
+        'https://cleaner-project-be.vercel.app/deleteService',
+        config
+      )
+      const verifyCleaner = await axios.get(
+        `https://cleaner-project-be.vercel.app/user/verify-cleaner`,
+        {
+          headers: {
+            [AUTH_NAME]: token
+          }
         }
-      })
+      )
       if (serviceDelete.status && verifyCleaner.status === 200) {
         try {
           const createHistoric = await axios.post(
-            'http://localhost:3333/createHistoric',
+            'https://cleaner-project-be.vercel.app/createHistoric',
             {
               for: cleaner,
               historicType: ` Limpeza (${plan}) realizada para ${requester} `
@@ -224,7 +230,7 @@ export default function CleaningServices({
           )
           if (createHistoric.status === 201) {
             const createNotificationRating = await axios.post(
-              'http://localhost:3333/createNotificationToRating',
+              'https://cleaner-project-be.vercel.app/createNotificationToRating',
               {
                 for: requester
               },
@@ -237,7 +243,7 @@ export default function CleaningServices({
             if (createNotificationRating.status === 201) {
               const amount = cardData.amountCleaning + 1
               await axios.patch(
-                'http://localhost:3333/cleaner/editamountCleaningCard',
+                'https://cleaner-project-be.vercel.app/cleaner/editamountCleaningCard',
                 {
                   id: cardData._id,
                   creator: cardData.creator,
@@ -258,7 +264,7 @@ export default function CleaningServices({
     } catch (err) {
       const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
       const createHistoric = await axios.post(
-        'http://localhost:3333/createHistoric',
+        'https://cleaner-project-be.vercel.app/createHistoric',
         {
           for: requester,
           historicType: ` Limpeza (${plan}) realizada por ${cleaner} `
@@ -272,7 +278,7 @@ export default function CleaningServices({
       if (createHistoric.status === 201) {
         const amount = cardData.amountCleaning + 1
         await axios.patch(
-          'http://localhost:3333/cleaner/editamountCleaningCard',
+          'https://cleaner-project-be.vercel.app/cleaner/editamountCleaningCard',
           {
             id: cardData._id,
             creator: cardData.creator,
@@ -303,11 +309,14 @@ export default function CleaningServices({
         data: { id: id }
       }
 
-      const serviceDelete = await axios.delete('http://localhost:3333/deleteService', config)
+      const serviceDelete = await axios.delete(
+        'https://cleaner-project-be.vercel.app/deleteService',
+        config
+      )
       if (serviceDelete.status === 200) {
         try {
           await axios.post(
-            'http://localhost:3333/createNotification',
+            'https://cleaner-project-be.vercel.app/createNotification',
             {
               for: requester,
               notificationType: ` O cleaner (${cleaner}) recusou sua limpeza`
@@ -336,7 +345,7 @@ export default function CleaningServices({
     }
     try {
       const responseCreateService = await axios.post(
-        `http://localhost:3333/createServiceAccepted`,
+        `https://cleaner-project-be.vercel.app/createServiceAccepted`,
         {
           plan: plan,
           duration: duration,
@@ -362,10 +371,13 @@ export default function CleaningServices({
             },
             data: { id: id }
           }
-          const responseDelete = await axios.delete('http://localhost:3333/deleteService', config2)
+          const responseDelete = await axios.delete(
+            'https://cleaner-project-be.vercel.app/deleteService',
+            config2
+          )
           if (responseDelete.status === 200) {
             await axios.post(
-              'http://localhost:3333/createNotification',
+              'https://cleaner-project-be.vercel.app/createNotification',
               {
                 for: requester,
                 notificationType: ` O cleaner (${cleaner}) aceitou sua limpeza`

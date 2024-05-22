@@ -100,7 +100,7 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, review
 
   const handleClose = async () => {
     onClose()
-    await axios.get(`http://localhost:3333/notificationsAsRead`, {
+    await axios.get(`https://cleaner-project-be.vercel.app/notificationsAsRead`, {
       headers: { [AUTH_NAME]: token }
     })
   }
@@ -127,7 +127,7 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, review
   const getRatings = async () => {
     try {
       const getRatings = await axios.post(
-        `http://localhost:3333/getRatings`,
+        `https://cleaner-project-be.vercel.app/getRatings`,
         {
           forCleaner: forCleaner
         },
@@ -146,7 +146,7 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, review
   }
   const getCardCleaner = async () => {
     try {
-      const card = await axios.get(`http://localhost:3333/cleaner/getOneCard`, {
+      const card = await axios.get(`https://cleaner-project-be.vercel.app/cleaner/getOneCard`, {
         params: { cleaner: cleanerUser }
       })
       const data = card.data
@@ -160,7 +160,7 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, review
     try {
       setLoading(true)
       await axios.post(
-        `http://localhost:3333/createReview`,
+        `https://cleaner-project-be.vercel.app/createReview`,
         {
           forCleaner: cleanerUser,
           text: text
@@ -172,7 +172,7 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, review
         }
       )
       const createRating = await axios.post(
-        `http://localhost:3333/createRating`,
+        `https://cleaner-project-be.vercel.app/createRating`,
         {
           forCleaner: forCleaner,
           stars: starSelected
@@ -185,7 +185,7 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, review
       )
       if (ratings && createRating.status === 201 && currentRating) {
         const editRating = await axios.patch(
-          `http://localhost:3333/cleaner/editRatingCard`,
+          `https://cleaner-project-be.vercel.app/cleaner/editRatingCard`,
           { id: cardCleaner._id, rating: currentRating, creator: cardCleaner.creator },
           {
             headers: {
@@ -194,7 +194,7 @@ export default function ReviewCleaner({ forCleaner, onClose, cleanerUser, review
           }
         )
         if (editRating.status === 200) {
-          await axios.get(`http://localhost:3333/notificationsAsRead`, {
+          await axios.get(`https://cleaner-project-be.vercel.app/notificationsAsRead`, {
             headers: { [AUTH_NAME]: token }
           })
         }

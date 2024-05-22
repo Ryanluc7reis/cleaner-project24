@@ -167,7 +167,7 @@ export default function ListCleaners({
 
   const { data, error } = useSWR(
     () => ({
-      url: 'http://localhost:3333/cleaner/getCards',
+      url: 'https://cleaner-project-be.vercel.app/cleaner/getCards',
       data: { date: currentDate }
     }),
     fetcher

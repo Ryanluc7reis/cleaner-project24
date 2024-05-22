@@ -179,7 +179,7 @@ export default function Schedule({ ...props }) {
     const newBlocked = !isBlocked
     try {
       await axios.patch(
-        'http://localhost:3333/cleaner/editScheduleBlockedCleaner',
+        'https://cleaner-project-be.vercel.app/cleaner/editScheduleBlockedCleaner',
         {
           scheduleBlocked: String(newBlocked)
         },
@@ -193,7 +193,7 @@ export default function Schedule({ ...props }) {
   const editCleanerSchedule = async () => {
     try {
       const editSchedule = await axios.patch(
-        'http://localhost:3333/cleaner/editScheduleCleaner',
+        'https://cleaner-project-be.vercel.app/cleaner/editScheduleCleaner',
         {
           scheduleBlocked: String(isBlocked),
           availableDate: String(calendarDates)
@@ -202,7 +202,10 @@ export default function Schedule({ ...props }) {
       )
       if (editSchedule.status === 200) {
         try {
-          const card = await axios.get('http://localhost:3333/cleaner/findCard', config)
+          const card = await axios.get(
+            'https://cleaner-project-be.vercel.app/cleaner/findCard',
+            config
+          )
           const data = card.data
           setCard(data)
         } catch (err) {
@@ -215,7 +218,10 @@ export default function Schedule({ ...props }) {
   }
   const getCard = async () => {
     try {
-      const cardCurrent = await axios.get('http://localhost:3333/cleaner/findCard', config)
+      const cardCurrent = await axios.get(
+        'https://cleaner-project-be.vercel.app/cleaner/findCard',
+        config
+      )
       const data = cardCurrent.data
 
       setCard(data)
@@ -225,7 +231,7 @@ export default function Schedule({ ...props }) {
   }
   const verifyUser = async () => {
     try {
-      await axios.get('http://localhost:3333/user/verify-session', {
+      await axios.get('https://cleaner-project-be.vercel.app/user/verify-session', {
         headers: {
           [AUTH_NAME]: token
         }

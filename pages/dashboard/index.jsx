@@ -67,11 +67,14 @@ export default function DashboardPage() {
   const verifyUser = async () => {
     try {
       const token = localStorage.getItem('token')
-      const response = await axios.get('http://localhost:3333/user/verify-session', {
-        headers: {
-          [AUTH_NAME]: token
+      const response = await axios.get(
+        'https://cleaner-project-be.vercel.app/user/verify-session',
+        {
+          headers: {
+            [AUTH_NAME]: token
+          }
         }
-      })
+      )
       setUserData(response.data)
     } catch (error) {
       router.push('/')
