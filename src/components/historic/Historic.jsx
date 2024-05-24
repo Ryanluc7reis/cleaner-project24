@@ -21,8 +21,23 @@ const Historic = styled.div`
     margin: 0px;
     padding: 5px 5px;
   }
+  @media (max-width: 414px) {
+    width: 350px;
+  }
+  @media (max-width: 412px) {
+    width: 350px;
+  }
+  @media (max-width: 390px) {
+    width: 330px;
+  }
   @media (max-width: 375px) {
     width: 320px;
+  }
+  @media (max-width: 360px) {
+    width: 300px;
+  }
+  @media (max-width: 344px) {
+    width: 290px;
   }
   @media (max-width: 320px) {
     width: 269px;

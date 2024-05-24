@@ -33,6 +33,9 @@ const BoxSchedule = styled.div`
   @media (max-width: 768px) {
     margin: 0px 35px;
   }
+  @media (max-width: 430px) {
+    margin: 0px 20px;
+  }
   @media (max-width: 425px) {
     width: 90%;
     margin: 0px 21px;

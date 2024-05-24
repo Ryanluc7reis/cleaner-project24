@@ -17,12 +17,24 @@ const Notificaçao = styled.div`
   @media (max-width: 532px) {
     width: 372px;
   }
-
+  @media (max-width: 414px) {
+    width: 367px;
+  }
+  @media (max-width: 390px) {
+    width: 340px;
+  }
   @media (max-width: 375px) {
     width: 330px;
     margin: 0px;
     padding: 5px 5px;
   }
+  @media (max-width: 360px) {
+    width: 320px;
+  }
+  @media (max-width: 344px) {
+    width: 300px;
+  }
+
   @media (max-width: 320px) {
     width: 279px;
   }
