@@ -1,6 +1,4 @@
 import styled from 'styled-components'
-import Button from '../form/Button'
-import { Link } from 'react-scroll'
 
 const Container = styled.div`
   width: 100%;
@@ -90,24 +88,7 @@ const StyledContAll = styled.div`
   display: flex;
   flex-direction: column;
 `
-const ButtonAlt = styled(Button)`
-  margin-top: 54px;
-  @media (max-width: 768px) {
-    margin-top: 64px;
-  }
-  @media (max-width: 430px) {
-    font-size: 17px;
-  }
-`
-const ButtonAlt1 = styled(ButtonAlt)`
-  margin-top: 67px;
-  @media (max-width: 768px) {
-    margin-top: 95px;
-  }
-`
-const ButtonAlt2 = styled(ButtonAlt1)`
-  margin-top: 115px;
-`
+
 const StyledNameCleaningAlt = styled(StyledNameCleaning)`
   height: 100%;
 `
@@ -136,16 +117,6 @@ export default function Plans({ plan }) {
             <StyledReadyImage src="/checkIconB.png" />
             Home Apliance Cleaning
           </StyledDescription>
-          <Link
-            style={{ display: 'flex', justifyContent: 'center' }}
-            to="input1"
-            spy={true}
-            smooth={true}
-            offset={-100}
-            duration={500}
-          >
-            <ButtonAlt1>Let´s go</ButtonAlt1>
-          </Link>
         </StyledContAll>
       )}
       {plan === '2' && (
@@ -166,16 +137,6 @@ export default function Plans({ plan }) {
             <StyledReadyImage src="/checkIconB.png" />
             Tenha seu chão limpado com pano úmido
           </StyledDescription>
-          <Link
-            style={{ display: 'flex', justifyContent: 'center' }}
-            to="input1"
-            spy={true}
-            smooth={true}
-            offset={-100}
-            duration={500}
-          >
-            <ButtonAlt2>Let´s go</ButtonAlt2>
-          </Link>
         </StyledContAll>
       )}
       {plan === '3' && (
@@ -196,16 +157,6 @@ export default function Plans({ plan }) {
             <StyledReadyImage src="/checkIconB.png" />
             Tenha sua janela limpada com àgua e produtos de limpeza
           </StyledDescription>
-          <Link
-            style={{ display: 'flex', justifyContent: 'center' }}
-            to="input1"
-            spy={true}
-            smooth={true}
-            offset={-100}
-            duration={500}
-          >
-            <ButtonAlt2>Let´s go</ButtonAlt2>
-          </Link>
         </StyledContAll>
       )}
       {plan === '4' && (
@@ -232,16 +183,6 @@ export default function Plans({ plan }) {
             <StyledReadyImage src="/checkIconB.png" />
             Tenha seus eletrodomésticos limpados{' '}
           </StyledDescription>
-          <Link
-            style={{ display: 'flex', justifyContent: 'center' }}
-            to="input1"
-            spy={true}
-            smooth={true}
-            offset={-100}
-            duration={500}
-          >
-            <ButtonAlt>Let´s go</ButtonAlt>
-          </Link>
         </StyledContAll>
       )}
     </Container>

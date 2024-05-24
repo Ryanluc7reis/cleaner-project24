@@ -1,5 +1,7 @@
 import styled from 'styled-components'
+
 import Plans from './Plans'
+import Button from '../form/Button'
 import { Link } from 'react-scroll'
 
 const Container = styled.div`
@@ -26,7 +28,14 @@ const StyledCard = styled.div`
     height: 100%;
   }
 `
-
+const StyledCardAlt = styled(StyledCard)`
+  justify-content: space-between;
+`
+const ButtonAlt = styled(Button)`
+  @media (max-width: 430px) {
+    font-size: 17px;
+  }
+`
 export default function Cards({ id, isActive, onClick, type, children, ...props }) {
   const cardColor = isActive ? '#0612c3ab' : 'white'
   return (
@@ -43,10 +52,21 @@ export default function Cards({ id, isActive, onClick, type, children, ...props 
       {['1', '2', '3', '4'].map(
         (plano, indice) =>
           type === '5' && (
-            <StyledCard key={indice} {...props}>
+            <StyledCardAlt key={indice} {...props}>
               <Plans plan={plano} />
+              <Link
+                style={{ display: 'flex', justifyContent: 'center' }}
+                to="input1"
+                spy={true}
+                smooth={true}
+                offset={-100}
+                duration={500}
+              >
+                <ButtonAlt>Let´s go</ButtonAlt>
+              </Link>
+
               {children}
-            </StyledCard>
+            </StyledCardAlt>
           )
       )}
     </Container>
