@@ -111,7 +111,7 @@ export default function LoginForm({ ...props }) {
             'https://cleaner-project-be.vercel.app/user/verify-session',
             {
               headers: {
-                Authorization: tokenCurrent
+                [AUTH_NAME]: tokenCurrent
               }
             }
           )
