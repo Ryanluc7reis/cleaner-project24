@@ -107,18 +107,18 @@ export default function LoginForm({ ...props }) {
       if (response.status === 200) {
         try {
           const tokenCurrent = localStorage.getItem('token')
-          console.log(tokenCurrent)
           const response = await axios.get(
             'https://cleaner-project-be.vercel.app/user/verify-session',
             {
               headers: {
-                [process.env.SESSION_TOKEN_NAME]: tokenCurrent
+                [AUTH_NAME]: tokenCurrent
               }
             }
           )
           setUserData(response.data)
         } catch (error) {
           console.error('Erro ao verificar sessão:', error)
+          setUserData(false)
         }
       }
     } catch (err) {
