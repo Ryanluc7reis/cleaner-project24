@@ -187,8 +187,7 @@ const ThumbsUp = styled.img`
   content: ${(props) => (props.tmbs ? 'none' : "url('../thumbsupguy.svg')")};
 `
 const Close = styled.img`
-  width: 20px;
-  height: 20px;
+  padding: 1px;
   position: absolute;
   transform: translate(40%, -50%);
   background-color: #fd3232;
@@ -295,7 +294,7 @@ function ReviewScreen({
         <Close
           style={{ ...(reviews.length === 0 && { right: '25%' }) }}
           onClick={handleCloseReview}
-          src="/iconcloseW.png"
+          src="/Xclose.png"
         />
         <DivCleanerInfos>
           <ContInfos>

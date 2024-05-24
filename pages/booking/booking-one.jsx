@@ -150,14 +150,35 @@ const PayToCleaner = styled(Button)`
     bottom: 12%;
     right: 17%;
   }
+  @media (max-width: 540px) {
+    bottom: 15%;
+    right: 27%;
+  }
+  @media (max-width: 430px) {
+    bottom: 33%;
+    right: 22%;
+  }
 
   @media (max-width: 425px) {
     bottom: -12%;
     right: 22%;
   }
+  @media (max-width: 414px) {
+    bottom: 30%;
+  }
+
+  @media (max-width: 390px) {
+    bottom: 26%;
+    right: 20%;
+  }
+
   @media (max-width: 375px) {
-    bottom: -13%;
+    bottom: 7%;
     right: 19%;
+  }
+  @media (max-width: 344px) {
+    bottom: 28%;
+    right: 15%;
   }
   @media (max-width: 320px) {
     bottom: -11%;
@@ -185,14 +206,32 @@ const PayToCleanerAlt = styled(PayToCleaner)`
     bottom: 21%;
     right: 17%;
   }
-
+  @media (max-width: 540px) {
+    bottom: 24%;
+    right: 27%;
+  }
+  @media (max-width: 430px) {
+    bottom: 40%;
+    right: 23%;
+  }
   @media (max-width: 425px) {
     bottom: -1%;
     right: 22%;
   }
+  @media (max-width: 414px) {
+    bottom: 37%;
+  }
+  @media (max-width: 390px) {
+    bottom: 34%;
+    right: 20%;
+  }
+
   @media (max-width: 375px) {
-    bottom: 2%;
+    bottom: 15%;
     right: 17%;
+  }
+  @media (max-width: 344px) {
+    bottom: 36%;
   }
   @media (max-width: 320px) {
     bottom: 2%;

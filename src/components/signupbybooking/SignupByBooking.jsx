@@ -200,10 +200,7 @@ const FlexButton = styled.div`
   padding-bottom: 75px;
   bottom: -19%;
   left: 16%;
-  @media (max-width: 1440px) {
-    bottom: -22%;
-    left: 18%;
-  }
+
   @media (max-width: 1024px) {
     bottom: -40%;
     left: 5%;
@@ -211,8 +208,24 @@ const FlexButton = styled.div`
   @media (max-width: 768px) {
     left: 9%;
   }
+  @media (max-width: 540px) {
+    bottom: -47%;
+  }
+  @media (max-width: 430px) {
+    bottom: -33%;
+  }
   @media (max-width: 425px) {
     bottom: -87%;
+  }
+  @media (max-width: 414px) {
+    bottom: -42%;
+  }
+
+  @media (max-width: 375px) {
+    bottom: -63%;
+  }
+  @media (max-width: 344px) {
+    bottom: -40%;
   }
   @media (max-width: 320px) {
     bottom: -94%;

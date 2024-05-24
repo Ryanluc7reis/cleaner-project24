@@ -27,10 +27,20 @@ const Service = styled.div`
     width: 372px;
     margin: 0 3px;
   }
+  @media (max-width: 414px) {
+    width: 366px;
+  }
+  @media (max-width: 390px) {
+    width: 340px;
+  }
+
   @media (max-width: 375px) {
     width: 330px;
     margin: 0px;
     padding: 0 5px;
+  }
+  @media (max-width: 360px) {
+    width: 318px;
   }
   @media (max-width: 320px) {
     width: 279px;
@@ -55,10 +65,20 @@ const DropInformations = styled.div`
     width: 372px;
     margin: 0 3px;
   }
+  @media (max-width: 414px) {
+    width: 366px;
+  }
+
+  @media (max-width: 390px) {
+    width: 340px;
+  }
   @media (max-width: 375px) {
     width: 330px;
     margin: 0px;
     padding: 5px 5px;
+  }
+  @media (max-width: 360px) {
+    width: 318px;
   }
   @media (max-width: 320px) {
     width: 279px;

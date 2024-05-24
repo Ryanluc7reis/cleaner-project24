@@ -44,6 +44,12 @@ const ErrorMessageAlt = styled(ErrorMessage)`
   @media (max-width: 768px) {
     padding: 100px 270px;
   }
+  @media (max-width: 540px) {
+    padding: 100px 137px;
+  }
+  @media (max-width: 430px) {
+    padding: 100px 100px;
+  }
   @media (max-width: 425px) {
     padding: 100px 120px;
   }
@@ -70,6 +76,7 @@ const PopUpMessageAlt = styled(PopUpMessage)`
   @media (max-width: 768px) {
     right: 30%;
   }
+
   @media (max-width: 425px) {
     right: 15%;
   }
