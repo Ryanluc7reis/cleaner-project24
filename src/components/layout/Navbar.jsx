@@ -206,6 +206,7 @@ export default function Navbar({ type1, type2, ...props }) {
   const { user, userId } = userData
   const AUTH_NAME = process.env.SESSION_TOKEN_NAME
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
+
   const verifyUser = async () => {
     try {
       const response = await axios.get(
