@@ -102,18 +102,47 @@ const NotificationCount = styled.div`
   position: absolute;
   top: 8%;
   right: 7%;
+  @media (max-width: 1280px) {
+    top: 6%;
+  }
   @media (max-width: 1024px) {
     right: 9%;
   }
+  @media (max-width: 912px) {
+    right: 10%;
+    top: 3%;
+  }
+  @media (max-width: 853px) {
+    right: 11%;
+  }
   @media (max-width: 768px) {
     right: 12%;
+  }
+  @media (max-width: 540px) {
+    right: 36%;
+    top: 16%;
+  }
+  @media (max-width: 430px) {
+    right: 32%;
+    top: 12%;
   }
   @media (max-width: 425px) {
     right: 31%;
     top: 21%;
   }
+  @media (max-width: 414px) {
+    top: 13%;
+  }
   @media (max-width: 375px) {
     right: 30%;
+    top: 17%;
+  }
+  @media (max-width: 360px) {
+    right: 29%;
+    top: 16%;
+  }
+  @media (max-width: 344px) {
+    top: 13%;
   }
   @media (max-width: 320px) {
     right: 27%;
