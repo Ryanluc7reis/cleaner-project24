@@ -1,9 +1,7 @@
-const { parsed: localEnv } = require('dotenv').config({
-  path: './.env.local'
-})
+require('dotenv').config({ path: './.env' })
 
 module.exports = {
   env: {
-    SESSION_TOKEN_NAME: localEnv.SESSION_TOKEN_NAME
+    SESSION_TOKEN_NAME: process.env.SESSION_TOKEN_NAME
   }
 }
