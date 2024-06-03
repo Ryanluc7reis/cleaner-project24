@@ -18,7 +18,7 @@ const DateCalendarAlt = styled(BasicDateCalendar)`
     rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
     rgba(0, 0, 0, 0.09) 0px 32px 16px;
   > div {
-    font-size: 42rem;
+    font-size: 43rem;
     > .css-cyfsxc-MuiPickersCalendarHeader-labelContainer {
       color: #212020d2;
       font-size: 2rem;
