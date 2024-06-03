@@ -17,14 +17,13 @@ const DateCalendarAlt = styled(BasicDateCalendar)`
   box-shadow: rgba(0, 0, 0, 0.19) 0px 2px 1px, rgba(68, 62, 62, 0.09) 0px 4px 2px,
     rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
     rgba(0, 0, 0, 0.09) 0px 32px 16px;
-  > div {
-    font-size: 43rem;
-    > .css-cyfsxc-MuiPickersCalendarHeader-labelContainer {
-      color: #212020d2;
-      font-size: 2rem;
-      font-weight: 700;
-    }
+
+  .css-cyfsxc-MuiPickersCalendarHeader-labelContainer {
+    color: #212020d2;
+    font-size: 2rem;
+    font-weight: 700;
   }
+
   span {
     font-size: 16px;
     font-weight: 700;
