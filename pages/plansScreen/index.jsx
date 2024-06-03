@@ -21,7 +21,7 @@ const DateCalendarAlt = styled(BasicDateCalendar)`
     font-size: 43rem;
     > .css-cyfsxc-MuiPickersCalendarHeader-labelContainer {
       color: #212020d2;
-      font-size: 1rem;
+      font-size: 2rem;
       font-weight: 700;
     }
   }
