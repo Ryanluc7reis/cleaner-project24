@@ -257,7 +257,7 @@ export default function Schedule({ ...props }) {
     verifyUser()
   }, [])
   useEffect(() => {
-    if (card !== null) {
+    if (card && card.availableDate && card.availableDate.length > 0) {
       const datesArray = card.availableDate[0].split(',')
       setLastDate(moment(datesArray[datesArray.length - 1]))
     }
@@ -310,7 +310,10 @@ export default function Schedule({ ...props }) {
                 <TextSubBlocked>Schedule Blocked</TextSubBlocked>
               ) : (
                 <>
-                  {card !== null && card.availableDate[0] !== '-'
+                  {card !== null &&
+                  card.availableDate &&
+                  card.availableDate.length > 0 &&
+                  card.availableDate[0] !== '-'
                     ? (() => {
                         const datesArray = card.availableDate[0].split(',')
                         const firstDate = datesArray[0]
