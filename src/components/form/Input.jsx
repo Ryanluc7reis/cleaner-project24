@@ -10,6 +10,9 @@ const StyledLabel = styled.p`
   margin-bottom: 5px;
   margin-top: 7px;
 `
+const StyledLabelAlt = styled(StyledLabel)`
+  font-size: 22px;
+`
 
 const StyledInput = styled.input`
   width: 240px;
@@ -28,10 +31,14 @@ const StyledInput = styled.input`
   }
 `
 
-const Input = ({ label, colorlabel, password, ...props }) => {
+const Input = ({ label, colorlabel, password, type1, ...props }) => {
   return (
     <InputContainer>
-      <StyledLabel style={{ ...(colorlabel && { color: 'white' }) }}> {label}</StyledLabel>
+      {type1 ? (
+        <StyledLabelAlt style={{ ...(colorlabel && { color: 'white' }) }}> {label}</StyledLabelAlt>
+      ) : (
+        <StyledLabel style={{ ...(colorlabel && { color: 'white' }) }}> {label}</StyledLabel>
+      )}
       <StyledInput
         type={password ? 'password' : 'text'}
         autoComplete={password ? 'auto-complete' : null}

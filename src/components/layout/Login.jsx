@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import Link from 'next/link'
 import { useState, useContext } from 'react'
 import axios from 'axios'
 
@@ -21,7 +20,7 @@ const Container = styled.div`
 `
 
 const Form = styled.form`
-  width: 330px;
+  width: 320px;
   height: 400px;
   display: flex;
   flex-direction: column;
@@ -42,12 +41,19 @@ const Form = styled.form`
     width: 280px;
   }
 `
+const FormAlt = styled(Form)`
+  width: 410px;
+  height: 490px;
+`
 
 const SignYourAcc = styled.p`
   font-size: 18px;
   font-weight: 600;
   padding-bottom: 25px;
   color: white;
+`
+const SignYourAccAlt = styled(SignYourAcc)`
+  font-size: 26px;
 `
 const ButtonAlt = styled(Button)`
   margin-top: 35px;
@@ -56,6 +62,9 @@ const ButtonAlt = styled(Button)`
   @media (max-width: 430px) {
     font-size: 16px;
   }
+`
+const ButtonAlt1 = styled(ButtonAlt)`
+  font-size: 22px;
 `
 const EsqueceuAsenha = styled.p`
   font-size: 15px;
@@ -68,6 +77,9 @@ const EsqueceuAsenha = styled.p`
   }
   transition: 0.5s;
 `
+const EsqueceuAsenhaAlt = styled(EsqueceuAsenha)`
+  font-size: 20px;
+`
 const InputAlt = styled(Input)`
   box-shadow: 2px 2px 2px #5176da, -2px -2px 2px #5176da;
   border-color: #5176da;
@@ -78,13 +90,18 @@ const InputAlt = styled(Input)`
     font-size: 16px;
   }
 `
+const InputAlt1 = styled(InputAlt)`
+  font-size: 22px;
+  padding: 20px;
+  width: 290px;
+`
 const ErrorLabel = styled.span`
   color: ${(props) => props.theme.colors.error};
   font-weight: bold;
   font-size: 13px;
 `
 
-export default function LoginForm({ ...props }) {
+export default function LoginForm({ type1, ...props }) {
   const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState({
     userOrEmail: '',
@@ -156,37 +173,76 @@ export default function LoginForm({ ...props }) {
   }
 
   return (
-    <Container onClick={handleClick}>
-      <Form onSubmit={onSubmit} onClick={(e) => e.stopPropagation()}>
-        <SignYourAcc>Sign in to your account</SignYourAcc>
-        <InputAlt
-          colorlabel
-          label="E-mail or username"
-          placeholder="E-mail  or username"
-          name="userOrEmail"
-          value={formData.userOrEmail}
-          onChange={handleChange}
-          error={error.userOrEmail}
-          required
-        />
-        {error.userOrEmail && <ErrorLabel>{error.userOrEmail}</ErrorLabel>}
-        <InputAlt
-          colorlabel
-          label="Password"
-          placeholder="Password"
-          password
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          error={error.password}
-          required
-        />
-        {error.password && <ErrorLabel>{error.password}</ErrorLabel>}
-        <ButtonAlt loading={loading} type="submit">
-          Lets´go
-        </ButtonAlt>
-        <EsqueceuAsenha>Forgot you password ?</EsqueceuAsenha>
-      </Form>
-    </Container>
+    <>
+      {type1 ? (
+        <Container onClick={handleClick}>
+          <Form onSubmit={onSubmit} onClick={(e) => e.stopPropagation()}>
+            <SignYourAcc>Sign in to your account</SignYourAcc>
+            <InputAlt
+              colorlabel
+              label="E-mail or username"
+              placeholder="E-mail  or username"
+              name="userOrEmail"
+              value={formData.userOrEmail}
+              onChange={handleChange}
+              error={error.userOrEmail}
+              required
+            />
+            {error.userOrEmail && <ErrorLabel>{error.userOrEmail}</ErrorLabel>}
+            <InputAlt
+              colorlabel
+              label="Password"
+              placeholder="Password"
+              password
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              error={error.password}
+              required
+            />
+            {error.password && <ErrorLabel>{error.password}</ErrorLabel>}
+            <ButtonAlt loading={loading} type="submit">
+              Lets´go
+            </ButtonAlt>
+            <EsqueceuAsenha>Forgot you password ?</EsqueceuAsenha>
+          </Form>
+        </Container>
+      ) : (
+        <Container onClick={handleClick}>
+          <FormAlt onSubmit={onSubmit} onClick={(e) => e.stopPropagation()}>
+            <SignYourAccAlt>Sign in to your account</SignYourAccAlt>
+            <InputAlt1
+              colorlabel
+              type1
+              label="E-mail or username"
+              placeholder="E-mail  or username"
+              name="userOrEmail"
+              value={formData.userOrEmail}
+              onChange={handleChange}
+              error={error.userOrEmail}
+              required
+            />
+            {error.userOrEmail && <ErrorLabel>{error.userOrEmail}</ErrorLabel>}
+            <InputAlt1
+              colorlabel
+              type1
+              label="Password"
+              placeholder="Password"
+              password
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              error={error.password}
+              required
+            />
+            {error.password && <ErrorLabel>{error.password}</ErrorLabel>}
+            <ButtonAlt1 loading={loading} type="submit">
+              Lets´go
+            </ButtonAlt1>
+            <EsqueceuAsenhaAlt>Forgot you password ?</EsqueceuAsenhaAlt>
+          </FormAlt>
+        </Container>
+      )}
+    </>
   )
 }

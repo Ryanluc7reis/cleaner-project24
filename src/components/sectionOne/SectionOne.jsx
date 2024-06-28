@@ -223,7 +223,7 @@ export default function SectionOne() {
             Card criado com sucesso
           </PopUpMessageAlt>
         )}
-        <Navbar type1 />
+        <Navbar type3 />
         <StyledContainer1>
           <H2>Find Top Rated Cleaners!</H2>
           <StyledH5 id="input1">
