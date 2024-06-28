@@ -223,7 +223,7 @@ export default function ListCleaners({
   if (error)
     return (
       <StyledLoader>
-        <ErrorMessage message="Erro ao buscar dados" />
+        <ErrorMessage message="Error fetching data" />
       </StyledLoader>
     )
   if (!data)
@@ -237,7 +237,7 @@ export default function ListCleaners({
   if (filterData.length === 0) {
     return (
       <StyledLoader>
-        <ErrorMessage message="Nenhum resultado encontrado" />
+        <ErrorMessage message="No results found" />
       </StyledLoader>
     )
   }

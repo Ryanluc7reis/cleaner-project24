@@ -247,7 +247,7 @@ export default function NavRoutesDash({
           <Hamburguer onClick={handleClick} src="/hamburgericon.png" />
           <TypeRouteTitle>{getTypeRouteValue()}</TypeRouteTitle>
           <StyledFlex>
-            <h1 style={{ color: 'white' }}>Olá, {user}</h1>
+            <h1 style={{ color: 'white' }}>Hello, {user}</h1>
             <ImgAvatar src="/avatar.png" />
 
             {notificationsCount.length === 0 || whithoutNotification ? (

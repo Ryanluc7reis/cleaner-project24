@@ -115,7 +115,7 @@ export default function SectionTwo() {
           <HowItWorksTitle>2.Choose your cleaner and services plans</HowItWorksTitle>
           <HowItWorksDescription>
             {' '}
-            Select your service plan ,choose a convenient cleaner based on your needs and assessed
+            Select your service plan, choose a convenient cleaner based on your needs and assessed
             location.
           </HowItWorksDescription>
         </HowItWorksElement>

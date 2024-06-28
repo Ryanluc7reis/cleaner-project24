@@ -30,8 +30,17 @@ const StyledCard = styled.div`
 `
 const StyledCardAlt = styled(StyledCard)`
   justify-content: space-between;
+  @media (max-width: 768px) {
+    width: 410px;
+    height: 580px;
+  }
+  @media (max-width: 376px) {
+    width: 410px;
+    height: 645px;
+  }
 `
 const ButtonAlt = styled(Button)`
+  margin-top: 20px;
   @media (max-width: 430px) {
     font-size: 17px;
   }

@@ -143,18 +143,18 @@ export default function PaymentPage() {
       <StyledFlexFormPayment>
         <Title>Fill in the form below to pay for the service</Title>
         <FormPayment>
-          <InputAlt placeholder="Nome completo" />
+          <InputAlt placeholder="Complete name" />
           <InputAlt placeholder="E-mail" />
           <InputAlt placeholder="CPF" />
-          <InputAlt placeholder="Celular com DDD" />
+          <InputAlt placeholder="Number with DDD" />
           <VerifiedCard>
             <img src="/credit-card.png" width="17px" height="16px" />
-            <h3 style={{ color: '#3434f0' }}>Cartão</h3>
+            <h3 style={{ color: '#3434f0' }}>Card</h3>
             <BoxCheck>
               <Check src="/Whitecheck.png" />
             </BoxCheck>
           </VerifiedCard>
-          <InputAlt placeholder="Número do cartão" />
+          <InputAlt placeholder="Number of card" />
           <StyledFlexSelecter>
             <SelecterAlt year />
             <SelecterAlt month />
@@ -164,14 +164,14 @@ export default function PaymentPage() {
           <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
             <TextImg src="/user-secury.png" />
             <Text>
-              Não protegemos seus dados de pagamento usando encriptação para prover segurança no
-              nível de bancos
+              We do not protect your payment details using encryption to provide security on bank
+              level
             </Text>
           </div>
           <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
             <TextImg src="/notepad.png" />
             <Text>
-              A cobrança irá aparecer no seu cartão como
+              The charge will appear on your card as
               <TextDecoration>PG*DANK</TextDecoration>
             </Text>
           </div>

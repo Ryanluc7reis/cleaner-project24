@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import styled from 'styled-components'
 import Button from '../form/Button'
 import Input from '../form/Input'
@@ -130,14 +131,14 @@ export default function Footer() {
   return (
     <Container>
       <NewsletterFooter>
-        <NewsletterTitle>Se inscreva em nossa newsletter :</NewsletterTitle>
+        <NewsletterTitle>Sign up for our newsletter:</NewsletterTitle>
         <NewsletterFooterForm>
           <Input placeholder="Write your e-mail" />
           <Button type="submit">Let´s go</Button>
         </NewsletterFooterForm>
         <CopyrigthP>
-          Acesse nossa newsletter e fique por dentro de todas as mudanças e atualizações da nossa
-          empresa, você não quer ser o ultimo a saber das novidades não é?
+          Access our newsletter and stay up to date with all the changes and updates to our company,
+          you don't want to be the last to know the news, do you?
         </CopyrigthP>
       </NewsletterFooter>
       <FollowUs>

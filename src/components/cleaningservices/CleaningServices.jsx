@@ -240,7 +240,7 @@ export default function CleaningServices({
             'https://cleaner-project-be.vercel.app/createHistoric',
             {
               for: cleaner,
-              historicType: ` Limpeza (${plan}) realizada para ${requester} `
+              historicType: ` Cleaning (${plan}) performed for ${requester}`
             },
             {
               headers: {
@@ -287,7 +287,7 @@ export default function CleaningServices({
         'https://cleaner-project-be.vercel.app/createHistoric',
         {
           for: requester,
-          historicType: ` Limpeza (${plan}) realizada por ${cleaner} `
+          historicType: ` Cleaning (${plan}) perfomed for ${cleaner} `
         },
         {
           headers: {
@@ -339,7 +339,7 @@ export default function CleaningServices({
             'https://cleaner-project-be.vercel.app/createNotification',
             {
               for: requester,
-              notificationType: ` O cleaner (${cleaner}) recusou sua limpeza`
+              notificationType: ` The cleaner (${cleaner}) refused your cleaning`
             },
             {
               headers: {
@@ -400,7 +400,7 @@ export default function CleaningServices({
               'https://cleaner-project-be.vercel.app/createNotification',
               {
                 for: requester,
-                notificationType: ` O cleaner (${cleaner}) aceitou sua limpeza`
+                notificationType: ` The cleaner (${cleaner}) accepted your cleaning`
               },
               {
                 headers: {
@@ -428,17 +428,17 @@ export default function CleaningServices({
     >
       <Service>
         <Text>
-          Limpeza ({plan}) para {requester}
+          Cleaning ({plan}) for {requester}
         </Text>
         {cleanAccepted ? (
           <Text style={{ fontSize: '11px' }}>
             {' '}
-            Serviço aceito em : {moment(createdDate).format('DD/MM/YYYY')}
+            Service accepted in : {moment(createdDate).format('DD/MM/YYYY')}
           </Text>
         ) : (
           <Text style={{ fontSize: '11px' }}>
             {' '}
-            Solicitação feita em : {moment(createdDate).format('DD/MM/YYYY')}
+            Request made in: {moment(createdDate).format('DD/MM/YYYY')}
           </Text>
         )}
 

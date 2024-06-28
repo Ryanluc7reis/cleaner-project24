@@ -317,24 +317,24 @@ export default function Services({ ...props }) {
       <BoxServices>
         {popUpMessage && (
           <PopUpMessageAlt messageToOkrequest={popUpMessage}>
-            Requisição feita com sucesso
+            Request made successfully
           </PopUpMessageAlt>
         )}
         {popUpMessage2 && (
           <PopUpMessageAlt messageToOkrequest={popUpMessage2}>
-            Serviço finalizado com sucesso
+            Service completed successfully
           </PopUpMessageAlt>
         )}
         <Title>Pending Services</Title>
         {!serviceUser || !serviceCleaner ? (
           <StyledLoader>
             <img width="30px" height="28px" src="/loadingGif.png" />
-            <h2>Carregando</h2>
+            <h2>Loading</h2>
           </StyledLoader>
         ) : (
           <>
             {serviceCleaner.length === 0 && serviceUser.length === 0 ? (
-              <ErrorMessageAlt message={'Nenhum serviço encontrado...'} />
+              <ErrorMessageAlt message={'No services found...'} />
             ) : (
               <GridServices>
                 {serviceCleaner.length > 0
@@ -390,12 +390,12 @@ export default function Services({ ...props }) {
         {!serviceUserAccepted || !serviceCleanerAccepted ? (
           <StyledLoader>
             <img width="30px" height="28px" src="/loadingGif.png" />
-            <h2>Carregando</h2>
+            <h2>Loading</h2>
           </StyledLoader>
         ) : (
           <>
             {serviceCleanerAccepted.length === 0 && serviceUserAccepted.length === 0 ? (
-              <ErrorMessageAlt message={'Nenhum serviço encontrado...'} />
+              <ErrorMessageAlt message={'No services found...'} />
             ) : (
               <>
                 <GridServices>

@@ -298,7 +298,7 @@ function ReviewScreen({
         />
         <DivCleanerInfos>
           <ContInfos>
-            <CleanerImg image="/maleicon.png" /* {props.onCleanerinfos.img} */></CleanerImg>
+            <CleanerImg image="/maleicon.png"></CleanerImg>
             <CleanerName>{name || '-'}</CleanerName>
             <CleanerPrice>{price || '-'}</CleanerPrice>
             <div style={{ display: 'flex', gap: '4px' }}>
@@ -346,7 +346,7 @@ function ReviewScreen({
           <BoxReviews>
             <ReviewsTitle>Reviews</ReviewsTitle>
             {reviews.length === 0 ? (
-              <ErrorMessageAlt message={'Nenhum review encontrado...'} />
+              <ErrorMessageAlt message={'No reviews found...'} />
             ) : (
               <>
                 {reviews.length > 0 &&

@@ -118,7 +118,7 @@ const Selecter = ({
       {year && (
         <StyledSelectAlt>
           <option value="" disabled="">
-            Ano
+            Year
           </option>
           <option value="22">2022</option>
           <option value="23">2023</option>
@@ -130,7 +130,7 @@ const Selecter = ({
       {month && (
         <StyledSelectAlt>
           <option value="" disabled="">
-            Mês
+            Month
           </option>
           <option value="Janeiro">Janeiro</option>
           <option value="Fevereiro">Fevereiro</option>

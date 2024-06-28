@@ -197,7 +197,7 @@ const StyledFlex = styled.div`
   align-items: center;
 `
 
-export default function Navbar({ type1, type2, ...props }) {
+export default function Navbar({ type1, type2, type3, ...props }) {
   const router = useRouter()
   const [showD, setShowD] = useState(false)
   const [showLogin, setShowLogin] = useState(false)
@@ -275,7 +275,7 @@ export default function Navbar({ type1, type2, ...props }) {
     <Container onClik={handleClickOutsideEditAddress} {...props}>
       {type1 && (
         <>
-          {showLogin && <Login onClose={handleLogin} />}
+          {showLogin && <Login type1 onClose={handleLogin} />}
           <StyledNavBarAlt>
             <Logo onClick={() => router.push('/')} />
             {user ? (
@@ -342,14 +342,14 @@ export default function Navbar({ type1, type2, ...props }) {
                 <FlexLogin>
                   <CardsLogo src="/metodosPay1.jpg" height="45px" width="133px" />
                   <BarraAlt />
-                  <OptionsAlt>Olá, {user}</OptionsAlt>
+                  <OptionsAlt>Hello, {user}</OptionsAlt>
                   <LogoutAlt onClick={handleLogout}>Logout</LogoutAlt>
                 </FlexLogin>
               </StyledNavbar>
             </div>
           ) : (
             <>
-              {(showLogin && <Login onClose={handleLogin} />) ||
+              {(showLogin && <Login type1 onClose={handleLogin} />) ||
                 (login && <Login onClose={handleClickOutsideLogin} />)}
 
               <StyledNavbar>
@@ -362,6 +362,65 @@ export default function Navbar({ type1, type2, ...props }) {
               </StyledNavbar>
             </>
           )}
+        </>
+      )}
+      {type3 && (
+        <>
+          {showLogin && <Login onClose={handleLogin} />}
+          <StyledNavBarAlt>
+            <Logo onClick={() => router.push('/')} />
+            {user ? (
+              <StyledFlex>
+                <StyledOptionsLoginAlt>
+                  <h1 style={{ color: 'white' }}>Olá, {user}</h1>
+                  <LogoutAndMyDaschboard onClick={() => router.push('/dashboard')}>
+                    MyDashboard
+                  </LogoutAndMyDaschboard>
+                  <LogoutAndMyDaschboard onClick={handleLogout} style={{ color: 'white' }}>
+                    Logout
+                  </LogoutAndMyDaschboard>
+                  <StyledRegisterCleanerAlt onClick={(e) => router.push('/signupAscleaner')}>
+                    Register as cleaner
+                  </StyledRegisterCleanerAlt>
+                </StyledOptionsLoginAlt>
+              </StyledFlex>
+            ) : (
+              <StyledOptionsLogin>
+                <StyledLogin onClick={() => setShowLogin(!showLogin)}>LOGIN</StyledLogin>
+                <StyledRegisterCleaner onClick={(e) => router.push('/signupAscleaner')}>
+                  Register as cleaner
+                </StyledRegisterCleaner>
+              </StyledOptionsLogin>
+            )}
+
+            {user ? (
+              <NavOptionsAlt show={showD}>
+                <Options onClick={() => router.push('/signupAscleaner')}>
+                  REGISTER AS CLEANER
+                </Options>
+              </NavOptionsAlt>
+            ) : (
+              <NavOptions show={showD}>
+                <Options onClick={() => setShowLogin(!showLogin)}>LOGIN</Options>
+                <Barra />
+                <Options onClick={() => router.push('/signupAscleaner')}>
+                  REGISTER AS CLEANER
+                </Options>
+              </NavOptions>
+            )}
+
+            {showD ? (
+              <DotsX src="/Xwhite.svg" height="45px" width="80px" />
+            ) : (
+              <Dots
+                id="showD"
+                onClick={() => setShowD(!showD)}
+                src="/hamburgericon.png"
+                height="65px"
+                width="75px"
+              />
+            )}
+          </StyledNavBarAlt>
         </>
       )}
     </Container>
