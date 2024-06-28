@@ -60,11 +60,11 @@ const StyledDescription = styled.p`
     margin-bottom: -10px;
   }
   @media (max-width: 769px) {
-    font-size: 16px;
+    font-size: 19px;
   }
   @media (max-width: 426px) {
-    font-size: 20px;
-    font-weight: 500;
+    font-size: 21px;
+    font-weight: 600;
   }
   @media (max-width: 376px) {
     font-size: 23px;
