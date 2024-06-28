@@ -146,10 +146,10 @@ export default function CreateCardCleaner() {
       <LogoAlt />
       {popUpMessage && popUpError && (
         <PopUpMessageAlt messageToOkrequest={popUpMessage} error={popUpMessage}>
-          Erro ao criar card
+          Error creating card
         </PopUpMessageAlt>
       )}
-      <Title>Crie seu cleaner card</Title>
+      <Title>Create your cleaner card</Title>
       <Form onSubmit={onSubmit}>
         <FlexInputAndCard>
           <FlexInputs>
@@ -208,11 +208,11 @@ export default function CreateCardCleaner() {
             region={formData.region}
           />
         </FlexInputAndCard>
-        <Title>Crie seu review</Title>
+        <Title>Create your review</Title>
         <FlexInputs>
           <Label>Talk about cleaner</Label>
           <Textarea
-            placeholder="Olá eu sou o Gabs..."
+            placeholder="Hello, I'm Gabs..."
             name="about"
             value={formData.about}
             onChange={(e) => handleChange('about', e.target.value)}

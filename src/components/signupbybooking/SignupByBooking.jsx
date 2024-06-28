@@ -268,7 +268,7 @@ export default function SignupByBooking({ ...props }) {
       const isValidEmail = /\S+@\S+\.\S+/.test(value)
       setError((prevErrors) => ({
         ...prevErrors,
-        [name]: isValidEmail ? null : 'Por favor, digite um e-mail válido.'
+        [name]: isValidEmail ? null : 'Please enter a valid email address.'
       }))
     }
     if (name) {
@@ -299,21 +299,21 @@ export default function SignupByBooking({ ...props }) {
       setFormData(false)
     } catch (err) {
       if (err.response.data.duplicatedKey === 'email') {
-        setError({ ...error, email: 'Já existe uma conta com esse e-mail.' })
+        setError({ ...error, email: 'There is already an account with this email.' })
       } else if (err.response.data.duplicatedKey === 'user') {
-        setError({ ...error, user: 'Já existe uma conta com esse username.' })
-      } else if (err.response && err.response.data === 'Erro interno do servidor') {
-        setError({ ...error, number: 'O número precisa ser algo como 55 (11) 9865-5432' })
+        setError({ ...error, user: 'There is already an account with this username.' })
+      } else if (err.response && err.response.data === 'Internal server error') {
+        setError({ ...error, number: 'The number needs to be something like 55 (11) 9865-5432' })
       } else {
         const newErrors = {}
         const requiredFields = ['fullName', 'user', 'email', 'password', 'address', 'number']
         requiredFields.forEach((field) => {
           if (!formData[field]) {
-            newErrors[field] = 'Este campo é obrigatório.'
+            newErrors[field] = 'This field is required.'
           }
         })
         setError(newErrors)
-        console.error('Erro ao cadastrar usuário:', err.message)
+        console.error('Error registering user:', err.message)
       }
     } finally {
       setLoading(false)
@@ -328,7 +328,7 @@ export default function SignupByBooking({ ...props }) {
     <Conatiner>
       {popUpMessageSignup && (
         <PopUpMessageAlt messageToOkrequest={popUpMessageSignup}>
-          Cadastro feito com sucesso
+          Registration successful
         </PopUpMessageAlt>
       )}
       <Title>Ready to book? Set your account details</Title>

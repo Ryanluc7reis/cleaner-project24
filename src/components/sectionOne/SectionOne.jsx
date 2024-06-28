@@ -186,7 +186,7 @@ export default function SectionOne() {
         )
         setUserData(response.data)
       } catch (error) {
-        console.error('Erro ao verificar sessão:', error)
+        console.error('Error checking session:', error)
         setUserData(false)
       }
     }
@@ -214,13 +214,13 @@ export default function SectionOne() {
       <BoxShadow>
         {popUpMessageSignup && (
           <PopUpMessageAlt messageToOkrequest={popUpMessageSignup}>
-            Cadastro feito com sucesso
+            Registration successful
           </PopUpMessageAlt>
         )}
 
         {popUpMessageCard && (
           <PopUpMessageAlt messageToOkrequest={popUpMessageCard}>
-            Card criado com sucesso
+            Card created successfully.
           </PopUpMessageAlt>
         )}
         <Navbar type3 />

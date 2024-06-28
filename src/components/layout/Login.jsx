@@ -140,9 +140,9 @@ export default function LoginForm({ type1, ...props }) {
       }
     } catch (err) {
       if (err.response && err.response.data === 'password incorrect') {
-        setError({ ...error, password: 'A senha está incorreta' })
+        setError({ ...error, password: 'password incorrect' })
       } else if (err.response && err.response.data === 'not found') {
-        setError({ ...error, userOrEmail: 'Usuário ou e-mail não encontrado' })
+        setError({ ...error, userOrEmail: 'Username or e-mail not found' })
       } else {
         console.log('Erro desconhecido:', error.message)
       }

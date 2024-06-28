@@ -98,7 +98,7 @@ export default function Plans({ plan }) {
       {plan === '1' && (
         <StyledContAll>
           <StyledTitleCard>OPTIONAL</StyledTitleCard>
-          <StyledDescription>R$ 21,90/mês após o período da oferta</StyledDescription>
+          <StyledDescription>R$ 21.90/month after the offer period</StyledDescription>
           <StyledNameCleaning>- Choose your Cleaning</StyledNameCleaning>
           <StyledBarrAlt1 />
           <StyledDescription>
@@ -122,66 +122,66 @@ export default function Plans({ plan }) {
       {plan === '2' && (
         <StyledContAll>
           <StyledTitleCard>BASIC</StyledTitleCard>
-          <StyledDescription>R$ 27,90/mês após o período da oferta</StyledDescription>
+          <StyledDescription>R$27.90/month after the offer period</StyledDescription>
           <StyledNameCleaning>- Wet Manual Cleaning - Dry Cleaning</StyledNameCleaning>
           <StyledBarrAlt />
           <StyledDescription>
             <StyledReadyImage src="/checkIconB.png" />
-            Tenha seus móveis limpados com pano úmido
+            Have your furniture cleaned with a damp cloth
           </StyledDescription>
           <StyledDescription>
             <StyledReadyImage src="/checkIconB.png" />
-            Tenha seu chão varrido com vassoura{' '}
+            Have your floor swept with a broom{' '}
           </StyledDescription>
           <StyledDescription>
             <StyledReadyImage src="/checkIconB.png" />
-            Tenha seu chão limpado com pano úmido
+            Have your floor cleaned with a damp cloth
           </StyledDescription>
         </StyledContAll>
       )}
       {plan === '3' && (
         <StyledContAll>
           <StyledTitleCard>MEDIUM</StyledTitleCard>
-          <StyledDescription>R$ 34,90/mês após o período da oferta</StyledDescription>
+          <StyledDescription>R$34.90/month after the offer period</StyledDescription>
           <StyledNameCleaning>- Wet Manual Cleaning - Window Cleanin</StyledNameCleaning>
           <StyledBarrAlt />
           <StyledDescription>
             <StyledReadyImage src="/checkIconB.png" />
-            Tenha seus móveis limpados com pano úmido
+            Have your furniture cleaned with a damp cloth
           </StyledDescription>
           <StyledDescription>
             <StyledReadyImage src="/checkIconB.png" />
-            Tenha seu chão limpado com àgua + produtos de limpeza{' '}
+            Have your floor cleaned with water + cleaning products{' '}
           </StyledDescription>
           <StyledDescription>
             <StyledReadyImage src="/checkIconB.png" />
-            Tenha sua janela limpada com àgua e produtos de limpeza
+            Have your window cleaned with water and cleaning products
           </StyledDescription>
         </StyledContAll>
       )}
       {plan === '4' && (
         <StyledContAll>
           <StyledTitleCard>COMPLETE</StyledTitleCard>
-          <StyledDescription>R$ 34,90/mês após o período da oferta</StyledDescription>
+          <StyledDescription>R$34.90/month after the offer period</StyledDescription>
           <StyledNameCleaningAlt>
             - Wet Manual Cleaning(with water) - Home Apliance Cleaning and Window Cleaning
           </StyledNameCleaningAlt>
           <StyledBarra />
           <StyledDescription>
             <StyledReadyImage src="/checkIconB.png" />
-            Tenha seus móveis limpados com pano úmido
+            Have your furniture cleaned with a damp cloth
           </StyledDescription>
           <StyledDescription>
             <StyledReadyImage src="/checkIconB.png" />
-            Tenha seu chão limpado com àgua + produtos de limpeza{' '}
+            Have your floor cleaned with water + cleaning products{' '}
           </StyledDescription>
           <StyledDescription>
             <StyledReadyImage src="/checkIconB.png" />
-            Tenha sua janela limpada com àgua e produtos de limpeza
+            Have your window cleaned with water and cleaning products
           </StyledDescription>
           <StyledDescription>
             <StyledReadyImage src="/checkIconB.png" />
-            Tenha seus eletrodomésticos limpados{' '}
+            Have your appliances cleaned{' '}
           </StyledDescription>
         </StyledContAll>
       )}

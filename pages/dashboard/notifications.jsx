@@ -178,12 +178,12 @@ export default function NotificationsPage() {
           {!notificationsData ? (
             <StyledLoader>
               <img width="30px" height="28px" src="/loadingGif.png" />
-              <h2>Carregando</h2>
+              <h2>Loading</h2>
             </StyledLoader>
           ) : (
             <>
               {notificationsData.length === 0 ? (
-                <ErrorMessageAlt message={'Nenhuma notificação encontrada...'} />
+                <ErrorMessageAlt message={'No notifications found...'} />
               ) : (
                 <>
                   <GridNotifications>

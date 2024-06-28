@@ -60,34 +60,37 @@ export default function TextBoxService({ type }) {
         <TitleTextBox>
           Wet Manual Cleaning
           <TextBox>
-            Tenha sua casa limpa composta por uma geral nos móveis e pano úmido na casa toda.
+            Keep your house clean with a thorough cleaning of the furniture and damp mopping
+            throughout the entire house.
           </TextBox>
         </TitleTextBox>
       )}
       {type === '2' && (
         <TitleTextBox>
           Dry Cleaning
-          <TextBox>Tenha sua casa limpa composta por uma geral com vassoura na casa toda.</TextBox>
+          <TextBox>
+            Keep your house clean with a thorough sweeping throughout the entire house.
+          </TextBox>
         </TitleTextBox>
       )}
       {type === '3' && (
         <TitleTextBox>
           Window Cleaning
-          <TextBox>Tenha todas janelas da casa limpa com água.</TextBox>
+          <TextBox>Keep all the windows of the house clean with water.</TextBox>
         </TitleTextBox>
       )}
       {type === '4' && (
         <TitleTextBox>
           Home apliance cleaning
-          <TextBox>Tenha todos eletrodomésticos da casa limpo com água e sabão.</TextBox>
+          <TextBox>Keep all the appliances in the house clean with water and soap.</TextBox>
         </TitleTextBox>
       )}
       {type === '5' && (
         <TitleTextBox>
           Wet manual cleaning (water)
           <TextBox>
-            Tenha sua casa limpa composta por uma geral nos móveis e na casa toda com água +
-            produtos de limpeza.
+            Keep your house clean with a thorough cleaning of the furniture and the entire house
+            with water and cleaning products.
           </TextBox>
         </TitleTextBox>
       )}

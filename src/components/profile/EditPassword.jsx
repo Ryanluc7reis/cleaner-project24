@@ -212,7 +212,7 @@ export default function EditPassword({
             {checkErrorForm && <img src="/erro.png" alt="error" width="25px" height="25px" />}
           </FlexInput>
 
-          {checkErrorForm && <ErrorMessage>Senha atual incorreta</ErrorMessage>}
+          {checkErrorForm && <ErrorMessage>Incorrect current password</ErrorMessage>}
           <Barra />
         </ContInput>
         <ContInput>

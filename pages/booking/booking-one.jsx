@@ -385,7 +385,7 @@ function Booking() {
             'https://cleaner-project-be.vercel.app/createNotification',
             {
               for: cleanerNameData,
-              notificationType: 'Nova requisição de limpeza'
+              notificationType: 'New cleaning request'
             },
             {
               headers: {
@@ -479,7 +479,7 @@ function Booking() {
     <Container onClick={handleClickOutsideEditAddress}>
       {popUpMessage && (
         <PopUpMessageAlt messageToOkrequest={popUpMessage}>
-          Endereço editado com sucesso
+          Address edited successfully
         </PopUpMessageAlt>
       )}
       <NavBarAlt type2 />

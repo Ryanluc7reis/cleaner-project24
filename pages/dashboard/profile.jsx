@@ -227,7 +227,7 @@ const ProfilePage = () => {
         <>
           {popUpMessage && userCleaner && (
             <PopUpMessageAlt messageToOkrequest={popUpMessage}>
-              Perfil editado com sucesso
+              Profile edited successfully
             </PopUpMessageAlt>
           )}
 
@@ -244,7 +244,7 @@ const ProfilePage = () => {
               {Object.keys(userCurrentUserData).length === 0 ? (
                 <StyledLoader>
                   <img width="30px" height="28px" src="/loadingGif.png" />
-                  <h2>Carregando</h2>
+                  <h2>Loading</h2>
                 </StyledLoader>
               ) : (
                 <>
@@ -264,7 +264,7 @@ const ProfilePage = () => {
               {!userData && !card ? (
                 <StyledLoader>
                   <img width="30px" height="28px" src="/loadingGif.png" />
-                  <h2>Carregando</h2>
+                  <h2>Loading</h2>
                 </StyledLoader>
               ) : (
                 <>
@@ -325,7 +325,7 @@ const ProfilePage = () => {
                         <CardAlt1 none />
                         <div style={{ display: 'flex' }}>
                           <CreateCard onClick={() => router.push('/createCard')}>
-                            Crie seu card
+                            Create your card
                           </CreateCard>
                           <img src="/arrowClick.png" width="25px" height="25px"></img>
                         </div>
@@ -341,7 +341,7 @@ const ProfilePage = () => {
         <>
           {popUpMessage && (
             <PopUpMessage messageToOkrequest={popUpMessage}>
-              Perfil editado com sucesso
+              Profile edited successfully
             </PopUpMessage>
           )}
 
@@ -357,7 +357,7 @@ const ProfilePage = () => {
               {Object.keys(userCurrentUserData).length === 0 ? (
                 <StyledLoader>
                   <img width="30px" height="28px" src="/loadingGif.png" />
-                  <h2>Carregando</h2>
+                  <h2>Loading</h2>
                 </StyledLoader>
               ) : (
                 <>

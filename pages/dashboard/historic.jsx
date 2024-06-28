@@ -185,7 +185,7 @@ export default function HistoricPage() {
             <ButtonAlt onClick={cleanHistoric}>Clean historic</ButtonAlt>
           </FlexTitleText>
           {historicData.length === 0 ? (
-            <ErrorMessageAlt message={'Historic não encontrado...'} />
+            <ErrorMessageAlt message={'Historic not found...'} />
           ) : (
             <>
               <GridHistoric>
