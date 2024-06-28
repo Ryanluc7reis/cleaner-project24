@@ -86,6 +86,9 @@ const Form = styled.form`
     justify-content: center;
     align-items: center;
   }
+  @media (max-width: 430px) {
+    padding-top: 130px;
+  }
   @media (max-width: 425px) {
     padding-top: 85px;
   }
@@ -94,7 +97,8 @@ const Form = styled.form`
   }
 `
 const ButtonAlt = styled(Button)`
-  padding: 10px;
+  padding: 9px;
+  width: 230px;
   @media (max-width: 543px) {
     font-size: 14px;
   }
@@ -122,132 +126,171 @@ const ConfirmationToPay = styled.div`
   justify-content: center;
   padding: 25px;
 `
-const PayToCleaner = styled(Button)`
-  padding: 9px;
-  width: 230px;
-  position: absolute;
-  bottom: 12%;
-  right: 42%;
-  @media (max-width: 543px) {
-    font-size: 14px;
-  }
-  @media (min-width: 2560px) {
-    bottom: 50%;
-    right: 46%;
-  }
-  @media (min-width: 1440px) {
-    bottom: 9%;
-  }
-  @media (max-width: 1365px) {
-    bottom: 8%;
-  }
 
-  @media (max-width: 1024px) {
-    bottom: -1%;
-    right: 39%;
-  }
-  @media (max-width: 768px) {
-    bottom: 12%;
-    right: 17%;
-  }
-  @media (max-width: 540px) {
-    bottom: 15%;
-    right: 27%;
-  }
-  @media (max-width: 430px) {
-    bottom: 33%;
-    right: 22%;
-  }
-
-  @media (max-width: 425px) {
-    bottom: -12%;
-    right: 22%;
-  }
-  @media (max-width: 414px) {
-    bottom: 30%;
-  }
-
-  @media (max-width: 390px) {
-    bottom: 26%;
-    right: 20%;
-  }
-
-  @media (max-width: 375px) {
-    bottom: 7%;
-    right: 19%;
-  }
-  @media (max-width: 344px) {
-    bottom: 28%;
-    right: 15%;
-  }
-  @media (max-width: 320px) {
-    bottom: -11%;
-    right: 13%;
-  }
-`
-const PayToCleanerAlt = styled(PayToCleaner)`
-  bottom: 17%;
-  @media (min-width: 2560px) {
-    bottom: -10%;
-    right: 46%;
-  }
-  @media (min-width: 1440px) {
-    bottom: 14%;
-  }
-  @media (max-width: 1365px) {
-    bottom: 8%;
-  }
-
-  @media (max-width: 1024px) {
-    bottom: 3%;
-    right: 39%;
-  }
-  @media (max-width: 768px) {
-    bottom: 21%;
-    right: 17%;
-  }
-  @media (max-width: 540px) {
-    bottom: 24%;
-    right: 27%;
-  }
-  @media (max-width: 430px) {
-    bottom: 40%;
-    right: 23%;
-  }
-  @media (max-width: 425px) {
-    bottom: -1%;
-    right: 22%;
-  }
-  @media (max-width: 414px) {
-    bottom: 37%;
-  }
-  @media (max-width: 390px) {
-    bottom: 34%;
-    right: 20%;
-  }
-
-  @media (max-width: 375px) {
-    bottom: 15%;
-    right: 17%;
-  }
-  @media (max-width: 344px) {
-    bottom: 36%;
-  }
-  @media (max-width: 320px) {
-    bottom: 2%;
-    right: 13%;
-  }
-`
 const StyledFlexButtons = styled.div`
   display: flex;
   gap: 18px;
+  position: absolute;
+  left: 22%;
+  bottom: 20%;
   align-items: center;
-  padding-right: 227px;
-  padding-bottom: 2px;
-  @media (max-width: 543px) {
+
+  @media (min-width: 2560px) {
+    bottom: 48%;
+    left: 34%;
+  }
+  @media (max-width: 1440px) {
+    bottom: 9%;
+    left: 20%;
+  }
+  @media (max-width: 1280px) {
+    bottom: 32%;
+    left: 18%;
+  }
+
+  @media (max-width: 1024px) {
+    bottom: 6%;
+    left: 10%;
+  }
+  @media (max-width: 912px) {
+    bottom: 68%;
+    left: 21%;
+  }
+  @media (max-width: 853px) {
+    bottom: 66%;
+    left: 19%;
+  }
+  @media (max-width: 768px) {
+    bottom: 19%;
+    left: 16%;
+  }
+
+  @media (max-width: 540px) {
+    left: 2%;
+    bottom: 38%;
+  }
+  @media (max-width: 539px) {
     flex-direction: column;
-    padding-right: 0px;
-    padding-bottom: 0px;
+  }
+
+  @media (max-width: 430px) {
+    left: 24%;
+    bottom: 38%;
+  }
+
+  @media (max-width: 425px) {
+    bottom: 0%;
+    left: 23%;
+  }
+  @media (max-width: 414px) {
+    bottom: 38%;
+  }
+  @media (max-width: 412px) {
+    bottom: 39%;
+  }
+
+  @media (max-width: 390px) {
+    bottom: 35%;
+    left: 21%;
+  }
+
+  @media (max-width: 384px) {
+    bottom: 13%;
+    left: 20%;
+  }
+
+  @media (max-width: 375px) {
+    left: 20%;
+    bottom: 17%;
+  }
+  @media (max-width: 360px) {
+    left: 18%;
+    bottom: 27%;
+  }
+  @media (max-width: 344px) {
+    bottom: 37%;
+    left: 17%;
+  }
+  @media (max-width: 320px) {
+    left: 14%;
+    bottom: 0%;
+  }
+`
+const StyledFlexButtonsAlt = styled(StyledFlexButtons)`
+  @media (min-width: 2560px) {
+    bottom: 48%;
+    left: 34%;
+  }
+  @media (max-width: 1440px) {
+    bottom: 5%;
+    left: 21%;
+  }
+  @media (max-width: 1280px) {
+    bottom: 28%;
+    left: 18%;
+  }
+
+  @media (max-width: 1024px) {
+    bottom: 0%;
+    left: 10%;
+  }
+  @media (max-width: 912px) {
+    bottom: 64%;
+    left: 20%;
+  }
+  @media (max-width: 853px) {
+    bottom: 62%;
+    left: 20%;
+  }
+  @media (max-width: 768px) {
+    bottom: 13%;
+    left: 16%;
+  }
+
+  @media (max-width: 540px) {
+    left: 2%;
+    bottom: 28%;
+  }
+  @media (max-width: 539px) {
+    flex-direction: column;
+  }
+
+  @media (max-width: 430px) {
+    left: 23%;
+    bottom: 33%;
+  }
+
+  @media (max-width: 425px) {
+    bottom: 0%;
+    left: 23%;
+  }
+  @media (max-width: 414px) {
+    bottom: 31%;
+  }
+
+  @media (max-width: 390px) {
+    bottom: 27%;
+    left: 20%;
+  }
+  @media (max-width: 384px) {
+    left: 19%;
+    bottom: 3%;
+  }
+  @media (max-width: 375px) {
+    left: 19%;
+    bottom: 7%;
+  }
+  @media (max-width: 360px) {
+    left: 18%;
+    bottom: 17%;
+  }
+  @media (max-width: 344px) {
+    bottom: 29%;
+    left: 17%;
+  }
+  @media (max-width: 320px) {
+    left: 14%;
+    bottom: 0%;
   }
 `
 const StyledFlexChooseCleaning = styled.div`
@@ -444,31 +487,25 @@ function Booking() {
       <PaymentAndRegister style={userData ? { gap: '25px' } : { gap: '18px' }}>
         {userData ? (
           <ConfirmationToPay>
-            <h1>Olá, {user}</h1>
+            <h1>Hello, {user}</h1>
             {Plan === 'Optional' && (
               <StyledFlexChooseCleaning>
-                <StyledTextAddress>Escolha qual limpeza você deseja :</StyledTextAddress>
+                <StyledTextAddress>Choose which cleaning you want :</StyledTextAddress>
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
-                  {error && <h2 style={{ color: 'red' }}>Selecione uma limpeza</h2>}
+                  {error && <h2 style={{ color: 'red' }}>You need select a clean</h2>}
                   <Selecter onChange={handleCleaning} value={cleaning} typeCleaningCreate />
                 </div>
               </StyledFlexChooseCleaning>
             )}
             <StyledTextAddress>
-              Seu serviço será no endereço ({userCurrentUserData.address}) ?
+              Your service will be at address ({userCurrentUserData.address}) ?
             </StyledTextAddress>
 
             <ButtonAlt onClick={() => setShowEditAddress(!showEditAddress)}>
               {' '}
               No, i want to change my address
             </ButtonAlt>
-            <StyledFlexButtons>
-              <ButtonAlt onClick={() => router.push('/booking/booking-two')}>
-                {' '}
-                Yes! Pay with card now
-              </ButtonAlt>
-              <h1>Or</h1>
-            </StyledFlexButtons>
+
             {showEditAddress && (
               <EditAddress
                 onButtonClose={() => setShowEditAddress(!showEditAddress)}
@@ -527,20 +564,40 @@ function Booking() {
             <Barra />
             <TextAlt>
               <Smileimg src="/smile.png" />
-              The rate of the first cleaner who accepts your booking is what you will be charged.
+              Choose how do you wanna pay!
             </TextAlt>
           </BoxSummary>
-          {userData && (
+          {Plan === 'Optional' ? (
             <>
-              {Plan === 'Optional' ? (
-                <PayToCleaner type="submit" loading={loading}>
-                  Yes! Pay directly to cleaner
-                </PayToCleaner>
-              ) : (
-                <PayToCleanerAlt type="submit" loading={loading}>
-                  Yes! Pay directly to cleaner
-                </PayToCleanerAlt>
-              )}
+              {userData ? (
+                <StyledFlexButtonsAlt>
+                  <ButtonAlt onClick={() => router.push('/booking/booking-two')}>
+                    {' '}
+                    Yes! Pay with card now
+                  </ButtonAlt>
+                  <h1>Or</h1>
+                  <ButtonAlt type="submit" loading={loading}>
+                    {' '}
+                    Yes! Pay directly to cleaner
+                  </ButtonAlt>
+                </StyledFlexButtonsAlt>
+              ) : null}
+            </>
+          ) : (
+            <>
+              {userData ? (
+                <StyledFlexButtons>
+                  <ButtonAlt onClick={() => router.push('/booking/booking-two')}>
+                    {' '}
+                    Yes! Pay with card now
+                  </ButtonAlt>
+                  <h1>Or</h1>
+                  <ButtonAlt type="submit" loading={loading}>
+                    {' '}
+                    Yes! Pay directly to cleaner
+                  </ButtonAlt>
+                </StyledFlexButtons>
+              ) : null}
             </>
           )}
         </Form>
