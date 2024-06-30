@@ -141,7 +141,7 @@ const StyledFlexButtons = styled.div`
   }
   @media (max-width: 1440px) {
     bottom: 9%;
-    left: 20%;
+    left: 21%;
   }
   @media (max-width: 1280px) {
     bottom: 32%;
@@ -149,7 +149,7 @@ const StyledFlexButtons = styled.div`
   }
 
   @media (max-width: 1024px) {
-    bottom: 6%;
+    bottom: 0%;
     left: 10%;
   }
   @media (max-width: 912px) {
@@ -201,7 +201,7 @@ const StyledFlexButtons = styled.div`
 
   @media (max-width: 375px) {
     left: 20%;
-    bottom: 17%;
+    bottom: 0%;
   }
   @media (max-width: 360px) {
     left: 18%;
@@ -231,7 +231,7 @@ const StyledFlexButtonsAlt = styled(StyledFlexButtons)`
   }
 
   @media (max-width: 1024px) {
-    bottom: 0%;
+    bottom: -6%;
     left: 10%;
   }
   @media (max-width: 912px) {
@@ -278,7 +278,7 @@ const StyledFlexButtonsAlt = styled(StyledFlexButtons)`
   }
   @media (max-width: 375px) {
     left: 19%;
-    bottom: 7%;
+    bottom: -10%;
   }
   @media (max-width: 360px) {
     left: 18%;
