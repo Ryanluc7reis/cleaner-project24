@@ -290,7 +290,7 @@ const StyledFlexButtonsAlt = styled(StyledFlexButtons)`
   }
   @media (max-width: 320px) {
     left: 14%;
-    bottom: 0%;
+    bottom: -11%;
   }
 `
 const StyledFlexChooseCleaning = styled.div`
