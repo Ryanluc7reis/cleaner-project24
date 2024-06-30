@@ -261,7 +261,7 @@ const StyledFlexButtonsAlt = styled(StyledFlexButtons)`
   }
 
   @media (max-width: 425px) {
-    bottom: 0%;
+    bottom: -10%;
     left: 23%;
   }
   @media (max-width: 414px) {
