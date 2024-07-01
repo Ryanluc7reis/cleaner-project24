@@ -114,10 +114,12 @@ const StyledLoader = styled.div`
   position: absolute;
   left: 60%;
   top: 55%;
+  @media (max-width: 768px) {
+    left: 70%;
+  }
   @media (max-width: 712px) {
-    left: 28%;
-    top: none;
-    bottom: -50%;
+    left: 38%;
+    bottom: -83%;
   }
 `
 const fetcher = async ({ url, data }) => {
