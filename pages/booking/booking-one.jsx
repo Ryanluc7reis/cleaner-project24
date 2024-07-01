@@ -80,20 +80,15 @@ const NavBarAlt = styled(Navbar)`
 `
 const Form = styled.form`
   display: flex;
-  flex-direction: column;
-  gap: 7px;
+  gap: 30px;
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    align-items: center;
+  }
   @media (max-width: 612px) {
     justify-content: center;
     align-items: center;
-  }
-  @media (max-width: 430px) {
-    padding-top: 130px;
-  }
-  @media (max-width: 425px) {
-    padding-top: 85px;
-  }
-  @media (max-width: 320px) {
-    padding-top: 90px;
+    gap: 0px;
   }
 `
 const ButtonAlt = styled(Button)`
@@ -129,170 +124,13 @@ const ConfirmationToPay = styled.div`
 
 const StyledFlexButtons = styled.div`
   display: flex;
-  gap: 18px;
-  position: absolute;
-  left: 22%;
-  bottom: 20%;
+  gap: 8px;
   align-items: center;
-
-  @media (min-width: 2560px) {
-    bottom: 48%;
-    left: 34%;
-  }
-  @media (max-width: 1440px) {
-    bottom: 9%;
-    left: 21%;
-  }
-  @media (max-width: 1280px) {
-    bottom: 32%;
-    left: 18%;
-  }
-
-  @media (max-width: 1024px) {
-    bottom: 0%;
-    left: 10%;
-  }
-  @media (max-width: 912px) {
-    bottom: 68%;
-    left: 21%;
-  }
-  @media (max-width: 853px) {
-    bottom: 66%;
-    left: 19%;
-  }
-  @media (max-width: 768px) {
-    bottom: 19%;
-    left: 16%;
-  }
-
-  @media (max-width: 540px) {
-    left: 2%;
-    bottom: 38%;
-  }
-  @media (max-width: 539px) {
+  @media (max-width: 545px) {
     flex-direction: column;
   }
-
-  @media (max-width: 430px) {
-    left: 24%;
-    bottom: 38%;
-  }
-
-  @media (max-width: 425px) {
-    bottom: 0%;
-    left: 23%;
-  }
-  @media (max-width: 414px) {
-    bottom: 38%;
-  }
-  @media (max-width: 412px) {
-    bottom: 39%;
-  }
-
-  @media (max-width: 390px) {
-    bottom: 35%;
-    left: 21%;
-  }
-
-  @media (max-width: 384px) {
-    bottom: 13%;
-    left: 20%;
-  }
-
-  @media (max-width: 375px) {
-    left: 20%;
-    bottom: 0%;
-  }
-  @media (max-width: 360px) {
-    left: 18%;
-    bottom: 27%;
-  }
-  @media (max-width: 344px) {
-    bottom: 37%;
-    left: 17%;
-  }
-  @media (max-width: 320px) {
-    left: 14%;
-    bottom: 0%;
-  }
 `
-const StyledFlexButtonsAlt = styled(StyledFlexButtons)`
-  @media (min-width: 2560px) {
-    bottom: 48%;
-    left: 34%;
-  }
-  @media (max-width: 1440px) {
-    bottom: 5%;
-    left: 21%;
-  }
-  @media (max-width: 1280px) {
-    bottom: 28%;
-    left: 18%;
-  }
 
-  @media (max-width: 1024px) {
-    bottom: -6%;
-    left: 10%;
-  }
-  @media (max-width: 912px) {
-    bottom: 64%;
-    left: 20%;
-  }
-  @media (max-width: 853px) {
-    bottom: 62%;
-    left: 20%;
-  }
-  @media (max-width: 768px) {
-    bottom: 13%;
-    left: 16%;
-  }
-
-  @media (max-width: 540px) {
-    left: 2%;
-    bottom: 28%;
-  }
-  @media (max-width: 539px) {
-    flex-direction: column;
-  }
-
-  @media (max-width: 430px) {
-    left: 23%;
-    bottom: 33%;
-  }
-
-  @media (max-width: 425px) {
-    bottom: -10%;
-    left: 23%;
-  }
-  @media (max-width: 414px) {
-    bottom: 31%;
-  }
-
-  @media (max-width: 390px) {
-    bottom: 27%;
-    left: 20%;
-  }
-  @media (max-width: 384px) {
-    left: 19%;
-    bottom: 3%;
-  }
-  @media (max-width: 375px) {
-    left: 19%;
-    bottom: -10%;
-  }
-  @media (max-width: 360px) {
-    left: 18%;
-    bottom: 17%;
-  }
-  @media (max-width: 344px) {
-    bottom: 29%;
-    left: 17%;
-  }
-  @media (max-width: 320px) {
-    left: 14%;
-    bottom: -11%;
-  }
-`
 const StyledFlexChooseCleaning = styled.div`
   display: flex;
   align-items: center;
@@ -485,106 +323,28 @@ function Booking() {
       <NavBarAlt type2 />
       <Steps type1 />
       <PaymentAndRegister style={userData ? { gap: '25px' } : { gap: '18px' }}>
-        {userData ? (
-          <ConfirmationToPay>
-            <h1>Hello, {user}</h1>
-            {Plan === 'Optional' && (
-              <StyledFlexChooseCleaning>
-                <StyledTextAddress>Choose which cleaning you want :</StyledTextAddress>
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
-                  {error && <h2 style={{ color: 'red' }}>You need select a clean</h2>}
-                  <Selecter onChange={handleCleaning} value={cleaning} typeCleaningCreate />
-                </div>
-              </StyledFlexChooseCleaning>
-            )}
-            <StyledTextAddress>
-              Your service will be at address ({userCurrentUserData.address}) ?
-            </StyledTextAddress>
-
-            <ButtonAlt onClick={() => setShowEditAddress(!showEditAddress)}>
-              {' '}
-              No, i want to change my address
-            </ButtonAlt>
-
-            {showEditAddress && (
-              <EditAddress
-                onButtonClose={() => setShowEditAddress(!showEditAddress)}
-                onClose={() => setShowEditAddress(!showEditAddress)}
-                id={userId}
-                fullName={userCurrentUserData.fullName}
-                user={user}
-                email={userCurrentUserData.email}
-                password={userCurrentUserData.password}
-                address={userCurrentUserData.address}
-                number={userCurrentUserData.number}
-                onSave={handleSaveEdit}
-              />
-            )}
-          </ConfirmationToPay>
-        ) : (
-          <SignupByBooking />
-        )}
         <Form onSubmit={handleSubmit(handleFormSubmit)}>
-          <TitleSub>Your booking summary</TitleSub>
-          <BoxSummary>
-            <DescText>
-              <TitleText>Plan:</TitleText>
-              <DataText>{Plan}</DataText>
-            </DescText>
-            <Barra />
-            <DescText>
-              <TitleText>Duration:</TitleText>
-              <DataText>{Duration}</DataText>
-            </DescText>
-            <Barra />
-            <DescText>
-              <TitleText>Date:</TitleText>
-              <DataText>{Date}</DataText>
-            </DescText>
-            <Barra />
-            <DescText>
-              <TitleText>Starting Time:</TitleText>
-              <DataText>{Time}</DataText>
-            </DescText>
-            <Barra />
-            <DescText>
-              <TitleText>Price per hour:</TitleText>
-              <DataText>{PriceH}</DataText>
-            </DescText>
-            <Barra />
-            <DescText>
-              <TitleText>Total price:</TitleText>
-              <DataText>{totalPrice}</DataText>
-            </DescText>
-            <Barra />
-            <DescText>
-              <TitleTextAlt>Total cost:</TitleTextAlt>
-              <DataTextAlt>{totalPrice}</DataTextAlt>
-            </DescText>
-            <Barra />
-            <TextAlt>
-              <Smileimg src="/smile.png" />
-              Choose how do you wanna pay!
-            </TextAlt>
-          </BoxSummary>
-          {Plan === 'Optional' ? (
-            <>
-              {userData ? (
-                <StyledFlexButtonsAlt>
-                  <ButtonAlt onClick={() => router.push('/booking/booking-two')}>
-                    {' '}
-                    Yes! Pay with card now
-                  </ButtonAlt>
-                  <h1>Or</h1>
-                  <ButtonAlt type="submit" loading={loading}>
-                    {' '}
-                    Yes! Pay directly to cleaner
-                  </ButtonAlt>
-                </StyledFlexButtonsAlt>
-              ) : null}
-            </>
-          ) : (
-            <>
+          {userData ? (
+            <ConfirmationToPay>
+              <h1>Hello, {user}</h1>
+              {Plan === 'Optional' && (
+                <StyledFlexChooseCleaning>
+                  <StyledTextAddress>Choose which cleaning you want :</StyledTextAddress>
+                  <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    {error && <h2 style={{ color: 'red' }}>You need select a clean</h2>}
+                    <Selecter onChange={handleCleaning} value={cleaning} typeCleaningCreate />
+                  </div>
+                </StyledFlexChooseCleaning>
+              )}
+              <StyledTextAddress>
+                Your service will be at address ({userCurrentUserData.address}) ?
+              </StyledTextAddress>
+
+              <ButtonAlt onClick={() => setShowEditAddress(!showEditAddress)}>
+                {' '}
+                No, i want to change my address
+              </ButtonAlt>
+
               {userData ? (
                 <StyledFlexButtons>
                   <ButtonAlt onClick={() => router.push('/booking/booking-two')}>
@@ -598,8 +358,69 @@ function Booking() {
                   </ButtonAlt>
                 </StyledFlexButtons>
               ) : null}
-            </>
+
+              {showEditAddress && (
+                <EditAddress
+                  onButtonClose={() => setShowEditAddress(!showEditAddress)}
+                  onClose={() => setShowEditAddress(!showEditAddress)}
+                  id={userId}
+                  fullName={userCurrentUserData.fullName}
+                  user={user}
+                  email={userCurrentUserData.email}
+                  password={userCurrentUserData.password}
+                  address={userCurrentUserData.address}
+                  number={userCurrentUserData.number}
+                  onSave={handleSaveEdit}
+                />
+              )}
+            </ConfirmationToPay>
+          ) : (
+            <SignupByBooking />
           )}
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <TitleSub>Your booking summary</TitleSub>
+            <BoxSummary>
+              <DescText>
+                <TitleText>Plan:</TitleText>
+                <DataText>{Plan}</DataText>
+              </DescText>
+              <Barra />
+              <DescText>
+                <TitleText>Duration:</TitleText>
+                <DataText>{Duration}</DataText>
+              </DescText>
+              <Barra />
+              <DescText>
+                <TitleText>Date:</TitleText>
+                <DataText>{Date}</DataText>
+              </DescText>
+              <Barra />
+              <DescText>
+                <TitleText>Starting Time:</TitleText>
+                <DataText>{Time}</DataText>
+              </DescText>
+              <Barra />
+              <DescText>
+                <TitleText>Price per hour:</TitleText>
+                <DataText>{PriceH}</DataText>
+              </DescText>
+              <Barra />
+              <DescText>
+                <TitleText>Total price:</TitleText>
+                <DataText>{totalPrice}</DataText>
+              </DescText>
+              <Barra />
+              <DescText>
+                <TitleTextAlt>Total cost:</TitleTextAlt>
+                <DataTextAlt>{totalPrice}</DataTextAlt>
+              </DescText>
+              <Barra />
+              <TextAlt>
+                <Smileimg src="/smile.png" />
+                Choose how do you wanna pay!
+              </TextAlt>
+            </BoxSummary>
+          </div>
         </Form>
       </PaymentAndRegister>
     </Container>
