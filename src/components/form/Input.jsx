@@ -11,7 +11,9 @@ const StyledLabel = styled.p`
   margin-top: 7px;
 `
 const StyledLabelAlt = styled(StyledLabel)`
-  font-size: 22px;
+  @media (max-width: 425px) {
+    font-size: 22px;
+  }
 `
 
 const StyledInput = styled.input`

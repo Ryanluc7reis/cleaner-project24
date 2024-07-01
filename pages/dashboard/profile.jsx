@@ -108,6 +108,19 @@ const StyledLoader = styled.div`
   align-items: center;
   color: white;
   padding: 140px 400px;
+  @media (max-width: 825px) {
+    padding: 0;
+  }
+`
+const StyledLoaderAndProfile = styled.div`
+  width: 100%;
+  padding: 0 15px;
+  @media (max-width: 825px) {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 `
 const NavBarDashboardAlt = styled(NavBarDashboard)`
   @media (max-width: 1306px) {
@@ -240,7 +253,7 @@ const ProfilePage = () => {
 
           <FlexProfileAndCard>
             <NavRoutesDash onClickDash={handleDash} profile type1 />
-            <div style={{ padding: ' 0px 15px' }}>
+            <StyledLoaderAndProfile>
               {Object.keys(userCurrentUserData).length === 0 ? (
                 <StyledLoader>
                   <img width="30px" height="28px" src="/loadingGif.png" />
@@ -334,7 +347,7 @@ const ProfilePage = () => {
                   )}
                 </>
               )}
-            </div>
+            </StyledLoaderAndProfile>
           </FlexProfileAndCard>
         </>
       ) : (
@@ -353,7 +366,7 @@ const ProfilePage = () => {
           />
           <FlexProfileAndCard>
             <NavRoutesDash onClickDash={handleDash} profile type1 />
-            <div style={{ padding: ' 0px 15px' }}>
+            <StyledLoaderAndProfile>
               {Object.keys(userCurrentUserData).length === 0 ? (
                 <StyledLoader>
                   <img width="30px" height="28px" src="/loadingGif.png" />
@@ -374,7 +387,7 @@ const ProfilePage = () => {
                   )}
                 </>
               )}
-            </div>
+            </StyledLoaderAndProfile>
           </FlexProfileAndCard>
         </>
       )}
