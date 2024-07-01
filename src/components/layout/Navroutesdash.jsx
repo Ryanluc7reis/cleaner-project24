@@ -2,9 +2,8 @@ import styled from 'styled-components'
 import { useState, useEffect, useContext } from 'react'
 import { UserContext } from '../../context/useContext'
 import { useRouter } from 'next/router'
-import axios from 'axios'
 
-import Input from '../form/Input'
+import axios from 'axios'
 
 const Container = styled.div`
   width: 100%;
@@ -19,9 +18,6 @@ const ContainerBox = styled.div`
   @media (max-width: 638px) {
     flex-direction: column;
     justify-content: space-around;
-  }
-  @media (max-width: 330px) {
-    padding: 15px 0px;
   }
 `
 const TypeRouteTitle = styled.h1`
@@ -57,29 +53,7 @@ const LogOut = styled.a`
     color: darkred;
   }
 `
-const InputAlt = styled(Input)`
-  background: transparent;
-  padding: 6px;
-  border: none;
-  width: 190px;
-  color: white;
-  ::placeholder {
-    color: white;
-  }
-`
-const Barra = styled.hr`
-  width: 115%;
-`
-const Lupa = styled.img`
-  padding: 7px;
-`
-const FlexInput = styled.div`
-  display: flex;
-  flex-direction: column;
-`
-const StyledFlexSearch = styled.div`
-  display: flex;
-`
+
 const Hamburguer = styled.img`
   display: none;
   width: 60px;
@@ -88,66 +62,20 @@ const Hamburguer = styled.img`
     display: flex;
   }
 `
+const StyledNotificationCount = styled.div`
+  display: flex;
+`
 const NotificationCount = styled.div`
   width: 17px;
   height: 14px;
-  margin-right: 3px;
   border-radius: 25px;
   color: white;
   font-weight: bold;
   background: red;
   justify-content: center;
   display: flex;
-  align-self: center;
   position: absolute;
-  top: 8%;
-  right: 7%;
-  @media (max-width: 1280px) {
-    top: 6%;
-  }
-  @media (max-width: 1024px) {
-    right: 9%;
-  }
-  @media (max-width: 912px) {
-    right: 10%;
-    top: 3%;
-  }
-  @media (max-width: 853px) {
-    right: 11%;
-  }
-  @media (max-width: 768px) {
-    right: 12%;
-  }
-  @media (max-width: 540px) {
-    right: 36%;
-    top: 16%;
-  }
-  @media (max-width: 430px) {
-    right: 32%;
-    top: 12%;
-  }
-  @media (max-width: 425px) {
-    right: 31%;
-    top: 21%;
-  }
-  @media (max-width: 414px) {
-    top: 13%;
-  }
-  @media (max-width: 375px) {
-    right: 30%;
-    top: 17%;
-  }
-  @media (max-width: 360px) {
-    right: 29%;
-    top: 16%;
-  }
-  @media (max-width: 344px) {
-    top: 13%;
-  }
-  @media (max-width: 320px) {
-    right: 27%;
-    top: 19%;
-  }
+  z-index: 100;
 `
 export default function NavRoutesDash({
   dash,
@@ -256,13 +184,13 @@ export default function NavRoutesDash({
                 src="/bell1.png"
               />
             ) : (
-              <div>
+              <StyledNotificationCount>
                 <ImgNotifications
                   onClick={() => router.push('/dashboard/notifications')}
                   src="/bell1.png"
                 />
                 <NotificationCount>{notificationsCount}</NotificationCount>
-              </div>
+              </StyledNotificationCount>
             )}
             <LogOut onClick={handleLogout}>Logout</LogOut>
           </StyledFlex>
