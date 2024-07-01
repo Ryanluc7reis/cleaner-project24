@@ -42,9 +42,15 @@ export const DivEtapas = styled.div`
     grid-template-columns: 85px 85px;
   }
 `
+const StyledFlexEtapas = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`
 const FlexEtapas = styled.div`
   display: flex;
   width: 100%;
+
   justify-content: space-around;
   opacity: ${(props) => (props.isClicked ? 0.5 : 1)};
   transition: opacity 0.1s ease;
@@ -91,61 +97,52 @@ const BoxPlan = styled.div`
   display: ${(props) => (props.boxplan1 ? 'flex' : 'none')};
   flex-direction: column;
   background: #ffffff;
-  position: absolute;
   border: 1px solid #cccccc;
-  top: 23%;
-  left: 14%;
+  position: absolute;
+  margin-top: 50px;
   z-index: 100;
-  transform: translate(32%, 19%);
   width: 247px;
   height: 157px;
   overflow-y: scroll;
-  @media (max-width: 1250px) {
-    transform: translate(0%, 24%);
-    top: 25%;
-    left: 20%;
-  }
   @media (max-width: 1200px) {
     width: 200px;
   }
-  @media (max-width: 712px) {
-    left: 39%;
-    top: 41%;
-    transform: translate(0%, 12%);
+  @media (max-width: 550px) {
     border: 2px solid #6b6b6b;
+    right: 22%;
+    top: 39%;
+  }
+  @media (max-width: 375px) {
+    right: 15%;
+    top: 39%;
   }
   @media (max-width: 320px) {
-    left: 25%;
-    top: 41%;
+    right: 13%;
   }
 `
 const BoxDate1 = styled.div`
   display: ${(props) => (props.boxdate1 ? 'flex' : 'none')};
   background: #ffffff;
   border: 1px solid #cccccc;
-  position: absolute;
-  top: 27%;
-  transform: translate(7%, 1%);
   width: 324px;
   min-height: 287px;
   height: auto;
   z-index: 100;
-  @media (max-width: 1250px) {
-    transform: translate(9%, 8%);
-  }
+  position: absolute;
+  margin-top: 50px;
   @media (max-width: 712px) {
-    right: 24%;
-    top: 36%;
-    transform: translate(0%, 14%);
     border: 2px solid #6b6b6b;
+    left: 37%;
+    top: 39%;
   }
   @media (max-width: 425px) {
-    left: 22%;
-    top: 36%;
+    left: 25%;
   }
-  @media (max-width: 320px) {
-    left: 8%;
-    top: 36%;
+  @media (max-width: 375px) {
+    left: 18%;
+  }
+  @media (max-width: 356px) {
+    left: 9%;
   }
 `
 const BoxHour1 = styled.div`
@@ -154,38 +151,24 @@ const BoxHour1 = styled.div`
   background: #ffffff;
   border: 1px solid #cccccc;
   position: absolute;
-  top: 23%;
-  transform: translate(96%, 15%);
   width: 287px;
   height: 200px;
   z-index: 100;
   overflow-y: scroll;
+  margin-top: 50px;
   @media (max-width: 1250px) {
-    transform: translate(0%, 23%);
-    right: 20%;
     width: 250px;
   }
   @media (max-width: 1200px) {
     width: 200px;
-    right: 23%;
-    transform: translate(0%, 25%);
-  }
-  @media (max-width: 768px) {
-    right: 15%;
   }
   @media (max-width: 712px) {
-    right: 27%;
-    top: 39%;
-    transform: translate(0%, 14%);
     border: 2px solid #6b6b6b;
-  }
-  @media (max-width: 425px) {
-    left: 30%;
     top: 39%;
+    left: 37%;
   }
-  @media (max-width: 320px) {
-    left: 25%;
-    top: 40%;
+  @media (max-width: 375px) {
+    left: 27%;
   }
 `
 const BoxStartTime1 = styled.div`
@@ -194,33 +177,27 @@ const BoxStartTime1 = styled.div`
   background: #ffffff;
   border: 1px solid #cccccc;
   position: absolute;
-  top: 23%;
-  right: 20%;
-  transform: translate(99%, 15%);
   width: 250px;
   height: 200px;
   overflow-y: scroll;
-  @media (max-width: 1250px) {
-    transform: translate(0%, 23%);
-    right: 0%;
-  }
+  z-index: 100;
+  margin-top: 50px;
   @media (max-width: 1200px) {
     width: 200px;
-    transform: translate(0%, 25%);
+  }
+  @media (max-width: 1000px) {
+    border: 2px solid #6b6b6b;
+    top: 26%;
+    left: 40%;
   }
   @media (max-width: 712px) {
-    right: 27%;
     top: 39%;
-    transform: translate(0%, 14%);
-    border: 2px solid #6b6b6b;
   }
-  @media (max-width: 425px) {
-    left: 30%;
-    top: 39%;
+  @media (max-width: 375px) {
+    left: 33%;
   }
   @media (max-width: 320px) {
-    left: 25%;
-    top: 40%;
+    left: 29%;
   }
 `
 const TextOptions = styled.h4`
@@ -366,103 +343,114 @@ export default function BarraEtapas() {
           </StyledEtapasAlt>
         </FlexEtapas>
         <Barra />
-        <FlexEtapas isClicked={isFlexEtapasClicked}>
-          <StyledEtapas>
-            <Etapas>{Updateplan ? Updateplan : cardValues}</Etapas>
-            <SubEtapas>PLAN</SubEtapas>
-          </StyledEtapas>
-          <SetaDown
-            src="/setadown1.svg"
-            height="45px"
-            width="30px"
-            onClick={() => handleFlexEtapasClick(setBoxPlans(!BoxPlans))}
-            isClicked={isFlexEtapasClicked}
-          />
-        </FlexEtapas>
-        <BoxPlan boxplan1={BoxPlans}>
-          {listPlans.map((item, index) => (
-            <ContOptions key={index}>
-              <TextOptions
-                style={{ backgroundColor: Updateplan === item && '#80808058' }}
-                onClick={() => updatePlan(`${item}`)}
-              >
-                {item}
-              </TextOptions>
-              {index < 3 && <BarraAlt />}
-            </ContOptions>
-          ))}
-        </BoxPlan>
+        <StyledFlexEtapas>
+          <FlexEtapas isClicked={isFlexEtapasClicked}>
+            <StyledEtapas>
+              <Etapas>{Updateplan ? Updateplan : cardValues}</Etapas>
+              <SubEtapas>PLAN</SubEtapas>
+            </StyledEtapas>
+            <SetaDown
+              src="/setadown1.svg"
+              height="45px"
+              width="30px"
+              onClick={() => handleFlexEtapasClick(setBoxPlans(!BoxPlans))}
+              isClicked={isFlexEtapasClicked}
+            />
+          </FlexEtapas>
+          <BoxPlan boxplan1={BoxPlans}>
+            {listPlans.map((item, index) => (
+              <ContOptions key={index}>
+                <TextOptions
+                  style={{ backgroundColor: Updateplan === item && '#80808058' }}
+                  onClick={() => updatePlan(`${item}`)}
+                >
+                  {item}
+                </TextOptions>
+                {index < 3 && <BarraAlt />}
+              </ContOptions>
+            ))}
+          </BoxPlan>
+        </StyledFlexEtapas>
+
         <Barra />
-        <FlexEtapas isClicked={isFlexEtapasClicked2}>
-          <StyledEtapas>
-            <Etapas>{UpdateDate ? UpdateDate : selectedDate}</Etapas>
-            <SubEtapas>DATE</SubEtapas>
-          </StyledEtapas>
-          <SetaDown
-            src="/setadown1.svg"
-            height="45px"
-            width="30px"
-            onClick={() => handleFlexEtapasClick2(setBoxDate(!BoxDate))}
-            isClicked={isFlexEtapasClicked2}
-          />
-        </FlexEtapas>
-        <BoxDate1 boxdate1={BoxDate}>
-          <DateCalenderAlt onChange={updateDate} />
-        </BoxDate1>
+        <StyledFlexEtapas>
+          <FlexEtapas isClicked={isFlexEtapasClicked2}>
+            <StyledEtapas>
+              <Etapas>{UpdateDate ? UpdateDate : selectedDate}</Etapas>
+              <SubEtapas>DATE</SubEtapas>
+            </StyledEtapas>
+            <SetaDown
+              src="/setadown1.svg"
+              height="45px"
+              width="30px"
+              onClick={() => handleFlexEtapasClick2(setBoxDate(!BoxDate))}
+              isClicked={isFlexEtapasClicked2}
+            />
+          </FlexEtapas>
+          <BoxDate1 boxdate1={BoxDate}>
+            <DateCalenderAlt onChange={updateDate} />
+          </BoxDate1>
+        </StyledFlexEtapas>
+
         <Barra />
-        <FlexEtapas isClicked={isFlexEtapasClicked3}>
-          <StyledEtapas>
-            <Etapas>{UpdateHour ? UpdateHour : selectedDuration}</Etapas>
-            <SubEtapas>DURATION</SubEtapas>
-          </StyledEtapas>
-          <SetaDown
-            src="/setadown1.svg"
-            height="45px"
-            width="30px"
-            onClick={() => handleFlexEtapasClick3(setBoxHour(!BoxHour))}
-            isClicked={isFlexEtapasClicked3}
-          />
-        </FlexEtapas>
-        <BoxHour1 boxhour1={BoxHour}>
-          {listHours.map((item, index) => (
-            <ContOptions key={index}>
-              <TextOptions
-                style={{ backgroundColor: UpdateHour === `${item} hours` && '#80808058' }}
-                onClick={() => updateHour(`${item} hours`)}
-              >
-                {item} hours
-              </TextOptions>
-              {index < 9 && <BarraAlt />}
-            </ContOptions>
-          ))}
-        </BoxHour1>
+        <StyledFlexEtapas>
+          <FlexEtapas isClicked={isFlexEtapasClicked3}>
+            <StyledEtapas>
+              <Etapas>{UpdateHour ? UpdateHour : selectedDuration}</Etapas>
+              <SubEtapas>DURATION</SubEtapas>
+            </StyledEtapas>
+            <SetaDown
+              src="/setadown1.svg"
+              height="45px"
+              width="30px"
+              onClick={() => handleFlexEtapasClick3(setBoxHour(!BoxHour))}
+              isClicked={isFlexEtapasClicked3}
+            />
+          </FlexEtapas>
+          <BoxHour1 boxhour1={BoxHour}>
+            {listHours.map((item, index) => (
+              <ContOptions key={index}>
+                <TextOptions
+                  style={{ backgroundColor: UpdateHour === `${item} hours` && '#80808058' }}
+                  onClick={() => updateHour(`${item} hours`)}
+                >
+                  {item} hours
+                </TextOptions>
+                {index < 9 && <BarraAlt />}
+              </ContOptions>
+            ))}
+          </BoxHour1>
+        </StyledFlexEtapas>
+
         <Barra />
-        <FlexEtapas isClicked={isFlexEtapasClicked4}>
-          <StyledEtapas>
-            <Etapas>{UpdateStartTime ? UpdateStartTime : selectedHour}</Etapas>
-            <SubEtapas>STARTING TIME</SubEtapas>
-          </StyledEtapas>
-          <SetaDown
-            src="/setadown1.svg"
-            height="45px"
-            width="30px"
-            onClick={() => handleFlexEtapasClick4(setBoxStartTime(!BoxStartTime))}
-            isClicked={isFlexEtapasClicked4}
-          />
-        </FlexEtapas>
-        <BoxStartTime1 boxstarttime1={BoxStartTime}>
-          {listStartTime.map((item, index) => (
-            <ContOptions key={index}>
-              <TextOptions
-                style={{ backgroundColor: UpdateStartTime === item && '#80808058' }}
-                onClick={() => updateStatTime(`${item}`)}
-              >
-                {item}
-              </TextOptions>
-              {index < 24 && <BarraAlt />}
-            </ContOptions>
-          ))}
-        </BoxStartTime1>
+        <StyledFlexEtapas>
+          <FlexEtapas isClicked={isFlexEtapasClicked4}>
+            <StyledEtapas>
+              <Etapas>{UpdateStartTime ? UpdateStartTime : selectedHour}</Etapas>
+              <SubEtapas>STARTING TIME</SubEtapas>
+            </StyledEtapas>
+            <SetaDown
+              src="/setadown1.svg"
+              height="45px"
+              width="30px"
+              onClick={() => handleFlexEtapasClick4(setBoxStartTime(!BoxStartTime))}
+              isClicked={isFlexEtapasClicked4}
+            />
+          </FlexEtapas>
+          <BoxStartTime1 boxstarttime1={BoxStartTime}>
+            {listStartTime.map((item, index) => (
+              <ContOptions key={index}>
+                <TextOptions
+                  style={{ backgroundColor: UpdateStartTime === item && '#80808058' }}
+                  onClick={() => updateStatTime(`${item}`)}
+                >
+                  {item}
+                </TextOptions>
+                {index < 24 && <BarraAlt />}
+              </ContOptions>
+            ))}
+          </BoxStartTime1>
+        </StyledFlexEtapas>
       </DivEtapas>
     </Container>
   )
