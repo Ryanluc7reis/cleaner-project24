@@ -170,6 +170,10 @@ const OptionsAlt = styled.a`
   :hover {
     color: #677cb76d;
   }
+  @media (max-width: 375px) {
+    font-size: 17px;
+    padding-bottom: 10px;
+  }
 `
 const BarraAlt = styled(Barra)`
   width: 2px;
@@ -350,7 +354,7 @@ export default function Navbar({ type1, type2, type3, ...props }) {
           ) : (
             <>
               {(showLogin && <Login type1 onClose={handleLogin} />) ||
-                (login && <Login onClose={handleClickOutsideLogin} />)}
+                (login && <Login type1 onClose={handleClickOutsideLogin} />)}
 
               <StyledNavbar>
                 <Logo colorblue />

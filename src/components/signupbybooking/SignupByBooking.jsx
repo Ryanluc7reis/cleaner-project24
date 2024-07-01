@@ -83,36 +83,43 @@ const NumberInput = styled(Input)`
   background: transparent;
 `
 const ConsentCheckDiv = styled.div`
-  grid-area: ConsentCheck;
   word-wrap: break-word;
+  background-color: #ffffff;
+  padding: 10px 0px;
+  @media (max-width: 613px) {
+    width: 100%;
+  }
 `
-const Form = styled.form`
-  width: 602px;
-  max-height: 70%;
+const GridInputs = styled.div`
   display: grid;
+  background-color: #ffffff;
   grid-template-areas:
     'fullNameInput userInput'
     'emailInput passwordInput'
-    'addressInput numberInput'
-    'ConsentCheck ConsentCheck';
-  background-color: #ffffff;
+    'addressInput numberInput';
+
   @media (max-width: 612px) {
+    width: 100%;
     grid-template-areas:
       'NameInput '
       'SurnameInput'
       'EmailInput '
-      'PasswordInput'
-      'ConsentCheck '
-      'ConsentCheck';
+      'PasswordInput';
     align-items: center;
     display: flex;
     justify-content: center;
     flex-direction: column;
-    width: 80%;
     max-height: 90%;
   }
-  @media (max-width: 350px) {
-    width: 270px;
+`
+const Form = styled.form`
+  width: 602px;
+  max-height: 70%;
+  @media (max-width: 613px) {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 `
 const Label = styled.h4`
@@ -121,6 +128,9 @@ const Label = styled.h4`
 
 const InputCheckBox = styled.input`
   margin-right: 20px;
+  @media (max-width: 613px) {
+    margin: 0 7px;
+  }
 `
 
 const PolicyAccept = styled.div`
@@ -129,9 +139,8 @@ const PolicyAccept = styled.div`
   display: flex;
   margin: 20px;
   color: #999999;
-  @media (max-width: 612px) {
-    width: 60vw;
-    word-break: break-all;
+  @media (max-width: 613px) {
+    width: 90%;
     text-align: center;
     height: 100%;
     margin: 0;
@@ -151,7 +160,7 @@ const Text = styled.h2`
   align-items: center;
   cursor: default;
   gap: 7px;
-  margin: 15px;
+  margin: 15px 0px;
 `
 
 const TextDecoration = styled.a`
@@ -173,10 +182,7 @@ const Title = styled.h1`
   font-size: 25px;
 `
 const ButtonAlt = styled(Button)`
-  width: 600px;
-
-  margin-top: 14px;
-  margin-left: 10px;
+  width: 598px;
   @media (max-width: 1320px) {
     width: 500px;
   }
@@ -196,40 +202,6 @@ const ErrorLabel = styled.span`
 const FlexButton = styled.div`
   display: flex;
   flex-direction: column;
-  position: absolute;
-  padding-bottom: 75px;
-  bottom: -19%;
-  left: 16%;
-
-  @media (max-width: 1024px) {
-    bottom: -40%;
-    left: 5%;
-  }
-  @media (max-width: 768px) {
-    left: 9%;
-  }
-  @media (max-width: 540px) {
-    bottom: -47%;
-  }
-  @media (max-width: 430px) {
-    bottom: -33%;
-  }
-  @media (max-width: 425px) {
-    bottom: -87%;
-  }
-  @media (max-width: 414px) {
-    bottom: -42%;
-  }
-
-  @media (max-width: 375px) {
-    bottom: -63%;
-  }
-  @media (max-width: 344px) {
-    bottom: -40%;
-  }
-  @media (max-width: 320px) {
-    bottom: -94%;
-  }
 `
 const PopUpMessageAlt = styled(PopUpMessage)`
   @media (max-width: 768px) {
@@ -333,63 +305,71 @@ export default function SignupByBooking({ ...props }) {
       )}
       <Title>Ready to book? Set your account details</Title>
       <Form onSubmit={handleForm}>
-        <BoxInput>
-          <Label>FullName*</Label>
-          <NameInput
-            name="fullName"
-            onChange={handleChange}
-            value={formData.fullName}
-            error={error.fullName}
-          />
-          {error.fullName && <ErrorLabel>{error.fullName}</ErrorLabel>}
-        </BoxInput>
-        <BoxInput>
-          <Label>Username*</Label>
-          <UserInput name="user" onChange={handleChange} value={formData.user} error={error.user} />
-          {error.user && <ErrorLabel>{error.user}</ErrorLabel>}
-        </BoxInput>
-        <BoxInput>
-          <Label>E-mail address*</Label>
-          <EmailInput
-            name="email"
-            onChange={handleChange}
-            value={formData.email}
-            error={error.email}
-            type="email"
-          />
-          {error.email && <ErrorLabel>{error.email}</ErrorLabel>}
-        </BoxInput>
-        <BoxInput>
-          <Label>Password*</Label>
-          <PasswordInput
-            name="password"
-            onChange={handleChange}
-            value={formData.password}
-            error={error.password}
-            password
-          />
-          {error.password && <ErrorLabel>{error.password}</ErrorLabel>}
-        </BoxInput>
-        <BoxInput>
-          <Label>Address*</Label>
-          <AddressInput
-            name="address"
-            onChange={handleChange}
-            value={formData.address}
-            error={error.address}
-          />
-          {error.address && <ErrorLabel>{error.address}</ErrorLabel>}
-        </BoxInput>
-        <BoxInput>
-          <Label>Number*</Label>
-          <NumberInput
-            name="number"
-            onChange={handleChange}
-            value={formData.number}
-            error={error.number}
-          />
-          {error.number && <ErrorLabel>{error.number}</ErrorLabel>}
-        </BoxInput>
+        <GridInputs>
+          <BoxInput>
+            <Label>FullName*</Label>
+            <NameInput
+              name="fullName"
+              onChange={handleChange}
+              value={formData.fullName}
+              error={error.fullName}
+            />
+            {error.fullName && <ErrorLabel>{error.fullName}</ErrorLabel>}
+          </BoxInput>
+          <BoxInput>
+            <Label>Username*</Label>
+            <UserInput
+              name="user"
+              onChange={handleChange}
+              value={formData.user}
+              error={error.user}
+            />
+            {error.user && <ErrorLabel>{error.user}</ErrorLabel>}
+          </BoxInput>
+          <BoxInput>
+            <Label>E-mail address*</Label>
+            <EmailInput
+              name="email"
+              onChange={handleChange}
+              value={formData.email}
+              error={error.email}
+              type="email"
+            />
+            {error.email && <ErrorLabel>{error.email}</ErrorLabel>}
+          </BoxInput>
+          <BoxInput>
+            <Label>Password*</Label>
+            <PasswordInput
+              name="password"
+              onChange={handleChange}
+              value={formData.password}
+              error={error.password}
+              password
+            />
+            {error.password && <ErrorLabel>{error.password}</ErrorLabel>}
+          </BoxInput>
+          <BoxInput>
+            <Label>Address*</Label>
+            <AddressInput
+              name="address"
+              onChange={handleChange}
+              value={formData.address}
+              error={error.address}
+            />
+            {error.address && <ErrorLabel>{error.address}</ErrorLabel>}
+          </BoxInput>
+          <BoxInput>
+            <Label>Number*</Label>
+            <NumberInput
+              name="number"
+              onChange={handleChange}
+              value={formData.number}
+              error={error.number}
+            />
+            {error.number && <ErrorLabel>{error.number}</ErrorLabel>}
+          </BoxInput>
+        </GridInputs>
+
         <ConsentCheckDiv>
           <PolicyAccept>
             <InputCheckBox onClick={() => setBoxSelected(!boxSelected)} type={'checkbox'} />
