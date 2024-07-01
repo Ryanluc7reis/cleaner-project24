@@ -42,8 +42,10 @@ const Form = styled.form`
   }
 `
 const FormAlt = styled(Form)`
-  width: 410px;
-  height: 490px;
+  @media (max-width: 425px) {
+    width: 410px;
+    height: 490px;
+  }
 `
 
 const SignYourAcc = styled.p`
@@ -53,7 +55,9 @@ const SignYourAcc = styled.p`
   color: white;
 `
 const SignYourAccAlt = styled(SignYourAcc)`
-  font-size: 26px;
+  @media (max-width: 425px) {
+    font-size: 26px;
+  }
 `
 const ButtonAlt = styled(Button)`
   margin-top: 35px;
@@ -64,7 +68,9 @@ const ButtonAlt = styled(Button)`
   }
 `
 const ButtonAlt1 = styled(ButtonAlt)`
-  font-size: 22px;
+  @media (max-width: 425px) {
+    font-size: 22px;
+  }
 `
 const EsqueceuAsenha = styled.p`
   font-size: 15px;
@@ -78,7 +84,9 @@ const EsqueceuAsenha = styled.p`
   transition: 0.5s;
 `
 const EsqueceuAsenhaAlt = styled(EsqueceuAsenha)`
-  font-size: 20px;
+  @media (max-width: 425px) {
+    font-size: 20px;
+  }
 `
 const InputAlt = styled(Input)`
   box-shadow: 2px 2px 2px #5176da, -2px -2px 2px #5176da;
@@ -91,9 +99,11 @@ const InputAlt = styled(Input)`
   }
 `
 const InputAlt1 = styled(InputAlt)`
-  font-size: 22px;
-  padding: 20px;
-  width: 290px;
+  @media (max-width: 425px) {
+    font-size: 22px;
+    padding: 20px;
+    width: 290px;
+  }
 `
 const ErrorLabel = styled.span`
   color: ${(props) => props.theme.colors.error};
