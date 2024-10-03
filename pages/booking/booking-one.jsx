@@ -360,7 +360,7 @@ function Booking() {
 
               {userData ? (
                 <StyledFlexButtons>
-                  <ButtonAlt onClick={() => router.push('/booking/booking-two')}>
+                  <ButtonAlt type="button" onClick={() => router.push('/booking/booking-two')}>
                     {' '}
                     Yes! Pay with card now
                   </ButtonAlt>
