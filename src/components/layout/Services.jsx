@@ -460,16 +460,16 @@ export default function Services({ ...props }) {
 
         {openReview && (
           <ReviewCleaner
-            cleanerUser={cleaner.user}
-            forCleaner={cleaner.fullName}
+            cleanerUser={cleaner?.user}
+            forCleaner={cleaner?.fullName}
             onClose={() => setOpenReview(false)}
             review1
           />
         )}
         {openReview2 && (
           <ReviewCleaner
-            cleanerUser={userCleaner.user}
-            forCleaner={notificationData.cleaner}
+            cleanerUser={userCleaner?.user}
+            forCleaner={notificationData?.cleaner}
             onClose={() => setOpenReview2(false)}
             review2
           />

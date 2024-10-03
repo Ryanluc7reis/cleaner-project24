@@ -182,11 +182,13 @@ function Booking() {
   const rate = 8.5
   const AUTH_NAME = process.env.SESSION_TOKEN_NAME
   const totalPrice = PriceH ? (parseFloat(PriceH) * parseFloat(Duration) + rate).toFixed(2) : null
+  const { handleSubmit } = useForm({
+    mode: 'all'
+  })
 
-  const handleFormSubmit = async () => {
+  const handleFormSubmit = async (e) => {
+    setLoading(true)
     try {
-      setLoading(true)
-
       const serviceData = {
         plan: Plan,
         duration: Duration,
@@ -304,9 +306,6 @@ function Booking() {
   const handleSaveEdit = () => {
     mutate(`https://cleaner-project-be.vercel.app/cleaner/editAbout`)
   }
-  const { handleSubmit } = useForm({
-    mode: 'all'
-  })
 
   useEffect(() => {
     setTimeout(() => {
@@ -323,6 +322,20 @@ function Booking() {
       <NavBarAlt type2 />
       <Steps type1 />
       <PaymentAndRegister style={userData ? { gap: '25px' } : { gap: '18px' }}>
+        {userData && showEditAddress && (
+          <EditAddress
+            onButtonClose={() => setShowEditAddress(!showEditAddress)}
+            onClose={() => setShowEditAddress(!showEditAddress)}
+            id={userId}
+            fullName={userCurrentUserData.fullName}
+            user={user}
+            email={userCurrentUserData.email}
+            password={userCurrentUserData.password}
+            address={userCurrentUserData.address}
+            number={userCurrentUserData.number}
+            onSave={handleSaveEdit}
+          />
+        )}
         <Form onSubmit={handleSubmit(handleFormSubmit)}>
           {userData ? (
             <ConfirmationToPay>
@@ -340,7 +353,7 @@ function Booking() {
                 Your service will be at address ({userCurrentUserData.address}) ?
               </StyledTextAddress>
 
-              <ButtonAlt onClick={() => setShowEditAddress(!showEditAddress)}>
+              <ButtonAlt type="button" onClick={() => setShowEditAddress(!showEditAddress)}>
                 {' '}
                 No, i want to change my address
               </ButtonAlt>
@@ -358,21 +371,6 @@ function Booking() {
                   </ButtonAlt>
                 </StyledFlexButtons>
               ) : null}
-
-              {showEditAddress && (
-                <EditAddress
-                  onButtonClose={() => setShowEditAddress(!showEditAddress)}
-                  onClose={() => setShowEditAddress(!showEditAddress)}
-                  id={userId}
-                  fullName={userCurrentUserData.fullName}
-                  user={user}
-                  email={userCurrentUserData.email}
-                  password={userCurrentUserData.password}
-                  address={userCurrentUserData.address}
-                  number={userCurrentUserData.number}
-                  onSave={handleSaveEdit}
-                />
-              )}
             </ConfirmationToPay>
           ) : (
             <SignupByBooking />

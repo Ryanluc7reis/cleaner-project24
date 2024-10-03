@@ -55,7 +55,7 @@ export default function EditAddress({
   ...props
 }) {
   const { handleSubmit } = useForm({
-    mode: 'all'
+    mode: 'onSubmit'
   })
   const [loading, setLoading] = useState(false)
   const [popUpMessage, setPopUpMessage] = useContext(PopUpContext)
@@ -70,7 +70,8 @@ export default function EditAddress({
   })
   const AUTH_NAME = process.env.SESSION_TOKEN_NAME
 
-  const handleFormSaveEdit = async () => {
+  const handleFormSaveEdit = async (e) => {
+    setLoading(true)
     const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
     const config = {
       headers: {
@@ -91,7 +92,6 @@ export default function EditAddress({
       console.error(err.message)
     } finally {
       setLoading(false)
-
       props.onButtonClose()
     }
   }
@@ -102,25 +102,33 @@ export default function EditAddress({
       [name]: value
     }))
   }
+
+  const handleClickToStopPropagation = (e) => {
+    e.stopPropagation()
+  }
+
   const handleClick = (event) => {
     if (!event.target.closest('form')) {
       props.onClose()
     }
   }
+
   useEffect(() => {
     setTimeout(() => {
       setPopUpMessage(false)
     }, 4000)
   }, [popUpMessage])
+
   return (
     <Container onClick={handleClick}>
-      <Form onSubmit={handleSubmit(handleFormSaveEdit)} onClick={(e) => e.stopPropagation()}>
+      <Form onSubmit={handleSubmit(handleFormSaveEdit)} onClick={handleClickToStopPropagation}>
         <InputAlt
           colorlabel
           label="Enter your new address:"
           name="address"
           value={formData.address}
           onChange={(e) => handleChange('address', e.target.value)}
+          onClick={handleClickToStopPropagation}
         />
         <ButtonAlt loading={loading} type="submit">
           Save Change
