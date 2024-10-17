@@ -30,7 +30,7 @@ Link do projeto no ar: [https://cleaner-project24.vercel.app/ ](https://cleaner-
 * Mongoose
 * Joi
 * Webpack
-* ### Front-end
+### Front-end
 * ReactJs
 * Styled-components
 * NextJs
