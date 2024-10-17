@@ -37,7 +37,6 @@ Link do projeto no ar: [https://cleaner-project24.vercel.app/ ](https://cleaner-
 ## Implatação em produção
 * Back-end: Vercel
 * Front-end web: Vercel
-* Banco de dados: MongoDB
 ## Autor
 
 Ryan Lucas Ferreira Reis 
